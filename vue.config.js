@@ -7,6 +7,7 @@ module.exports = {
     chainWebpack: config => {
         config.resolve.alias
             .set('@', path.resolve(__dirname, 'src/renderer/'))
+            .set('$src', path.resolve(__dirname, 'src/'))
     },
     pluginOptions: {
         electronBuilder: {
@@ -14,6 +15,12 @@ module.exports = {
             mainProcessWatch: [
                 './src/main'
             ],
+        },
+        i18n: {
+            locale: 'en',
+            fallbackLocale: 'en',
+            localeDir: 'locales',
+            enableInSFC: true
         }
     }
 }
