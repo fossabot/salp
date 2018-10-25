@@ -8,6 +8,9 @@ module.exports = {
         config.resolve.alias
             .set('@', path.resolve(__dirname, 'src/renderer/'))
             .set('$src', path.resolve(__dirname, 'src/'))
+
+        config.plugins.delete('preload')
+        config.plugins.delete('prefetch')    
     },
     pluginOptions: {
         electronBuilder: {
