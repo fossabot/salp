@@ -7,6 +7,7 @@ import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
+import { setup as setupLog } from '../shared/util/log'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 if (isDevelopment) {
   // Don't load any native (external) modules until the following line is run:
@@ -20,6 +21,8 @@ let mainWindow
 protocol.registerStandardSchemes(['app'], { secure: true })
 function createMainWindow () {
   const window = new BrowserWindow()
+  
+  setupLog()
 
   if (isDevelopment) {
     // Load the url of the dev server if in development mode
