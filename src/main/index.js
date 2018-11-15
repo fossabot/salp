@@ -22,7 +22,8 @@ protocol.registerStandardSchemes(['app'], { secure: true })
 function createMainWindow () {
   const window = new BrowserWindow({
     width: 1440,
-    height: 960
+    height: 960,
+    titleBarStyle: 'hidden'
   })
   
   setupLog()
