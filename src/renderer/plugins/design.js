@@ -1,8 +1,7 @@
-/* Initialize Design System: Bootstrap */
-import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue'
+/* Initialize Design System: Element */
+import './theme.scss';
 
-Vue.use(BootstrapVue);
+import lang from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale'
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+locale.use(lang)
