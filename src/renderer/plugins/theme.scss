@@ -5,3 +5,11 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import '~element-ui/packages/theme-chalk/src/reset';
 @import "~element-ui/packages/theme-chalk/src/index";
+
+body {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Muli', 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
