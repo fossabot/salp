@@ -6,8 +6,8 @@
       </h1>
       <div id="meta-menu">
         <span class="menu-item text-small">John</span>
-        <Button type="text" icon="menu-item el-icon-info"></Button>
-        <Button type="text" icon="menu-item el-icon-setting"></Button>
+        <Button type="text" icon="menu-item fas fa-cog"></Button>
+        <Button type="text" icon="menu-item fas fa-info-circle"></Button>
       </div>
     </Header>
     
@@ -18,7 +18,7 @@
         </h1>
         <el-menu :default-openeds="['1']">
           <el-submenu index="1">
-            <template slot="title"><i class="el-icon-message"></i>Home</template>
+            <template slot="title"><i class="fas fa-home"></i>Home</template>
             <el-menu-item-group>
               <template slot="title">Group 1</template>
               <el-menu-item index="1-1">Option 1</el-menu-item>
