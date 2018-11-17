@@ -19,3 +19,14 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Muli', 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+/* FontAwesome icons */
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+.el-submenu .fas {
+    vertical-align: middle;
+    margin-right: 5px;
+    width: 24px;
+    text-align: center;
+    font-size: 18px;
+}
