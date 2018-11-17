@@ -3,4 +3,8 @@
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
+/* FontAwesome prefix and font path fix */
+$fa-css-prefix: el-icon-fa;
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
 @import "~element-ui/packages/theme-chalk/src/common/var";

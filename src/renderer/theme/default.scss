@@ -21,12 +21,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* FontAwesome icons */
-@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
 
-.el-submenu .fas {
-    vertical-align: middle;
-    margin-right: 5px;
-    width: 24px;
-    text-align: center;
-    font-size: 18px;
+[class^="el-icon-fa-"],
+[class*="el-icon-fa-"] {
+    font-family: 'Font Awesome 5 Free' !important;
+    font-weight: 900;
 }
