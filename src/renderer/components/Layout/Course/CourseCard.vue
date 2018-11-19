@@ -1,0 +1,153 @@
+<template>
+    <Card class="course-card" shadow="hover">
+        <header slot="header" class="course-card__header">
+            <h3 class="course-card__name">{{ name }}</h3>
+
+            <div class="course-card__context-menu">
+                <Dropdown>
+                    <i class="el-icon-fa-ellipsis-v"></i>
+                    <DropdownMenu slot="dropdown">
+                        <DropdownItem>
+                            <i class="el-icon-fa-globe"></i> Visit project website
+                        </DropdownItem>
+                        <DropdownItem>
+                            <i class="el-icon-fa-exclamation"></i> Report issue
+                        </DropdownItem>
+                        <DropdownItem v-if="progress">
+                            <i class="el-icon-fa-redo"></i> Reset
+                        </DropdownItem>
+                        <DropdownItem>
+                            <i class="el-icon-fa-trash-alt"></i> Delete
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            </div>
+        </header>
+
+        <div class="course-card__info">
+            <p>{{ description }}</p>
+
+            <div class="course-card__tags">
+                <Tag size="small" v-for="(tag, index) in tags" :key="index">{{ tag }}</Tag>
+            </div>
+
+            <span class="course-card__info__text">{{ lessions }} lessions, {{ tests }} tests.</span>
+            <span class="course-card__info__text">By <a href="#">{{ author }}</a>, version {{ version }}.</span>
+        </div>
+
+        <div class="course-card__footer">
+            <Button type="text" class="course-card__start-button">
+                <Tooltip placement="bottom" content="Start">
+                    <i class="el-icon-fa-play"></i>
+                </Tooltip>
+            </Button>
+            <Progress :percentage="progress" :status="progressStatus" class="course-card__progress"/>
+        </div>
+    </Card>
+</template>
+
+<script>
+import { Card, Button, Dropdown, DropdownMenu, DropdownItem, Tooltip, Tag, Progress } from 'element-ui'
+
+export default {
+    name: 'CourseCard',
+    props: {
+        id: String,
+        name: String,
+        description: String,
+        author: String,
+        version: String,
+        lessions: Number,
+        tests: Number,
+        tags: Array,
+        progress: Number,
+        favourite: Boolean
+    },
+    components: {
+        Card,
+        Button,
+        Dropdown,
+        DropdownMenu,
+        DropdownItem,
+        Tooltip,
+        Tag,
+        Progress
+    },
+    computed: {
+        progressStatus() {
+            return this.progress == 100 ? 'success' : ''
+        }
+    }
+}
+</script>
+
+<style lang="scss">
+@import "@/theme/element-variables.scss";
+
+.course-card {
+    .el-card__body {
+        padding: 0;
+    }
+}
+
+.course-card__context-menu,
+.course-card__name {
+    display: inline-block;
+}
+
+.course-card__name {
+    margin: 0;
+}
+
+.course-card__context-menu {
+    float: right;
+
+    &.el-menu.el-menu--horizontal {
+        border: none;
+    }
+
+    .el-menu-item {
+        border: none;
+    }
+}
+
+.course-card__info {
+    padding: $--card-padding;
+}
+
+.course-card__info__text {
+    display: block;
+    font-size: $--font-size-small;
+    color: $--color-text-secondary;
+}
+
+.course-card__tags {
+    margin-bottom: 0.5rem;
+
+    .el-tag {
+        margin-right: 0.5rem;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.course-card__footer {
+    padding: $--card-padding;
+    border-top: 1px solid $--card-border-color;
+    display: flex;
+}
+
+.course-card__start-button {
+    flex: 0 1 auto;
+
+    &.el-button {
+        padding: 0px 12px 0px 0px;
+    }
+}
+
+.course-card__progress {
+    flex: 1 0 auto;    
+}
+</style>
