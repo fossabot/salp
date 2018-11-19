@@ -1,24 +1,23 @@
 <template>
   <Container id="app" direction="vertical">
-    <Header id="header" height="38px">
-      <h1 id="content-title">
+    <Header id="app-header">
+      <h1 id="content-title" class="app-header__item">
         SQL Injections
       </h1>
-      <div id="meta-menu">
-        <span class="menu-item text-small">John</span>
-        <Button type="text" icon="menu-item fas fa-cog"></Button>
-        <Button type="text" icon="menu-item fas fa-info-circle"></Button>
+      <div id="meta-menu" class="app-header__item">
+        <Button type="text" class="text-small">John</Button>
+        <Button type="text" icon="el-icon-fa-heartbeat"></Button>
+        <Button type="text" icon="el-icon-fa-download"></Button>
+        <Button type="text" icon="el-icon-fa-cog"></Button>
+        <Button type="text" icon="el-icon-fa-info-circle"></Button>
       </div>
     </Header>
     
     <Container>
-      <Aside id="side" width="200px">
-        <h1 id="app-title">
-          Security Awareness Learning Platform
-        </h1>
+      <Aside id="side">
         <el-menu :default-openeds="['1']">
           <el-submenu index="1">
-            <template slot="title"><i class="fas fa-home"></i>Home</template>
+            <template slot="title"><i class="el-icon-fa-home"></i>Home</template>
             <el-menu-item-group>
               <template slot="title">Group 1</template>
               <el-menu-item index="1-1">Option 1</el-menu-item>
@@ -124,38 +123,44 @@ export default {
   height: 100vh;
 }
 
-#header.el-header {
+#app-header {
+  height: 60px !important;
   background-color: $--color-primary;
   color: $--color-white;
   padding: 2px 10px 2px (200px + $--main-padding);
-  line-height: 2rem;
   font-size: 18px;
+  line-height: 58px;
 
   -webkit-app-region: drag;
+
+  .app-header__item {
+    display: inline-block;
+    margin: 0;
+
+    -webkit-app-region: no-drag;
+}
+
+  .el-button {
+    font-size: inherit;
+  color: $--color-white;
+  }
+}
+
+.menu-controls {
+  float: left;
+  min-width: 200px;
 }
 
 #content-title {
-  color: $--color-white;
-  display: inline-block;
-}
-
-#meta-menu {
-  float: right;
-
-  .el-button--text {
     color: $--color-white;
   }
 
-  .menu-item {
-    margin-right: 12px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
+#meta-menu {
+  float: right;
 }
 
 #side {
+  width: 200px !important;
   border-right: solid 1px $--border-color-lighter;
 
   .el-menu {
