@@ -4,13 +4,7 @@
       <h1 class="app-header__item page-title">
         {{ pageTitle }}
       </h1>
-      <nav class="app-header__item meta-menu">
-        <Button type="text" class="text-small">John</Button>
-        <Button type="text" icon="el-icon-fa-heartbeat"></Button>
-        <Button type="text" icon="el-icon-fa-download"></Button>
-        <Button type="text" icon="el-icon-fa-cog"></Button>
-        <Button type="text" icon="el-icon-fa-info-circle"></Button>
-      </nav>
+      <MetaMenu class="app-header__item meta-menu"/>
     </Header>
     
     <Container>
@@ -26,8 +20,9 @@
 </template>
 
 <script>
-import { Container, Header, Footer, Main, Aside, Button } from 'element-ui'
+import { Container, Header, Footer, Main, Aside } from 'element-ui'
 import MainMenu from './MainMenu.vue'
+import MetaMenu from './MetaMenu.vue'
 
 export default {
   name: 'App',
@@ -38,9 +33,8 @@ export default {
     Main,
     Aside,
 
-    Button,
-
-    MainMenu
+    MainMenu,
+    MetaMenu
   },
   computed: {
     pageTitle() {
@@ -97,10 +91,5 @@ export default {
 
 .meta-menu {
   float: right;
-
-  .el-button {
-    font-size: inherit;
-    color: $--color-white;
-  }
 }
 </style>
