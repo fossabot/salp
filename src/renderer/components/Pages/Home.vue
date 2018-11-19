@@ -1,34 +1,71 @@
 <template>
   <div id="page-home">
-    <Table :data="tableData">
-      <TableColumn prop="date" label="Date" width="140">
-      </TableColumn>
-      <TableColumn prop="name" label="Name" width="120">
-      </TableColumn>
-      <TableColumn prop="address" label="Address">
-      </TableColumn>
-    </Table>
+    <CoursesOverview :groups="courseGroups"/>
   </div>
 </template>
 
 <script>
-import { Table, TableColumn } from 'element-ui'
+import CoursesOverview from '../Layout/Course/CoursesOverview.vue'
 
 export default {
   name: 'Home',
   components: {
-    Table,
-    TableColumn
+    CoursesOverview
   },
   data() {
-    const item = {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      };
+    let course = {
+        name: 'SQL injections',
+        description: 'This course will introduce you to SQL injections which are commonly found in web applications and can lead to desastrous data loss.',
+        author: 'John Doe',
+        version: '1.0',
+        lessions: 6,
+        tests: 3,
+        tags: ['SQL', 'active attack', 'web applications']
+    }
+
+    const progresses = [100, 72, 50, 23, 0];
+
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    let getCourses = num => {
+      return new Array(num)
+        .fill(course)
+        .map(c => { 
+          return {
+            ...c,
+            progress: progresses[getRandomInt(5)]
+          };
+        })
+    }
+
+    let groups = {
+      recent: {
+        title: 'Recent',
+        icon: 'el-icon-fa-history',
+        items: getCourses(4)
+      },
+      favourites: {
+        title: 'Favourites',
+        icon: 'el-icon-fa-star',
+        items: getCourses(3),
+        showCount: true
+      },
+      recommended: {
+        title: 'Recommended',
+        collapsed: true
+      },
+      installed: {
+        title: 'Installed',
+        items: getCourses(11),
+        collapsable: false,
+        showCount: true
+      }
+    }
 
     return {
-      tableData: Array(20).fill(item)
+      courseGroups: groups
     }
   }
 }
