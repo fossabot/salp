@@ -14,7 +14,7 @@
                 <i class="el-icon-fa-download"></i>
             </Tooltip>
         </MenuItem>
-        <MenuItem index="3">
+        <MenuItem index="3" :route="{name: 'settings'}">
             <Tooltip placement="bottom" content="Settings">
                 <i class="el-icon-fa-cog"></i>
             </Tooltip>
