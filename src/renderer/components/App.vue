@@ -1,28 +1,26 @@
 <template>
   <Container id="app" direction="vertical">
     <Header id="app-header">
-      <h1 id="content-title" class="app-header__item">
+      <h1 class="app-header__item page-title">
         {{ pageTitle }}
       </h1>
-      <div id="meta-menu" class="app-header__item">
+      <nav class="app-header__item meta-menu">
         <Button type="text" class="text-small">John</Button>
         <Button type="text" icon="el-icon-fa-heartbeat"></Button>
         <Button type="text" icon="el-icon-fa-download"></Button>
         <Button type="text" icon="el-icon-fa-cog"></Button>
         <Button type="text" icon="el-icon-fa-info-circle"></Button>
-      </div>
+      </nav>
     </Header>
     
     <Container>
-      <Aside id="side">
+      <Aside id="app-sidebar">
         <MainMenu/>
       </Aside>
 
-      <Container direction="vertical">
-        <Main>
-          <router-view></router-view>
-        </Main>
-      </Container>
+      <Main id="app-content">
+        <router-view></router-view>
+      </Main>
     </Container>
   </Container>
 </template>
@@ -81,28 +79,10 @@ export default {
     margin: 0;
 
     -webkit-app-region: no-drag;
-}
-
-  .el-button {
-    font-size: inherit;
-  color: $--color-white;
   }
 }
 
-.menu-controls {
-  float: left;
-  min-width: 200px;
-}
-
-#content-title {
-    color: $--color-white;
-  }
-
-#meta-menu {
-  float: right;
-}
-
-#side {
+#app-sidebar {
   width: 200px !important;
   border-right: solid 1px $--border-color-lighter;
 
@@ -111,8 +91,16 @@ export default {
   }
 }
 
-#app-title {
-  padding: .75rem;
-  margin: 0;
+.page-title {
+  color: $--color-white;
+}
+
+.meta-menu {
+  float: right;
+
+  .el-button {
+    font-size: inherit;
+    color: $--color-white;
+  }
 }
 </style>
