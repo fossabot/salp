@@ -41,13 +41,14 @@
                     <i class="el-icon-fa-play"></i>
                 </Tooltip>
             </Button>
-            <Progress :percentage="progress" :status="progressStatus" class="course-card__progress"/>
+            <ProgressBar :progress="progress" class="course-card__progress"/>
         </div>
     </Card>
 </template>
 
 <script>
-import { Card, Button, Dropdown, DropdownMenu, DropdownItem, Tooltip, Tag, Progress } from 'element-ui'
+import { Card, Button, Dropdown, DropdownMenu, DropdownItem, Tooltip, Tag } from 'element-ui'
+import ProgressBar from '@/components/Elements/ProgressBar.vue'
 
 export default {
     name: 'CourseCard',
@@ -71,12 +72,7 @@ export default {
         DropdownItem,
         Tooltip,
         Tag,
-        Progress
-    },
-    computed: {
-        progressStatus() {
-            return this.progress == 100 ? 'success' : ''
-        }
+        ProgressBar
     }
 }
 </script>
