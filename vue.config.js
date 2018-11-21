@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
     pages: {
-        index: './src/renderer/index.js'
+        index: 'src/renderer/index.js'
     },
     chainWebpack: config => {
         config.resolve.alias
@@ -18,9 +18,9 @@ module.exports = {
     },
     pluginOptions: {
         electronBuilder: {
-            mainProcessFile: './src/main/index.js',
+            mainProcessFile: 'src/main/index.js',
             mainProcessWatch: [
-                './src/main'
+                'src/main/'
             ],
         },
         i18n: {
