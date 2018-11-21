@@ -7,6 +7,23 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "App: Unit Test",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "test:unit",
+                "--",
+                "--inspect-brk"
+            ],
+            "env": {
+                "NODE_ENV": "test"
+            },
+            "port": 9229,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Electron: Main",
             "protocol": "inspector",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
