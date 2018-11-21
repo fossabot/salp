@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
     pages: {
-        index: './src/renderer/index.js'
+        index: 'src/renderer/index.js'
     },
     chainWebpack: config => {
         config.resolve.alias
@@ -11,12 +11,16 @@ module.exports = {
 
         config.plugins.delete('preload')
         config.plugins.delete('prefetch')    
+        
+        if (process.env.IS_REMOTE_DEBUG) {
+            config.devtool('source-map')
+        }
     },
     pluginOptions: {
         electronBuilder: {
-            mainProcessFile: './src/main/index.js',
+            mainProcessFile: 'src/main/index.js',
             mainProcessWatch: [
-                './src/main'
+                'src/main/'
             ],
         },
         i18n: {
