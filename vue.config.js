@@ -11,6 +11,10 @@ module.exports = {
 
         config.plugins.delete('preload')
         config.plugins.delete('prefetch')    
+        
+        if (process.env.IS_REMOTE_DEBUG) {
+            config.devtool('source-map')
+        }
     },
     pluginOptions: {
         electronBuilder: {

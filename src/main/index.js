@@ -31,7 +31,7 @@ function createMainWindow () {
   if (isDevelopment) {
     // Load the url of the dev server if in development mode
     window.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-    if (!process.env.IS_TEST) window.webContents.openDevTools({ mode: 'detach' })
+    if (!process.env.IS_TEST && !process.env.IS_REMOTE_DEBUG) window.webContents.openDevTools({ mode: 'detach' })
   } else {
     createProtocol('app')
     //   Load the index.html when not in development
