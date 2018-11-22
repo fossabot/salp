@@ -11,7 +11,7 @@
     "postinstall": "electron-builder install-app-deps",
     "serve:electron": "vue-cli-service serve:electron",
     "dev": "vue-cli-service electron:serve --debug",
-    "test:unit": "vue-cli-service test:unit src/renderer/**/*.spec.js"
+    "test:unit": "vue-cli-service test:unit 'src/renderer/**/*.spec.js'"
   },
   "dependencies": {
     "electron-log": "^2.2.17",
@@ -30,6 +30,7 @@
     "@vue/test-utils": "^1.0.0-beta.20",
     "babel-plugin-component": "^1.1.1",
     "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-rewire": "^1.2.0",
     "chai": "^4.1.2",
     "electron": "^2.0.2",
     "lodash-webpack-plugin": "^0.11.5",

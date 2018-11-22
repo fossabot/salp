@@ -4,5 +4,12 @@ module.exports = {
   ],
   plugins: [
     'lodash'
-  ]
+  ],
+  env: {
+    'test': {
+      plugins: [
+        'rewire'
+      ]
+    }
+  }
 }
