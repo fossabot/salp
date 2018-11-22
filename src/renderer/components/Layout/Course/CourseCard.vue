@@ -8,16 +8,16 @@
                     <i class="el-icon-fa-ellipsis-v"></i>
                     <DropdownMenu slot="dropdown">
                         <DropdownItem>
-                            <i class="el-icon-fa-globe"></i> Visit project website
+                            <i class="el-icon-fa-globe"></i> {{ $t('Layout.Course.actions.openProjectPage') }}
                         </DropdownItem>
                         <DropdownItem>
-                            <i class="el-icon-fa-exclamation"></i> Report issue
+                            <i class="el-icon-fa-exclamation"></i> {{ $t('Layout.Course.actions.reportIssue') }}
                         </DropdownItem>
                         <DropdownItem v-if="progress">
                             <i class="el-icon-fa-redo"></i> Reset
                         </DropdownItem>
                         <DropdownItem>
-                            <i class="el-icon-fa-trash-alt"></i> Delete
+                            <i class="el-icon-fa-trash-alt"></i> {{ $t('Layout.Course.actions.delete') }}
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
@@ -31,8 +31,8 @@
                 <Tag size="small" v-for="(tag, index) in tags" :key="index">{{ tag }}</Tag>
             </div>
 
-            <span class="course-card__info__text">{{ lessions }} lessions, {{ tests }} tests.</span>
-            <span class="course-card__info__text">By <a href="#">{{ author }}</a>, version {{ version }}.</span>
+            <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.lessonsAndTests', args: [lessions, tests]}"></span>
+            <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: [author, version]}"></span>
         </div>
 
         <div class="course-card__footer">

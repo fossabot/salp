@@ -1,0 +1,20 @@
+{
+    "actions": {
+        "delete": "Delete",
+        "reportIssue": "Report issue",
+        "openProjectPage": "Visit project website"
+    },
+    "info": {
+        "shortDescription": {
+            "lessonsAndTests": "{0} lessons, {0} tests.",
+            "authorAndVersion": "By {0}, version {1}."
+        }
+    },
+    "overview": {
+        "categories": {
+            "recent": "Recent",
+            "favourites": "Favourites",
+            "installed": "Installed"
+        }
+    }
+}

@@ -42,12 +42,12 @@ export default {
 
     let groups = {
       recent: {
-        title: 'Recent',
+        title: this.$t('Layout.Course.overview.categories.recent'),
         icon: 'el-icon-fa-history',
         items: getCourses(4)
       },
       favourites: {
-        title: 'Favourites',
+        title: this.$t('Layout.Course.overview.categories.favourites'),
         icon: 'el-icon-fa-star',
         items: getCourses(3),
         showCount: true
@@ -57,7 +57,7 @@ export default {
         collapsed: true
       },
       installed: {
-        title: 'Installed',
+        title: this.$t('Layout.Course.overview.categories.installed'),
         items: getCourses(11),
         collapsable: false,
         showCount: true
