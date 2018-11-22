@@ -17,7 +17,7 @@ export default {
     },
     computed: {
         progressStatus() {
-            return this.progress == 100 ? 'success' : ''
+            return this.progress == 100 ? 'success' : undefined
         }
     }
 }
