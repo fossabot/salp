@@ -1,20 +1,31 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
+import { set } from 'lodash/object'
 
 Vue.use(VueI18n)
 
 function loadLocaleMessages () {
-  const locales = require.context('$src/locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
+  const locales = require.context('$src/locales', true, /[a-zA-Z0-9]+\.json$/i)
   const messages = {}
 
-  locales.keys().forEach(key => {
-    const matched = key.match(/([a-z]{2})\/([A-Za-z0-9-_]+)\./i)
+  locales.keys().forEach(localeFile => {
+    const matched = localeFile.match(/([a-z]{2})\/([a-zA-Z0-9]+\/)*([a-zA-Z0-9]+)\.json$/i)
     if (matched && matched.length > 2) {
-      const locale = matched[1]
-      const target = matched[2]
+      // locale (country-code) folder
+      let path = [ matched[1] ]
 
-      messages[locale] = {}
-      messages[locale][target] = locales(key)
+      if (matched[2]) {
+        // nested subdirectories
+        const subdirs = matched[2].split('/')
+        subdirs.pop()
+
+        path = path.concat(subdirs)
+      }
+
+      // filename (without suffix)
+      path.push(matched[3])
+
+      set(messages, path, locales(localeFile))
     }
   })
   
