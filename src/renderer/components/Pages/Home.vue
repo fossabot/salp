@@ -18,7 +18,7 @@ export default {
         description: 'This course will introduce you to SQL injections which are commonly found in web applications and can lead to desastrous data loss.',
         author: 'John Doe',
         version: '1.0',
-        lessions: 6,
+        lessons: 6,
         tests: 3,
         tags: ['SQL', 'active attack', 'web applications']
     }
