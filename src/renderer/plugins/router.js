@@ -5,7 +5,7 @@ import Settings from '../components/Pages/Settings.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -25,3 +25,9 @@ export default new Router({
     }
   ]
 })
+
+if (process.env.VUE_APP_ENTRY_ROUTE) {
+  router.push(process.env.VUE_APP_ENTRY_ROUTE)
+}
+
+export default router
