@@ -5,22 +5,22 @@
             <span slot="title">John</span>
         </MenuItem>
         <MenuItem index="1">
-            <Tooltip placement="bottom" content="Health">
+            <Tooltip placement="bottom" :content="$t('App.menu.health')">
                 <i class="el-icon-fa-heartbeat"></i>
             </Tooltip>
         </MenuItem>
         <MenuItem index="2">
-            <Tooltip placement="bottom" content="Updates">
+            <Tooltip placement="bottom" :content="$t('App.menu.updates')">
                 <i class="el-icon-fa-download"></i>
             </Tooltip>
         </MenuItem>
         <MenuItem index="3" :route="{name: 'settings'}">
-            <Tooltip placement="bottom" content="Settings">
+            <Tooltip placement="bottom" :content="$t('App.menu.settings')">
                 <i class="el-icon-fa-cog"></i>
             </Tooltip>
         </MenuItem>
         <MenuItem index="4">
-            <Tooltip placement="bottom" content="About">
+            <Tooltip placement="bottom" :content="$t('App.menu.about')">
                 <i class="el-icon-fa-info-circle"></i>
             </Tooltip>
         </MenuItem>

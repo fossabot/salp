@@ -1,1 +1,9 @@
-{}
+{
+    "menu": {
+        "home": "Home",
+        "health": "Health",
+        "updates": "Updates",
+        "settings": "Settings",
+        "about": "About"
+    }
+}

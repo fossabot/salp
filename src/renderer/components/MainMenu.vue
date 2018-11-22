@@ -1,6 +1,6 @@
 <template>
     <Menu :router="true" :default-openeds="['1']">
-        <MenuItem index="0" :route="{name: 'home'}"><i class="el-icon-fa-home"></i>Home</MenuItem>
+        <MenuItem index="0" :route="{name: 'home'}"><i class="el-icon-fa-home"></i>{{ $t('App.menu.home') }}</MenuItem>
         <Submenu index="1">
             <template slot="title">First</template>
             <MenuItemGroup>
