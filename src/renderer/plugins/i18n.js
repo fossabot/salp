@@ -4,12 +4,11 @@ import { set } from 'lodash/object'
 
 Vue.use(VueI18n)
 
-function loadLocaleMessages () {
-  const locales = require.context('$src/locales', true, /[a-zA-Z0-9]+\.json$/i)
+function createMessages(localeFiles, loader) {
   const messages = {}
 
-  locales.keys().forEach(localeFile => {
-    const matched = localeFile.match(/([a-z]{2})\/([a-zA-Z0-9]+\/)*([a-zA-Z0-9]+)\.json$/i)
+  localeFiles.forEach(file => {
+    const matched = file.match(/([a-z]{2})\/([a-zA-Z0-9]+\/)*([a-zA-Z0-9]+)\.json$/i)
     if (matched && matched.length > 2) {
       // locale (country-code) folder
       let path = [ matched[1] ]
@@ -25,11 +24,17 @@ function loadLocaleMessages () {
       // filename (without suffix)
       path.push(matched[3])
 
-      set(messages, path, locales(localeFile))
+      set(messages, path, loader(file))
     }
   })
-  
+
   return messages
+}
+
+function loadLocaleMessages () {
+  const locales = require.context('$src/locales', true, /[a-zA-Z0-9]+\.json$/i)
+  
+  return createMessages(locales.keys(), locales)
 }
 
 export default new VueI18n({
