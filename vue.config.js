@@ -2,7 +2,10 @@ const path = require('path')
 
 module.exports = {
     pages: {
-        index: 'src/renderer/index.js'
+        index: {
+            entry: 'src/renderer/index.js',
+            template: 'src/renderer/index.html'
+        }
     },
     chainWebpack: config => {
         config.resolve.alias
