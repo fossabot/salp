@@ -38,8 +38,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/theme/element-variables.scss";
-
 .form-item__description {
     display: block;
     font-size: $--font-size-small;

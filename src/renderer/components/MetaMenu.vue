@@ -41,8 +41,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/theme/element-variables.scss";
-
 #meta-menu {
     border: none;
     background: initial;

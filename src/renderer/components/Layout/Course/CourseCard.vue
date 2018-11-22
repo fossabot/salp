@@ -78,8 +78,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/theme/element-variables.scss";
-
 .course-card {
     .el-card__body {
         padding: 0;

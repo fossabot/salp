@@ -52,8 +52,6 @@ export default {
 
 
 <style lang="scss">
-@import "@/theme/element-variables.scss";
-
 #app {
   height: 100vh;
 }
