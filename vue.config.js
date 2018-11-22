@@ -1,4 +1,5 @@
 const path = require('path')
+const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin');
 
 module.exports = {
     pages: {
@@ -14,6 +15,9 @@ module.exports = {
 
         config.plugins.delete('preload')
         config.plugins.delete('prefetch')    
+
+        config.plugin('lodash')
+            .use(LodashModuleReplacementPlugin)
         
         if (process.env.IS_REMOTE_DEBUG) {
             config.devtool('source-map')
