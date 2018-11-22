@@ -29,12 +29,6 @@ module.exports = {
             mainProcessWatch: [
                 'src/main/'
             ],
-        },
-        i18n: {
-            locale: 'en',
-            fallbackLocale: 'en',
-            localeDir: 'locales',
-            enableInSFC: true
         }
     }
 }
