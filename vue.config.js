@@ -1,6 +1,8 @@
 const path = require('path')
 const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin');
 
+const isTesting = process.env.NODE_ENV === 'test'
+
 const chunks = {
     vue: {
         test: /\/node_modules\/\@?vue\//,
@@ -58,12 +60,14 @@ module.exports = {
                 })
                 .end()
 
-        // Create chunks for (larger) libraries
-        config.optimization.splitChunks({
-            chunks: 'all',
-            cacheGroups: chunks
-        })
-        config.output.chunkFilename('js/[name].chunk.js')
+        if (!isTesting) {
+            // Create chunks for (larger) libraries
+            config.optimization.splitChunks({
+                chunks: 'all',
+                cacheGroups: chunks
+            })
+            config.output.chunkFilename('js/[name].chunk.js')
+        }
         
         if (process.env.IS_REMOTE_DEBUG) {
             config.devtool('source-map')
