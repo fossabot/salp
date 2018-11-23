@@ -1,6 +1,6 @@
 <template>
     <Menu :router="true" :default-openeds="['1']">
-        <MenuItem index="0" :route="{name: 'home'}"><i class="el-icon-fa-home"></i>{{ $t('App.menu.home') }}</MenuItem>
+        <MenuItem index="0" :route="{name: 'home'}"><Icon icon="faHome"/>{{ $t('App.menu.home') }}</MenuItem>
         <Submenu index="1">
             <template slot="title">First</template>
             <MenuItemGroup>
@@ -51,6 +51,7 @@
 
 <script>
 import { Menu, Submenu, MenuItem, MenuItemGroup } from 'element-ui'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
 
 export default {
     name: 'MainMenu',
@@ -59,6 +60,9 @@ export default {
         Submenu,
         MenuItem,
         MenuItemGroup
+    },
+    icons: {
+        faHome
     }
 }
 </script>

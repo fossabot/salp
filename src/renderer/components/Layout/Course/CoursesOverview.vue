@@ -3,7 +3,7 @@
          <Collapse :value="activeGroups">
             <CollapseItem v-for="(group, groupId) in groups" :key="groupId" :name="groupId">
                 <h3 slot="title">
-                    <i :class="group.icon" v-if="group.icon"></i>
+                    <Icon :icon="group.icon" v-if="group.icon"/>
                     {{ group.title }}
                     <small class="text-smaller" v-if="group.showCount">{{ group.items | count }}</small>
                 </h3>

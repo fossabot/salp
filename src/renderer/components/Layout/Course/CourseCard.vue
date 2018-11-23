@@ -5,19 +5,19 @@
 
             <div class="course-card__context-menu">
                 <Dropdown>
-                    <i class="el-icon-fa-ellipsis-v"></i>
+                    <Icon icon="faEllipsisV"></Icon>
                     <DropdownMenu slot="dropdown">
                         <DropdownItem>
-                            <i class="el-icon-fa-globe"></i> {{ $t('Layout.Course.actions.openProjectPage') }}
+                            <Icon icon="faGlobe"/> {{ $t('Layout.Course.actions.openProjectPage') }}
                         </DropdownItem>
                         <DropdownItem>
-                            <i class="el-icon-fa-exclamation"></i> {{ $t('Layout.Course.actions.reportIssue') }}
+                            <Icon icon="faExclamation"/> {{ $t('Layout.Course.actions.reportIssue') }}
                         </DropdownItem>
                         <DropdownItem v-if="progress">
-                            <i class="el-icon-fa-redo"></i> Reset
+                            <Icon icon="faRedo"/> Reset
                         </DropdownItem>
                         <DropdownItem>
-                            <i class="el-icon-fa-trash-alt"></i> {{ $t('Layout.Course.actions.delete') }}
+                            <Icon icon="faTrashAlt"/> {{ $t('Layout.Course.actions.delete') }}
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
@@ -38,7 +38,7 @@
         <div class="course-card__footer">
             <Button type="text" class="course-card__start-button">
                 <Tooltip placement="bottom" content="Start">
-                    <i class="el-icon-fa-play"></i>
+                    <Icon icon="faPlay"/>
                 </Tooltip>
             </Button>
             <ProgressBar :progress="progress" class="course-card__progress"/>
@@ -48,6 +48,7 @@
 
 <script>
 import { Card, Button, Dropdown, DropdownMenu, DropdownItem, Tooltip, Tag } from 'element-ui'
+import { faEllipsisV, faGlobe, faExclamation, faRedo, faTrashAlt, faPlay } from '@fortawesome/free-solid-svg-icons'
 import ProgressBar from '@/components/Elements/ProgressBar.vue'
 
 export default {
@@ -73,6 +74,14 @@ export default {
         Tooltip,
         Tag,
         ProgressBar
+    },
+    icons: {
+        faEllipsisV,
+        faGlobe,
+        faExclamation,
+        faRedo,
+        faTrashAlt,
+        faPlay
     }
 }
 </script>

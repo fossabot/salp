@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { faHistory, faStar } from '@fortawesome/free-solid-svg-icons'
 import CoursesOverview from '../Layout/Course/CoursesOverview.vue'
 
 export default {
@@ -46,12 +47,12 @@ export default {
     let groups = {
       recent: {
         title: this.$t('Layout.Course.overview.categories.recent'),
-        icon: 'el-icon-fa-history',
+        icon: faHistory,
         items: getCourses(4)
       },
       favourites: {
         title: this.$t('Layout.Course.overview.categories.favourites'),
-        icon: 'el-icon-fa-star',
+        icon: faStar,
         items: getCourses(3),
         showCount: true
       },
