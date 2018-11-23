@@ -12,6 +12,9 @@ export default {
   components: {
     CoursesOverview
   },
+  beforeCreate() {
+    this.$emit('pageTitle', 'Home')
+  },
   data() {
     let course = {
         name: 'SQL injections',

@@ -10,18 +10,12 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
-      meta: {
-        title: 'Home'
-      }
+      component: Home
     },
     {
       path: '/settings',
       name: 'settings',
-      component: Settings,
-      meta: {
-        title: 'Settings'
-      }
+      component: Settings
     }
   ]
 })

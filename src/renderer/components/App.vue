@@ -13,7 +13,7 @@
       </Aside>
 
       <Main id="app-content">
-        <router-view></router-view>
+        <router-view @pageTitle="handlePageTitleChange"></router-view>
       </Main>
     </Container>
   </Container>
@@ -36,15 +36,19 @@ export default {
     MainMenu,
     MetaMenu
   },
-  computed: {
-    pageTitle() {
-      let title = this.$route.meta.title || this.$route.name
-
-      if (typeof title === 'function') {
-        title = title()
-      }
-
-      return title
+  data() {
+    return {
+      pageTitle: 'App'
+    }
+  },
+  watch: {
+    $route(to) {
+      this.pageTitle = to.name
+    }
+  },
+  methods: {
+    handlePageTitleChange(title) {
+      this.pageTitle = title
     }
   }
 }

@@ -25,6 +25,9 @@ export default {
     FormItem,
     Input
   },
+  beforeCreate() {
+    this.$emit('pageTitle', 'Settings')
+  },
   data() {
 
     return {
