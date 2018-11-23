@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { remote } from 'electron'
 import { Container, Header, Footer, Main, Aside } from 'element-ui'
 import MainMenu from './MainMenu.vue'
 import MetaMenu from './MetaMenu.vue'
@@ -44,6 +45,9 @@ export default {
   watch: {
     $route(to) {
       this.pageTitle = to.name
+    },
+    pageTitle(title) {
+      remote.getCurrentWindow().setTitle(title)
     }
   },
   methods: {
