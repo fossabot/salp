@@ -68,6 +68,12 @@ module.exports = {
             })
             config.output.chunkFilename('js/[name].chunk.js')
         }
+
+        // Inject mocked electron api when building browser version
+        if (!process.env.IS_ELECTRON) {
+            config.resolve.alias
+                .set('electron', path.resolve(__dirname, 'src/renderer/__mocks__/browser/electron'))
+        }
         
         if (process.env.IS_REMOTE_DEBUG) {
             config.devtool('source-map')
