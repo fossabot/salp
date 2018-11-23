@@ -26,7 +26,7 @@ module.exports = {
                 .loader('style-resources-loader')
                 .options({
                     patterns: [
-                        path.resolve(__dirname, 'src/renderer/theme/element-variables.scss')
+                        path.resolve(__dirname, 'src/renderer/theme/element/common/var.scss')
                     ]
                 })
                 .end()
