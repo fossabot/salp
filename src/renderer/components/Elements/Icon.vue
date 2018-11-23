@@ -14,7 +14,7 @@ export default {
         }
 
         return createElement(FontAwesomeIcon, {
-            props: context.props,
+            props: props,
             staticClass: 'el-icon-fa'
         })
     }

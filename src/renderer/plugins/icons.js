@@ -1,7 +1,6 @@
 // Custom plugin to add icons defined in vue components to its state
 // for better separation of concerns
 
-import Vue from 'vue'
 import Icon from '@/components/Elements/Icon.vue'
 
 const mixin = {
@@ -25,4 +24,4 @@ const plugin = {
     }
 }
 
-Vue.use(plugin)
+export default plugin
