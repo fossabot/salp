@@ -20,12 +20,4 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Muli', 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* FontAwesome icons */
-@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free/scss/solid.scss";
-
-[class^="el-icon-fa-"],
-[class*="el-icon-fa-"] {
-    font-family: 'Font Awesome 5 Free' !important;
-    font-weight: 900;
-}
+@import 'icon.scss'
