@@ -9,14 +9,7 @@ const babelConfig = {
   ],
   plugins: [
     'lodash'
-  ],
-  env: {
-    'test': {
-      plugins: [
-        'rewire'
-      ]
-    }
-  }
+  ]
 }
 
 if (!isTesting) {
@@ -39,6 +32,8 @@ if (!isTesting) {
       }
     }
   ])
+} else {
+  babelConfig.plugins.push('rewire')
 }
 
 module.exports = babelConfig
