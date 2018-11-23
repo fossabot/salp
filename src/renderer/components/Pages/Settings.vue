@@ -26,7 +26,7 @@ export default {
     Input
   },
   beforeCreate() {
-    this.$emit('pageTitle', 'Settings')
+    this.$emit('pageTitle', this.$t('App.pages.settings'))
   },
   data() {
 

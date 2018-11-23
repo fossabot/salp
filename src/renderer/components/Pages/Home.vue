@@ -13,7 +13,7 @@ export default {
     CoursesOverview
   },
   beforeCreate() {
-    this.$emit('pageTitle', 'Home')
+    this.$emit('pageTitle', this.$t('App.pages.home'))
   },
   data() {
     let course = {
