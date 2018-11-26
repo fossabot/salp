@@ -6,8 +6,8 @@
     },
     "info": {
         "shortDescription": {
-            "lessonsAndTests": "{0} lessons, {0} tests.",
-            "authorAndVersion": "By {0}, version {1}."
+            "lessonsAndTests": "{lessons} lessons, {tests} tests.",
+            "authorAndVersion": "By {author}, version {version}."
         }
     },
     "overview": {
