@@ -4,6 +4,12 @@ import { set } from 'lodash/object'
 
 Vue.use(VueI18n)
 
+let localesContext
+function updateRequireContext() {
+  localesContext = require.context('$src/locales', true, /[a-zA-Z0-9]+\.json$/i)
+}
+updateRequireContext()
+
 function createMessages(localeFiles, loader) {
   const messages = {}
 
@@ -31,14 +37,25 @@ function createMessages(localeFiles, loader) {
   return messages
 }
 
-function loadLocaleMessages () {
-  const locales = require.context('$src/locales', true, /[a-zA-Z0-9]+\.json$/i)
-  
-  return createMessages(locales.keys(), locales)
+function loadLocaleMessages () {  
+  return createMessages(localesContext.keys(), localesContext)
 }
 
-export default new VueI18n({
+const i18n = new VueI18n({
   locale: process.env.VUE_APP_I18N_LOCALE || 'en',
   fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
   messages: loadLocaleMessages()
 })
+
+export default i18n
+
+if (module.hot) {
+  module.hot.accept(localesContext.id, function() {
+    updateRequireContext()
+
+    const updatedMessages = loadLocaleMessages()
+    Object.keys(updatedMessages).forEach(lang => {
+      i18n.setLocaleMessage(lang, updatedMessages[lang])
+    })
+  })
+}
