@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Pages/Home.vue'
 import Settings from '../components/Pages/Settings.vue'
+import Profile from '../components/Pages/Profile.vue'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ const router = new Router({
       path: '/settings',
       name: 'settings',
       component: Settings
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
     }
   ]
 })
