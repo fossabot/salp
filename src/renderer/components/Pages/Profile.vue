@@ -36,8 +36,9 @@
 import { Form, FormItem, Input, Button, Collapse, CollapseItem, Progress } from 'element-ui'
 import ProgressBar from '@/components/Elements/ProgressBar.vue'
 import CoursesOverview from '@/components/Layout/Course/CoursesOverview'
-import { faChartBar, faCheckSquare, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faChartBar } from '@fortawesome/free-solid-svg-icons'
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons'
+import { groupsProfile } from '@/__mocks__/courses.js'
 
 export default {
   name: 'Settings',
@@ -54,69 +55,12 @@ export default {
   },
   icons: {
     faUserCircle,
-    faChartBar,
-    faCheckSquare,
-    faCheckCircle
+    faChartBar
   },
   beforeCreate() {
     this.$emit('pageTitle', this.$t('App.pages.settings'))
   },
   data() {
-    //Mock course data
-    let course = {
-        name: 'SQL injections',
-        description: 'This course will introduce you to SQL injections which are commonly found in web applications and can lead to desastrous data loss.',
-        author: 'John Doe',
-        version: '1.0',
-        lessions: 6,
-        tests: 3,
-        tags: ['SQL', 'active attack', 'web applications']
-    }
-
-    const progresses = [100, 72, 50, 23, 0];
-
-    function getRandomInt(max) {
-      return Math.floor(Math.random() * Math.floor(max));
-    }
-
-    let getCourses = num => {
-      return new Array(num)
-        .fill(course)
-        .map(c => { 
-          return {
-            ...c,
-            progress: progresses[getRandomInt(5)]
-          };
-        })
-    }
-
-    //////
-
-    let groups = {
-      finished: {
-        title: this.$t('Pages.Profile.groups.finishedCourses'),
-        icon: faCheckCircle,
-        items: getCourses(4),
-        collapsed: true
-      },
-      enrolled: {
-        title: this.$t('Pages.Profile.groups.enrolledCourses'),
-        items: getCourses(3),
-        showCount: true
-      },
-      passedTests: {
-        title: this.$t('Pages.Profile.groups.passedTests'),
-        icon: faCheckSquare,
-        items: getCourses(5),
-        collapsed: true
-      },
-      failedTests: {
-        title: this.$t('Pages.Profile.groups.failedTests'),
-        items: getCourses(2),
-        collapsable: false,
-        showCount: true
-      }
-    }  
 
     return {
       form: {
@@ -128,7 +72,7 @@ export default {
       finishedCourses: 66,
       totalTests: 90,
       passedTests: 45,
-      courseGroups: groups
+      courseGroups: groupsProfile.call(this, this.$t)
     }
   },
   computed: {
