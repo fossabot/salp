@@ -41,7 +41,7 @@ import { faUserCircle } from '@fortawesome/free-regular-svg-icons'
 import { groupsProfile } from '@/__mocks__/courses.js'
 
 export default {
-    name: 'Settings',
+    name: 'Profile',
     components: {
         Form,
         FormItem,
@@ -58,7 +58,7 @@ export default {
         faChartBar
     },
     beforeCreate() {
-        this.$emit('pageTitle', this.$t('App.pages.settings'))
+        this.$emit('pageTitle', this.$t('App.pages.profile'))
     },
     data() {
         return {
