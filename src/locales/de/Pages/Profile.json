@@ -1,7 +1,7 @@
 {
     "description": {
+        "user": "Benutzer",
         "usernameLabel": "Benutzername",
-        "username": "Dein aktueller Benutzername.",
         "actions": {
             "edit": "Bearbeiten",
             "save": "Speichern"
@@ -11,11 +11,5 @@
         "statistics": "Statistiken",
         "finishedCourses": "<b>{finishedCourses}</b> von <b>{totalCourses}</b><br> Kursen abgeschlossen",
         "passedTests": "<b>{passedTests}</b> von <b>{totalTests}</b><br> Tests bestanden"
-    },
-    "groups": {
-        "finishedCourses": "Abgeschlossene Kurse",
-        "enrolledCourses": "Belegte Kurse",
-        "passedTests": "Bestandene Tests",
-        "failedTests": "Durchgefallene Tests"
     }
 }
