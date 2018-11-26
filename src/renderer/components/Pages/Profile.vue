@@ -41,74 +41,71 @@ import { faUserCircle } from '@fortawesome/free-regular-svg-icons'
 import { groupsProfile } from '@/__mocks__/courses.js'
 
 export default {
-  name: 'Settings',
-  components: {
-    Form,
-    FormItem,
-    Input,
-    Button,
-    Collapse,
-    CollapseItem,
-    ProgressBar,
-    CoursesOverview,
-    Progress
-  },
-  icons: {
-    faUserCircle,
-    faChartBar
-  },
-  beforeCreate() {
-    this.$emit('pageTitle', this.$t('App.pages.settings'))
-  },
-  data() {
-
-    return {
-      form: {
-          name: 'John Doe'
-      },
-      disabled: true,
-      label: 'Edit',
-      totalCourses: 100,
-      finishedCourses: 66,
-      totalTests: 90,
-      passedTests: 45,
-      courseGroups: groupsProfile.call(this, this.$t)
-    }
-  },
-  computed: {
-      percentageComplete() {
-          if (this.totalCourses === 0) {
-              return 0
-          }
-
-          return Math.floor((this.finishedCourses / this.totalCourses) * 100)
-      },
-
-      percentagePassed() {
-          if (this.totalTests === 0) {
-              return 0
-          }
-
-          return Math.floor((this.passedTests / this.totalTests) * 100)
-      }
-  },
-  methods: {
-
-      editName() {
-        if (this.disabled) {
-            this.label = this.$t('Pages.Profile.description.actions.save')
-            this.disabled = false
-        } else {
-            this.label = this.$t('Pages.Profile.description.actions.edit')
-            this.disabled = true
+    name: 'Settings',
+    components: {
+        Form,
+        FormItem,
+        Input,
+        Button,
+        Collapse,
+        CollapseItem,
+        ProgressBar,
+        CoursesOverview,
+        Progress
+    },
+    icons: {
+        faUserCircle,
+        faChartBar
+    },
+    beforeCreate() {
+        this.$emit('pageTitle', this.$t('App.pages.settings'))
+    },
+    data() {
+        return {
+            form: {
+                name: 'John Doe'
+            },
+            disabled: true,
+            label: 'Edit',
+            totalCourses: 100,
+            finishedCourses: 66,
+            totalTests: 90,
+            passedTests: 45,
+            courseGroups: groupsProfile.call(this, this.$t)
         }
-      }
-  }
+    },
+    computed: {
+        percentageComplete() {
+            if (this.totalCourses === 0) {
+                return 0
+            }
+
+            return Math.floor((this.finishedCourses / this.totalCourses) * 100)
+        },
+
+        percentagePassed() {
+            if (this.totalTests === 0) {
+                return 0
+            }
+
+            return Math.floor((this.passedTests / this.totalTests) * 100)
+        }
+    },
+    methods: {
+        editName() {
+            if (this.disabled) {
+                this.label = this.$t('Pages.Profile.description.actions.save')
+                this.disabled = false
+            } else {
+                this.label = this.$t('Pages.Profile.description.actions.edit')
+                this.disabled = true
+            }
+        }
+    }
 }
 </script>
 
 <style lang="scss">
-
 .form-item__description {
     display: block;
     font-size: $--font-size-small;
@@ -154,8 +151,6 @@ export default {
     .statistics-icon__text {
         margin-left: .5em;
     }
-
-    
 }
 
 .profile-statistics__container {
@@ -176,6 +171,4 @@ export default {
         }
     }
 }
-
-
 </style>
