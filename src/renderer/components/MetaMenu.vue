@@ -1,6 +1,6 @@
 <template>
     <Menu id="meta-menu" :router="true" mode="horizontal">
-        <MenuItem index="0" class="meta-menu__user">
+        <MenuItem index="0" class="meta-menu__user" :route="{name: 'profile'}">
             <Icon icon="faUser"/>
             <span slot="title">John</span>
         </MenuItem>
@@ -58,7 +58,7 @@ export default {
         color: $--color-white;
         padding: 0 2px;
 
-        &:hover {
+        &:hover, &:focus {
             background: initial;
         }
 

@@ -1,0 +1,21 @@
+{
+    "description": {
+        "usernameLabel": "Username",
+        "username": "Your current username.",
+        "actions": {
+            "edit": "Edit",
+            "save": "Save"
+        }
+    },
+    "statistics": {
+        "statistics": "Statistics",
+        "finishedCourses": "Finished {finishedCourses} of {totalCourses} courses",
+        "passedTests": "Passed {passedTests} of {totalTests} tests"
+    },
+    "groups": {
+        "finishedCourses": "Finished courses",
+        "enrolledCourses": "Enrolled courses",
+        "passedTests": "Passed tests",
+        "failedTests": "Failed tests"
+    }
+}
