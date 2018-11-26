@@ -4,8 +4,10 @@
             <h3 class="course-card__name">{{ name }}</h3>
 
             <div class="course-card__context-menu">
-                <Dropdown>
-                    <Icon icon="faEllipsisV"></Icon>
+                <Dropdown trigger="click">
+                    <Button type="text" class="dropdown__trigger">
+                        <Icon icon="faEllipsisV"/>
+                    </Button>
                     <DropdownMenu slot="dropdown">
                         <DropdownItem>
                             <Icon icon="faGlobe"/> {{ $t('Layout.Course.actions.openProjectPage') }}
@@ -107,6 +109,10 @@ export default {
 
     &.el-menu.el-menu--horizontal {
         border: none;
+    }
+
+    .dropdown__trigger {
+        padding: 0;
     }
 
     .el-menu-item {
