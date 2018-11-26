@@ -9,8 +9,8 @@
     },
     "statistics": {
         "statistics": "Statistics",
-        "finishedCourses": "Finished {finishedCourses} of {totalCourses} courses",
-        "passedTests": "Passed {passedTests} of {totalTests} tests"
+        "finishedCourses": "Finished<br> <b>{finishedCourses}</b> of <b>{totalCourses}</b><br> courses",
+        "passedTests": "Passed<br> <b>{passedTests}</b> of <b>{totalTests}</b><br> tests"
     },
     "groups": {
         "finishedCourses": "Finished courses",

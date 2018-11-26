@@ -21,11 +21,11 @@
                 <span class="statistics-icon__text">{{ $t('Pages.Profile.statistics.statistics') }}</span>
             </h3>
         </div>
-        <Progress type="circle" :width="200" :percentage="percentageComplete" status="text">
-            <span>{{ $t('Pages.Profile.statistics.finishedCourses', {finishedCourses, totalCourses}) }}</span>
+        <Progress type="circle" :width="150" :percentage="percentageComplete" status="text">
+            <span v-html="$t('Pages.Profile.statistics.finishedCourses', {finishedCourses, totalCourses})"/>
         </Progress>
-        <Progress type="circle" :width="200" :percentage="percentagePassed" status="text">
-            <span>{{ $t('Pages.Profile.statistics.passedTests', {passedTests, totalTests}) }}</span>
+        <Progress type="circle" :width="150" :percentage="percentagePassed" status="text">
+            <span v-html="$t('Pages.Profile.statistics.passedTests', {passedTests, totalTests})"/>
         </Progress> 
         <CoursesOverview :groups="courseGroups" class="statistics-coursesoverview"/>
     </div>
@@ -156,7 +156,8 @@ export default {
 .profile-statistics__container {
     .el-progress__text {
         font-size: inherit !important;
-        margin: .5em !important;
+        padding: .5em !important;
+        box-sizing: border-box;
     }
 
     .el-progress.el-progress--circle {
