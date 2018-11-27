@@ -45,6 +45,5 @@
     "vue-cli-plugin-element": "^1.0.0",
     "vue-template-compiler": "^2.5.17"
   },
-  "main": "background.js",
-  "sideEffects": false
+  "main": "background.js"
 }
