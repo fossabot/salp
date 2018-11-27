@@ -1,0 +1,13 @@
+# global default image
+image: node:latest
+
+stages:
+  - audit
+
+#jobs
+npm_audit:
+  stage: audit
+  only:
+    - schedules
+  script:
+    - npm audit
