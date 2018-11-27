@@ -1,18 +1,21 @@
 // https://docs.cypress.io/guides/guides/plugins-guide.html
 
-// if you need a custom webpack configuration you can uncomment the following import
-// and then use the `file:preprocessor` event
-// as explained in the cypress docs
-// https://docs.cypress.io/api/plugins/preprocessors-api.html#Examples
+const webpack = require('@cypress/webpack-preprocessor')
 
-// /* eslint-disable import/no-extraneous-dependencies, global-require */
-// const webpack = require('@cypress/webpack-preprocessor')
+// Resolve project webpack config with custom settings rather than default
+function getWebpackConfig() {
+  const Service = require('@vue/cli-service/lib/Service')
+  // Disable external plugins because they might use ES6 features
+  service = new Service(process.env.VUE_CLI_CONTEXT || process.cwd(), { plugins: [] })
+  service.init(process.env.VUE_CLI_MODE || process.env.NODE_ENV)
+  return service.resolveWebpackConfig()
+}
 
 module.exports = (on, config) => {
-  // on('file:preprocessor', webpack({
-  //  webpackOptions: require('@vue/cli-service/webpack.config'),
-  //  watchOptions: {}
-  // }))
+  on('file:preprocessor', webpack({
+    webpackOptions: getWebpackConfig(),
+    watchOptions: {}
+  }))
 
   return Object.assign({}, config, {
     fixturesFolder: 'tests/e2e/renderer/fixtures',
