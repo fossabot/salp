@@ -23,7 +23,7 @@ app:test:e2e:
   variables:
     CYPRESS_CACHE_FOLDER: cache/Cypress
   before_script:
-    - npm install
+    - npm ci
   script:
     - npm run test:e2e
   cache:
