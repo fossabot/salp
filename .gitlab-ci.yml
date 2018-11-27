@@ -21,14 +21,14 @@ app:test:e2e:
   image: cypress/browsers:chrome69
   stage: test
   variables:
-    CYPRESS_CACHE_FOLDER: cache/Cypress
+    CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/cache/Cypress
   before_script:
     - npm ci
   script:
     - npm run test:e2e
   cache:
     paths:
-      - cache/Cypress
+      - ${CI_PROJECT_DIR}/cache/Cypress
   artifacts:
     expire_in: 1 day
     when: always
