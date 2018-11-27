@@ -42,8 +42,9 @@ module.exports = {
             .set('@', path.resolve(__dirname, 'src/renderer/'))
             .set('$src', path.resolve(__dirname, 'src/'))
 
-        config.plugins.delete('preload')
-        config.plugins.delete('prefetch')    
+        config.plugins
+            .delete('preload-index')
+            .delete('prefetch-index')    
 
         config.plugin('lodash')
             .use(LodashModuleReplacementPlugin)
