@@ -16,3 +16,22 @@ app:test:unit:
     - npm ci
   script:
     - npm run test:unit
+
+app:test:e2e:
+  image: cypress/browsers:chrome69
+  stage: test
+  variables:
+    CYPRESS_CACHE_FOLDER: cache/Cypress
+  before_script:
+    - npm ci
+  script:
+    - npm run test:e2e
+  cache:
+    paths:
+      - cache/Cypress
+  artifacts:
+    expire_in: 1 day
+    when: always
+    paths:
+    - tests/e2e/renderer/screenshots
+    - tests/e2e/renderer/videos
