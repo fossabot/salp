@@ -3,8 +3,6 @@ image: node:latest
 
 cache:
   key: "${CI_COMMIT_REF_SLUG}-${CI_JOB_STAGE}"
-  paths:
-    - node_modules/
 
 stages:
   - test
@@ -15,6 +13,25 @@ app:test:unit:
   variables:
     NODE_ENV: "test"
   before_script:
-    - npm install --ignore-scripts
+    - npm ci
   script:
     - npm run test:unit
+
+app:test:e2e:
+  image: cypress/browsers:chrome69
+  stage: test
+  variables:
+    CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/cache/Cypress
+  before_script:
+    - npm ci
+  script:
+    - npm run test:e2e
+  cache:
+    paths:
+      - ${CI_PROJECT_DIR}/cache/Cypress
+  artifacts:
+    expire_in: 1 day
+    when: always
+    paths:
+    - tests/e2e/renderer/screenshots
+    - tests/e2e/renderer/videos

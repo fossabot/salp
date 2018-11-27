@@ -22,3 +22,7 @@ yarn-error.log*
 
 #Electron-builder output
 /dist_electron
+
+# tests
+/tests/e2e/renderer/screenshots
+/tests/e2e/renderer/videos
