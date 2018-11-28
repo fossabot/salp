@@ -42,12 +42,10 @@ export function groups(t) {
         },
         recommended: {
             title: 'Recommended',
-            collapsed: true
         },
         installed: {
             title: this.$t('Layout.Course.overview.categories.installed'),
             items: getCourses(11),
-            collapsable: false,
             showCount: true
         }
     }
@@ -59,7 +57,6 @@ export function groupsProfile() {
             title: this.$t('Pages.Profile.groups.finishedCourses'),
             icon: faCheckCircle,
             items: getCourses(4),
-            collapsed: true
         },
         enrolled: {
             title: this.$t('Pages.Profile.groups.enrolledCourses'),
@@ -70,12 +67,10 @@ export function groupsProfile() {
             title: this.$t('Pages.Profile.groups.passedTests'),
             icon: faCheckSquare,
             items: getCourses(5),
-            collapsed: true
         },
         failedTests: {
             title: this.$t('Pages.Profile.groups.failedTests'),
             items: getCourses(2),
-            collapsable: false,
             showCount: true
         }
     }
