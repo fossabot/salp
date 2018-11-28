@@ -15,12 +15,10 @@
         </FormItem>
     </Form>
     <div class="profile-statistics__container">
-        <div class="profile-statistics-icon__container">
-            <h3>
-                <Icon icon="faChartBar"/>
-                <span class="statistics-icon__text">{{ $t('Pages.Profile.statistics.statistics') }}</span>
-            </h3>
-        </div>
+        <SectionHeader>
+            <Icon icon="faChartBar"/>
+            {{ $t('Pages.Profile.statistics.statistics') }}
+        </SectionHeader>
         <Progress type="circle" :width="200" :percentage="percentageComplete" status="text">
             <span>{{ $t('Pages.Profile.statistics.finishedCourses', {finishedCourses, totalCourses}) }}</span>
         </Progress>
@@ -33,6 +31,7 @@
 </template>
 
 <script>
+import SectionHeader from '../Layout/Content/SectionHeader.vue'
 import { Form, FormItem, Input, Button, Collapse, CollapseItem, Progress } from 'element-ui'
 import ProgressBar from '@/components/Elements/ProgressBar.vue'
 import CoursesOverview from '@/components/Layout/Course/CoursesOverview'
@@ -43,6 +42,8 @@ import { groupsProfile } from '@/__mocks__/courses.js'
 export default {
     name: 'Settings',
     components: {
+        SectionHeader,
+
         Form,
         FormItem,
         Input,
