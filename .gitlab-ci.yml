@@ -7,11 +7,15 @@ cache:
 stages:
   - test
 
+variables:
+  CYPRESS_INSTALL_BINARY: "0"
+
 # jobs
 app:test:unit:
   stage: test
   variables:
     NODE_ENV: "test"
+    CYPRESS_INSTALL_BINARY: "0"
   before_script:
     - npm ci
   script:
