@@ -11,7 +11,8 @@
     "postinstall": "electron-builder install-app-deps",
     "serve:electron": "vue-cli-service serve:electron",
     "test:e2e": "vue-cli-service test:e2e --headless --browser chrome",
-    "test:unit": "vue-cli-service test:unit 'src/renderer/**/*.spec.js'"
+    "test:unit": "vue-cli-service test:unit 'src/renderer/**/*.spec.js'",
+    "coverage:unit": "nyc vue-cli-service test:unit 'src/renderer/**/*.{js,vue}'"
   },
   "dependencies": {
     "electron-log": "^2.2.17",
@@ -32,7 +33,9 @@
     "babel-plugin-rewire": "^1.2.0",
     "chai": "^4.1.2",
     "electron": "^2.0.2",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "node-sass": "^4.10.0",
+    "nyc": "^13.1.0",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-electron-builder": "^1.0.0-rc.4",
     "vue-cli-plugin-element": "^1.0.0",
