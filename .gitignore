@@ -26,3 +26,7 @@ yarn-error.log*
 # tests
 /tests/e2e/renderer/screenshots
 /tests/e2e/renderer/videos
+
+# coverage
+/coverage
+/.nyc_output

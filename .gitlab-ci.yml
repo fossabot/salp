@@ -15,7 +15,10 @@ app:test:unit:
   before_script:
     - npm ci
   script:
-    - npm run test:unit
+    - npm run coverage:unit
+  artifacts:
+    paths:
+      - coverage/
 
 app:test:e2e:
   image: cypress/browsers:chrome69
