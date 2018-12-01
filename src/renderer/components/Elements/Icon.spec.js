@@ -17,7 +17,7 @@ describe('Icon.vue', () => {
                     props: { icon: faBandAid }
                 }
             })
-    
+
             test(wrapper)
         })
 
@@ -28,7 +28,7 @@ describe('Icon.vue', () => {
                     staticClass: 'other-class'
                 }
             })
-    
+
             test(wrapper)
         })
     })
@@ -48,8 +48,8 @@ describe('Icon.vue', () => {
             icons: { faBandAid }
         }
 
-        const parentConstructor = localVue.extend(fakeComponent)
-        const parentVm = new parentConstructor().$mount()
+        const ParentConstructor = localVue.extend(fakeComponent)
+        const parentVm = new ParentConstructor().$mount()
 
         const wrapper = createWrapper(parentVm).find(Icon)
 

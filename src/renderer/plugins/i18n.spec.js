@@ -2,8 +2,8 @@ import { expect } from 'chai'
 import { fake } from 'sinon'
 import i18n from './i18n.js'
 
-i18n.__Rewire__('vue', { load: ()=>!1 })
-i18n.__Rewire__('vue-i18n', ()=>!1)
+i18n.__Rewire__('vue', { load: () => !1 })
+i18n.__Rewire__('vue-i18n', () => !1)
 
 const filesMock = {
     'en/App.json': { 'app': 'App' },
@@ -12,7 +12,7 @@ const filesMock = {
 }
 
 const expectedNestedPaths = [
-    'en.App.app', 
+    'en.App.app',
     'en.Layout.Course.actions.delete',
     'de.App.app'
 ]

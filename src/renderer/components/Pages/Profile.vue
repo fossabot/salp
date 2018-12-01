@@ -5,7 +5,7 @@
     </div>
     <Form ref="form" :model="form" :inline="true" class="profile-form">
         <FormItem :label="$t('Pages.Profile.description.usernameLabel')">
-            <Input autosize :disabled="disabled" v-model="form.name"></Input>
+            <Input autosize :disabled="disabled" v-model="form.name"/>
             <span class="form-item__description">
                 {{ $t('Pages.Profile.description.username') }}
             </span>
@@ -24,7 +24,7 @@
         </Progress>
         <Progress type="circle" :width="200" :percentage="percentagePassed" status="text">
             <span>{{ $t('Pages.Profile.statistics.passedTests', {passedTests, totalTests}) }}</span>
-        </Progress> 
+        </Progress>
         <CoursesOverview :groups="courseGroups" class="statistics-coursesoverview"/>
     </div>
   </div>
@@ -32,8 +32,7 @@
 
 <script>
 import SectionHeader from '../Layout/Content/SectionHeader.vue'
-import { Form, FormItem, Input, Button, Collapse, CollapseItem, Progress } from 'element-ui'
-import ProgressBar from '@/components/Elements/ProgressBar.vue'
+import { Form, FormItem, Input, Button } from 'element-ui'
 import CoursesOverview from '@/components/Layout/Course/CoursesOverview'
 import { faChartBar } from '@fortawesome/free-solid-svg-icons'
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons'
@@ -48,11 +47,7 @@ export default {
         FormItem,
         Input,
         Button,
-        Collapse,
-        CollapseItem,
-        ProgressBar,
-        CoursesOverview,
-        Progress
+        CoursesOverview
     },
     icons: {
         faUserCircle,
@@ -147,7 +142,7 @@ export default {
 
 .profile-statistics-icon__container {
     display: flex;
-    margin-bottom: 1em; 
+    margin-bottom: 1em;
 
     .statistics-icon__text {
         margin-left: .5em;

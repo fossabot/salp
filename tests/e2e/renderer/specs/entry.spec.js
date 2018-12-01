@@ -21,7 +21,7 @@ describe('App (Entry)', () => {
                 'font-family',
                 'background-color'
             ]
-    
+
             cy.get('body')
                 .should($el => {
                     expectedCssRules.forEach(rule => {

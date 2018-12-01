@@ -16,7 +16,7 @@ const mixin = {
 
 const plugin = {
     install(Vue) {
-        // Register global mixin
+    // Register global mixin
         Vue.mixin(mixin)
 
         // Add icon component

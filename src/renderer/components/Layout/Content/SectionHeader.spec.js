@@ -25,7 +25,7 @@ describe('SectionHeader.vue', () => {
                     staticClass: expectedClass
                 }
             })
-    
+
             expect(wrapper.classes(expectedClass)).to.be.true
         })
 
@@ -35,7 +35,7 @@ describe('SectionHeader.vue', () => {
                     class: expectedClass
                 }
             })
-    
+
             expect(wrapper.classes(expectedClass)).to.be.true
         })
 

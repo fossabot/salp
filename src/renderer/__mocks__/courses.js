@@ -10,10 +10,10 @@ let course = {
     tags: ['SQL', 'active attack', 'web applications']
 }
 
-const progresses = [100, 72, 50, 23, 0];
+const progresses = [100, 72, 50, 23, 0]
 
 function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+    return Math.floor(Math.random() * Math.floor(max))
 }
 
 let getCourses = num => {
@@ -23,7 +23,7 @@ let getCourses = num => {
             return {
                 ...c,
                 progress: progresses[getRandomInt(5)]
-            };
+            }
         })
 }
 
@@ -41,7 +41,7 @@ export function groups(t) {
             showCount: true
         },
         recommended: {
-            title: 'Recommended',
+            title: 'Recommended'
         },
         installed: {
             title: this.$t('Layout.Course.overview.categories.installed'),
@@ -56,7 +56,7 @@ export function groupsProfile() {
         finished: {
             title: this.$t('Pages.Profile.groups.finishedCourses'),
             icon: faCheckCircle,
-            items: getCourses(4),
+            items: getCourses(4)
         },
         enrolled: {
             title: this.$t('Pages.Profile.groups.enrolledCourses'),
@@ -66,7 +66,7 @@ export function groupsProfile() {
         passedTests: {
             title: this.$t('Pages.Profile.groups.passedTests'),
             icon: faCheckSquare,
-            items: getCourses(5),
+            items: getCourses(5)
         },
         failedTests: {
             title: this.$t('Pages.Profile.groups.failedTests'),
