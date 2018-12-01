@@ -5,12 +5,20 @@ cache:
   key: "${CI_COMMIT_REF_SLUG}-${CI_JOB_STAGE}"
 
 stages:
+  - lint
   - test
 
 variables:
   CYPRESS_INSTALL_BINARY: "0"
 
 # jobs
+eslint:
+  stage: lint
+  before_script:
+    - npm ci
+  script:
+    - npm run lint -- --no-fix
+
 app:test:unit:
   stage: test
   variables:

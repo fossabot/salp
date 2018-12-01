@@ -1,9 +1,9 @@
 <template>
     <Row class="course-list" :gutter="20">
-        <Col v-for="(item, index) in courses" :key="index" :span="6">
+        <ElCol v-for="(item, index) in courses" :key="index" :span="6">
             <CourseCard v-bind="item"/>
-        </Col>
-    </Row>    
+        </ElCol>
+    </Row>
 </template>
 
 <script>
@@ -17,7 +17,8 @@ export default {
     },
     components: {
         Row,
-        Col,
+        /* eslint-disable-next-line vue/no-unused-components */
+        [Col.name]: Col,
 
         CourseCard
     }

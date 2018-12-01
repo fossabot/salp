@@ -30,7 +30,7 @@ describe('App.vue', () => {
     it('has initial page title', () => {
         expect(wrapper.vm.pageTitle).to.equal(initialAppTitle)
     })
-    
+
     it('updates page title when route changes', () => {
         expect(wrapper.vm.pageTitle).to.equal(initialAppTitle)
 

@@ -2,12 +2,12 @@
   <div id="page-settings">
     <Form ref="form" :model="form" :label-position="'left'" label-width="300px">
         <FormItem label="Use Machine Learning">
-            <el-switch v-model="form.ml"></el-switch>
+            <ElSwitch v-model="form.ml"></ElSwitch>
             <span class="form-item__description">If Machine Learning is switched on, you will recieve recommendations for courses and hinds
         based on your inputs.</span>
         </FormItem>
         <FormItem label="Homepath">
-            <Input autosize v-model="form.path"></Input>
+            <Input autosize v-model="form.path"/>
             <span class="form-item__description">Path to your home folder.</span>
         </FormItem>
     </Form>
@@ -15,28 +15,28 @@
 </template>
 
 <script>
-import { Switch , Form, FormItem, Input} from 'element-ui'
+import { Switch, Form, FormItem, Input } from 'element-ui'
 
 export default {
-  name: 'Settings',
-  components: {
-    [Switch.name]: Switch,
-    Form,
-    FormItem,
-    Input
-  },
-  beforeCreate() {
-    this.$emit('pageTitle', this.$t('App.pages.settings'))
-  },
-  data() {
-
-    return {
-      form: {
-          ml: true,
-          path: '/~'
-      }
+    name: 'Settings',
+    components: {
+        /* eslint-disable-next-line vue/no-unused-components */
+        [Switch.name]: Switch,
+        Form,
+        FormItem,
+        Input
+    },
+    beforeCreate() {
+        this.$emit('pageTitle', this.$t('App.pages.settings'))
+    },
+    data() {
+        return {
+            form: {
+                ml: true,
+                path: '/~'
+            }
+        }
     }
-  }
 }
 </script>
 
