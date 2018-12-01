@@ -8,24 +8,22 @@ stages:
   - lint
   - test
 
+# global defaults
 variables:
+  NODE_ENV: "test"
   CYPRESS_INSTALL_BINARY: "0"
+
+before_script:
+  - npm ci
 
 # jobs
 eslint:
   stage: lint
-  before_script:
-    - npm ci
   script:
     - npm run lint -- --no-fix
 
 app:test:unit:
   stage: test
-  variables:
-    NODE_ENV: "test"
-    CYPRESS_INSTALL_BINARY: "0"
-  before_script:
-    - npm ci
   script:
     - npm run coverage:unit
   artifacts:
@@ -37,8 +35,6 @@ app:test:e2e:
   stage: test
   variables:
     CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/cache/Cypress
-  before_script:
-    - npm ci
   script:
     - npm run test:e2e
   cache:
