@@ -16,6 +16,9 @@
     "test:unit": "vue-cli-service test:unit 'src/renderer/**/*.spec.js'",
     "coverage:unit": "nyc vue-cli-service test:unit 'src/renderer/**/*.{js,vue}'"
   },
+  "gitHooks": {
+    "pre-commit": "npm run lint"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
     "@fortawesome/free-regular-svg-icons": "^5.5.0",
