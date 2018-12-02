@@ -1,29 +1,30 @@
 <template>
-  <div id="page-profile">
-    <div class="profile-info__container">
-        <h3>
-            <Icon icon="faUser"/>
-            <span class="user-icon__text">{{ $t('Pages.Profile.description.user') }}</span>
-        </h3>
-        <Form ref="form" labelPosition="left" :model="form" :inline="true" class="profile-form">
-            <FormItem :label="$t('Pages.Profile.description.usernameLabel')">
-                <ElInput autosize v-model="form.name">
-                    <Icon icon="faEdit" slot="suffix"/>
-                </ElInput>
-            </FormItem>
-        </Form>
-    </div>
-    <div class="profile-statistics__container">
-        <SectionHeader>
-            <Icon icon="faChartBar"/>
-            {{ $t('Pages.Profile.statistics.statistics') }}
-        </SectionHeader>
-        <Progress type="circle" :width="150" :percentage="percentageComplete" status="text">
-            <span v-html="$t('Pages.Profile.statistics.finishedCourses', {finishedCourses, totalCourses})"/>
-        </Progress>
-        <Progress type="circle" :width="150" :percentage="percentagePassed" status="text">
-            <span v-html="$t('Pages.Profile.statistics.passedTests', {passedTests, totalTests})"/>
-        </Progress>
+    <div id="page-profile">
+        <div class="profile-info__container">
+            <h3>
+                <Icon icon="faUser"/>
+                <span class="user-icon__text">{{ $t('Pages.Profile.description.user') }}</span>
+            </h3>
+            <Form ref="form" labelPosition="left" :model="form" :inline="true" class="profile-form">
+                <FormItem :label="$t('Pages.Profile.description.usernameLabel')">
+                    <ElInput autosize v-model="form.name">
+                        <Icon icon="faEdit" slot="suffix"/>
+                    </ElInput>
+                </FormItem>
+            </Form>
+        </div>
+        <div class="profile-statistics__container">
+            <SectionHeader>
+                <Icon icon="faChartBar"/>
+                {{ $t('Pages.Profile.statistics.statistics') }}
+            </SectionHeader>
+            <Progress type="circle" :width="150" :percentage="percentageComplete" status="text">
+                <span v-html="$t('Pages.Profile.statistics.finishedCourses', {finishedCourses, totalCourses})"/>
+            </Progress>
+            <Progress type="circle" :width="150" :percentage="percentagePassed" status="text">
+                <span v-html="$t('Pages.Profile.statistics.passedTests', {passedTests, totalTests})"/>
+            </Progress>
+        </div>
     </div>
 </template>
 
