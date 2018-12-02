@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
 import Code from './Code.vue'
 
 describe('Code.vue', () => {
@@ -18,7 +17,7 @@ describe('Code.vue', () => {
             { value: [{}], expects: false },
             { value: ['1'], expects: false },
             { value: 5, expects: false },
-            { value: [[7,2]], expects: false },
+            { value: [[7, 2]], expects: false },
             { value: [7.5], expects: false }
         ]
 
