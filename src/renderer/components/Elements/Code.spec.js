@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import { spy } from 'sinon'
 import Code from './Code.vue'
 
 describe('Code.vue', () => {
@@ -25,6 +26,30 @@ describe('Code.vue', () => {
 
         expectedValues.forEach(({ value, expects }) => {
             expect(validator(value)).to.equal(expects, `validating ${value} to be ${expects}`)
+        })
+    })
+
+    it('highlights correct lines', () => {
+        const addLineClass = spy()
+        const expectedValues = [
+            { value: [1], expects: [0] },
+            { value: [1, 2], expects: [0, 1] },
+            { value: [1, [3, 5]], expects: [0, 2, 3, 4] }
+        ]
+
+        const highlightLines = Code.methods.highlightLines.bind({
+            editor: {
+                addLineClass
+            }
+        })
+
+        expectedValues.forEach(({ value, expects }) => {
+            highlightLines(value)
+
+            expects.forEach((expects, index) => {
+                expect(addLineClass.getCall(index).calledWith(expects), `validating ${value} to be ${expects}`).to.be.true
+            })
+            addLineClass.resetHistory()
         })
     })
 })
