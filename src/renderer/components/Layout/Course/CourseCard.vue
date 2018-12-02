@@ -4,8 +4,10 @@
             <h3 class="course-card__name">{{ name }}</h3>
 
             <div class="course-card__context-menu">
-                <Dropdown>
-                    <Icon icon="faEllipsisV"></Icon>
+                <Dropdown trigger="click">
+                    <Button type="text" class="dropdown__trigger">
+                        <Icon icon="faEllipsisV"/>
+                    </Button>
                     <DropdownMenu slot="dropdown">
                         <DropdownItem>
                             <Icon icon="faGlobe"/> {{ $t('Layout.Course.actions.openProjectPage') }}
@@ -31,8 +33,8 @@
                 <Tag size="small" v-for="(tag, index) in tags" :key="index">{{ tag }}</Tag>
             </div>
 
-            <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.lessonsAndTests', args: [lessons, tests]}"></span>
-            <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: [author, version]}"></span>
+            <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.lessonsAndTests', args: {lessons, tests}}"></span>
+            <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
         </div>
 
         <div class="course-card__footer">
@@ -109,6 +111,10 @@ export default {
         border: none;
     }
 
+    .dropdown__trigger {
+        padding: 0;
+    }
+
     .el-menu-item {
         border: none;
     }
@@ -151,6 +157,6 @@ export default {
 }
 
 .course-card__progress {
-    flex: 1 0 auto;    
+    flex: 1 0 auto;
 }
 </style>

@@ -6,7 +6,7 @@
       </h1>
       <MetaMenu class="app-header__item meta-menu"/>
     </Header>
-    
+
     <Container>
       <Aside id="app-sidebar">
         <MainMenu/>
@@ -21,43 +21,41 @@
 
 <script>
 import { remote } from 'electron'
-import { Container, Header, Footer, Main, Aside } from 'element-ui'
+import { Container, Header, Main, Aside } from 'element-ui'
 import MainMenu from './MainMenu.vue'
 import MetaMenu from './MetaMenu.vue'
 
 export default {
-  name: 'App',
-  components: {
-    Container,
-    Header,
-    Footer,
-    Main,
-    Aside,
+    name: 'App',
+    components: {
+        Container,
+        Header,
+        Main,
+        Aside,
 
-    MainMenu,
-    MetaMenu
-  },
-  data() {
-    return {
-      pageTitle: 'App'
-    }
-  },
-  watch: {
-    $route(to) {
-      this.pageTitle = to.name
+        MainMenu,
+        MetaMenu
     },
-    pageTitle(title) {
-      remote.getCurrentWindow().setTitle(title)
+    data() {
+        return {
+            pageTitle: 'App'
+        }
+    },
+    watch: {
+        $route(to) {
+            this.pageTitle = to.name
+        },
+        pageTitle(title) {
+            remote.getCurrentWindow().setTitle(title)
+        }
+    },
+    methods: {
+        handlePageTitleChange(title) {
+            this.pageTitle = title
+        }
     }
-  },
-  methods: {
-    handlePageTitleChange(title) {
-      this.pageTitle = title
-    }
-  }
 }
 </script>
-
 
 <style lang="scss">
 #app {

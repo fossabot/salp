@@ -1,11 +1,11 @@
 const path = require('path')
-const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin');
+const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin')
 
 const isTesting = process.env.NODE_ENV === 'test'
 
 const chunks = {
     vue: {
-        test: /\/node_modules\/\@?vue\//,
+        test: /\/node_modules\/@?vue\//,
         enforce: true,
         name: 'vue'
     },
@@ -14,7 +14,7 @@ const chunks = {
         name: 'elementui'
     },
     fontawesome: {
-        test: /\/node_modules\/\@fortawesome\//,
+        test: /\/node_modules\/\fortawesome\//,
         enforce: true,
         name: 'fontawesome'
     },
@@ -42,8 +42,9 @@ module.exports = {
             .set('@', path.resolve(__dirname, 'src/renderer/'))
             .set('$src', path.resolve(__dirname, 'src/'))
 
-        config.plugins.delete('preload')
-        config.plugins.delete('prefetch')    
+        config.plugins
+            .delete('preload-index')
+            .delete('prefetch-index')
 
         config.plugin('lodash')
             .use(LodashModuleReplacementPlugin)
@@ -52,13 +53,13 @@ module.exports = {
         // @see https://cli.vuejs.org/guide/css.html#automatic-imports
         config.module.rule('scss').oneOf('vue')
             .use('style-resource')
-                .loader('style-resources-loader')
-                .options({
-                    patterns: [
-                        path.resolve(__dirname, 'src/renderer/theme/element/common/var.scss')
-                    ]
-                })
-                .end()
+            .loader('style-resources-loader')
+            .options({
+                patterns: [
+                    path.resolve(__dirname, 'src/renderer/theme/element/common/var.scss')
+                ]
+            })
+            .end()
 
         if (!isTesting) {
             // Create chunks for (larger) libraries
@@ -74,9 +75,24 @@ module.exports = {
             config.resolve.alias
                 .set('electron', path.resolve(__dirname, 'src/renderer/__mocks__/browser/electron'))
         }
-        
+
         if (process.env.IS_REMOTE_DEBUG) {
             config.devtool('source-map')
+        }
+
+        // Code coverage
+        if (isTesting) {
+            config.module.rule('js')
+                .use('istanbul')
+                .loader('istanbul-instrumenter-loader')
+                .options({ esModules: true })
+                .before('babel-loader')
+
+            config.output
+                .devtoolModuleFilenameTemplate('[absolute-resource-path]')
+                .devtoolFallbackModuleFilenameTemplate('[absolute-resource-path]?[hash]')
+
+            config.devtool('inline-cheap-module-source-map')
         }
     },
     pluginOptions: {
@@ -84,7 +100,7 @@ module.exports = {
             mainProcessFile: 'src/main/index.js',
             mainProcessWatch: [
                 'src/main/'
-            ],
+            ]
         }
     }
 }

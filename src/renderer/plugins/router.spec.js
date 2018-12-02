@@ -11,7 +11,7 @@ describe('pages emit "pageTitle" event when loaded', () => {
         it(componentName, () => {
             const wrapper = shallowMount(component, {
                 mocks: {
-                    $t: ()=>!1
+                    $t: () => !1
                 }
             })
 

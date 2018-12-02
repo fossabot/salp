@@ -5,13 +5,16 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "build:electron": "vue-cli-service build:electron",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "serve:electron": "vue-cli-service serve:electron",
     "dev": "vue-cli-service electron:serve --debug",
-    "test:unit": "vue-cli-service test:unit 'src/renderer/**/*.spec.js'"
+    "test:e2e": "vue-cli-service test:e2e --headless --browser chrome",
+    "test:unit": "vue-cli-service test:unit 'src/renderer/**/*.spec.js'",
+    "coverage:unit": "nyc vue-cli-service test:unit 'src/renderer/**/*.{js,vue}'"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
@@ -27,17 +30,28 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@cypress/webpack-preprocessor": "^4.0.2",
     "@vue/cli-plugin-babel": "^3.0.3",
+    "@vue/cli-plugin-e2e-cypress": "^3.1.2",
+    "@vue/cli-plugin-eslint": "^3.2.1",
     "@vue/cli-plugin-unit-mocha": "^3.1.1",
     "@vue/cli-service": "^3.0.3",
+    "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.20",
+    "babel-eslint": "^10.0.1",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-rewire": "^1.2.0",
     "chai": "^4.1.2",
     "electron": "^2.0.2",
+    "eslint": "^5.8.0",
+    "eslint-plugin-chai-friendly": "^0.4.1",
+    "eslint-plugin-cypress": "^2.1.2",
+    "eslint-plugin-vue": "^5.0.0-0",
     "lodash-webpack-plugin": "^0.11.5",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "node-sass": "^4.10.0",
+    "nyc": "^13.1.0",
     "sass-loader": "^7.1.0",
     "sinon": "^7.1.1",
     "style-resources-loader": "^1.2.1",
@@ -45,6 +59,5 @@
     "vue-cli-plugin-element": "^1.0.0",
     "vue-template-compiler": "^2.5.17"
   },
-  "main": "background.js",
-  "sideEffects": false
+  "main": "background.js"
 }

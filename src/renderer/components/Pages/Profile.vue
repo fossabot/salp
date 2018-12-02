@@ -7,19 +7,17 @@
         </h3>
         <Form ref="form" labelPosition="left" :model="form" :inline="true" class="profile-form">
             <FormItem :label="$t('Pages.Profile.description.usernameLabel')">
-                <Input autosize v-model="form.name">
+                <ElInput autosize v-model="form.name">
                     <Icon icon="faEdit" slot="suffix"/>
-                </Input>
+                </ElInput>
             </FormItem>
         </Form>
     </div>
     <div class="profile-statistics__container">
-        <div class="profile-statistics-icon__container">
-            <h3>
-                <Icon icon="faChartBar"/>
-                <span class="statistics-icon__text">{{ $t('Pages.Profile.statistics.statistics') }}</span>
-            </h3>
-        </div>
+        <SectionHeader>
+            <Icon icon="faChartBar"/>
+            {{ $t('Pages.Profile.statistics.statistics') }}
+        </SectionHeader>
         <Progress type="circle" :width="150" :percentage="percentageComplete" status="text">
             <span v-html="$t('Pages.Profile.statistics.finishedCourses', {finishedCourses, totalCourses})"/>
         </Progress>
@@ -27,26 +25,23 @@
             <span v-html="$t('Pages.Profile.statistics.passedTests', {passedTests, totalTests})"/>
         </Progress>
     </div>
-  </div>
 </template>
 
 <script>
-import { Form, FormItem, Input, Button, Collapse, CollapseItem, Progress } from 'element-ui'
-import ProgressBar from '@/components/Elements/ProgressBar.vue'
+import SectionHeader from '../Layout/Content/SectionHeader.vue'
+import { Form, FormItem, Input } from 'element-ui'
 import { faChartBar } from '@fortawesome/free-solid-svg-icons'
 import { faEdit, faUser } from '@fortawesome/free-regular-svg-icons'
 
 export default {
     name: 'Profile',
     components: {
+        SectionHeader,
+
         Form,
         FormItem,
-        Input,
-        Button,
-        Collapse,
-        CollapseItem,
-        ProgressBar,
-        Progress
+        /* eslint-disable-next-line vue/no-unused-components */
+        [Input.name]: Input
     },
     icons: {
         faChartBar,
@@ -111,7 +106,7 @@ export default {
 
 .profile-statistics-icon__container {
     display: flex;
-    margin-bottom: 1em; 
+    margin-bottom: 1em;
 
     .statistics-icon__text {
         margin-left: .5em;
