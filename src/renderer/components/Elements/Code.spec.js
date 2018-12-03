@@ -1,6 +1,7 @@
 import { expect } from 'chai'
-import { spy } from 'sinon'
+import { spy, stub } from 'sinon'
 import Code from './Code.vue'
+import { shallowMount } from '@vue/test-utils'
 
 describe('Code.vue', () => {
     it('highlightedLines validator only allows valid ranges', () => {
@@ -51,5 +52,16 @@ describe('Code.vue', () => {
             })
             addLineClass.resetHistory()
         })
+    })
+
+    it('textarea is available', () => {
+        const initialize = stub()
+        const wrapper = shallowMount(Code, {
+            methods: {
+                initialize
+            }
+        })
+
+        expect(wrapper.contains('textarea')).to.be.true
     })
 })
