@@ -4,7 +4,7 @@ import Heading from './Heading.vue'
 
 describe('Heading.vue', () => {
     let wrapper = {}
-    const expectedHeadding = 'Lorem Ipsum'
+    const expectedHeading = 'Lorem Ipsum'
     const expectedLevel = 3
 
     beforeEach(() => {
@@ -13,7 +13,7 @@ describe('Heading.vue', () => {
                 props: {
                     level: expectedLevel
                 },
-                children: [expectedHeadding]
+                children: [expectedHeading]
             }
         })
     })
@@ -31,6 +31,6 @@ describe('Heading.vue', () => {
     })
 
     it('heading text should be set', () => {
-        expect(wrapper.text()).to.equal(expectedHeadding)
+        expect(wrapper.text()).to.equal(expectedHeading)
     })
 })
