@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '../components/Pages/Home.vue'
 import Settings from '../components/Pages/Settings.vue'
 import Profile from '../components/Pages/Profile.vue'
+import Course from '../components/Pages/Course.vue'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ const router = new Router({
             path: '/profile',
             name: 'profile',
             component: Profile
+        },
+        {
+            path: '/course',
+            name: 'course',
+            component: Course
         }
     ]
 })
