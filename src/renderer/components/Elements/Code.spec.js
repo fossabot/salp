@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { spy, stub } from 'sinon'
+import { spy, stub, fake } from 'sinon'
 import Code from './Code.vue'
 import { shallowMount } from '@vue/test-utils'
 
@@ -63,5 +63,44 @@ describe('Code.vue', () => {
         })
 
         expect(wrapper.contains('textarea')).to.be.true
+    })
+
+    describe('Codemirror options', () => {
+        const expectedCode = ' const a = 1 + 2'
+        const expectedLanguage = 'javascript'
+        const expectedDefaultOptions = {
+            tabSize: 4,
+            lineNumbers: true,
+            readOnly: 'nocursor',
+            mode: expectedLanguage
+        }
+
+        let setValue, fromTextArea
+
+        beforeEach(() => {
+            setValue = fake()
+            fromTextArea = fake.returns({ setValue })
+            Code.__Rewire__('codeMirror', { fromTextArea })
+            shallowMount(Code, {
+                propsData: {
+                    code: expectedCode,
+                    language: expectedLanguage
+                }
+            })
+        })
+
+        it('language gets passed correctly', () => {
+            expect(fromTextArea.lastArg).to.have.property('mode', expectedLanguage)
+        })
+
+        it('code gets set correctly', () => {
+            expect(setValue.lastArg).to.equal(expectedCode)
+        })
+
+        it('defaults options are set correctly', () => {
+            expect(fromTextArea.lastArg).to.deep.equal(expectedDefaultOptions)
+        })
+
+        Code.__ResetDependency__('codeMirror')
     })
 })
