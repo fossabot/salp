@@ -25,8 +25,8 @@ describe('Code.vue', () => {
 
         const validator = Code.props.highlightedLines.validator
 
-        expectedValues.forEach(({ value, expects }) => {
-            expect(validator(value)).to.equal(expects, `validating ${value} to be ${expects}`)
+        expectedValues.forEach(({ value, expects }, index) => {
+            expect(validator(value)).to.equal(expects, `expectedValues[${index}]: validation of '${value}' should be ${expects}`)
         })
     })
 
@@ -48,7 +48,7 @@ describe('Code.vue', () => {
             highlightLines(value)
 
             expects.forEach((expects, index) => {
-                expect(addLineClass.getCall(index).calledWith(expects), `validating ${value} to be ${expects}`).to.be.true
+                expect(addLineClass.getCall(index).calledWith(expects), `expectedValues[${index}]: validation of '${value}' should be ${expects}`).to.be.true
             })
             addLineClass.resetHistory()
         })
