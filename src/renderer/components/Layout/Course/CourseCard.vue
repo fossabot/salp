@@ -1,56 +1,53 @@
 <template>
-    <Card class="course-card" shadow="hover">
-        <header slot="header" class="course-card__header">
-            <h3 class="course-card__name">{{ name }}</h3>
+    <a href="#" class="course-card--link">
+        <Card class="course-card" shadow="hover">
+            <header slot="header" class="course-card__header">
+                <h3 class="course-card__name">{{ name }}</h3>
 
-            <div class="course-card__context-menu">
-                <Dropdown trigger="click">
-                    <Button type="text" class="dropdown__trigger">
-                        <Icon icon="faEllipsisV"/>
-                    </Button>
-                    <DropdownMenu slot="dropdown">
-                        <DropdownItem>
-                            <Icon icon="faGlobe"/> {{ $t('Layout.Course.actions.openProjectPage') }}
-                        </DropdownItem>
-                        <DropdownItem>
-                            <Icon icon="faExclamation"/> {{ $t('Layout.Course.actions.reportIssue') }}
-                        </DropdownItem>
-                        <DropdownItem v-if="progress">
-                            <Icon icon="faRedo"/> Reset
-                        </DropdownItem>
-                        <DropdownItem>
-                            <Icon icon="faTrashAlt"/> {{ $t('Layout.Course.actions.delete') }}
-                        </DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
+                <div class="course-card__context-menu">
+                    <Dropdown trigger="click">
+                        <Button type="text" class="dropdown__trigger">
+                            <Icon icon="faEllipsisV"/>
+                        </Button>
+                        <DropdownMenu slot="dropdown">
+                            <DropdownItem>
+                                <Icon icon="faGlobe"/> {{ $t('Layout.Course.actions.openProjectPage') }}
+                            </DropdownItem>
+                            <DropdownItem>
+                                <Icon icon="faExclamation"/> {{ $t('Layout.Course.actions.reportIssue') }}
+                            </DropdownItem>
+                            <DropdownItem v-if="progress">
+                                <Icon icon="faRedo"/> Reset
+                            </DropdownItem>
+                            <DropdownItem>
+                                <Icon icon="faTrashAlt"/> {{ $t('Layout.Course.actions.delete') }}
+                            </DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
+            </header>
+
+            <div class="course-card__info">
+                <p>{{ description }}</p>
+
+                <div class="course-card__tags">
+                    <Tag size="small" v-for="(tag, index) in tags" :key="index">{{ tag }}</Tag>
+                </div>
+
+                <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.lessonsAndTests', args: {lessons, tests}}"></span>
+                <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
             </div>
-        </header>
 
-        <div class="course-card__info">
-            <p>{{ description }}</p>
-
-            <div class="course-card__tags">
-                <Tag size="small" v-for="(tag, index) in tags" :key="index">{{ tag }}</Tag>
+            <div class="course-card__footer">
+                <ProgressBar :progress="progress" class="course-card__progress"/>
             </div>
-
-            <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.lessonsAndTests', args: {lessons, tests}}"></span>
-            <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
-        </div>
-
-        <div class="course-card__footer">
-            <Button type="text" class="course-card__start-button">
-                <Tooltip placement="bottom" content="Start">
-                    <Icon icon="faPlay"/>
-                </Tooltip>
-            </Button>
-            <ProgressBar :progress="progress" class="course-card__progress"/>
-        </div>
-    </Card>
+        </Card>
+    </a>
 </template>
 
 <script>
-import { Card, Button, Dropdown, DropdownMenu, DropdownItem, Tooltip, Tag } from 'element-ui'
-import { faEllipsisV, faGlobe, faExclamation, faRedo, faTrashAlt, faPlay } from '@fortawesome/free-solid-svg-icons'
+import { Card, Button, Dropdown, DropdownMenu, DropdownItem, Tag } from 'element-ui'
+import { faEllipsisV, faGlobe, faExclamation, faRedo, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import ProgressBar from '@/components/Elements/ProgressBar.vue'
 
 export default {
@@ -73,7 +70,6 @@ export default {
         Dropdown,
         DropdownMenu,
         DropdownItem,
-        Tooltip,
         Tag,
         ProgressBar
     },
@@ -82,8 +78,7 @@ export default {
         faGlobe,
         faExclamation,
         faRedo,
-        faTrashAlt,
-        faPlay
+        faTrashAlt
     }
 }
 </script>
@@ -146,14 +141,6 @@ export default {
     padding: $--card-padding;
     border-top: 1px solid $--card-border-color;
     display: flex;
-}
-
-.course-card__start-button {
-    flex: 0 1 auto;
-
-    &.el-button {
-        padding: 0px 12px 0px 0px;
-    }
 }
 
 .course-card__progress {
