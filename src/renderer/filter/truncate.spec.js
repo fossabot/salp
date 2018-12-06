@@ -1,20 +1,20 @@
 import { expect } from 'chai'
-import { truncateFilter } from './truncate'
+import { truncateFunction } from './truncate'
 
 describe('truncate.js', () => {
     const expectedLength = 40
     const text = 'This course will introduce you to SQL injections which are commonly found in web applications'
     const expectedOmission = '...'
 
-    it(`length should not be more then ${expectedLength} characters if length is ${expectedLength}`, () => {
-        expect(truncateFilter(text, expectedLength).length).to.equal(expectedLength)
+    it(`Text should be omitted when it has more chracters then allowed.`, () => {
+        expect(truncateFunction(text, expectedLength).length).to.equal(expectedLength)
     })
 
-    it(`last 3 chars should be ${expectedOmission} if length greater then ${expectedLength}`, () => {
-        expect(truncateFilter(text, expectedLength).endsWith(expectedOmission)).to.be.true
+    it(`Last 3 characters should be ${expectedOmission} when text is omitted.`, () => {
+        expect(truncateFunction(text, expectedLength).endsWith(expectedOmission)).to.be.true
     })
 
-    it(`text should not be omitted if length is text.length`, () => {
-        expect(truncateFilter(text, text.length)).to.equal(text)
+    it(`Text should not be omitted when number of characters is allwoed.`, () => {
+        expect(truncateFunction(text, text.length)).to.equal(text)
     })
 })
