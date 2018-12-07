@@ -6,9 +6,9 @@ import locale from 'element-ui/lib/locale'
 
 import Vue from 'vue'
 import icons from './icons.js'
-import { truncateFilter } from '../filter/truncate.js'
+import truncate from '../filters/truncate.js'
 
 locale.use(lang)
 
 Vue.use(icons)
-Vue.use(truncateFilter)
+Vue.use(truncate)
