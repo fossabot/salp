@@ -1,28 +1,61 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
+import { set } from 'lodash/object'
 
 Vue.use(VueI18n)
 
-function loadLocaleMessages () {
-  const locales = require.context('$src/locales', true, /[A-Za-z0-9-_,\s]+\.json$/i)
-  const messages = {}
+let localesContext
+function updateRequireContext() {
+    localesContext = require.context('$src/locales', true, /[a-zA-Z0-9]+\.json$/i)
+}
+updateRequireContext()
 
-  locales.keys().forEach(key => {
-    const matched = key.match(/([a-z]{2})\/([A-Za-z0-9-_]+)\./i)
-    if (matched && matched.length > 2) {
-      const locale = matched[1]
-      const target = matched[2]
+function createMessages(localeFiles, loader) {
+    const messages = {}
 
-      messages[locale] = {}
-      messages[locale][target] = locales(key)
-    }
-  })
-  
-  return messages
+    localeFiles.forEach(file => {
+        const matched = file.match(/([a-z]{2})\/([a-zA-Z0-9]+\/)*([a-zA-Z0-9]+)\.json$/i)
+        if (matched && matched.length > 2) {
+            // locale (country-code) folder
+            let path = [ matched[1] ]
+
+            if (matched[2]) {
+                // nested subdirectories
+                const subdirs = matched[2].split('/')
+                subdirs.pop()
+
+                path = path.concat(subdirs)
+            }
+
+            // filename (without suffix)
+            path.push(matched[3])
+
+            set(messages, path, loader(file))
+        }
+    })
+
+    return messages
 }
 
-export default new VueI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE,
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE,
-  messages: loadLocaleMessages()
+function loadLocaleMessages() {
+    return createMessages(localesContext.keys(), localesContext)
+}
+
+const i18n = new VueI18n({
+    locale: process.env.VUE_APP_I18N_LOCALE || 'en',
+    fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
+    messages: loadLocaleMessages()
 })
+
+export default i18n
+
+if (module.hot) {
+    module.hot.accept(localesContext.id, function() {
+        updateRequireContext()
+
+        const updatedMessages = loadLocaleMessages()
+        Object.keys(updatedMessages).forEach(lang => {
+            i18n.setLocaleMessage(lang, updatedMessages[lang])
+        })
+    })
+}

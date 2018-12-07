@@ -1,10 +1,8 @@
 /* Default theme which extends element's theme-chalk */
-
-/* icon font path, required */
-$--font-path: '~element-ui/lib/theme-chalk/fonts';
+@import "element/common/var.scss";
 
 @import '~element-ui/packages/theme-chalk/src/reset';
-@import "~element-ui/packages/theme-chalk/src/index";
+@import "~element-ui/packages/theme-chalk/src/base";
 
 body,
 html {
@@ -20,4 +18,8 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Muli', 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.el-icon-fa {
+    vertical-align: text-bottom;
 }

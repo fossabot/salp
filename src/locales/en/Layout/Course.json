@@ -1,0 +1,26 @@
+{
+    "actions": {
+        "delete": "Delete",
+        "reportIssue": "Report issue",
+        "openProjectPage": "Visit project website",
+        "visitAuthorPage": "Visit authors website"
+    },
+    "info": {
+        "shortDescription": {
+            "lessonsAndTests": "{lessons} lessons, {tests} tests.",
+            "authorAndVersion": "By {author}, version {version}."
+        }
+    },
+    "overview": {
+        "categories": {
+            "recent": "Recent",
+            "favourites": "Favourites",
+            "installed": "Installed"
+        }
+    },
+    "detail": {
+        "sections": {
+            "personalProgress": "Your progress"
+        }
+    }
+}
