@@ -28,7 +28,7 @@
             </header>
 
             <div class="course-card__info">
-                <p>{{ description }}</p>
+                <p>{{ description | truncate(140) }}</p>
 
                 <div class="course-card__tags">
                     <Tag size="small" v-for="(tag, index) in tags" :key="index">{{ tag }}</Tag>
