@@ -60,6 +60,7 @@ export default {
                 tabSize: 4,
                 lineNumbers: true,
                 readOnly: 'nocursor',
+                viewportMargin: Infinity,
                 mode: this.language
             }
 
@@ -102,9 +103,10 @@ export default {
 
 <style lang="scss">
 .code__wrapper {
+    .CodeMirror {
+        height: auto;
+    }
     .CodeMirror-scroll {
-        height: fit-content;
-        padding: 1em 0 1em 0;
         .line-highlight {
             background-color: lightgray;
         }
