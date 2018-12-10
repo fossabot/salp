@@ -2,7 +2,8 @@
     "actions": {
         "delete": "Delete",
         "reportIssue": "Report issue",
-        "openProjectPage": "Visit project website"
+        "openProjectPage": "Visit project website",
+        "visitAuthorPage": "Visit authors website"
     },
     "info": {
         "shortDescription": {
@@ -15,6 +16,11 @@
             "recent": "Recent",
             "favourites": "Favourites",
             "installed": "Installed"
+        }
+    },
+    "detail": {
+        "sections": {
+            "personalProgress": "Your progress"
         }
     }
 }

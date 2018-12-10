@@ -12,7 +12,7 @@ const fakeComponent = {
 const localVue = new createLocalVue()
 localVue.use(icons)
 
-describe('icons plugin', () => {
+describe('icons.js: icons plugin', () => {
     it('attaches $icons object to components vm', () => {
         const wrapper = shallowMount(fakeComponent, {
             localVue,

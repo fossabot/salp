@@ -9,6 +9,10 @@
     "pages": {
         "home": "Home",
         "settings": "Settings",
-        "profile": "Profile"
+        "profile": "Profile",
+        "course": "Course"
+    },
+    "headlines": {
+        "toc": "Table of Contents"
     }
 }
