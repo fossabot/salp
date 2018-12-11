@@ -14,7 +14,10 @@ export default {
         return createElement(
             'h' + props.level,
             {
-                staticClass: `contentelement-heading contentelement-heading--h${props.level}`
+                staticClass: `contentelement-heading contentelement-heading--h${props.level}`,
+                style: {
+                    marginBottom: 0
+                }
             },
             children
         )
