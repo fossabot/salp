@@ -69,14 +69,14 @@ module.exports = {
             .rule('vue')
             .use('vue-loader')
             .loader('vue-loader')
-            .tap(options => ({
-                ...options,
-                transformAssetUrls: {
+            .tap(options => {
+                options['transformAssetUrls'] = {
                     'SimpleImage': 'src',
                     'SimpleVideo': 'src',
                     'AppPreview': 'src'
                 }
-            }))
+                return options
+            })
 
         if (!isTesting) {
             // Create chunks for (larger) libraries
