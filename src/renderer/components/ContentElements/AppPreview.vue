@@ -16,11 +16,14 @@ export default {
         Card
     },
     props: {
-        imageSrc: {
+        src: {
             type: String,
             default() {
                 return 'image/default'
             }
+        },
+        height: {
+            type: String
         },
         heading: {
             type: String,
@@ -47,45 +50,65 @@ export default {
             },
             [
                 createElement(
-                    SimpleImage,
-                    {
-                        staticClass: `contentelement-app-preview-image`,
-                        props: {
-                            src: props.imageSrc
-                        }
-                    }
-                ),
-                createElement(
                     'div',
                     {
-                        staticClass: `contentelement-app-preview-content__wrapper`
+                        staticClass: `contentelement-app-preview-content-image__wrapper`,
+                        style: {
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between'
+                        }
                     },
                     [
                         createElement(
-                            Heading,
+                            SimpleImage,
                             {
-                                staticClass: `contentelement-app-preview-content-heading`,
+                                staticClass: `contentelement-app-preview-image`,
                                 props: {
-                                    level: 3
-                                }
-                            },
-                            props.heading
-                        ),
-                        createElement(
-                            SimpleText,
-                            {
-                                staticClass: `contentelement-app-preview-content-description`
-                            },
-                            props.description
-                        ),
-                        createElement(
-                            SimpleLink,
-                            {
-                                staticClass: `contentelement-app-preview-content-link`,
-                                props: {
-                                    url: props.url
+                                    src: props.src,
+                                    height: props.height
                                 }
                             }
+                        ),
+                        createElement(
+                            'div',
+                            {
+                                staticClass: `contentelement-app-preview-content__wrapper`,
+                                style: {
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'flex-start',
+                                    marginLeft: '1em'
+                                }
+                            },
+                            [
+                                createElement(
+                                    Heading,
+                                    {
+                                        staticClass: `contentelement-app-preview-content-heading`,
+                                        props: {
+                                            level: 2
+                                        }
+                                    },
+                                    props.heading
+                                ),
+                                createElement(
+                                    SimpleText,
+                                    {
+                                        staticClass: `contentelement-app-preview-content-description`
+                                    },
+                                    props.description
+                                ),
+                                createElement(
+                                    SimpleLink,
+                                    {
+                                        staticClass: `contentelement-app-preview-content-link`,
+                                        props: {
+                                            url: props.url
+                                        }
+                                    }
+                                )
+                            ]
                         )
                     ]
                 )
