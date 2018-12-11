@@ -110,6 +110,7 @@ describe('Code.vue', () => {
                 tabSize: 4,
                 lineNumbers: true,
                 readOnly: 'nocursor',
+                viewportMargin: Infinity,
                 mode: sampleCodeLanguage
             }
 
