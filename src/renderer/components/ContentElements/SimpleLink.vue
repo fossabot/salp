@@ -20,6 +20,9 @@ export default {
             'a',
             {
                 staticClass: `contentelement-link`,
+                style: {
+                    marginTop: 'auto'
+                },
                 on: {
                     click: () => {
                         shell.openExternal(props.url)
