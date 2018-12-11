@@ -6,6 +6,12 @@ export default {
         src: {
             type: String,
             required: true
+        },
+        height: {
+            type: String,
+            default() {
+                return 'auto'
+            }
         }
     },
     render(createElement, context) {
@@ -17,6 +23,10 @@ export default {
                 staticClass: `contentelement-image`,
                 attrs: {
                     src: props.src
+                },
+                style: {
+                    objectFit: 'contain',
+                    height: props.height
                 }
             }
         )
