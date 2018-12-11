@@ -1,13 +1,13 @@
 <template>
   <div id="page-settings">
-    <Form ref="form" :model="form" :label-position="'left'" label-width="300px">
+    <Form ref="form" :label-position="'left'" label-width="300px">
         <FormItem label="Use Machine Learning">
-            <ElSwitch v-model="form.ml"></ElSwitch>
+            <ElSwitch v-model="ml"></ElSwitch>
             <span class="form-item__description">If Machine Learning is switched on, you will recieve recommendations for courses and hinds
         based on your inputs.</span>
         </FormItem>
         <FormItem label="Homepath">
-            <Input autosize v-model="form.path"/>
+            <Input autosize v-model="path"/>
             <span class="form-item__description">Path to your home folder.</span>
         </FormItem>
     </Form>
@@ -16,6 +16,10 @@
 
 <script>
 import { Switch, Form, FormItem, Input } from 'element-ui'
+import { createNamespacedHelpers } from '@/store/utils'
+import { types } from '@/store/modules/persisted/UserPreferences.js'
+
+const { mapStateTwoWay } = createNamespacedHelpers('persisted/UserPreferences', types.SET)
 
 export default {
     name: 'Settings',
@@ -29,14 +33,7 @@ export default {
     beforeCreate() {
         this.$emit('pageTitle', this.$t('App.pages.settings'))
     },
-    data() {
-        return {
-            form: {
-                ml: true,
-                path: '/~'
-            }
-        }
-    }
+    computed: mapStateTwoWay(['ml', 'path'])
 }
 </script>
 
