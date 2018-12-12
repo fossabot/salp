@@ -18,16 +18,9 @@ export default function createPersistPlugin(
         return `${namespace}/${type}`
     }
 
-    function plugin(store) {
-        ipcRenderer.once(`settings:loaded:${name}`, (_, data) => {
-            store.dispatch({
-                type: getNamespacedType(loadAction),
-                content: data
-            })
-        })
-
+    async function plugin(store) {
         // Initially load all persisted settings
-        ipcRenderer.send('settings:load', name)
+        await store.dispatch(getNamespacedType(loadAction))
 
         let updateSettings
         if (immediate) {
@@ -54,17 +47,24 @@ export default function createPersistPlugin(
     }
 
     const actions = {
-        [loadAction]({ commit }, { content }) {
-            const data = JSON.parse(content) || {}
+        async [loadAction]({ commit }) {
+            ipcRenderer.once(`settings:loaded:${name}`, (_, content) => {
+                const data = JSON.parse(content) || {}
 
-            Object.keys(data).forEach(key => {
-                commit({
-                    type: mutationType,
-                    name: key,
-                    value: data[key],
-                    preventPersistance: true
-                })
+                Object.entries(data)
+                    .forEach(([ name, value ]) => {
+                        commit({
+                            type: mutationType,
+                            name,
+                            value,
+                            preventPersistance: true
+                        })
+                    })
+
+                return true
             })
+
+            ipcRenderer.send('settings:load', name)
         },
         [saveAction]({ state }) {
             const settings = Object.assign({}, state)
