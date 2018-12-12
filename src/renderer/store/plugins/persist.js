@@ -35,7 +35,7 @@ export default function createPersistPlugin(
         }
 
         store.subscribe((mutation) => {
-            if (immediate && mutation.type === getNamespacedType(mutationType) && !mutation.preventPersistance) {
+            if (immediate && mutation.type === getNamespacedType(mutationType) && !mutation.payload.preventPersistance) {
                 updateSettings()
             }
         })
