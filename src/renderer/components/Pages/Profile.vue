@@ -33,10 +33,9 @@ import SectionHeader from '../Layout/Content/SectionHeader.vue'
 import { Form, FormItem, Input } from 'element-ui'
 import { faChartBar } from '@fortawesome/free-solid-svg-icons'
 import { faEdit, faUser } from '@fortawesome/free-regular-svg-icons'
-import { createNamespacedHelpers } from '@/store/utils'
-import { types } from '@/store/modules/persisted/UserPreferences.js'
+import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
 
-const { mapStateTwoWay } = createNamespacedHelpers('persisted/UserPreferences', types.SET)
+const { mapStateTwoWay } = createHelpers()
 
 export default {
     name: 'Profile',

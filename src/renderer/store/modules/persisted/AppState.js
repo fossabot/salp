@@ -1,5 +1,9 @@
 // This store should be used to persist the app's state
 import createPersistPlugin from '@/store/plugins/persist'
+import { createNamespacedHelpers } from '@/store/utils'
+
+// module constants/info info
+export const namespace = 'persisted/AppState'
 
 // types
 export const types = {
@@ -13,7 +17,7 @@ const {
     store: persistedStore
 } = createPersistPlugin(
     'appstate',
-    'persisted/AppState',
+    namespace,
     {
         getterType: types.GET,
         mutationType: types.SET
@@ -30,3 +34,6 @@ export default {
         lastRoute: '/'
     }
 }
+
+// helpers
+export const createHelpers = createNamespacedHelpers.bind(null, namespace, types.SET)

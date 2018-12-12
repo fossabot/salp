@@ -1,5 +1,9 @@
 // This store saves all user preferences
 import createPersistPlugin from '@/store/plugins/persist'
+import { createNamespacedHelpers } from '@/store/utils'
+
+// module constants/info info
+export const namespace = 'persisted/UserPreferences'
 
 // types
 export const types = {
@@ -13,7 +17,7 @@ const {
     store: persistedStore
 } = createPersistPlugin(
     'userpreferences',
-    'persisted/UserPreferences',
+    namespace,
     {
         getterType: types.GET,
         mutationType: types.SET
@@ -36,3 +40,6 @@ export default {
 
     state: defaults
 }
+
+// helpers
+export const createHelpers = createNamespacedHelpers.bind(null, namespace, types.SET)

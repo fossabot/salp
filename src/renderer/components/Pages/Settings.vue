@@ -16,10 +16,9 @@
 
 <script>
 import { Switch, Form, FormItem, Input } from 'element-ui'
-import { createNamespacedHelpers } from '@/store/utils'
-import { types } from '@/store/modules/persisted/UserPreferences.js'
+import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
 
-const { mapStateTwoWay } = createNamespacedHelpers('persisted/UserPreferences', types.SET)
+const { mapStateTwoWay } = createHelpers()
 
 export default {
     name: 'Settings',
