@@ -41,8 +41,8 @@ export default function createPersistPlugin(
     }
 
     const mutations = {
-        [mutationType](state, payload) {
-            state[payload.name] = payload.value
+        [mutationType](state, { name, value }) {
+            state[name] = value
         }
     }
 
