@@ -6,6 +6,9 @@ import i18n from './plugins/i18n'
 import './plugins/design'
 
 Vue.config.productionTip = false
+Vue.config.ignoredElements = [
+    'webview'
+]
 
 new Vue({
     router,
