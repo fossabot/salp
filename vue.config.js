@@ -72,6 +72,7 @@ module.exports = {
             .tap(options => {
                 options['transformAssetUrls'] = {
                     'SimpleImage': 'src',
+                    'AdvancedImage': 'src',
                     'SimpleVideo': 'src',
                     'AppPreview': 'src'
                 }
