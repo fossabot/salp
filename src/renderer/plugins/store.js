@@ -1,14 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import modules, { PersistedUserPreferences, PersistedAppState } from '@/store/modules'
+import store from '@/store'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     strict: true,
-    plugins: [
-        PersistedUserPreferences,
-        PersistedAppState
-    ],
-    modules
+    ...store
 })
