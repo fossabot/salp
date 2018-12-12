@@ -16,7 +16,7 @@ export default function createPersistPlugin(
     } = {}
 ) {
     function getNamespacedType(type) {
-        return `${namespace}/${type}`
+        return namespace ? `${namespace}/${type}` : type
     }
 
     async function plugin(store) {
