@@ -23,16 +23,15 @@ export default function createPersistPlugin(
         // Initially load all persisted settings
         await store.dispatch(getNamespacedType(loadAction))
 
-        let updateSettings
         if (immediate) {
-            updateSettings = debounce(store.dispatch.bind(store, getNamespacedType(saveAction)), userInputDebounceTimer)
-        }
+            const updateSettings = debounce(store.dispatch.bind(store, getNamespacedType(saveAction)), userInputDebounceTimer)
 
-        store.subscribe((mutation) => {
-            if (immediate && mutation.type === getNamespacedType(mutationType) && !mutation.payload.$skipSave) {
-                updateSettings()
-            }
-        })
+            store.subscribe((mutation) => {
+                if (mutation.type === getNamespacedType(mutationType) && !mutation.payload.$skipSave) {
+                    updateSettings()
+                }
+            })
+        }
     }
 
     const getters = {
