@@ -14,7 +14,14 @@ export default {
         return createElement(
             'video',
             {
-                staticClass: `contentelement-video controls`
+                staticClass: `contentelement-video`,
+                style: {
+                    width: '100%'
+                },
+                attrs: {
+                    controls: true,
+                    controlsList: 'nodownload'
+                }
             },
             [
                 createElement(
