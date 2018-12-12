@@ -25,7 +25,6 @@ export default {
                     src: props.src
                 },
                 style: {
-                    objectFit: 'contain',
                     height: props.height
                 }
             }
@@ -33,3 +32,8 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.contentelement-image {
+    object-fit: contain;
+}
+</style>

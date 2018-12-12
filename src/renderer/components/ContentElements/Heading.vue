@@ -14,13 +14,15 @@ export default {
         return createElement(
             'h' + props.level,
             {
-                staticClass: `contentelement-heading contentelement-heading--h${props.level}`,
-                style: {
-                    marginBottom: 0
-                }
+                staticClass: `contentelement-heading contentelement-heading--h${props.level}`
             },
             children
         )
     }
 }
 </script>
+<style lang="scss">
+.contentelement-heading {
+    margin-bottom: 0;
+}
+</style>

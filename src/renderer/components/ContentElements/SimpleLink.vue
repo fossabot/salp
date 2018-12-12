@@ -20,9 +20,6 @@ export default {
             'a',
             {
                 staticClass: `contentelement-link`,
-                style: {
-                    marginTop: 'auto'
-                },
                 on: {
                     click: () => {
                         shell.openExternal(props.url)
@@ -34,3 +31,8 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.contentelement-link {
+    margin-top: auto;
+}
+</style>

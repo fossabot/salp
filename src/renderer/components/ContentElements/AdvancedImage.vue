@@ -33,10 +33,7 @@ export default {
         return createElement(
             Card,
             {
-                staticClass: `contentelement-advanced-image-card`,
-                style: {
-                    width: 'fit-content'
-                },
+                staticClass: `contentelement-advanced-image`,
                 props: {
                     bodyStyle: {
                         width: 'min-content'
@@ -67,3 +64,8 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.contentelement-advanced-image {
+    width: fit-content;
+}
+</style>

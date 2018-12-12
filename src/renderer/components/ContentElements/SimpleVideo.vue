@@ -15,9 +15,6 @@ export default {
             'video',
             {
                 staticClass: `contentelement-video`,
-                style: {
-                    width: '100%'
-                },
                 attrs: {
                     controls: true,
                     controlsList: 'nodownload'
@@ -37,3 +34,8 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.contentelement-video {
+    width: 100%;
+}
+</style>

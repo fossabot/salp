@@ -52,12 +52,7 @@ export default {
                 createElement(
                     'div',
                     {
-                        staticClass: `contentelement-app-preview-content-image__wrapper`,
-                        style: {
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between'
-                        }
+                        staticClass: `contentelement-app-preview-content-image__wrapper`
                     },
                     [
                         createElement(
@@ -73,13 +68,7 @@ export default {
                         createElement(
                             'div',
                             {
-                                staticClass: `contentelement-app-preview-content__wrapper`,
-                                style: {
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'flex-start',
-                                    marginLeft: '1em'
-                                }
+                                staticClass: `contentelement-app-preview-content__wrapper`
                             },
                             [
                                 createElement(
@@ -117,3 +106,20 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.contentelement-app-preview {
+
+    .contentelement-app-preview-content-image__wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .contentelement-app-preview-content__wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-left: 1em;
+        }
+    }
+}
+</style>
