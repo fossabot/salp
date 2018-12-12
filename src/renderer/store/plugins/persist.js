@@ -10,6 +10,7 @@ export default function createPersistPlugin(
         immediate = true,
         getterType = 'GET_PROP',
         mutationType = 'SET_PROP',
+        mutationTypeAll = `${mutationType}_ALL`,
         loadAction = 'PersistPlugin_LOAD',
         saveAction = 'PersistPlugin_SAVE'
     } = {}
@@ -43,6 +44,12 @@ export default function createPersistPlugin(
     const mutations = {
         [mutationType](state, { name, value }) {
             state[name] = value
+        },
+        [mutationTypeAll](state, { props }) {
+            Object.entries(props)
+                .forEach(([ name, value ]) => {
+                    state[name] = value
+                })
         }
     }
 
@@ -51,15 +58,10 @@ export default function createPersistPlugin(
             ipcRenderer.once(`settings:loaded:${name}`, (_, content) => {
                 const data = JSON.parse(content) || {}
 
-                Object.entries(data)
-                    .forEach(([ name, value ]) => {
-                        commit({
-                            type: mutationType,
-                            name,
-                            value,
-                            preventPersistance: true
-                        })
-                    })
+                commit({
+                    type: mutationTypeAll,
+                    props: data
+                })
 
                 return true
             })
