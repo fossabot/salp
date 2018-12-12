@@ -21,7 +21,7 @@ describe('SimpleVideo.vue', () => {
     })
 
     it('controls should be enabled', () => {
-        expect(wrapper.classes('controls')).to.be.true
+        expect(wrapper.attributes().controls).to.exist
     })
 
     it('video tag should be created', () => {
