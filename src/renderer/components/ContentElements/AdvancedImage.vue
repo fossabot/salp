@@ -6,6 +6,11 @@ import SimpleText from './SimpleText.vue'
 export default {
     name: 'AdvancedImage',
     functional: true,
+    components: {
+        Card,
+        SimpleImage,
+        SimpleText
+    },
     props: {
         src: {
             type: String,
