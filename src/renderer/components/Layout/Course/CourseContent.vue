@@ -8,7 +8,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import Heading from '../../ContentElements/Heading.vue'
 import SimpleImage from '../../ContentElements/SimpleImage.vue'
 import AdvancedImage from '../../ContentElements/AdvancedImage.vue'
@@ -57,7 +56,7 @@ export default {
             currentLecture: 0
         }
     },
-    computed : {
+    computed: {
         getCurrentLecture: function() {
             return this.lectures[this.currentLecture]
         },
