@@ -41,7 +41,17 @@ describe('YouTube.vue', () => {
             { value: 'youtu.be/PQPO5Z4lVTU', expects: false },
             { value: 'https://www.youtube.com/watch?v=PQP-5Z4lVTU', expects: true },
             { value: 'https://www.youtube.com/watch?v=PQP-5Z4lVTU1', expects: false },
-            { value: 'www.youtube.com/watch?v=PQP-5Z4lVTU', expects: false }
+            { value: 'www.youtube.com/watch?v=PQP-5Z4lVTU', expects: false },
+            { value: 'https://youtu.be/PQPO5Z4lVTU\rM', expects: false },
+            /* eslint-disable-next-line no-useless-escape */
+            { value: '\h\t\t\p\s\:\/\/youtu\.be\/PQPO5Z4lVTU', expects: false },
+            { value: 'https://https://youtu.be/PQPO5Z4lVTU', expects: false },
+            { value: 'https://youtu.be/https://youtu.be/PQPO5Z4lVTU', expects: false },
+            { value: 'https://www.youtube.com/watch?v= QP-5Z4lVTU', expects: false },
+            { value: 'https://www.youtube.com/watch?v=%20PQP-5Z4lVTU', expects: false },
+            { value: 'https://www.youtube.com/watch?v=%20-5Z4lVTU', expects: false },
+            { value: '"https://www.youtube.com/watch?v=%20-5Z4lVTU"', expects: false },
+            { value: 'https://youtu,be/PQPO5Z4lVTU', expects: false }
         ]
 
         const validator = YouTube.props.url.validator
