@@ -5,9 +5,9 @@ cache:
   key: "${CI_COMMIT_REF_SLUG}-${CI_JOB_STAGE}"
 
 stages:
+  - audit
   - lint
   - test
-  - audit
 
 # global defaults
 variables:
