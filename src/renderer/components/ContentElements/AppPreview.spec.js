@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import AppPreview from './AppPreview.vue'
 import SimpleLink from './SimpleLink.vue'
 import SimpleImage from './SimpleImage.vue'
@@ -14,10 +14,10 @@ describe('AppPreview.vue', () => {
     const expectedUrl = 'testurl'
 
     beforeEach(() => {
-        wrapper = mount(AppPreview, {
+        wrapper = shallowMount(AppPreview, {
             context: {
                 props: {
-                    imageSrc: expectedImageSrc,
+                    src: expectedImageSrc,
                     heading: expectedHeading,
                     description: expectedDescription,
                     url: expectedUrl
