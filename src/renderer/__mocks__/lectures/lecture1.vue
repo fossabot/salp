@@ -18,7 +18,7 @@
             fugiat vitae quaerat
         </SimpleText>
         <Code :language="'text/x-sql'" :code="'SELECT * FROM USERS WHERE USERS.ID > 1;'" />
-        <SimpleImage src="../images/lorem.jpg" />
+        <SimpleImage src="../images/dummy_400x400.jpg" />
         <SimpleText>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
@@ -30,7 +30,7 @@
             Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
             fugiat vitae quaerat
         </SimpleText>
-        <AppPreview src="../images/lorem.jpg" height="12em" heading="WireShark" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        <AppPreview src="../images/dummy_400x400.jpg" height="12em" heading="WireShark" description="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Doloremque Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
             fugiat vitae quaerat officiis cupiditate ducimus explicabo temporibus

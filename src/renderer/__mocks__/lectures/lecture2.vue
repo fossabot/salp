@@ -43,7 +43,7 @@
             Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
             fugiat vitae quaerat
         </SimpleText>
-        <AdvancedImage src="../images/ipsum.png" description="Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
+        <AdvancedImage src="../images/dummy_400x400.png" description="Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
             fugiat vitae quaerat
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
