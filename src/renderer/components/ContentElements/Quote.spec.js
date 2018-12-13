@@ -1,15 +1,18 @@
 import { expect } from 'chai'
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import SimpleText from './SimpleText.vue'
 import Quote from './Quote.vue'
+
+const localVue = createLocalVue()
+localVue.component(SimpleText.name, SimpleText)
 
 describe('Quote.vue', () => {
     let wrapper = {}
     const expectedQuote = 'dolor sit amet'
-    const expectedSource = 'testurl'
 
     beforeEach(() => {
         wrapper = mount(Quote, {
+            localVue,
             context: {
                 props: {
                     quote: expectedQuote
