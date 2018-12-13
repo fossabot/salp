@@ -7,10 +7,7 @@ export default {
             type: String,
             required: true,
             validator(url) {
-                if (url.match(/^(https:\/\/)(www\.youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})$/)) {
-                    return true
-                }
-                return false
+                return !!url.match(/^(https:\/\/)(www\.youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})$/)
             }
         }
     },

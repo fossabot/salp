@@ -72,6 +72,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
 .course-content__container__pagination__wrapper {
     display: flex;
