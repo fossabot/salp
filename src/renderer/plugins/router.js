@@ -4,6 +4,8 @@ import Home from '../components/Pages/Home.vue'
 import Settings from '../components/Pages/Settings.vue'
 import Profile from '../components/Pages/Profile.vue'
 import Course from '../components/Pages/Course.vue'
+import CourseDetail from '../components/Layout/Course/CourseDetail.vue'
+import CourseContent from '../components/Layout/Course/CourseContent.vue'
 
 Vue.use(Router)
 
@@ -27,7 +29,20 @@ const router = new Router({
         {
             path: '/course',
             name: 'course',
-            component: Course
+            component: Course,
+            children: [
+                {
+                    path: 'detail',
+                    alias: '',
+                    name: 'coursedetail',
+                    component: CourseDetail
+                },
+                {
+                    path: 'content',
+                    name: 'coursecontent',
+                    component: CourseContent
+                }
+            ]
         }
     ]
 })
