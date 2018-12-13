@@ -6,29 +6,23 @@
             </SimpleText>
         </div>
 
-        <cite class="contentelement-quote__cite">
-            <SimpleLink class="contentelement-quote__cite__link" :url="props.source"/>
+        <cite class="contentelement-quote__cite" v-if="slots().source">
+            <slot name="source"/>
         </cite>
     </blockquote>
 </template>
 
 <script>
 import SimpleText from './SimpleText.vue'
-import SimpleLink from './SimpleLink.vue'
 
 export default {
     name: 'Quote',
     functional: true,
     components: {
-        SimpleText,
-        SimpleLink
+        SimpleText
     },
     props: {
         quote: {
-            type: String,
-            required: true
-        },
-        source: {
             type: String,
             required: true
         }

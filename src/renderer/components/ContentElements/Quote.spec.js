@@ -1,6 +1,5 @@
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
-import SimpleLink from './SimpleLink.vue'
 import SimpleText from './SimpleText.vue'
 import Quote from './Quote.vue'
 
@@ -27,7 +26,9 @@ describe('Quote.vue', () => {
         expect(wrapper.find(SimpleText).exists()).to.be.true
     })
 
-    it('should contain simpleLink component', () => {
-        expect(wrapper.find(SimpleLink).exists()).to.be.true
+    it('should not have cite when no source slot provided', () => {
+        expect(wrapper.find('cite').exists()).to.be.false
     })
+
+    it('should render source slot')
 })

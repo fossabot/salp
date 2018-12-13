@@ -48,8 +48,10 @@
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
             fugiat vitae quaerat" height="25em"/>
-    <Quote quote="The Security Considerations section addresses risks associated
-        with name ambiguity" source="https://tools.ietf.org/html/rfc5280" />
+        <Quote quote="The Security Considerations section addresses risks associated
+            with name ambiguity">
+            <SimpleLink slot="source" url="https://tools.ietf.org/html/rfc5280"/>
+        </Quote>
         <Code language="javascript" :code="'const a = 1 + 2;'" />
         <YouTube url="https://www.youtube.com/watch?v=aqz-KE-bpKQ" />
     </div>
