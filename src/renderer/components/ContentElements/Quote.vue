@@ -1,18 +1,14 @@
 <template functional>
     <blockquote class="contentelement-quote">
-        <div class="contentelement-quote__flex-wrapper">
-            <div class="contentelement-quote__left-border"></div>
-
-            <div class="contentelement-quote-content__wrapper">
-                <SimpleText>
-                    "{{ props.quote }}"
-                </SimpleText>
-
-                <cite class="contentelement-quote__cite">
-                    <SimpleLink class="contentelement-quote__cite__link" :url="props.source"/>
-                </cite>
-            </div>
+        <div class="contentelement-quote__content-container">
+            <SimpleText class="contentelement-quote__text">
+                "{{ props.quote }}"
+            </SimpleText>
         </div>
+
+        <cite class="contentelement-quote__cite">
+            <SimpleLink class="contentelement-quote__cite__link" :url="props.source"/>
+        </cite>
     </blockquote>
 </template>
 
@@ -43,24 +39,18 @@ export default {
 <style lang="scss">
 .contentelement-quote {
     margin: 1em 0 1em 2em;
+    padding: 1em;
 
-    .contentelement-quote__flex-wrapper {
-        display: flex;
-        flex-direction: row;
+    border-left: 8px solid $--color-primary;
 
-        .contentelement-quote__left-border {
-            background-color: $--color-primary;
-            flex-basis: 0.8%;
-        }
+    .contentelement-quote__content-container {
+        color: $--color-text-regular;
+    }
 
-        .contentelement-quote-content__wrapper {
-            padding-left: 1em;
-
-            .contentelement-quote__cite::before {
-                display: inline-block;
-                content: '—';
-            }
-        }
+    .contentelement-quote__cite::before {
+        display: inline-block;
+        margin-right: 0.5em;
+        content: '—';
     }
 }
 </style>
