@@ -1,18 +1,18 @@
 <template functional>
     <Card class="contentelement-app-preview">
-        <div class="contentelement-app-preview-content-image__wrapper">
+        <div class="contentelement-app-preview__content-image__container">
             <SimpleImage class="contentelement-app-preview-image" :src="props.src" :height="props.height"/>
 
-            <div class="contentelement-app-preview-content__wrapper">
-                <Heading class="contentelement-app-preview-content-heading" :level="2">
+            <div class="contentelement-app-preview__content__container">
+                <Heading class="contentelement-app-preview__content__heading" :level="2">
                     {{ props.heading }}
                 </Heading>
 
-                <SimpleText class="contentelement-app-preview-content-description">
+                <SimpleText class="contentelement-app-preview__content__description">
                     {{ props.description }}
                 </SimpleText>
 
-                <SimpleLink class="contentelement-app-preview-content-link" :url="props.url"/>
+                <SimpleLink class="contentelement-app-preview__content__link" :url="props.url"/>
             </div>
         </div>
     </Card>
@@ -38,9 +38,7 @@ export default {
     props: {
         src: {
             type: String,
-            default() {
-                return 'image/default'
-            }
+            required: true
         },
         height: {
             type: String
@@ -66,12 +64,12 @@ export default {
 <style lang="scss">
 .contentelement-app-preview {
 
-    .contentelement-app-preview-content-image__wrapper {
+    .contentelement-app-preview__content-image__container {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
-        .contentelement-app-preview-content__wrapper {
+        .contentelement-app-preview__content__container {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;

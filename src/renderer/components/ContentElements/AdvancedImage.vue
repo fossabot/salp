@@ -1,7 +1,7 @@
 <template functional>
-    <Card class="contentelement-advanced-image" bodyStyle="min-content">
-        <SimpleImage class="contentelement-advanced-image" :src="props.src" :height="props.height"/>
-        <SimpleText class="contentelement-advanced-image-text">
+    <Card class="contentelement-advanced-image">
+        <SimpleImage class="contentelement-advanced-image__simple-image" :src="props.src" :height="props.height"/>
+        <SimpleText class="contentelement-advanced-image__simple-text">
             {{ props.description }}
         </SimpleText>
     </Card>
@@ -41,6 +41,6 @@ export default {
 
 <style lang="scss">
 .contentelement-advanced-image {
-    width: fit-content;
+    width: min-content;
 }
 </style>
