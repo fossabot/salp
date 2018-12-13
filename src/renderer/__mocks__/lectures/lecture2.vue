@@ -48,7 +48,7 @@
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
             fugiat vitae quaerat" height="25em"/>
-        <Citation cite="The Security Considerations section addresses risks associated
+    <Quote quote="The Security Considerations section addresses risks associated
         with name ambiguity" source="https://tools.ietf.org/html/rfc5280" />
         <Code language="javascript" :code="'const a = 1 + 2;'" />
         <YouTube url="https://www.youtube.com/watch?v=aqz-KE-bpKQ" />

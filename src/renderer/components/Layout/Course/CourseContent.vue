@@ -15,7 +15,7 @@ import SimpleLink from '../../ContentElements/SimpleLink.vue'
 import SimpleText from '../../ContentElements/SimpleText.vue'
 import AppPreview from '../../ContentElements/AppPreview.vue'
 import SimpleVideo from '../../ContentElements/SimpleVideo.vue'
-import Citation from '../../ContentElements/Citation.vue'
+import Quote from '../../ContentElements/Quote.vue'
 import YouTube from '../../ContentElements/YouTube.vue'
 import Table from '../../ContentElements/Table.vue'
 import Code from '../../Elements/Code.vue'
@@ -37,7 +37,7 @@ export default {
         AdvancedImage,
         SimpleVideo,
         AppPreview,
-        Citation,
+        Quote,
         YouTube,
         Table,
         Code,

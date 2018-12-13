@@ -1,15 +1,15 @@
 <template functional>
-    <blockquote class="contentelement-cite">
-        <div class="contentelement-cite__flex-wrapper">
-            <div class="contentelement-cite__left-border"></div>
+    <blockquote class="contentelement-quote">
+        <div class="contentelement-quote__flex-wrapper">
+            <div class="contentelement-quote__left-border"></div>
 
-            <div class="contentelement-cite-content__wrapper">
+            <div class="contentelement-quote-content__wrapper">
                 <SimpleText>
-                    "{{ props.cite }}"
+                    "{{ props.quote }}"
                 </SimpleText>
 
-                <cite class="contentelement-cite__cite">
-                    <SimpleLink class="contentelement-cite__cite__link" :url="props.source"/>
+                <cite class="contentelement-quote__cite">
+                    <SimpleLink class="contentelement-quote__cite__link" :url="props.source"/>
                 </cite>
             </div>
         </div>
@@ -21,14 +21,14 @@ import SimpleText from './SimpleText.vue'
 import SimpleLink from './SimpleLink.vue'
 
 export default {
-    name: 'Citation',
+    name: 'Quote',
     functional: true,
     components: {
         SimpleText,
         SimpleLink
     },
     props: {
-        cite: {
+        quote: {
             type: String,
             required: true
         },
@@ -41,22 +41,22 @@ export default {
 </script>
 
 <style lang="scss">
-.contentelement-cite {
+.contentelement-quote {
     margin: 1em 0 1em 2em;
 
-    .contentelement-cite__flex-wrapper {
+    .contentelement-quote__flex-wrapper {
         display: flex;
         flex-direction: row;
 
-        .contentelement-cite__left-border {
+        .contentelement-quote__left-border {
             background-color: $--color-primary;
             flex-basis: 0.8%;
         }
 
-        .contentelement-cite-content__wrapper {
+        .contentelement-quote-content__wrapper {
             padding-left: 1em;
 
-            .contentelement-cite__cite::before {
+            .contentelement-quote__cite::before {
                 display: inline-block;
                 content: '—';
             }

@@ -2,26 +2,25 @@ import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
 import SimpleLink from './SimpleLink.vue'
 import SimpleText from './SimpleText.vue'
-import Citation from './Citation.vue'
+import Quote from './Quote.vue'
 
-describe('Citation.vue', () => {
+describe('Quote.vue', () => {
     let wrapper = {}
-    const expectedCitation = 'dolor sit amet'
+    const expectedQuote = 'dolor sit amet'
     const expectedSource = 'testurl'
 
     beforeEach(() => {
-        wrapper = mount(Citation, {
+        wrapper = mount(Quote, {
             context: {
                 props: {
-                    cite: expectedCitation,
-                    source: expectedSource
+                    quote: expectedQuote
                 }
             }
         })
     })
 
-    it('should contain class contentelement-cite', () => {
-        expect(wrapper.classes('contentelement-cite')).to.be.true
+    it('should contain class contentelement-quote', () => {
+        expect(wrapper.classes('contentelement-quote')).to.be.true
     })
 
     it('should contain simpleText component', () => {
