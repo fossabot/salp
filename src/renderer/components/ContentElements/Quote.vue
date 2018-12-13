@@ -14,14 +14,12 @@
 
 <script>
 import SimpleText from './SimpleText.vue'
-import SimpleLink from './SimpleLink.vue'
 
 export default {
     name: 'Quote',
     functional: true,
     components: {
-        SimpleText,
-        SimpleLink
+        SimpleText
     },
     props: {
         quote: {
