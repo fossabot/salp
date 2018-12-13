@@ -6,8 +6,8 @@
             </SimpleText>
         </div>
 
-        <cite class="contentelement-quote__cite">
-            <SimpleLink class="contentelement-quote__cite__link" :url="props.source"/>
+        <cite class="contentelement-quote__cite" v-if="slots().source">
+            <slot name="source"/>
         </cite>
     </blockquote>
 </template>
@@ -25,10 +25,6 @@ export default {
     },
     props: {
         quote: {
-            type: String,
-            required: true
-        },
-        source: {
             type: String,
             required: true
         }
