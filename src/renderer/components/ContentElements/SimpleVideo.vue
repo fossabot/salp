@@ -16,6 +16,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
 .contentelement-video {
     width: 100%;
