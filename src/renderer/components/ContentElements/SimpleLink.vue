@@ -35,5 +35,9 @@ export default {
 <style lang="scss">
 .contentelement-link {
     margin-top: auto;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 </style>
