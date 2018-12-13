@@ -11,10 +11,8 @@
 const mapStateTwoWay = normalizeNamespace((namespace, mutationType, fields) => {
     let res = {}
 
-    fields.forEach(field => {
-        const name = field.val
-
-        res[name] = {
+    fields.forEach(({ key: alias, val: origName }) => {
+        res[alias] = {
             get() {
                 const module = getModuleByNamespace(this.$store, 'mapFields', namespace)
                 if (!module) {
@@ -23,12 +21,12 @@ const mapStateTwoWay = normalizeNamespace((namespace, mutationType, fields) => {
 
                 const state = module.context.state
 
-                return state[name]
+                return state[origName]
             },
             set(value) {
                 this.$store.commit({
                     type: namespace + mutationType,
-                    name,
+                    name: origName,
                     value
                 })
             },
@@ -52,9 +50,12 @@ function normalizeMap(map) {
 }
 
 function normalizeNamespace(fn) {
-    return (namespace, mutationType, map) => {
-        if (typeof namespace !== 'string') {
-            map = namespace
+    return (...args) => {
+        let [namespace, mutationType, map] = args
+
+        if (args.length !== 3) {
+            map = mutationType
+            mutationType = namespace
             namespace = ''
         } else if (namespace.charAt(namespace.length - 1) !== '/') {
             namespace += '/'
