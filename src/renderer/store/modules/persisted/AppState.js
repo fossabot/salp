@@ -26,6 +26,7 @@ const {
 
 export { PersistedAppState }
 
+// store
 export default {
     namespaced: true,
     ...persistedStore,

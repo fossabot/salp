@@ -2,7 +2,7 @@
 // some code copied from vuex module
 
 /**
- * Similar to vuex.mapState but allows two-wat binding of state through setter
+ * Similar to vuex.mapState but allows two-way binding of state through setter
  * in computed properties. Especially useful for forms.
  *
  * @see https://vuex.vuejs.org/api/#mapstate
