@@ -1,3 +1,12 @@
+<template functional>
+    <Card class="contentelement-advanced-image" bodyStyle="min-content">
+        <SimpleImage class="contentelement-advanced-image" :src="props.src" :height="props.height"/>
+        <SimpleText class="contentelement-advanced-image-text">
+            {{ props.description }}
+        </SimpleText>
+    </Card>
+</template>
+
 <script>
 import { Card } from 'element-ui'
 import SimpleImage from './SimpleImage.vue'
@@ -26,41 +35,6 @@ export default {
             type: String,
             required: true
         }
-    },
-    render(createElement, context) {
-        const { props } = context
-
-        return createElement(
-            Card,
-            {
-                staticClass: `contentelement-advanced-image`,
-                props: {
-                    bodyStyle: {
-                        width: 'min-content'
-                    }
-                }
-
-            },
-            [
-                createElement(
-                    SimpleImage,
-                    {
-                        staticClass: `contentelement-advanced-image`,
-                        props: {
-                            src: props.src,
-                            height: props.height
-                        }
-                    }
-                ),
-                createElement(
-                    SimpleText,
-                    {
-                        staticClass: `contentelement-advanced-image-text`
-                    },
-                    props.description
-                )
-            ]
-        )
     }
 }
 </script>

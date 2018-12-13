@@ -1,3 +1,21 @@
+<template functional>
+    <blockquote class="contentelement-cite">
+        <div class="contentelement-cite__flex-wrapper">
+            <div class="contentelement-cite__left-border"></div>
+
+            <div class="contentelement-cite-content__wrapper">
+                <SimpleText>
+                    "{{ props.cite }}"
+                </SimpleText>
+
+                <cite class="contentelement-cite__cite">
+                    <SimpleLink class="contentelement-cite__cite__link" :url="props.source"/>
+                </cite>
+            </div>
+        </div>
+    </blockquote>
+</template>
+
 <script>
 import SimpleText from './SimpleText.vue'
 import SimpleLink from './SimpleLink.vue'
@@ -18,61 +36,6 @@ export default {
             type: String,
             required: true
         }
-    },
-    render(createElement, context) {
-        const { props } = context
-
-        return createElement(
-            'blockquote',
-            {
-                staticClass: `contentelement-cite`
-            },
-            [
-                createElement(
-                    'div',
-                    {
-                        staticClass: `contentelement-cite__flex-wrapper`
-                    },
-                    [
-                        createElement(
-                            'div',
-                            {
-                                staticClass: `contentelement-cite__left-border`
-                            }
-                        ),
-                        createElement(
-                            'div',
-                            {
-                                staticClass: `contentelement-cite-content__wrapper`
-                            },
-                            [
-                                createElement(
-                                    SimpleText,
-                                    `"${props.cite}"`
-                                ),
-                                createElement(
-                                    'cite',
-                                    {
-                                        staticClass: `contentelement-cite__cite`
-                                    },
-                                    [
-                                        createElement(
-                                            SimpleLink,
-                                            {
-                                                staticClass: `contentelement-cite__cite__link`,
-                                                props: {
-                                                    url: props.source
-                                                }
-                                            }
-                                        )
-                                    ]
-                                )
-                            ]
-                        )
-                    ]
-                )
-            ]
-        )
     }
 }
 </script>

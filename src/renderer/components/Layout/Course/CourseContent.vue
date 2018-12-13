@@ -22,7 +22,7 @@ import Code from '../../Elements/Code.vue'
 import Lecture1 from '@/__mocks__/lectures/lecture1.vue'
 import Lecture2 from '@/__mocks__/lectures/lecture2.vue'
 
-import { Pagination } from 'element-ui'
+import { Card, Pagination } from 'element-ui'
 
 export default {
     name: 'CourseContent',
@@ -45,6 +45,7 @@ export default {
         Lecture1,
         Lecture2,
 
+        Card,
         Pagination
     },
     data() {

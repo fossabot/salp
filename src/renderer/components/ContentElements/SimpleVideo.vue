@@ -1,3 +1,9 @@
+<template functional>
+    <video class="contentelement-video" controls="true" controls-list="nodownload">
+        <source :src="props.src"/>
+    </video>
+</template>
+
 <script>
 export default {
     name: 'SimpleVideo',
@@ -7,30 +13,6 @@ export default {
             type: String,
             required: true
         }
-    },
-    render(createElement, context) {
-        const { props } = context
-
-        return createElement(
-            'video',
-            {
-                staticClass: `contentelement-video`,
-                attrs: {
-                    controls: true,
-                    controlsList: 'nodownload'
-                }
-            },
-            [
-                createElement(
-                    'source',
-                    {
-                        attrs: {
-                            src: props.src
-                        }
-                    }
-                )
-            ]
-        )
     }
 }
 </script>

@@ -1,3 +1,23 @@
+<template functional>
+    <Card class="contentelement-app-preview">
+        <div class="contentelement-app-preview-content-image__wrapper">
+            <SimpleImage class="contentelement-app-preview-image" :src="props.src" :height="props.height"/>
+
+            <div class="contentelement-app-preview-content__wrapper">
+                <Heading class="contentelement-app-preview-content-heading" :level="2">
+                    {{ props.heading }}
+                </Heading>
+
+                <SimpleText class="contentelement-app-preview-content-description">
+                    {{ props.description }}
+                </SimpleText>
+
+                <SimpleLink class="contentelement-app-preview-content-link" :url="props.url"/>
+            </div>
+        </div>
+    </Card>
+</template>
+
 <script>
 import SimpleImage from './SimpleImage.vue'
 import Heading from './Heading.vue'
@@ -39,70 +59,6 @@ export default {
                 return ''
             }
         }
-    },
-    render(createElement, context) {
-        const { props } = context
-
-        return createElement(
-            Card,
-            {
-                staticClass: `contentelement-app-preview`
-            },
-            [
-                createElement(
-                    'div',
-                    {
-                        staticClass: `contentelement-app-preview-content-image__wrapper`
-                    },
-                    [
-                        createElement(
-                            SimpleImage,
-                            {
-                                staticClass: `contentelement-app-preview-image`,
-                                props: {
-                                    src: props.src,
-                                    height: props.height
-                                }
-                            }
-                        ),
-                        createElement(
-                            'div',
-                            {
-                                staticClass: `contentelement-app-preview-content__wrapper`
-                            },
-                            [
-                                createElement(
-                                    Heading,
-                                    {
-                                        staticClass: `contentelement-app-preview-content-heading`,
-                                        props: {
-                                            level: 2
-                                        }
-                                    },
-                                    props.heading
-                                ),
-                                createElement(
-                                    SimpleText,
-                                    {
-                                        staticClass: `contentelement-app-preview-content-description`
-                                    },
-                                    props.description
-                                ),
-                                createElement(
-                                    SimpleLink,
-                                    {
-                                        staticClass: `contentelement-app-preview-content-link`,
-                                        props: {
-                                            url: props.url
-                                        }
-                                    }
-                                )
-                            ]
-                        )
-                    ]
-                )
-            ]
-        )
     }
 }
 </script>

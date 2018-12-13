@@ -1,3 +1,7 @@
+<template functional>
+    <img class="contentelement-image" :src="props.src" :style="{height: props.height}"/>
+</template>
+
 <script>
 export default {
     name: 'SimpleImage',
@@ -13,22 +17,6 @@ export default {
                 return 'auto'
             }
         }
-    },
-    render(createElement, context) {
-        const { props } = context
-
-        return createElement(
-            'img',
-            {
-                staticClass: `contentelement-image`,
-                attrs: {
-                    src: props.src
-                },
-                style: {
-                    height: props.height
-                }
-            }
-        )
     }
 }
 </script>
