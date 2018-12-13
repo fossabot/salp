@@ -51,6 +51,6 @@
         <Citation cite="The Security Considerations section addresses risks associated
         with name ambiguity" source="https://tools.ietf.org/html/rfc5280" />
         <Code language="javascript" :code="'const a = 1 + 2;'" />
-        <YouTube url="https://www.youtube.com/watch?v=yGoCMDrzCq0" />
+        <YouTube url="https://www.youtube.com/watch?v=aqz-KE-bpKQ" />
     </div>
 </template>
