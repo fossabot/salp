@@ -31,6 +31,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
 .contentelement-link {
     margin-top: auto;

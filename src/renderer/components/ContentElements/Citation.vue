@@ -76,6 +76,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
 .contentelement-cite {
     margin: 1em 0 1em 2em;

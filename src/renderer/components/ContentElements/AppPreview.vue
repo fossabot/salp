@@ -106,6 +106,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
 .contentelement-app-preview {
 

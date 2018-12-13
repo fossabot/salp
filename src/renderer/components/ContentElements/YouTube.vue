@@ -46,6 +46,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
 .contentelement-youtube {
     width: 100%;
