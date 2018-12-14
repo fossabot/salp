@@ -26,7 +26,7 @@ describe('AppPreview.vue', () => {
             localVue,
             context: {
                 props: {
-                    imageSrc: expectedImageSrc,
+                    src: expectedImageSrc,
                     heading: expectedHeading,
                     description: expectedDescription,
                     url: expectedUrl
