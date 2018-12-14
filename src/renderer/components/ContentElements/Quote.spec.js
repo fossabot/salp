@@ -25,7 +25,7 @@ describe('Quote.vue', () => {
         expect(wrapper.classes('contentelement-quote')).to.be.true
     })
 
-    it('should create simple-text component', () => {
+    it('should create SimpleText component', () => {
         expect(wrapper.find(SimpleText).exists()).to.be.true
     })
 

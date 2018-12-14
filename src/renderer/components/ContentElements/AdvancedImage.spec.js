@@ -31,11 +31,11 @@ describe('AdvancedImage.vue', () => {
         expect(wrapper.contains('.el-card')).to.be.true
     })
 
-    it('should create simple-image component', () => {
+    it('should create SimpleImage component', () => {
         expect(wrapper.contains(SimpleImage)).to.be.true
     })
 
-    it('should create simple-text component', () => {
+    it('should create SimpleText component', () => {
         expect(wrapper.contains(SimpleText)).to.be.true
     })
 })
