@@ -1,6 +1,5 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import $store from '@/__mocks__/store/empty'
 
 const pages = require.context('@/components/Pages', true, /\.vue$/)
 
@@ -11,11 +10,7 @@ describe('router.js', () => {
             const component = pages(page).default
 
             it(componentName, () => {
-                const wrapper = shallowMount(component, {
-                    mocks: {
-                        $store
-                    }
-                })
+                const wrapper = shallowMount(component)
 
                 expect(wrapper.emitted('pageTitle').length).to.equal(1)
             })
