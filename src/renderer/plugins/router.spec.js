@@ -10,11 +10,7 @@ describe('router.js', () => {
             const component = pages(page).default
 
             it(componentName, () => {
-                const wrapper = shallowMount(component, {
-                    mocks: {
-                        $t: () => !1
-                    }
-                })
+                const wrapper = shallowMount(component)
 
                 expect(wrapper.emitted('pageTitle').length).to.equal(1)
             })

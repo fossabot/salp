@@ -8,3 +8,7 @@ config.stubs = {
     'webview': true,
     'router-view': true
 }
+
+config.mocks = {
+    $t: () => 'Mock string returned for $t function, defined in unit tests\' setup.js'
+}
