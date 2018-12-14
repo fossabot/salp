@@ -23,6 +23,11 @@ eslint:
   script:
     - npm run lint -- --no-fix
 
+stylelint:
+  stage: lint
+  script:
+    - npm run lint:style -- --no-fix
+
 app:test:unit:
   stage: test
   script:
