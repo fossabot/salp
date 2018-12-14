@@ -95,10 +95,10 @@ export default {
 }
 
 .user-icon__text {
-    margin-left: .5em;
+    margin-left: 0.5em;
 }
 
-.el-input{
+.el-input {
     max-width: 40em;
 }
 
@@ -111,14 +111,14 @@ export default {
     margin-bottom: 1em;
 
     .statistics-icon__text {
-        margin-left: .5em;
+        margin-left: 0.5em;
     }
 }
 
 .profile-statistics__container {
     .el-progress__text {
         font-size: inherit !important;
-        padding: .5em !important;
+        padding: 0.5em !important;
         box-sizing: border-box;
     }
 
@@ -129,7 +129,7 @@ export default {
             background-color: red !important;
         }
 
-        &::last-of-type {
+        &:last-of-type {
             margin-right: 0;
         }
     }

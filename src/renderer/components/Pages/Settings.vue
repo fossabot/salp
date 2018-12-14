@@ -45,7 +45,7 @@ export default {
     margin-top: 0.5em;
 }
 
-.el-input{
+.el-input {
     max-width: 40em;
 }
 </style>
