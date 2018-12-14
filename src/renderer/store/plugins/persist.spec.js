@@ -71,7 +71,7 @@ describe('Vuex Persist Plugin: persist.js', () => {
 
         await plugin({ dispatch: dispatchSpy, subscribe: stub() })
 
-        expect(dispatchSpy.calledOnce).to.be.true
+        expect(dispatchSpy).to.have.been.calledOnce
     })
 
     it('should subscribe to store changes', async () => {
@@ -79,7 +79,7 @@ describe('Vuex Persist Plugin: persist.js', () => {
 
         await plugin({ dispatch: stub(), subscribe: subscribeSpy })
 
-        expect(subscribeSpy.calledOnce).to.be.true
+        expect(subscribeSpy).to.have.been.calledOnce
         expect(subscribeSpy.firstCall.lastArg).to.be.a('function')
     })
 
@@ -94,7 +94,7 @@ describe('Vuex Persist Plugin: persist.js', () => {
 
         await plugin({ dispatch: stub(), subscribe: subscribeSpy })
 
-        expect(subscribeSpy.notCalled).to.be.true
+        expect(subscribeSpy).to.have.not.been.called
     })
 
     it(`should dispatch '${saveAction}' when state changed through '${mutationType}'`, async function() {
@@ -104,7 +104,7 @@ describe('Vuex Persist Plugin: persist.js', () => {
 
         await subscribeHandlerTest(dispatchSpy)
 
-        setTimeout(() => expect(dispatchSpy.calledWith(saveAction)).to.be.true, userInputDebounceTimer)
+        setTimeout(() => expect(dispatchSpy).to.have.been.calledWith(saveAction), userInputDebounceTimer)
     })
 
     it(`should not dispatch '${saveAction}' when state changed through '${mutationType}' with '${skipSaveFlag}' flag`, async function() {
@@ -116,7 +116,7 @@ describe('Vuex Persist Plugin: persist.js', () => {
             [skipSaveFlag]: true
         })
 
-        setTimeout(() => expect(dispatchSpy.notCalled).to.be.true, userInputDebounceTimer)
+        setTimeout(() => expect(dispatchSpy).to.have.not.been.called, userInputDebounceTimer)
     })
 
     it(`should test 'getNamespacedType' function`)
@@ -235,8 +235,8 @@ describe('Vuex Persist Plugin: persist.js', () => {
         it(`should send 'settings:save' IPC message and register 'settings:loaded' handler when dispatching loading action`, async () => {
             await callAction(loadAction)
 
-            expect(ipcRendererSpy.send.calledWith('settings:load', testPluginName)).to.be.true
-            expect(ipcRendererSpy.once.calledWith(`settings:loaded:${testPluginName}`)).to.be.true
+            expect(ipcRendererSpy.send).to.have.been.calledWith('settings:load', testPluginName)
+            expect(ipcRendererSpy.once).to.have.been.calledWith(`settings:loaded:${testPluginName}`)
             expect(getSettingsLoadedHandler()).to.be.a('function')
         })
 
@@ -256,7 +256,7 @@ describe('Vuex Persist Plugin: persist.js', () => {
         it(`should send 'settings:save' IPC message with name and current state to main process`, async () => {
             await callAction(saveAction, { state: testState })
 
-            expect(ipcRendererSpy.send.calledWith('settings:save', testPluginName)).to.be.true
+            expect(ipcRendererSpy.send).to.have.been.calledWith('settings:save', testPluginName)
             expect(ipcRendererSpy.send.firstCall.lastArg).to.equal(JSON.stringify(testState))
         })
     })
