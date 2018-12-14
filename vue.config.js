@@ -2,7 +2,7 @@ const path = require('path')
 const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin')
 
 const isTesting = process.env.NODE_ENV === 'test'
-const isCoverage = process.env.npm_lifecycle_event.includes('coverage')
+const isCoverage = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event.includes('coverage')
 
 const chunks = {
     vue: {
