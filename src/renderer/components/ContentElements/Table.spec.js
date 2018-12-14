@@ -31,11 +31,11 @@ describe('Table.vue', () => {
         })
     })
 
-    it('class contentelement-table should be added', () => {
+    it('should create class "contentelement-table"', () => {
         expect(wrapper.classes('contentelement-table')).to.be.true
     })
 
-    it('table tag should be created', () => {
+    it('should create table tag', () => {
         expect(wrapper.contains('table')).to.be.true
     })
 })

@@ -27,15 +27,15 @@ describe('AdvancedImage.vue', () => {
         })
     })
 
-    it('card should be created', () => {
+    it('should create class "el-card"', () => {
         expect(wrapper.contains('.el-card')).to.be.true
     })
 
-    it('simpleImage should be created', () => {
+    it('should create simple-image component', () => {
         expect(wrapper.contains(SimpleImage)).to.be.true
     })
 
-    it('simpleText should be created', () => {
+    it('should create simple-text component', () => {
         expect(wrapper.contains(SimpleText)).to.be.true
     })
 })

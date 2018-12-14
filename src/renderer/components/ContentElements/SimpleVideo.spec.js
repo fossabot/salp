@@ -16,23 +16,23 @@ describe('SimpleVideo.vue', () => {
         })
     })
 
-    it('class contentelement-video should be added', () => {
+    it('should create class "contentelement-video"', () => {
         expect(wrapper.classes('contentelement-video')).to.be.true
     })
 
-    it('controls should be enabled', () => {
+    it('should enable control elements of the video', () => {
         expect(wrapper.attributes().controls).to.exist
     })
 
-    it('video tag should be created', () => {
+    it('should create video tag', () => {
         expect(wrapper.contains('video')).to.be.true
     })
 
-    it('source tag should be created', () => {
+    it('should create source tag', () => {
         expect(wrapper.contains('source')).to.be.true
     })
 
-    it('src should be set', () => {
+    it('should set src attribute correctly', () => {
         expect(wrapper.find('source').attributes('src')).to.equal(expectedSrc)
     })
 })

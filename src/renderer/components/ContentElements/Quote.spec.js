@@ -21,11 +21,11 @@ describe('Quote.vue', () => {
         })
     })
 
-    it('should contain class contentelement-quote', () => {
+    it('should create class "contentelement-quote"', () => {
         expect(wrapper.classes('contentelement-quote')).to.be.true
     })
 
-    it('should contain simpleText component', () => {
+    it('should create simple-text component', () => {
         expect(wrapper.find(SimpleText).exists()).to.be.true
     })
 

@@ -14,15 +14,15 @@ describe('SimpleText.vue', () => {
         })
     })
 
-    it('class contentelement-text should be added', () => {
+    it('should create class "contentelement-text"', () => {
         expect(wrapper.classes('contentelement-text')).to.be.true
     })
 
-    it('p tag should be created', () => {
+    it('should create p tag', () => {
         expect(wrapper.contains('p')).to.be.true
     })
 
-    it('text should be set', () => {
+    it('should set text correctly', () => {
         expect(wrapper.text()).to.equal(expectedText)
     })
 })

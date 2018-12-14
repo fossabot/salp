@@ -35,23 +35,23 @@ describe('AppPreview.vue', () => {
         })
     })
 
-    it('class contentelement-app-preview should be added', () => {
+    it('should create class "contentelement-app-preview"', () => {
         expect(wrapper.classes('contentelement-app-preview')).to.be.true
     })
 
-    it('simpleImage component should be created', () => {
+    it('should create simple-image component', () => {
         expect(wrapper.find(SimpleImage).exists()).to.be.true
     })
 
-    it('heading component should be created', () => {
+    it('should create heading component', () => {
         expect(wrapper.find(Heading).exists()).to.be.true
     })
 
-    it('simpleText component should be created', () => {
+    it('should create simple-text component', () => {
         expect(wrapper.find(SimpleText).exists()).to.be.true
     })
 
-    it('simpleLink component should be created', () => {
+    it('should create simple-link component', () => {
         expect(wrapper.find(SimpleLink).exists()).to.be.true
     })
 })

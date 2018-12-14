@@ -18,19 +18,19 @@ describe('Heading.vue', () => {
         })
     })
 
-    it('class contentelement-heading should be added', () => {
+    it('should create class "contentelement-heading"', () => {
         expect(wrapper.classes('contentelement-heading')).to.be.true
     })
 
-    it(`class contentelement-heading--h${expectedLevel} should be added`, () => {
+    it(`should create class "contentelement-heading--h${expectedLevel}"`, () => {
         expect(wrapper.classes(`contentelement-heading--h${expectedLevel}`)).to.be.true
     })
 
-    it(`h${expectedLevel} tag should be created`, () => {
+    it(`should create tag h${expectedLevel}`, () => {
         expect(wrapper.contains(`h${expectedLevel}`)).to.be.true
     })
 
-    it('heading text should be set', () => {
+    it('should set heading text correctly', () => {
         expect(wrapper.text()).to.equal(expectedHeading)
     })
 })
