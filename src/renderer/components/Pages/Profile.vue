@@ -5,9 +5,9 @@
                 <Icon icon="faUser"/>
                 <span class="user-icon__text">{{ $t('Pages.Profile.description.user') }}</span>
             </h3>
-            <Form ref="form" labelPosition="left" :model="form" :inline="true" class="profile-form">
+            <Form ref="form" labelPosition="left" :inline="true" class="profile-form">
                 <FormItem :label="$t('Pages.Profile.description.usernameLabel')">
-                    <ElInput autosize v-model="form.name">
+                    <ElInput autosize v-model="username">
                         <Icon icon="faEdit" slot="suffix"/>
                     </ElInput>
                 </FormItem>
@@ -33,6 +33,9 @@ import SectionHeader from '../Layout/Content/SectionHeader.vue'
 import { Form, FormItem, Input } from 'element-ui'
 import { faChartBar } from '@fortawesome/free-solid-svg-icons'
 import { faEdit, faUser } from '@fortawesome/free-regular-svg-icons'
+import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
+
+const { mapStateTwoWay } = createHelpers()
 
 export default {
     name: 'Profile',
@@ -54,9 +57,6 @@ export default {
     },
     data() {
         return {
-            form: {
-                name: 'John Doe'
-            },
             label: 'Edit',
             totalCourses: 100,
             finishedCourses: 66,
@@ -65,6 +65,7 @@ export default {
         }
     },
     computed: {
+        ...mapStateTwoWay(['username']),
         percentageComplete() {
             if (this.totalCourses === 0) {
                 return 0

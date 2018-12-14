@@ -19,15 +19,15 @@ describe('SimpleLink.vue', () => {
         })
     })
 
-    it('class contentelement-link should be added', () => {
+    it('should create class "contentelement-link"', () => {
         expect(wrapper.classes('contentelement-link')).to.be.true
     })
 
-    it('a tag should be created', () => {
+    it('should create a tag', () => {
         expect(wrapper.contains('a')).to.be.true
     })
 
-    it('openExternal should be called with URL on click event', () => {
+    it('should call openExternal with expected URL on click event', () => {
         wrapper.trigger('click')
         expect(openExternal.calledWith(expectedUrl)).to.be.true
     })

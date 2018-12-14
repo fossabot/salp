@@ -8,6 +8,7 @@ import {
     installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
 import { setup as setupLog } from '../shared/util/log'
+import './services'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 if (isDevelopment) {
     // Don't load any native (external) modules until the following line is run:

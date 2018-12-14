@@ -34,6 +34,12 @@ const chunks = {
     }
 }
 
+function createResolveAlias(config, dir) {
+    config.resolve.alias
+        .set('@', path.resolve(__dirname, 'src/', dir))
+        .set('$src', path.resolve(__dirname, 'src/'))
+}
+
 module.exports = {
     pages: {
         index: {
@@ -43,9 +49,7 @@ module.exports = {
         }
     },
     chainWebpack: config => {
-        config.resolve.alias
-            .set('@', path.resolve(__dirname, 'src/renderer/'))
-            .set('$src', path.resolve(__dirname, 'src/'))
+        createResolveAlias(config, 'renderer/')
 
         config.plugins
             .delete('preload-index')
@@ -119,7 +123,10 @@ module.exports = {
             mainProcessFile: 'src/main/index.js',
             mainProcessWatch: [
                 'src/main/'
-            ]
+            ],
+            chainWebpackMainProcess: config => {
+                createResolveAlias(config, 'main/')
+            }
         }
     }
 }
