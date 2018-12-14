@@ -1,6 +1,10 @@
 // Additional setup for environment specific configuration
 import { config } from '@vue/test-utils'
+import chai from 'chai'
+import SinonChai from 'sinon-chai'
 import $store from '@/__mocks__/store/empty'
+
+chai.use(SinonChai)
 
 config.stubs = {
     ...config.stubs,
