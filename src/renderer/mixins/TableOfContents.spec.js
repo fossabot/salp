@@ -94,7 +94,7 @@ describe('TableOfContents.js mixin', () => {
 
             renderFunctionNames.forEach(func => {
                 it(`should have invoked '${func}'`, () => {
-                    expect(renderFunctionSpies[func].called).to.be.true
+                    expect(renderFunctionSpies[func]).to.have.been.called
                 })
             })
         })

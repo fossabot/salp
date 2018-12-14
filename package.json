@@ -13,8 +13,9 @@
     "serve:electron": "vue-cli-service serve:electron",
     "dev": "vue-cli-service electron:serve --debug",
     "test:e2e": "vue-cli-service test:e2e --headless --browser chrome",
-    "test:unit": "vue-cli-service test:unit 'src/renderer/**/*.spec.js'",
-    "coverage:unit": "nyc vue-cli-service test:unit 'src/renderer/**/*.{spec.js,vue}'"
+    "test:unit_cmd": "vue-cli-service test:unit --include tests/unit/renderer/setup.js",
+    "test:unit": "npm run test:unit_cmd -- 'src/renderer/**/*.spec.js'",
+    "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/renderer/setup.js 'src/renderer/**/*.{spec.js,vue}'"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
@@ -49,12 +50,13 @@
     "eslint-plugin-chai-friendly": "^0.4.1",
     "eslint-plugin-cypress": "^2.1.2",
     "eslint-plugin-vue": "^5.0.0-0",
-    "lodash-webpack-plugin": "^0.11.5",
     "istanbul-instrumenter-loader": "^3.0.1",
+    "lodash-webpack-plugin": "^0.11.5",
     "node-sass": "^4.10.0",
     "nyc": "^13.1.0",
     "sass-loader": "^7.1.0",
     "sinon": "^7.1.1",
+    "sinon-chai": "^3.3.0",
     "style-resources-loader": "^1.2.1",
     "vue-cli-plugin-electron-builder": "^1.0.0-rc.4",
     "vue-cli-plugin-element": "^1.0.0",
