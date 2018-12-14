@@ -2,7 +2,7 @@
     <Menu id="meta-menu" :router="true" mode="horizontal">
         <MenuItem index="0" class="meta-menu__user" :route="{name: 'profile'}">
             <Icon icon="faUser"/>
-            <span slot="title">John</span>
+            <span slot="title">{{ username }}</span>
         </MenuItem>
         <MenuItem index="1">
             <Tooltip placement="bottom" :content="$t('App.menu.health')">
@@ -30,6 +30,10 @@
 <script>
 import { Menu, MenuItem, Tooltip } from 'element-ui'
 import { faUser, faHeartbeat, faDownload, faCog, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { createNamespacedHelpers } from 'vuex'
+import { namespace } from '@/store/modules/persisted/UserPreferences.js'
+
+const { mapState } = createNamespacedHelpers(namespace)
 
 export default {
     name: 'MetaMenu',
@@ -44,7 +48,8 @@ export default {
         faDownload,
         faCog,
         faInfoCircle
-    }
+    },
+    computed: mapState(['username'])
 }
 </script>
 

@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import StoreData from '@/store'
 
 let store
 
@@ -7,15 +8,8 @@ const plugin = {
         Vue.use(Vuex)
 
         store = new Vuex.Store({
-            state: {
-
-            },
-            mutations: {
-
-            },
-            actions: {
-
-            }
+            strict: true,
+            ...StoreData
         })
     }
 }

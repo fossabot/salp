@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
+import $store from '@/__mocks__/store/empty'
 
 const pages = require.context('@/components/Pages', true, /\.vue$/)
 
@@ -18,7 +19,8 @@ describe('router.js', () => {
                 const wrapper = shallowMount(component, {
                     stubs,
                     mocks: {
-                        $t: () => !1
+                        $t: () => !1,
+                        $store
                     }
                 })
 
