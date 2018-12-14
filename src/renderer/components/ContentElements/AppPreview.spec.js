@@ -1,10 +1,18 @@
 import { expect } from 'chai'
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import AppPreview from './AppPreview.vue'
 import SimpleLink from './SimpleLink.vue'
 import SimpleImage from './SimpleImage.vue'
 import SimpleText from './SimpleText.vue'
 import Heading from './Heading.vue'
+import { Card } from 'element-ui'
+
+const localVue = createLocalVue()
+localVue.component(SimpleLink.name, SimpleLink)
+localVue.component(SimpleImage.name, SimpleImage)
+localVue.component(SimpleText.name, SimpleText)
+localVue.component(Heading.name, Heading)
+localVue.component('Card', Card)
 
 describe('AppPreview.vue', () => {
     let wrapper = {}
@@ -15,6 +23,7 @@ describe('AppPreview.vue', () => {
 
     beforeEach(() => {
         wrapper = mount(AppPreview, {
+            localVue,
             context: {
                 props: {
                     imageSrc: expectedImageSrc,

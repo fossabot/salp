@@ -1,8 +1,14 @@
 import { expect } from 'chai'
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import AdvancedImage from './AdvancedImage.vue'
 import SimpleImage from './SimpleImage.vue'
 import SimpleText from './SimpleText.vue'
+import { Card } from 'element-ui'
+
+const localVue = createLocalVue()
+localVue.component(SimpleImage.name, SimpleImage)
+localVue.component(SimpleText.name, SimpleText)
+localVue.component('Card', Card)
 
 describe('AdvancedImage.vue', () => {
     let wrapper = {}
@@ -11,6 +17,7 @@ describe('AdvancedImage.vue', () => {
 
     beforeEach(() => {
         wrapper = mount(AdvancedImage, {
+            localVue,
             context: {
                 props: {
                     src: expectedSrc,
