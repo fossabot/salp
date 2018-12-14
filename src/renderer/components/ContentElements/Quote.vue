@@ -34,7 +34,6 @@ export default {
 .contentelement-quote {
     margin: 1em 0 1em 2em;
     padding: 1em;
-
     border-left: 8px solid $--color-primary;
 
     .contentelement-quote__content-container {
