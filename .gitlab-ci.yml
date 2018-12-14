@@ -4,7 +4,7 @@ image: node:latest
 cache:
   key: "${CI_COMMIT_REF_SLUG}-${CI_JOB_STAGE}"
   paths:
-    - ${CI_PROJECT_DIR}/cache/electron
+    - ${CI_PROJECT_DIR}/.cache/electron
 
 stages:
   - audit
@@ -14,7 +14,7 @@ stages:
 # global defaults
 variables:
   NODE_ENV: "test"
-  ELECTRON_CACHE: ${CI_PROJECT_DIR}/cache/electron
+  ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
   CYPRESS_INSTALL_BINARY: "0"
 
 before_script:
@@ -39,14 +39,14 @@ app:test:e2e:
   stage: test
   variables:
     NODE_ENV: "development"
-    CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/cache/Cypress
-    ELECTRON_CACHE: ${CI_PROJECT_DIR}/cache/electron
+    CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/.cache/Cypress
+    ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
   script:
     - npm run test:e2e
   cache:
     paths:
-      - ${CI_PROJECT_DIR}/cache/Cypress
-      - ${CI_PROJECT_DIR}/cache/electron
+      - ${CI_PROJECT_DIR}/.cache/Cypress
+      - ${CI_PROJECT_DIR}/.cache/electron
   artifacts:
     expire_in: 1 day
     when: always
@@ -78,7 +78,7 @@ dependency_scanning:
     - docker run
         --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
         --env CYPRESS_INSTALL_BINARY="0"
-        --env ELECTRON_CACHE="/code/cache/electron"
+        --env ELECTRON_CACHE="/code/.cache/electron"
         --volume "${CI_PROJECT_DIR}:/code"
         --volume /var/run/docker.sock:/var/run/docker.sock
         "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
