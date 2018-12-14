@@ -2,6 +2,7 @@ const path = require('path')
 const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin')
 
 const isTesting = process.env.NODE_ENV === 'test'
+const isCoverage = process.env.npm_lifecycle_event.includes('coverage')
 
 const chunks = {
     vue: {
@@ -99,7 +100,7 @@ module.exports = {
         }
 
         // Code coverage
-        if (isTesting) {
+        if (isCoverage) {
             config.module.rule('js')
                 .use('istanbul')
                 .loader('istanbul-instrumenter-loader')
