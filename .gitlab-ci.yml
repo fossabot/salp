@@ -79,7 +79,7 @@ dependency_scanning:
         --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
         --env CYPRESS_INSTALL_BINARY="0"
         --env ELECTRON_CACHE="/code/cache/electron"
-        --volume "$PWD:/code"
+        --volume "${CI_PROJECT_DIR}:/code"
         --volume /var/run/docker.sock:/var/run/docker.sock
         "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
   artifacts:
