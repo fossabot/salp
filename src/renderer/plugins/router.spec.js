@@ -4,6 +4,11 @@ import $store from '@/__mocks__/store/empty'
 
 const pages = require.context('@/components/Pages', true, /\.vue$/)
 
+const stubs = [
+    'Icon',
+    'router-view'
+]
+
 describe('router.js', () => {
     describe('pages emit "pageTitle" event when loaded', () => {
         pages.keys().forEach(page => {
@@ -12,6 +17,7 @@ describe('router.js', () => {
 
             it(componentName, () => {
                 const wrapper = shallowMount(component, {
+                    stubs,
                     mocks: {
                         $t: () => !1,
                         $store

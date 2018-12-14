@@ -1,10 +1,18 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
-import store from '@/store'
+import StoreData from '@/store'
 
-Vue.use(Vuex)
+let store
 
-export default new Vuex.Store({
-    strict: true,
-    ...store
-})
+const plugin = {
+    install(Vue) {
+        Vue.use(Vuex)
+
+        store = new Vuex.Store({
+            strict: true,
+            ...StoreData
+        })
+    }
+}
+
+export default plugin
+export { store }

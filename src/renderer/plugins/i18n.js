@@ -1,8 +1,5 @@
-import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import { set } from 'lodash/object'
-
-Vue.use(VueI18n)
 
 let localesContext
 function updateRequireContext() {
@@ -41,13 +38,22 @@ function loadLocaleMessages() {
     return createMessages(localesContext.keys(), localesContext)
 }
 
-const i18n = new VueI18n({
-    locale: process.env.VUE_APP_I18N_LOCALE || 'en',
-    fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
-    messages: loadLocaleMessages()
-})
+let i18n
 
-export default i18n
+const plugin = {
+    install(Vue) {
+        Vue.use(VueI18n)
+
+        i18n = new VueI18n({
+            locale: process.env.VUE_APP_I18N_LOCALE || 'en',
+            fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
+            messages: loadLocaleMessages()
+        })
+    }
+}
+
+export default plugin
+export { i18n }
 
 if (module.hot) {
     module.hot.accept(localesContext.id, function() {
