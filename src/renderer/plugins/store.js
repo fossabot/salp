@@ -1,16 +1,24 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+let store
 
-export default new Vuex.Store({
-    state: {
+const plugin = {
+    install(Vue) {
+        Vue.use(Vuex)
 
-    },
-    mutations: {
+        store = new Vuex.Store({
+            state: {
 
-    },
-    actions: {
+            },
+            mutations: {
 
+            },
+            actions: {
+
+            }
+        })
     }
-})
+}
+
+export default plugin
+export { store }
