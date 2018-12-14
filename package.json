@@ -13,7 +13,8 @@
     "serve:electron": "vue-cli-service serve:electron",
     "dev": "vue-cli-service electron:serve --debug",
     "test:e2e": "vue-cli-service test:e2e --headless --browser chrome",
-    "test:unit": "vue-cli-service test:unit --include tests/unit/renderer/setup.js 'src/renderer/**/*.spec.js'",
+    "test:unit_cmd": "vue-cli-service test:unit --include tests/unit/renderer/setup.js",
+    "test:unit": "npm run test:unit_cmd -- 'src/renderer/**/*.spec.js'",
     "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/renderer/setup.js 'src/renderer/**/*.{spec.js,vue}'"
   },
   "dependencies": {
