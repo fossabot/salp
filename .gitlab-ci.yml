@@ -4,6 +4,7 @@ image: node:latest
 cache:
   key: "${CI_COMMIT_REF_SLUG}-${CI_JOB_STAGE}"
   paths:
+    - ${CI_PROJECT_DIR}/.cache/npm
     - ${CI_PROJECT_DIR}/.cache/electron
 
 stages:
@@ -14,6 +15,7 @@ stages:
 # global defaults
 variables:
   NODE_ENV: "test"
+  npm_config_cache: ${CI_PROJECT_DIR}/.cache/npm
   ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
   CYPRESS_INSTALL_BINARY: "0"
 
