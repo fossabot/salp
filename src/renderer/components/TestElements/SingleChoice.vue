@@ -57,7 +57,7 @@ export default {
         }
     },
     computed: {
-        correct: function() {
+        correct: () => {
             let answeredCorrect = true
             this.answers.forEach(({ answer, correct }) => {
                 if ((correct && this.checked.indexOf(answer) === -1) || (!correct && this.checked.indexOf(answer) !== -1)) {
@@ -72,6 +72,8 @@ export default {
 
 <style lang="scss">
 .single-choice-content__container {
+    margin-top: 1em;
+
     .single-choice-content__container__radio-group {
         display: flex;
         flex-direction: column;
