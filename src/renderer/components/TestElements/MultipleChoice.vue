@@ -51,10 +51,10 @@ export default {
         }
     },
     computed: {
-        getMaxAnswers: () => {
+        getMaxAnswers: function() {
             return this.answers.length
         },
-        correct: () => {
+        correct: function() {
             let answeredCorrect = true
             this.answers.forEach(({ answer, correct }) => {
                 if ((correct && this.checked.indexOf(answer) === -1) || (!correct && this.checked.indexOf(answer) !== -1)) {

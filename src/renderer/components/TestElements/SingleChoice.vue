@@ -57,7 +57,7 @@ export default {
         }
     },
     computed: {
-        correct: () => {
+        correct: function() {
             let answeredCorrect = true
             this.answers.forEach(({ answer, correct }) => {
                 if ((correct && this.checked.indexOf(answer) === -1) || (!correct && this.checked.indexOf(answer) !== -1)) {
