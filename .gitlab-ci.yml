@@ -1,7 +1,7 @@
 # global default image
 image: node:latest
 
-cache:
+cache: &cache_default
   key: "${CI_COMMIT_REF_SLUG}-${CI_JOB_STAGE}"
   paths:
     - ${CI_PROJECT_DIR}/.cache/npm
@@ -13,7 +13,7 @@ stages:
   - test
 
 # global defaults
-variables:
+variables: &variables_default
   NODE_ENV: "test"
   npm_config_cache: ${CI_PROJECT_DIR}/.cache/npm
   ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
@@ -40,15 +40,15 @@ app:test:e2e:
   image: cypress/browsers:chrome69
   stage: test
   variables:
+    <<: *variables_default
     NODE_ENV: "development"
     CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/.cache/Cypress
-    ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
   script:
     - npm run test:e2e
   cache:
+    <<: *cache_default
     paths:
       - ${CI_PROJECT_DIR}/.cache/Cypress
-      - ${CI_PROJECT_DIR}/.cache/electron
   artifacts:
     expire_in: 1 day
     when: always
