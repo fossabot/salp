@@ -41,7 +41,6 @@ app:test:e2e:
   stage: test
   variables:
     <<: *variables_default
-    NODE_ENV: "development"
     CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/.cache/Cypress
   script:
     - npm run test:e2e
