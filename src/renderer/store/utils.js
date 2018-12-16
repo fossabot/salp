@@ -68,6 +68,7 @@ function normalizeNamespace(fn) {
 function getModuleByNamespace(store, helper, namespace) {
     const module = store._modulesNamespaceMap[namespace]
     if (process.env.NODE_ENV !== 'production' && !module) {
+        /* eslint-disable-next-line no-console */
         console.error((`[vuex] module namespace not found in ${helper}(): ${namespace}`))
     }
 
