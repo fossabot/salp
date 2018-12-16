@@ -44,7 +44,7 @@ app:test:e2e:
   variables:
     CYPRESS_INSTALL_BINARY: ""
   script:
-    - npm run test:e2e
+    - NODE_ENV="production" npm run test:e2e
   artifacts:
     expire_in: 1 day
     when: always
