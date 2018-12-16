@@ -127,6 +127,7 @@ module.exports = {
             chainWebpackMainProcess: config => {
                 createResolveAlias(config, 'main/')
             }
-        }
+        },
+        lintStyleOnBuild: false
     }
 }

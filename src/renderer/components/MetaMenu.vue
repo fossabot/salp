@@ -63,7 +63,8 @@ export default {
         color: $--color-white;
         padding: 0 2px;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             background: initial;
         }
 
