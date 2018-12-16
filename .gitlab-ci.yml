@@ -3,6 +3,10 @@ image: node:latest
 
 cache:
   key: "${CI_COMMIT_REF_SLUG}-${CI_JOB_STAGE}"
+  paths:
+    - ${CI_PROJECT_DIR}/.cache/npm
+    - ${CI_PROJECT_DIR}/.cache/electron
+    - ${CI_PROJECT_DIR}/.cache/Cypress
 
 stages:
   - audit
@@ -12,6 +16,9 @@ stages:
 # global defaults
 variables:
   NODE_ENV: "test"
+  npm_config_cache: ${CI_PROJECT_DIR}/.cache/npm
+  ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
+  CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/.cache/Cypress
   CYPRESS_INSTALL_BINARY: "0"
 
 before_script:
@@ -35,13 +42,9 @@ app:test:e2e:
   image: cypress/browsers:chrome69
   stage: test
   variables:
-    NODE_ENV: "development"
-    CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/cache/Cypress
+    CYPRESS_INSTALL_BINARY: ""
   script:
-    - npm run test:e2e
-  cache:
-    paths:
-      - ${CI_PROJECT_DIR}/cache/Cypress
+    - NODE_ENV="production" npm run test:e2e
   artifacts:
     expire_in: 1 day
     when: always
@@ -60,6 +63,8 @@ npm_audit:
 
 dependency_scanning:
   stage: audit
+  only:
+    - schedules
   image: docker:stable
   variables:
     DOCKER_DRIVER: overlay2
@@ -73,7 +78,8 @@ dependency_scanning:
     - docker run
         --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
         --env CYPRESS_INSTALL_BINARY="0"
-        --volume "$PWD:/code"
+        --env ELECTRON_CACHE="/code/.cache/electron"
+        --volume "${CI_PROJECT_DIR}:/code"
         --volume /var/run/docker.sock:/var/run/docker.sock
         "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
   artifacts:
