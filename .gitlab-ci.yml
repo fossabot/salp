@@ -63,6 +63,8 @@ npm_audit:
 
 dependency_scanning:
   stage: audit
+  only:
+    - schedules
   image: docker:stable
   variables:
     DOCKER_DRIVER: overlay2
