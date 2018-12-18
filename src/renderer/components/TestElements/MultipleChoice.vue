@@ -69,7 +69,6 @@ export default {
 
 <style lang="scss">
 .multiple-choice-content__container {
-    margin-top: 1em;
 
     .multiple-choice-content__container__checkbox-group {
         display: flex;

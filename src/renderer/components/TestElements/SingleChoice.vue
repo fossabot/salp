@@ -72,7 +72,6 @@ export default {
 
 <style lang="scss">
 .single-choice-content__container {
-    margin-top: 1em;
 
     .single-choice-content__container__radio-group {
         display: flex;
