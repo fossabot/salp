@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "npm run lint:code && npm run lint:style",
+    "lint:code": "vue-cli-service lint",
     "lint:style": "vue-cli-service lint:style",
     "build:electron": "vue-cli-service build:electron",
     "electron:build": "vue-cli-service electron:build",
