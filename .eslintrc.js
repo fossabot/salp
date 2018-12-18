@@ -9,7 +9,8 @@ module.exports = {
         '@vue/standard'
     ],
     plugins: [
-        'chai-friendly'
+        'chai-friendly',
+        'mocha'
     ],
     rules: {
         'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -42,8 +43,14 @@ module.exports = {
         'chai-friendly/no-unused-expressions': ['error'],
         'padding-line-between-statements': [
             'error',
+            { blankLine: 'always', prev: '*', next: 'return' },
             { blankLine: 'always', prev: '*', next: 'return' }
-        ]
+        ],
+        // eslint-plugin-mocha rules
+        // @see https://github.com/lo1tuma/eslint-plugin-mocha/tree/master/docs/rules
+        'mocha/no-global-tests': ['error'],
+        'mocha/no-nested-tests': ['error'],
+        'mocha/valid-test-description': ['error']
     },
     parserOptions: {
         parser: 'babel-eslint'
