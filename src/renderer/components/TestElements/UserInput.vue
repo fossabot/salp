@@ -60,9 +60,11 @@ export default {
         margin-left: 1em;
     }
 }
+
 .left {
     flex-direction: row;
 }
+
 .top {
     flex-direction: column;
 }

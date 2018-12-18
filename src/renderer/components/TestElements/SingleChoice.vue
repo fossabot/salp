@@ -72,14 +72,13 @@ export default {
 
 <style lang="scss">
 .single-choice-content__container {
-
     .single-choice-content__container__radio-group {
         display: flex;
         flex-direction: column;
 
         .single-choice-content__container__radio-group__radio {
             margin-left: 1em;
-            margin-top: .5em;
+            margin-top: 0.5em;
             width: fit-content;
         }
     }
