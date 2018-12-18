@@ -50,19 +50,19 @@ describe('Store utils: utils.js', () => {
         it('should call normalized function with normalized map', () => {
             result(testNamespace, testMutationType, testMap)
 
-            expect(normalizeMapStub.calledWith(testMap)).to.be.true
+            expect(normalizeMapStub).to.have.been.calledWith(testMap)
         })
 
         it('should call normalized function with namespace, mutationType and map', () => {
             result(testNamespace, testMutationType, testMap)
 
-            expect(spyFunc.calledWith(testNamespace + '/', testMutationType, testMap)).to.be.true
+            expect(spyFunc).to.have.been.calledWith(testNamespace + '/', testMutationType, testMap)
         })
 
         it('should call normalized function with empty namespace, mutationType and map when namespace is omitted', () => {
             result(testMutationType, testMap)
 
-            expect(spyFunc.calledWith('', testMutationType, testMap)).to.be.true
+            expect(spyFunc).to.have.been.calledWith('', testMutationType, testMap)
         })
 
         const textTrailingSlash = `'/' (slash)`
@@ -73,19 +73,19 @@ describe('Store utils: utils.js', () => {
             it(`should append trailing ${textTrailingSlash} on namespace without trailing slash`, () => {
                 result(namespaceWithoutSlash, '', [])
 
-                expect(spyFunc.calledWith(namespaceWithSlash)).to.be.true
+                expect(spyFunc).to.have.been.calledWith(namespaceWithSlash)
             })
 
             it(`should not append trailing ${textTrailingSlash} on namespace with trailing slash`, () => {
                 result(namespaceWithSlash, '', [])
 
-                expect(spyFunc.calledWith(namespaceWithSlash)).to.be.true
+                expect(spyFunc).to.have.been.calledWith(namespaceWithSlash)
             })
 
             it(`should not append ${textTrailingSlash} when namespace is omitted`, () => {
                 result('', [])
 
-                expect(spyFunc.calledWith('/')).to.be.false
+                expect(spyFunc).to.have.been.calledWith('')
             })
         })
     })
@@ -214,7 +214,7 @@ describe('Store utils: utils.js', () => {
                 it('should invoke #getModuleByNamespace ', () => {
                     entry.get()
 
-                    expect(getModuleByNamespaceStub.calledOnce).to.be.true
+                    expect(getModuleByNamespaceStub).to.have.been.calledOnce
                 })
 
                 it('should return nothing (undefined) when namespace not found', () => {
@@ -267,7 +267,7 @@ describe('Store utils: utils.js', () => {
 
                     setter(testValue)
 
-                    expect(commitSpy.calledOnce)
+                    expect(commitSpy).to.have.been.calledOnce
                     expect(commitSpy.firstCall.lastArg).to.have.property('type', testMutationType)
                 })
 
@@ -278,7 +278,7 @@ describe('Store utils: utils.js', () => {
 
                     setter(testValue)
 
-                    expect(commitSpy.calledOnce)
+                    expect(commitSpy).to.have.been.calledOnce
                     expect(commitSpy.firstCall.lastArg).to.have.property('type', `${testNamespace}/${testMutationType}`)
                 })
 

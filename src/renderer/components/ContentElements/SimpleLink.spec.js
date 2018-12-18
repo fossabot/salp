@@ -29,7 +29,8 @@ describe('SimpleLink.vue', () => {
 
     it('should call openExternal with expected URL on click event', () => {
         wrapper.trigger('click')
-        expect(openExternal.calledWith(expectedUrl)).to.be.true
+
+        expect(openExternal).to.have.been.calledWith(expectedUrl)
     })
     SimpleLink.__ResetDependency__('shell')
 })

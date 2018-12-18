@@ -59,41 +59,39 @@ export default {
 
 <style lang="scss">
 #app {
-  height: 100vh;
+    height: 100vh;
 }
 
 #app-header {
-  height: 60px !important;
-  background-color: $--color-primary;
-  color: $--color-white;
-  padding: 2px 10px 2px (200px + $--main-padding);
-  font-size: 18px;
-  line-height: 58px;
+    height: 60px !important;
+    background-color: $--color-primary;
+    color: $--color-white;
+    padding: 2px 10px 2px (200px + $--main-padding);
+    font-size: 18px;
+    line-height: 58px;
+    -webkit-app-region: drag;
 
-  -webkit-app-region: drag;
-
-  .app-header__item {
-    display: inline-block;
-    margin: 0;
-
-    -webkit-app-region: no-drag;
-  }
+    .app-header__item {
+        display: inline-block;
+        margin: 0;
+        -webkit-app-region: no-drag;
+    }
 }
 
 #app-sidebar {
-  width: 200px !important;
-  border-right: solid 1px $--border-color-lighter;
+    width: 200px !important;
+    border-right: solid 1px $--border-color-lighter;
 
-  .el-menu {
-    border-right: none;
-  }
+    .el-menu {
+        border-right: none;
+    }
 }
 
 .page-title {
-  color: $--color-white;
+    color: $--color-white;
 }
 
 .meta-menu {
-  float: right;
+    float: right;
 }
 </style>

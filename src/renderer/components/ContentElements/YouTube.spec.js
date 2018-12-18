@@ -26,10 +26,6 @@ describe('YouTube.vue', () => {
         expect(wrapper.attributes().src).to.eq(expectedURL)
     })
 
-    it('should create webview tag', () => {
-        expect(wrapper.contains('webview')).to.be.true
-    })
-
     describe('youtube url validator', () => {
         const expectedValues = [
             { value: '', expects: false },

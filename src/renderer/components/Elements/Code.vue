@@ -106,6 +106,7 @@ export default {
     .CodeMirror {
         height: auto;
     }
+
     .CodeMirror-scroll {
         .line-highlight {
             background-color: lightgray;
