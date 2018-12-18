@@ -4,6 +4,7 @@ export default {
     functional: true,
     render(createElement, context) {
         const { children } = context
+
         return createElement(
             'p',
             {

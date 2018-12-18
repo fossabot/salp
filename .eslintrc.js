@@ -39,7 +39,11 @@ module.exports = {
             'before'
         ],
         'no-unused-expressions': ['off'],
-        'chai-friendly/no-unused-expressions': ['error']
+        'chai-friendly/no-unused-expressions': ['error'],
+        'padding-line-between-statements': [
+            'error',
+            { blankLine: 'always', prev: '*', next: 'return' }
+        ]
     },
     parserOptions: {
         parser: 'babel-eslint'
