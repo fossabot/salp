@@ -28,7 +28,7 @@ before_script:
 eslint:
   stage: lint
   script:
-    - npm run lint -- --no-fix
+    - npm run lint:code -- --no-fix
 
 stylelint:
   stage: lint
