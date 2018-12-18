@@ -36,8 +36,7 @@ describe('UserInput.vue', () => {
 
         const expectedAnswer = 'lorem'
         let userInputField = wrapper.find('.user-input__container__input > input')
-        userInputField.value = expectedAnswer
-        userInputField.trigger('input')
-        expect(wrapper.vm.answer).to.eq(expectedAnswer)
+        userInputField.setValue(expectedAnswer)
+        expect(wrapper.vm.$data.answer).to.eq(expectedAnswer)
     })
 })

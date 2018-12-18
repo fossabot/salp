@@ -1,7 +1,7 @@
 <template>
     <div class="user-input__container" v-bind:class="{left: isLeftPosition, top: isTopPosition}">
         <h1 class="user-input__container__text">{{ question }}</h1>
-        <Input class="user-input__container__input" :value="answer" @change="handleChange" placeholder="Insert Answer"/>
+        <Input class="user-input__container__input" :value="answer" @input="handleInput" placeholder="Insert Answer"/>
     </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
         }
     },
     methods: {
-        handleChange(value) {
+        handleInput(value) {
             this.$emit('change', value)
         }
     }
