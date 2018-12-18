@@ -39,13 +39,15 @@ module.exports = {
             'error',
             'before'
         ],
-        'no-unused-expressions': ['off'],
-        'chai-friendly/no-unused-expressions': ['error'],
         'padding-line-between-statements': [
             'error',
             { blankLine: 'always', prev: '*', next: 'return' },
             { blankLine: 'always', prev: '*', next: 'return' }
         ],
+        // eslint-plugin-chai-friendly
+        // @see https://github.com/ihordiachenko/eslint-plugin-chai-friendly#usage
+        'no-unused-expressions': ['off'],
+        'chai-friendly/no-unused-expressions': ['error'],
         // eslint-plugin-mocha rules
         // @see https://github.com/lo1tuma/eslint-plugin-mocha/tree/master/docs/rules
         'mocha/no-global-tests': ['error'],
