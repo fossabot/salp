@@ -75,7 +75,7 @@ describe('Code.vue', () => {
         })
     })
 
-    it('textarea is available', () => {
+    it('should render textarea by default', () => {
         const initialize = stub()
         const wrapper = shallowMountCode({
             methods: {

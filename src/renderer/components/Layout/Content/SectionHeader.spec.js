@@ -3,7 +3,7 @@ import { shallowMount } from '@vue/test-utils'
 import SectionHeader from './SectionHeader.vue'
 
 describe('SectionHeader.vue', () => {
-    it('renders content in h3', () => {
+    it('should render content in h3', () => {
         const expectedContent = 'Some test title'
 
         const wrapper = shallowMount(SectionHeader, {
@@ -19,7 +19,7 @@ describe('SectionHeader.vue', () => {
     describe('passes through classes', () => {
         const expectedClass = 'my-element'
 
-        it('renders static classes', () => {
+        it('should renders static classes', () => {
             const wrapper = shallowMount(SectionHeader, {
                 context: {
                     staticClass: expectedClass
@@ -29,7 +29,7 @@ describe('SectionHeader.vue', () => {
             expect(wrapper.classes(expectedClass)).to.be.true
         })
 
-        it('renders classes', () => {
+        it('should renders classes', () => {
             const wrapper = shallowMount(SectionHeader, {
                 context: {
                     class: expectedClass
@@ -39,7 +39,7 @@ describe('SectionHeader.vue', () => {
             expect(wrapper.classes(expectedClass)).to.be.true
         })
 
-        it('merges dynamic and static classes', () => {
+        it('should merge dynamic and static classes', () => {
             const expectedDynamicClass = 'some-element__container'
             expect(expectedDynamicClass).to.not.equal(expectedClass)
 

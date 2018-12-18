@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import ProgressBar from './ProgressBar.vue'
 
 describe('ProgressBar.vue', () => {
-    it('updates progress', () => {
+    it('should update progress', () => {
         const wrapper = mount(ProgressBar, {
             propsData: { progress: 0 }
         })
@@ -15,7 +15,7 @@ describe('ProgressBar.vue', () => {
         expect(wrapper.find('.el-progress__text').text()).to.equal('30%')
     })
 
-    it('show progress text if below 100%', () => {
+    it('should show progress text if below 100%', () => {
         const progressValues = [0, 23, 40, 75, 90, 99]
 
         const wrapper = mount(ProgressBar)
@@ -27,7 +27,7 @@ describe('ProgressBar.vue', () => {
         })
     })
 
-    it('shows success icon when 100%', () => {
+    it('should show success icon when 100%', () => {
         const wrapper = mount(ProgressBar, {
             propsData: { progress: 100 }
         })
