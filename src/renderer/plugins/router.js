@@ -43,7 +43,8 @@ const routes = [
     }
 ]
 
-const plugin = {
+export { router }
+export default {
     install(Vue) {
         Vue.use(Router)
 
@@ -56,6 +57,3 @@ const plugin = {
         }
     }
 }
-
-export default plugin
-export { router }

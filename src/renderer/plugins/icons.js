@@ -14,7 +14,7 @@ const mixin = {
     }
 }
 
-const plugin = {
+export default {
     install(Vue) {
     // Register global mixin
         Vue.mixin(mixin)
@@ -23,5 +23,3 @@ const plugin = {
         Vue.component(Icon.name, Icon)
     }
 }
-
-export default plugin

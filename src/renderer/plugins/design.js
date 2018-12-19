@@ -7,7 +7,7 @@ import locale from 'element-ui/lib/locale'
 import icons from './icons.js'
 import truncate from '../filters/truncate.js'
 
-const plugin = {
+export default {
     install(Vue) {
         locale.use(lang)
 
@@ -15,5 +15,3 @@ const plugin = {
         Vue.use(truncate)
     }
 }
-
-export default plugin
