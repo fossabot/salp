@@ -38,6 +38,7 @@ function createResolveAlias(config, dir) {
     config.resolve.alias
         .set('@', path.resolve(__dirname, 'src/', dir))
         .set('$src', path.resolve(__dirname, 'src/'))
+        .set('$root', path.resolve(__dirname))
 }
 
 module.exports = {
