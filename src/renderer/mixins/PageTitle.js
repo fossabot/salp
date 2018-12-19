@@ -1,4 +1,5 @@
 // Set translated page title as component option
+import { i18n } from '@/plugins/i18n'
 
 const mixin = {
     beforeCreate() {
@@ -7,7 +8,7 @@ const mixin = {
             return
         }
 
-        const translatedKey = this.$t(pageTitleTranslationKey)
+        const translatedKey = i18n.t(pageTitleTranslationKey)
         this.$emit('pageTitle', translatedKey)
     }
 }
