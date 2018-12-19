@@ -110,7 +110,6 @@ module.exports = {
                 .use('istanbul')
                 .loader('istanbul-instrumenter-loader')
                 .options({ esModules: true })
-                .before('babel-loader')
 
             config.output
                 .devtoolModuleFilenameTemplate('[absolute-resource-path]')
