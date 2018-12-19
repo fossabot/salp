@@ -3,7 +3,7 @@ import { set } from 'lodash/object'
 
 let localesContext
 function updateRequireContext() {
-    localesContext = require.context('$src/locales', true, /[a-zA-Z0-9]+\.json$/i)
+    localesContext = require.context('$root/locales', true, /[a-zA-Z0-9]+\.json$/i)
 }
 updateRequireContext()
 

@@ -38,6 +38,7 @@ function createResolveAlias(config, dir) {
     config.resolve.alias
         .set('@', path.resolve(__dirname, 'src/', dir))
         .set('$src', path.resolve(__dirname, 'src/'))
+        .set('$root', path.resolve(__dirname))
 }
 
 module.exports = {
@@ -109,7 +110,6 @@ module.exports = {
                 .use('istanbul')
                 .loader('istanbul-instrumenter-loader')
                 .options({ esModules: true })
-                .before('babel-loader')
 
             config.output
                 .devtoolModuleFilenameTemplate('[absolute-resource-path]')
