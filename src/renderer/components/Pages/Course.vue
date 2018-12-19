@@ -9,9 +9,7 @@ import { course } from '@/__mocks__/courses.js'
 
 export default {
     name: 'Course',
-    beforeCreate() {
-        this.$emit('pageTitle', this.$t('App.pages.course'))
-    },
+    pageTitleTranslationKey: 'App.pages.course',
     data() {
         return {
             course: course

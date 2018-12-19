@@ -6,6 +6,7 @@ import locale from 'element-ui/lib/locale'
 
 import icons from './icons.js'
 import truncate from '../filters/truncate.js'
+import PageTitle from '../mixins/PageTitle'
 
 export default {
     install(Vue) {
@@ -13,5 +14,6 @@ export default {
 
         Vue.use(icons)
         Vue.use(truncate)
+        Vue.use(PageTitle)
     }
 }
