@@ -29,7 +29,7 @@ describe('UserInput.vue', () => {
         })
     })
 
-    it('should change the v-model correctly', () => {
+    it('should update the v-model of answer', () => {
         const expectedAnswer = 'lorem'
 
         let wrapper = mount({
