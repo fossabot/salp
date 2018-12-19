@@ -55,7 +55,7 @@ describe('SingleChoice.vue', () => {
 
             const correct = wrapper.vm.correct
 
-            expect(correct).to.eq(expects)
+            expect(correct).to.equal(expects)
         })
     })
 
