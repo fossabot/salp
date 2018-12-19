@@ -10,11 +10,9 @@ import { groups } from '@/__mocks__/courses.js'
 
 export default {
     name: 'Home',
+    pageTitleTranslationKey: 'App.pages.home',
     components: {
         CoursesOverview
-    },
-    beforeCreate() {
-        this.$emit('pageTitle', this.$t('App.pages.home'))
     },
     data() {
         return {
