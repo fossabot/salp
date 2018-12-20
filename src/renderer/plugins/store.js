@@ -3,7 +3,8 @@ import StoreData from '@/store'
 
 let store
 
-const plugin = {
+export { store }
+export default {
     install(Vue) {
         Vue.use(Vuex)
 
@@ -13,6 +14,3 @@ const plugin = {
         })
     }
 }
-
-export default plugin
-export { store }

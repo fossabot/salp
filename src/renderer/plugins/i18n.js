@@ -40,7 +40,8 @@ function loadLocaleMessages() {
 
 let i18n
 
-const plugin = {
+export { i18n }
+export default {
     install(Vue) {
         Vue.use(VueI18n)
 
@@ -51,9 +52,6 @@ const plugin = {
         })
     }
 }
-
-export default plugin
-export { i18n }
 
 if (module.hot) {
     module.hot.accept(localesContext.id, function() {
