@@ -2,7 +2,7 @@
     <div class="single-choice-content__container">
         <h1>{{ question }}</h1>
         <RadioGroup class="single-choice-content__container__radio-group" v-model="checked">
-            <Radio class="single-choice-content__container__radio-group__radio" v-for="{answer} in answers" :label="answer" :key="answer">{{answer}}</Radio>
+            <Radio class="single-choice-content__container__radio-group__radio" v-for="{answer} in answers" :label="answer" :key="`single_${answer}`">{{answer}}</Radio>
         </RadioGroup>
     </div>
 </template>
@@ -16,11 +16,16 @@ export default {
         RadioGroup,
         Radio
     },
+    model: {
+        prop: 'answer',
+        event: 'change'
+    },
     props: {
         question: {
             type: String,
             required: true
         },
+        answer: Boolean,
         answers: {
             type: Array,
             required: true,
@@ -56,15 +61,15 @@ export default {
             checked: []
         }
     },
-    computed: {
-        correct: function() {
+    watch: {
+        checked(newVal, oldVal) {
             let answeredCorrect = true
             this.answers.forEach(({ answer, correct }) => {
-                if ((correct && this.checked.indexOf(answer) === -1) || (!correct && this.checked.indexOf(answer) !== -1)) {
+                if ((correct && newVal.indexOf(answer) === -1) || (!correct && newVal.indexOf(answer) !== -1)) {
                     answeredCorrect = false
                 }
             })
-            return answeredCorrect
+            this.$emit('change', answeredCorrect)
         }
     }
 }
