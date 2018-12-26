@@ -3,7 +3,7 @@
         <h1>{{ question }}</h1>
         <CheckboxGroup class="multiple-choice-content__container__checkbox-group" v-model="checked"
         :min="0" :max="getMaxAnswers">
-            <Checkbox class="multiple-choice-content__container__checkbox-group__checkbox" v-for="{answer} in answers" :label="answer" :key="answer">{{answer}}</Checkbox>
+            <Checkbox class="multiple-choice-content__container__checkbox-group__checkbox" v-for="{answer} in answers" :label="answer" :key="`choice_${answer}`">{{answer}}</Checkbox>
         </CheckboxGroup>
     </div>
 </template>
@@ -17,11 +17,16 @@ export default {
         CheckboxGroup,
         Checkbox
     },
+    model: {
+        prop: 'answer',
+        event: 'change'
+    },
     props: {
         question: {
             type: String,
             required: true
         },
+        answer: Boolean,
         answers: {
             type: Array,
             required: true,
@@ -47,21 +52,24 @@ export default {
     },
     data() {
         return {
-            checked: []
+            checked: [],
+            correct: false
         }
     },
-    computed: {
-        getMaxAnswers: function() {
-            return this.answers.length
-        },
-        correct: function() {
+    watch: {
+        checked(newVal, oldVal) {
             let answeredCorrect = true
             this.answers.forEach(({ answer, correct }) => {
-                if ((correct && this.checked.indexOf(answer) === -1) || (!correct && this.checked.indexOf(answer) !== -1)) {
+                if ((correct && newVal.indexOf(answer) === -1) || (!correct && newVal.indexOf(answer) !== -1)) {
                     answeredCorrect = false
                 }
             })
-            return answeredCorrect
+            this.$emit('change', answeredCorrect)
+        }
+    },
+    computed: {
+        getMaxAnswers() {
+            return this.answers.length
         }
     }
 }
