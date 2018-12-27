@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import SingleChoice from './SingleChoice.vue'
 
 describe('SingleChoice.vue', () => {
@@ -10,9 +10,7 @@ describe('SingleChoice.vue', () => {
                 { answer: 'ipsum', correct: false },
                 { answer: 'dollor', correct: true }
             ],
-            checked: [
-                'dollor'
-            ],
+            checked: 2,
             expects: true
         },
         {
@@ -21,9 +19,7 @@ describe('SingleChoice.vue', () => {
                 { answer: 'ipsum', correct: false },
                 { answer: 'dollor', correct: false }
             ],
-            checked: [
-                'ipsum'
-            ],
+            checked: 1,
             expects: false
         },
         {
@@ -32,30 +28,34 @@ describe('SingleChoice.vue', () => {
                 { answer: 'ipsum', correct: false },
                 { answer: 'dollor', correct: false }
             ],
-            checked: [
-            ],
+            checked: -1,
             expects: true
         }
     ]
 
     const question = 'Lorem ipsum dollor sit atmet?'
 
-    expectedValues.forEach(({ answers, checked, expects }, index) => {
-        it(`should return ${expects} for checked answers`, () => {
-            const wrapper = shallowMount(SingleChoice, {
-                propsData: {
-                    question,
-                    answers
+    expectedValues.forEach(({ answers, checked, expects }) => {
+        it(`should update the v-model of answer, checked:${checked}`, () => {
+            let wrapper = mount({
+                data() {
+                    return {
+                        answers,
+                        question,
+                        answer: ''
+                    }
+                },
+                template: `<div><SingleChoice question="question" :answers="answers" v-model="answer"/></div>`,
+                components: {
+                    SingleChoice
                 }
             })
 
-            wrapper.setData({
-                checked
-            })
-
-            const correct = wrapper.vm.correct
-
-            expect(correct).to.equal(expects)
+            const radioButton = wrapper.findAll('.single-choice-content__container__radio-group__radio').at(checked)
+            if (radioButton) {
+                radioButton.trigger('click')
+            }
+            expect(wrapper.vm.$data.answer).to.equal(expects)
         })
     })
 
