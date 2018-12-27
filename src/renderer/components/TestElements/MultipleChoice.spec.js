@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import MultipleChoice from './MultipleChoice.vue'
 
 describe('MultipleChoice.vue', () => {
@@ -11,8 +11,8 @@ describe('MultipleChoice.vue', () => {
                 { answer: 'dollor', correct: true }
             ],
             checked: [
-                'dollor',
-                'lorem'
+                0,
+                2
             ],
             expects: true
         },
@@ -23,9 +23,9 @@ describe('MultipleChoice.vue', () => {
                 { answer: 'dollor', correct: true }
             ],
             checked: [
-                'dollor',
-                'ipsum',
-                'lorem'
+                0,
+                1,
+                2
             ],
             expects: false
         },
@@ -36,7 +36,7 @@ describe('MultipleChoice.vue', () => {
                 { answer: 'dollor', correct: true }
             ],
             checked: [
-                'dollor'
+                2
             ],
             expects: false
         },
@@ -55,21 +55,28 @@ describe('MultipleChoice.vue', () => {
     const question = 'Lorem ipsum dollor sit atmet?'
 
     expectedValues.forEach(({ answers, checked, expects }, index) => {
-        it(`should return ${expects} for checked answers`, () => {
-            const wrapper = shallowMount(MultipleChoice, {
-                propsData: {
-                    question,
-                    answers
+        it(`should update the v-model of answer, checked:${checked}`, () => {
+            let wrapper = mount({
+                data() {
+                    return {
+                        answers,
+                        question,
+                        answer: ''
+                    }
+                },
+                template: `<div><MultipleChoice question="question" :answers="answers" v-model="answer"/></div>`,
+                components: {
+                    MultipleChoice
                 }
             })
 
-            wrapper.setData({
-                checked
+            checked.forEach(checked => {
+                const radioButton = wrapper.findAll('.multiple-choice-content__container__checkbox-group__checkbox').at(checked)
+                if (radioButton) {
+                    radioButton.trigger('click')
+                }
             })
-
-            const correct = wrapper.vm.correct
-
-            expect(correct).to.equal(expects)
+            expect(wrapper.vm.$data.answer).to.equal(expects)
         })
     })
 

@@ -52,25 +52,32 @@ export default {
     },
     data() {
         return {
-            checked: [],
-            correct: false
+            checked: []
         }
     },
-    watch: {
-        checked(newVal, oldVal) {
+    methods: {
+        correct(checked) {
             let answeredCorrect = true
             this.answers.forEach(({ answer, correct }) => {
-                if ((correct && newVal.indexOf(answer) === -1) || (!correct && newVal.indexOf(answer) !== -1)) {
+                if ((correct && checked.indexOf(answer) === -1) || (!correct && checked.indexOf(answer) !== -1)) {
                     answeredCorrect = false
                 }
             })
             this.$emit('change', answeredCorrect)
         }
     },
+    watch: {
+        checked(newVal, oldVal) {
+            this.correct(newVal)
+        }
+    },
     computed: {
         getMaxAnswers() {
             return this.answers.length
         }
+    },
+    mounted() {
+        this.correct(this.checked)
     }
 }
 </script>
