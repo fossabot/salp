@@ -4,6 +4,13 @@
     </h3>
 </template>
 
+<script>
+export default {
+    name: 'SectionHeader',
+    functional: true
+}
+</script>
+
 <style lang="scss">
 .section-header {
     line-height: 2em;
