@@ -22,14 +22,14 @@ export default {
         }
 
         const columnData = props.data[0]
-        let column = []
+        let columns = []
         for (let label in columnData) {
             if (columnData.hasOwnProperty(label)) {
-                column.push(
+                columns.push(
                     createElement(
                         TableColumn,
                         {
-                            staticClass: `contentelement-tabel contentelement-table__column`,
+                            staticClass: `contentelement-table__column`,
                             attrs: {
                                 prop: label,
                                 label: capitalizeFirstLetter(label)
@@ -51,7 +51,7 @@ export default {
                     stripe: true
                 }
             },
-            column
+            columns
         )
     }
 }
