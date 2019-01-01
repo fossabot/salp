@@ -34,8 +34,4 @@ describe('Table.vue', () => {
     it('should create class "contentelement-table"', () => {
         expect(wrapper.classes('contentelement-table')).to.be.true
     })
-
-    it('should create table tag', () => {
-        expect(wrapper.contains('table')).to.be.true
-    })
 })
