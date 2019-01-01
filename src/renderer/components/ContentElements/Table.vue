@@ -22,10 +22,10 @@ export default {
         }
 
         const columnData = props.data[0]
-        let column = []
+        let columns = []
         for (let label in columnData) {
             if (columnData.hasOwnProperty(label)) {
-                column.push(
+                columns.push(
                     createElement(
                         TableColumn,
                         {
@@ -51,7 +51,7 @@ export default {
                     stripe: true
                 }
             },
-            column
+            columns
         )
     }
 }
