@@ -29,7 +29,7 @@ export default {
                     createElement(
                         TableColumn,
                         {
-                            staticClass: `contentelement-tabel contentelement-table__column`,
+                            staticClass: `contentelement-table__column`,
                             attrs: {
                                 prop: label,
                                 label: capitalizeFirstLetter(label)
