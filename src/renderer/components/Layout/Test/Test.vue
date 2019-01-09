@@ -4,15 +4,15 @@
         <Steps :active="currentQuestion" finish-status="success">
             <Step v-for="(question, index) in questions" :key="`step${index}`"/>
         </Steps>
-            <div class="test-content__container__question-container">
+            <div class="test-content__question-container">
                 <component v-for="(question, index) in questions"
                 :key="`question${index}`" :is="question.component"
                 :question="question.question" :answers="question.answers"
                 v-model="question.answer" v-show="index === currentQuestion">
                 </component>
             </div>
-        <div class="test-content__container__button-container">
-            <Button class="test-content__container__button-container__button" type="primary" @click="next">Check</Button>
+        <div class="test-content__button-container">
+            <Button class="test-content__button-container__button" type="primary" @click="next">Check</Button>
         </div>
     </Card>
 </template>
@@ -22,6 +22,7 @@ import { Card, Button, Steps, Step } from 'element-ui'
 import MultipleChoice from '../../TestElements/MultipleChoice.vue'
 import SingleChoice from '../../TestElements/SingleChoice.vue'
 import UserInput from '../../TestElements/UserInput.vue'
+import questions from '@/__mocks__/test/questions.js'
 
 export default {
     name: 'Test',
@@ -37,38 +38,7 @@ export default {
     },
     data() {
         return {
-            questions: [
-                {
-                    component: 'MultipleChoice',
-                    question: 'Lorem?',
-                    answers: [
-                        { answer: 'dollor', correct: false },
-                        { answer: 'sit', correct: false },
-                        { answer: 'atmet', correct: true }
-                    ],
-                    answer: undefined
-                },
-                {
-                    component: 'SingleChoice',
-                    question: 'Ipsum?',
-                    answers: [
-                        { answer: 'Lorem', correct: false },
-                        { answer: 'Sit', correct: true },
-                        { answer: 'Lorem Ipsum', correct: false }
-                    ],
-                    answer: undefined
-                },
-                {
-                    component: 'UserInput',
-                    question: 'Lorem Ipsum?',
-                    answer: undefined
-                },
-                {
-                    component: 'UserInput',
-                    question: 'Dollor sit atmet?',
-                    answer: undefined
-                }
-            ],
+            questions,
             currentQuestion: 0,
             passedAt: 0.5
         }
@@ -98,13 +68,13 @@ export default {
 </script>
 
 <style lang="scss">
-.test-content__container__question-container {
+.test-content__question-container {
     margin-top: 1em;
     display: flex;
     justify-content: center;
 }
 
-.test-content__container__button-container {
+.test-content__button-container {
     display: flex;
     justify-content: center;
     margin-top: 1em;
