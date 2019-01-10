@@ -1,12 +1,15 @@
 import { expect } from 'chai'
 import { stub } from 'sinon'
-import { shallowMount, mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import UserInput from './UserInput.vue'
 
 describe('UserInput.vue', () => {
     const question = 'Lorem ipsum dollor sit atmet?'
+    const answers = [
+        { answer: 'lorem' }
+    ]
 
-    describe('Test positioning of the question', () => {
+    describe('Positioning of the question', () => {
         const expectedValues = [
             { questionPosition: 'top', expects: 'top' },
             { questionPosition: 'Top', expects: 'top' },
@@ -20,6 +23,7 @@ describe('UserInput.vue', () => {
                     propsData: {
                         question,
                         questionPosition,
+                        answers,
                         correctCallback: stub()
                     }
                 })
@@ -29,23 +33,28 @@ describe('UserInput.vue', () => {
         })
     })
 
-    it('should update the v-model of answer', () => {
-        const expectedAnswer = 'lorem'
+    const expectedValues = [
+        { input: 'lorem', expects: true },
+        { input: '        lorem       ', expects: true },
+        { input: 'Lorem', expects: false },
+        { input: '', expects: false }
+    ]
 
-        let wrapper = mount({
-            data() {
-                return {
-                    answer: ''
+    expectedValues.forEach(({ input, expects }) => {
+        it(`should validate input:${input} to ${expects}`, () => {
+            const wrapper = shallowMount(UserInput, {
+                propsData: {
+                    question,
+                    answers
                 }
-            },
-            template: `<div><UserInput question="question" v-model="answer"/></div>`,
-            components: {
-                UserInput
-            }
-        })
+            })
 
-        const userInputField = wrapper.find('.user-input__container__input > input')
-        userInputField.setValue(expectedAnswer)
-        expect(wrapper.vm.$data.answer).to.equal(expectedAnswer)
+            wrapper.setData({
+                answer: input
+            })
+
+            wrapper.vm.validate()
+            expect(wrapper.emitted('validated')[0][0]).to.equal(expects)
+        })
     })
 })
