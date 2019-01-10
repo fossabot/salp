@@ -2,31 +2,29 @@
     <div class="multiple-choice-content__container">
         <h1>{{ question }}</h1>
         <CheckboxGroup class="multiple-choice-content__container__checkbox-group" v-model="checked"
-        :min="0" :max="getMaxAnswers">
-            <Checkbox class="multiple-choice-content__container__checkbox-group__checkbox" v-for="{answer} in answers" :label="answer" :key="`choice_${answer}`">{{answer}}</Checkbox>
+            :min="0" :max="getMaxAnswers" :disabled="disabled">
+            <MultipleChoiceCheckbox
+                v-for="({answer}, index) in answers" :answer="answer" :isValid="isValid[index]"
+                :key="`choice_${index}`"/>
         </CheckboxGroup>
     </div>
 </template>
 
 <script>
-import { CheckboxGroup, Checkbox } from 'element-ui'
+import { CheckboxGroup } from 'element-ui'
+import MultipleChoiceCheckbox from './MultipleChoiceCheckbox.vue'
 
 export default {
-    name: 'Multiplechoice',
+    name: 'MultipleChoice',
     components: {
         CheckboxGroup,
-        Checkbox
-    },
-    model: {
-        prop: 'answer',
-        event: 'change'
+        MultipleChoiceCheckbox
     },
     props: {
         question: {
             type: String,
             required: true
         },
-        answer: Boolean,
         answers: {
             type: Array,
             required: true,
@@ -35,9 +33,9 @@ export default {
                     return false
                 }
 
-                const isValidEntry = entry => isValidAnswer(entry) && isValidCorrect(entry)
                 const isValidAnswer = entry => entry.hasOwnProperty('answer') && typeof entry.answer === 'string' && entry.answer.length > 0
                 const isValidCorrect = entry => entry.hasOwnProperty('correct') && typeof entry.correct === 'boolean'
+                const isValidEntry = entry => isValidAnswer(entry) && isValidCorrect(entry)
 
                 let isValid = true
                 answers.forEach(entry => {
@@ -52,32 +50,49 @@ export default {
     },
     data() {
         return {
-            checked: []
+            checked: [],
+            isValid: [],
+            disabled: false
         }
     },
     methods: {
-        correct(checked) {
+        questionIsCorrect() {
             let answeredCorrect = true
             this.answers.forEach(({ answer, correct }) => {
-                if ((correct && checked.indexOf(answer) === -1) || (!correct && checked.indexOf(answer) !== -1)) {
+                if ((correct && this.checked.indexOf(answer) === -1) || (!correct && this.checked.indexOf(answer) !== -1)) {
                     answeredCorrect = false
                 }
             })
-            this.$emit('change', answeredCorrect)
-        }
-    },
-    watch: {
-        checked(newVal, oldVal) {
-            this.correct(newVal)
+            return answeredCorrect
+        },
+        validateAnswer(answer) {
+            // Answer is correct and checked = valid/green
+            // Answer is correct and not checked = invalid/red
+            // Answer is not correct and checked = invalid/red
+            // Answer is not correct and not cheked = undefiend
+
+            const correct = answer.correct
+            let isValid = true
+            if (!correct && this.checked.indexOf(answer.answer) !== -1) {
+                isValid = false
+            }
+            if (!correct && this.checked.indexOf(answer.answer) === -1) {
+                isValid = undefined
+            }
+            this.isValid.push(isValid)
+        },
+        validate() {
+            this.disabled = true
+            this.answers.forEach(answer => {
+                this.validateAnswer(answer)
+            })
+            this.$emit('validated', this.questionIsCorrect())
         }
     },
     computed: {
         getMaxAnswers() {
             return this.answers.length
         }
-    },
-    mounted() {
-        this.correct(this.checked)
     }
 }
 </script>

@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import MultipleChoice from './MultipleChoice.vue'
 
 describe('MultipleChoice.vue', () => {
@@ -11,8 +11,8 @@ describe('MultipleChoice.vue', () => {
                 { answer: 'dollor', correct: true }
             ],
             checked: [
-                0,
-                2
+                'lorem',
+                'dollor'
             ],
             expects: true
         },
@@ -23,9 +23,9 @@ describe('MultipleChoice.vue', () => {
                 { answer: 'dollor', correct: true }
             ],
             checked: [
-                0,
-                1,
-                2
+                'lorem',
+                'ipsum',
+                'dollor'
             ],
             expects: false
         },
@@ -36,7 +36,7 @@ describe('MultipleChoice.vue', () => {
                 { answer: 'dollor', correct: true }
             ],
             checked: [
-                2
+                'ipsum'
             ],
             expects: false
         },
@@ -54,29 +54,21 @@ describe('MultipleChoice.vue', () => {
 
     const question = 'Lorem ipsum dollor sit atmet?'
 
-    expectedValues.forEach(({ answers, checked, expects }, index) => {
-        it(`should update the v-model of answer, checked:${checked}`, () => {
-            let wrapper = mount({
-                data() {
-                    return {
-                        answers,
-                        question,
-                        answer: ''
-                    }
-                },
-                template: `<div><MultipleChoice question="question" :answers="answers" v-model="answer"/></div>`,
-                components: {
-                    MultipleChoice
+    expectedValues.forEach(({ answers, checked, expects }) => {
+        it(`should validate question, checked:${JSON.stringify(checked)} to ${expects}`, () => {
+            const wrapper = shallowMount(MultipleChoice, {
+                propsData: {
+                    question,
+                    answers
                 }
             })
 
-            checked.forEach(checked => {
-                const radioButton = wrapper.findAll('.multiple-choice-content__container__checkbox-group__checkbox').at(checked)
-                if (radioButton) {
-                    radioButton.trigger('click')
-                }
+            wrapper.setData({
+                checked
             })
-            expect(wrapper.vm.$data.answer).to.equal(expects)
+
+            wrapper.vm.validate()
+            expect(wrapper.emitted('validated')[0][0]).to.equal(expects)
         })
     })
 
@@ -135,7 +127,7 @@ describe('MultipleChoice.vue', () => {
         const validator = MultipleChoice.props.answers.validator
 
         expectedValues.forEach(({ answers, expects }, index) => {
-            it(`should validate answers '${JSON.stringify(answers[0])}...' with ${expects} (${index})`, () => {
+            it(`should validate answers '${JSON.stringify(answers[0])}...' is valid format with ${expects} (${index})`, () => {
                 expect(validator(answers)).to.equal(expects)
             })
         })
