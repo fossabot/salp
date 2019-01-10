@@ -1,31 +1,30 @@
 <template>
     <div class="single-choice-content__container">
         <h1>{{ question }}</h1>
-        <RadioGroup class="single-choice-content__container__radio-group" v-model="checked">
-            <Radio class="single-choice-content__container__radio-group__radio" v-for="{answer} in answers" :label="answer" :key="`single_${answer}`">{{answer}}</Radio>
+        <RadioGroup class="single-choice-content__container__radio-group" v-model="checked" :disabled="disabled">
+            <SingleChoiceRadiobutton v-for="({answer, $isValid}, index) in answers" :isValid="isValid[index]"
+                :key="`single_${index}`" :answer="answer">
+                {{answer}}
+            </SingleChoiceRadiobutton>
         </RadioGroup>
     </div>
 </template>
 
 <script>
-import { RadioGroup, Radio } from 'element-ui'
+import { RadioGroup } from 'element-ui'
+import SingleChoiceRadiobutton from './SingleChoiceRadiobutton.vue'
 
 export default {
     name: 'Singlechoice',
     components: {
         RadioGroup,
-        Radio
-    },
-    model: {
-        prop: 'answer',
-        event: 'change'
+        SingleChoiceRadiobutton
     },
     props: {
         question: {
             type: String,
             required: true
         },
-        answer: Boolean,
         answers: {
             type: Array,
             required: true,
@@ -58,27 +57,44 @@ export default {
     },
     data() {
         return {
-            checked: []
+            checked: '',
+            isValid: [],
+            disabled: false
         }
     },
     methods: {
-        correct(checked) {
+        questionIsCorrect() {
             let answeredCorrect = true
             this.answers.forEach(({ answer, correct }) => {
-                if ((correct && checked.indexOf(answer) === -1) || (!correct && checked.indexOf(answer) !== -1)) {
+                if ((correct && this.checked !== answer) || (!correct && this.checked === answer)) {
                     answeredCorrect = false
                 }
             })
-            this.$emit('change', answeredCorrect)
+            return answeredCorrect
+        },
+        validateAnswer(answer) {
+            // Answer is correct and checked = valid/green
+            // Answer is correct and not checked = invalid/red
+            // Answer is not correct and checked = invalid/red
+            // Answer is not correct and not cheked = undefiend
+
+            const correct = answer.correct
+            let isValid = true
+            if (!correct && this.checked === answer.answer) {
+                isValid = false
+            }
+            if (!correct && this.checked !== answer.answer) {
+                isValid = undefined
+            }
+            this.isValid.push(isValid)
+        },
+        validate() {
+            this.disabled = true
+            this.answers.forEach(answer => {
+                this.validateAnswer(answer)
+            })
+            this.$emit('validated', this.questionIsCorrect())
         }
-    },
-    watch: {
-        checked(newVal, oldVal) {
-            this.correct(newVal)
-        }
-    },
-    mounted() {
-        this.correct(this.checked)
     }
 }
 </script>

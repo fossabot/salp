@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import SingleChoice from './SingleChoice.vue'
 
 describe('SingleChoice.vue', () => {
@@ -10,7 +10,7 @@ describe('SingleChoice.vue', () => {
                 { answer: 'ipsum', correct: false },
                 { answer: 'dollor', correct: true }
             ],
-            checked: 2,
+            checked: 'dollor',
             expects: true
         },
         {
@@ -19,7 +19,7 @@ describe('SingleChoice.vue', () => {
                 { answer: 'ipsum', correct: false },
                 { answer: 'dollor', correct: false }
             ],
-            checked: 1,
+            checked: 'ipsum',
             expects: false
         },
         {
@@ -28,7 +28,7 @@ describe('SingleChoice.vue', () => {
                 { answer: 'ipsum', correct: false },
                 { answer: 'dollor', correct: false }
             ],
-            checked: -1,
+            checked: '',
             expects: true
         }
     ]
@@ -36,26 +36,20 @@ describe('SingleChoice.vue', () => {
     const question = 'Lorem ipsum dollor sit atmet?'
 
     expectedValues.forEach(({ answers, checked, expects }) => {
-        it(`should update the v-model of answer, checked:${checked}`, () => {
-            let wrapper = mount({
-                data() {
-                    return {
-                        answers,
-                        question,
-                        answer: ''
-                    }
-                },
-                template: `<div><SingleChoice question="question" :answers="answers" v-model="answer"/></div>`,
-                components: {
-                    SingleChoice
+        it(`should validate question, checked:${checked} to ${expects}`, () => {
+            const wrapper = shallowMount(SingleChoice, {
+                propsData: {
+                    question,
+                    answers
                 }
             })
 
-            const radioButton = wrapper.findAll('.single-choice-content__container__radio-group__radio').at(checked)
-            if (radioButton) {
-                radioButton.trigger('click')
-            }
-            expect(wrapper.vm.$data.answer).to.equal(expects)
+            wrapper.setData({
+                checked
+            })
+
+            wrapper.vm.validate()
+            expect(wrapper.emitted('validated')[0][0]).to.equal(expects)
         })
     })
 
@@ -122,7 +116,7 @@ describe('SingleChoice.vue', () => {
         const validator = SingleChoice.props.answers.validator
 
         expectedValues.forEach(({ answers, expects }, index) => {
-            it(`should validate answers '${JSON.stringify(answers[0])}...' with ${expects} (${index})`, () => {
+            it(`should validate answers '${JSON.stringify(answers[0])}...' is valid format with ${expects} (${index})`, () => {
                 expect(validator(answers)).to.equal(expects)
             })
         })
