@@ -6,8 +6,7 @@ export const questions = [
             { answer: 'dollor', correct: false },
             { answer: 'sit', correct: false },
             { answer: 'atmet', correct: true }
-        ],
-        answer: undefined
+        ]
     },
     {
         component: 'SingleChoice',
@@ -16,17 +15,20 @@ export const questions = [
             { answer: 'Lorem', correct: false },
             { answer: 'Sit', correct: true },
             { answer: 'Lorem Ipsum', correct: false }
-        ],
-        answer: undefined
+        ]
     },
     {
         component: 'UserInput',
         question: 'Lorem Ipsum?',
-        answer: undefined
+        answers: [
+            { answer: 'lorem' }
+        ]
     },
     {
         component: 'UserInput',
         question: 'Dollor sit atmet?',
-        answer: undefined
+        answers: [
+            { answer: 'ipsum' }
+        ]
     }
 ]
