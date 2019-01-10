@@ -1,0 +1,11 @@
+{
+    "button": {
+        "check": "Überprüfen",
+        "next": "Nächste Frage",
+        "result": "Ergebnis anzeigen"
+    },
+    "result": {
+        "passed": "Du hast den Test bestanden.",
+        "failed": "Du hast den Test nicht bestanden."
+    }
+}

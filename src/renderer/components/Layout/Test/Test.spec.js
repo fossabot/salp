@@ -13,7 +13,7 @@ describe('Test.vue', () => {
                 { answer: 'GubelGubel', correct: false },
                 { answer: 'LabelLabel', correct: true }
             ],
-            answer: true
+            $correct: true
         },
         {
             component: 'SingleChoice',
@@ -23,7 +23,7 @@ describe('Test.vue', () => {
                 { answer: 'Egg', correct: true },
                 { answer: 'Chicken', correct: false }
             ],
-            answer: true
+            $correct: true
         },
         {
             component: 'SingleChoice',
@@ -33,7 +33,7 @@ describe('Test.vue', () => {
                 { answer: 'Egg', correct: true },
                 { answer: 'Chicken', correct: false }
             ],
-            answer: true
+            $correct: true
         },
         {
             component: 'SingleChoice',
@@ -43,7 +43,7 @@ describe('Test.vue', () => {
                 { answer: 'Egg', correct: true },
                 { answer: 'Chicken', correct: false }
             ],
-            answer: false
+            $correct: false
         }
     ]
 
@@ -68,14 +68,32 @@ describe('Test.vue', () => {
     })
 
     describe('Test check button', () => {
-        it('should show next question if button is presst', () => {
+        it('should handle question validation if button is pressed once', () => {
+            const wrapper = mount(Test, {})
+
+            let handleQuestionValidated = spy()
+
+            wrapper.setData({
+                questions
+            })
+
+            wrapper.setMethods({
+                handleQuestionValidated
+            })
+
+            wrapper.find('.test-content__button-container__button').trigger('click')
+            expect(handleQuestionValidated.calledOnce).to.be.true
+        })
+
+        it('should show next question if button is presst the second time', () => {
             const wrapper = mount(Test, {})
 
             wrapper.setData({
                 questions
             })
 
-            wrapper.find('.test-content__container__button-container__button').trigger('click')
+            wrapper.find('.test-content__button-container__button').trigger('click')
+            wrapper.find('.test-content__button-container__button').trigger('click')
             expect(wrapper.vm.$data.currentQuestion).to.equal(1)
         })
 
@@ -92,7 +110,8 @@ describe('Test.vue', () => {
             })
 
             questions.forEach(question => {
-                wrapper.find('.test-content__container__button-container__button').trigger('click')
+                wrapper.find('.test-content__button-container__button').trigger('click')
+                wrapper.find('.test-content__button-container__button').trigger('click')
             })
             expect(passed.calledOnce).to.be.true
         })
