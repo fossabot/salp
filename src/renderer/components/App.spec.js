@@ -53,10 +53,10 @@ describe('App.vue', () => {
     it('should change the page title in header', () => {
         const changedTitle = 'Changed Title'
 
-        expect(wrapper.find('.page-title').text()).to.equal(initialAppTitle)
+        expect(wrapper).to.find('.page-title').which.has.text(initialAppTitle)
 
         wrapper.setData({ pageTitle: changedTitle })
 
-        expect(wrapper.find('.page-title').text()).to.equal(changedTitle)
+        expect(wrapper).to.find('.page-title').which.has.text(changedTitle)
     })
 })

@@ -19,11 +19,11 @@ describe('YouTube.vue', () => {
     })
 
     it('should create class "contentelement-youtube"', () => {
-        expect(wrapper.classes('contentelement-youtube')).to.be.true
+        expect(wrapper).to.have.classes('contentelement-youtube')
     })
 
     it('should set src attribute correctly', () => {
-        expect(wrapper.attributes().src).to.eq(expectedURL)
+        expect(wrapper).to.have.attributes('src', expectedURL)
     })
 
     describe('youtube url validator', () => {

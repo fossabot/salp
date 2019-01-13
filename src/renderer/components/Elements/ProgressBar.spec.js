@@ -8,11 +8,11 @@ describe('ProgressBar.vue', () => {
             propsData: { progress: 0 }
         })
 
-        expect(wrapper.find('.el-progress__text').text()).to.equal('0%')
+        expect(wrapper).to.find('.el-progress__text').which.has.text('0%')
 
         wrapper.setProps({ progress: 30 })
 
-        expect(wrapper.find('.el-progress__text').text()).to.equal('30%')
+        expect(wrapper).to.find('.el-progress__text').which.has.text('30%')
     })
 
     it('should show progress text if below 100%', () => {
@@ -23,7 +23,7 @@ describe('ProgressBar.vue', () => {
         progressValues.forEach(val => {
             wrapper.setProps({ progress: val })
 
-            expect(wrapper.find('.el-progress__text').text()).to.equal(val + '%')
+            expect(wrapper).to.find('.el-progress__text').which.has.text(val + '%')
         })
     })
 
@@ -32,7 +32,7 @@ describe('ProgressBar.vue', () => {
             propsData: { progress: 100 }
         })
 
-        expect(wrapper.find('.el-icon-circle-check').exists()).to.be.true
-        expect(wrapper.find('.el-progress__text').text()).to.equal('')
+        expect(wrapper).to.find('.el-icon-circle-check')
+        expect(wrapper).to.find('.el-progress__text').which.has.text('')
     })
 })

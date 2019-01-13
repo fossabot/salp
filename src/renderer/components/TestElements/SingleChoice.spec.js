@@ -49,7 +49,7 @@ describe('SingleChoice.vue', () => {
             })
 
             wrapper.vm.validate()
-            expect(wrapper.emitted('validated')[0][0]).to.equal(expects)
+            expect(wrapper).to.have.emitted('validated').which.deep.equals([[expects]])
         })
     })
 

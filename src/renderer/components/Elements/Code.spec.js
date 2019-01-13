@@ -83,7 +83,7 @@ describe('Code.vue', () => {
             }
         })
 
-        expect(wrapper.contains('textarea')).to.be.true
+        expect(wrapper).to.contain('textarea')
     })
 
     describe('CodeMirror options', () => {

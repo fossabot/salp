@@ -68,7 +68,7 @@ describe('MultipleChoice.vue', () => {
             })
 
             wrapper.vm.validate()
-            expect(wrapper.emitted('validated')[0][0]).to.equal(expects)
+            expect(wrapper).to.have.emitted('validated', 1).which.deep.equals([[expects]])
         })
     })
 

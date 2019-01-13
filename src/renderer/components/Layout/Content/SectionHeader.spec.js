@@ -12,8 +12,8 @@ describe('SectionHeader.vue', () => {
             }
         })
 
-        expect(wrapper.name()).to.equal('h3')
-        expect(wrapper.text()).to.equal(expectedContent)
+        expect(wrapper).to.have.name('h3')
+        expect(wrapper).to.have.text(expectedContent)
     })
 
     describe('passes through classes', () => {
@@ -26,7 +26,7 @@ describe('SectionHeader.vue', () => {
                 }
             })
 
-            expect(wrapper.classes(expectedClass)).to.be.true
+            expect(wrapper).to.have.classes(expectedClass)
         })
 
         it('should renders classes', () => {
@@ -36,7 +36,7 @@ describe('SectionHeader.vue', () => {
                 }
             })
 
-            expect(wrapper.classes(expectedClass)).to.be.true
+            expect(wrapper).to.have.classes(expectedClass)
         })
 
         it('should merge dynamic and static classes', () => {
@@ -50,8 +50,8 @@ describe('SectionHeader.vue', () => {
                 }
             })
 
-            expect(wrapper.classes(expectedClass)).to.be.true
-            expect(wrapper.classes(expectedDynamicClass)).to.be.true
+            expect(wrapper).to.have.classes(expectedClass)
+            expect(wrapper).to.have.classes(expectedDynamicClass)
         })
     })
 })

@@ -113,11 +113,12 @@ describe('TableOfContents.js mixin', () => {
                 })
 
                 it(`should have a level ${maxDepth} submenu`, () => {
-                    expect(wrapper.find(`.toc__menu--level-${maxDepth}`).exists()).to.be.true
+                    expect(wrapper).to.find(`.toc__menu--level-${maxDepth}`)
                 })
 
                 it(`should not have a level ${maxDepth + 1} submenu`, () => {
-                    expect(wrapper.find(`.toc__menu--level-${maxDepth + 1}`).exists()).not.to.be.true
+                    // see https://github.com/jdoubleu/vue-test-chai/issues/1
+                    expect(wrapper.find(`.toc__menu--level-${maxDepth + 1}`)).not.to.exist
                 })
             })
         })

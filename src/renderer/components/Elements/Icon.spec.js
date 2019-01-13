@@ -55,8 +55,8 @@ describe('Icon.vue', () => {
 
         const wrapper = createWrapper(parentVm).find(Icon)
 
-        expect(wrapper.name()).to.equal('svg')
-        expect(wrapper.classes('fa-band-aid')).to.be.true
+        expect(wrapper).to.have.name('svg')
+        expect(wrapper).to.have.classes('fa-band-aid')
     })
 
     it('should pass through additional classes', () => {
@@ -69,6 +69,6 @@ describe('Icon.vue', () => {
             }
         })
 
-        expect(wrapper.classes(expectedClass)).to.be.true
+        expect(wrapper).to.have.classes(expectedClass)
     })
 })
