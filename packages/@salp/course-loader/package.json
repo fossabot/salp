@@ -1,0 +1,22 @@
+{
+  "name": "@salp/course-loader",
+  "version": "1.0.0",
+  "description": "Webpack loader to compile salp course content (markdown) to Vue (javascript)",
+  "main": "lib/course-loader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "lib/"
+  ],
+  "keywords": [
+    "webpack",
+    "webpack-loader",
+    "salp",
+    "salp-course",
+    "markdown",
+    "vue"
+  ],
+  "author": "Joshua Westerheide <dev@jdoubleu.de>",
+  "license": "MIT"
+}
