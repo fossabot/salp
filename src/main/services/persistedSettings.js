@@ -1,16 +1,9 @@
 // This service is responsible to persist settings
 // See also: vuex persist plugin
 import { app, ipcMain } from 'electron'
-import { promisify } from 'util'
-import { mkdir, writeFile, readFile } from 'fs'
+import { promises as fs } from 'fs'
 import path from 'path'
 import { persistedSettingsDir } from '$src/shared/constants.js'
-
-const fs = {
-    mkdir: promisify(mkdir),
-    writeFile: promisify(writeFile),
-    readFile: promisify(readFile)
-}
 
 const emptySettingsFileContent = '{}'
 

@@ -39,6 +39,7 @@ const { mapStateTwoWay } = createHelpers()
 
 export default {
     name: 'Profile',
+    pageTitleTranslationKey: 'App.pages.profile',
     components: {
         SectionHeader,
 
@@ -51,9 +52,6 @@ export default {
         faChartBar,
         faEdit,
         faUser
-    },
-    beforeCreate() {
-        this.$emit('pageTitle', this.$t('App.pages.profile'))
     },
     data() {
         return {

@@ -22,15 +22,13 @@ const { mapStateTwoWay } = createHelpers()
 
 export default {
     name: 'Settings',
+    pageTitleTranslationKey: 'App.pages.settings',
     components: {
         /* eslint-disable-next-line vue/no-unused-components */
         [Switch.name]: Switch,
         Form,
         FormItem,
         Input
-    },
-    beforeCreate() {
-        this.$emit('pageTitle', this.$t('App.pages.settings'))
     },
     computed: mapStateTwoWay(['ml', 'path'])
 }

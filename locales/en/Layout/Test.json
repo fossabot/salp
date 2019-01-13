@@ -1,0 +1,11 @@
+{
+    "button": {
+        "check": "Check",
+        "next": "Next question",
+        "result": "Show result"
+    },
+    "result": {
+        "passed": "You have passed the test.",
+        "failed": "You have failed the test."
+    }
+}
