@@ -24,6 +24,7 @@ export default {
             if (videoId.indexOf('&') !== -1) {
                 videoId = videoId.split('&')[0]
             }
+
             return `https://www.youtube-nocookie.com/embed/${videoId}`
         }
 

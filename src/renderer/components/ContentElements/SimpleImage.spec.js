@@ -17,14 +17,14 @@ describe('SimpleImage.vue', () => {
     })
 
     it('should create class "contentelement-image"', () => {
-        expect(wrapper.classes('contentelement-image')).to.be.true
+        expect(wrapper).to.have.classes('contentelement-image')
     })
 
     it('should create img tag', () => {
-        expect(wrapper.contains('img')).to.be.true
+        expect(wrapper).to.contain('img')
     })
 
     it('should set src attribute correctly', () => {
-        expect(wrapper.attributes('src')).to.equal(expectedSrc)
+        expect(wrapper).to.have.attributes('src', expectedSrc)
     })
 })

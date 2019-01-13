@@ -70,6 +70,7 @@ export default {
                     answeredCorrect = false
                 }
             })
+
             return answeredCorrect
         },
         validateAnswer(answer) {

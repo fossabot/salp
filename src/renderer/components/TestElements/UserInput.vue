@@ -70,6 +70,7 @@ export default {
                     correct = true
                 }
             })
+
             return correct
         },
         validate() {

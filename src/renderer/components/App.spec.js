@@ -27,11 +27,12 @@ describe('App.vue', () => {
             stubs: ['router-view']
         })
     })
-    it('has initial page title', () => {
+
+    it('should have an initial page title', () => {
         expect(wrapper.vm.pageTitle).to.equal(initialAppTitle)
     })
 
-    it('updates page title when route changes', () => {
+    it('should update the page title when route changes', () => {
         expect(wrapper.vm.pageTitle).to.equal(initialAppTitle)
 
         router.push({ name: testRouteName })
@@ -39,7 +40,7 @@ describe('App.vue', () => {
         expect(wrapper.vm.pageTitle).to.equal(testRouteName)
     })
 
-    it('updates the page title when event "pageTitle" was emitted', () => {
+    it('should update the page title when event "pageTitle" was emitted', () => {
         const updatedTitle = 'UpdatedTitle'
 
         expect(wrapper.vm.pageTitle).to.equal(initialAppTitle)
@@ -49,13 +50,13 @@ describe('App.vue', () => {
         expect(wrapper.vm.pageTitle).to.equal(updatedTitle)
     })
 
-    it('changes page title in header', () => {
+    it('should change the page title in header', () => {
         const changedTitle = 'Changed Title'
 
-        expect(wrapper.find('.page-title').text()).to.equal(initialAppTitle)
+        expect(wrapper).to.find('.page-title').which.has.text(initialAppTitle)
 
         wrapper.setData({ pageTitle: changedTitle })
 
-        expect(wrapper.find('.page-title').text()).to.equal(changedTitle)
+        expect(wrapper).to.find('.page-title').which.has.text(changedTitle)
     })
 })

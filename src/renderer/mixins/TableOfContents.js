@@ -61,6 +61,7 @@ export default {
             const subMenus = Object.values(toc).map(item => this.createMenu(item))
 
             this.$currentDepth = 0
+
             return this.createSubMenu(subMenus)
         },
         createRootElement(toc) {

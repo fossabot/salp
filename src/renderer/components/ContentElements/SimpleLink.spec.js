@@ -20,11 +20,11 @@ describe('SimpleLink.vue', () => {
     })
 
     it('should create class "contentelement-link"', () => {
-        expect(wrapper.classes('contentelement-link')).to.be.true
+        expect(wrapper).to.have.classes('contentelement-link')
     })
 
     it('should create a tag', () => {
-        expect(wrapper.contains('a')).to.be.true
+        expect(wrapper).to.contain('a')
     })
 
     it('should call openExternal with expected URL on click event', () => {

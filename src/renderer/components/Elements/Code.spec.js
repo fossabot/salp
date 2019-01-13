@@ -75,7 +75,7 @@ describe('Code.vue', () => {
         })
     })
 
-    it('textarea is available', () => {
+    it('should render textarea by default', () => {
         const initialize = stub()
         const wrapper = shallowMountCode({
             methods: {
@@ -83,7 +83,7 @@ describe('Code.vue', () => {
             }
         })
 
-        expect(wrapper.contains('textarea')).to.be.true
+        expect(wrapper).to.contain('textarea')
     })
 
     describe('CodeMirror options', () => {

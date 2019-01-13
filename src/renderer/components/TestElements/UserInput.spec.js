@@ -28,7 +28,7 @@ describe('UserInput.vue', () => {
                     }
                 })
 
-                expect(wrapper.classes(expects)).to.be.true
+                expect(wrapper).to.have.classes(expects)
             })
         })
     })
@@ -54,7 +54,7 @@ describe('UserInput.vue', () => {
             })
 
             wrapper.vm.validate()
-            expect(wrapper.emitted('validated')[0][0]).to.equal(expects)
+            expect(wrapper).to.have.emitted('validated', 1).which.deep.equals([[expects]])
         })
     })
 })

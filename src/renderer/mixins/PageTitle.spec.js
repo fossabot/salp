@@ -44,7 +44,7 @@ describe('Page title mixin: PageTitle.js', () => {
     it('should not emit "pageTitle" event when option "pageTitleTranslationKey" is not set', () => {
         const wrapper = shallowMount(component)
 
-        expect(wrapper.emitted().pageTitle).to.be.undefined
+        expect(wrapper).not.to.have.emitted('pageTitle')
     })
 
     it('should emit "pageTitle" event when option "pageTitleTranslationKey" is set', () => {
@@ -52,7 +52,7 @@ describe('Page title mixin: PageTitle.js', () => {
 
         const wrapper = shallowMount(component)
 
-        expect(wrapper.emitted().pageTitle.length).to.equal(1)
+        expect(wrapper).to.have.emitted('pageTitle', 1)
     })
 
     it('should call translation function', () => {

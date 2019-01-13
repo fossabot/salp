@@ -22,15 +22,15 @@ describe('Quote.vue', () => {
     })
 
     it('should create class "contentelement-quote"', () => {
-        expect(wrapper.classes('contentelement-quote')).to.be.true
+        expect(wrapper).to.have.classes('contentelement-quote')
     })
 
     it('should create SimpleText component', () => {
-        expect(wrapper.find(SimpleText).exists()).to.be.true
+        expect(wrapper).to.find(SimpleText)
     })
 
     it('should not have cite when no source slot provided', () => {
-        expect(wrapper.find('cite').exists()).to.be.false
+        expect(wrapper).not.to.find('cite')
     })
 
     it('should render source slot')

@@ -18,6 +18,6 @@ describe('TableOfContents.vue', () => {
     it(`should have root class '${expectedRootClass}'`, () => {
         const wrapper = shallowMountComponent()
 
-        expect(wrapper.classes(expectedRootClass)).to.be.true
+        expect(wrapper).to.have.classes(expectedRootClass)
     })
 })
