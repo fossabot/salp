@@ -31,6 +31,7 @@ export default {
             if (this.isValid === undefined) {
                 return 'is-validUnchecked'
             }
+
             return ''
         }
     }
