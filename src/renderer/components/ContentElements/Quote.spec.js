@@ -30,8 +30,7 @@ describe('Quote.vue', () => {
     })
 
     it('should not have cite when no source slot provided', () => {
-        // see https://github.com/jdoubleu/vue-test-chai/issues/1
-        expect(wrapper.find('cite')).not.to.exist
+        expect(wrapper).not.to.find('cite')
     })
 
     it('should render source slot')
