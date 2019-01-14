@@ -35,5 +35,11 @@
             Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
             fugiat vitae quaerat officiis cupiditate ducimus explicabo temporibus
             exercitationem ipsum blanditiis recusandae." url="http://www.github.com" />
+        <SimpleList :ordered="false">
+            <SimpleListItem>Item</SimpleListItem>
+            <SimpleListItem>Item2</SimpleListItem>
+            <SimpleListItem>Item3</SimpleListItem>
+            <SimpleListItem>asdd</SimpleListItem>
+        </SimpleList>
     </div>
 </template>
