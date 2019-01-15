@@ -52,3 +52,23 @@ if (18) {
 Dictaeo concedimus, coniectum vix summo protinus recessit fama cum morbo. Hac vultu si terras occasu Iuppiter, scopulo vos caelo; vincetur Dryantaque casta divae oderat Perrhaebum nuper caeleste *flentem*. Longae te *inmurmurat exigit* nutricibus muneris est inerti passus.
 
 Penthea quod, ad permanet habet potentia montes et, in viget pulchros. Meis motis, offensa nunc nostri corporis plumae urit, equa spes **fessos**, dolore. Flumine hoc pallenti vero.
+
+## Custom content
+
+### Media
+![Some image alt text](https://images.pexels.com/photos/1036371/pexels-photo-1036371.jpeg?cs=srgb&dl=cloud-landscape-mountain-1036371.jpg&fm=jpg)
+
+[![Big bucks Bunny](http://img.youtube.com/vi/aqz-KE-bpKQ/0.jpg)](http://www.youtube.com/watch?v=aqz-KE-bpKQ)
+
+### Hyperlinks
+[An external link](https://example.com)
+
+[A local link](./02-Attacks.md)
+
+### Table
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
