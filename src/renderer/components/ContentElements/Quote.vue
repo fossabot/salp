@@ -1,9 +1,7 @@
 <template functional>
     <blockquote class="contentelement-quote">
         <div class="contentelement-quote__content-container">
-            <SimpleText class="contentelement-quote__text">
-                "{{ props.quote }}"
-            </SimpleText>
+            <slot class="contentelement-quote__content"></slot>
         </div>
 
         <cite class="contentelement-quote__cite" v-if="slots().source">
@@ -13,20 +11,9 @@
 </template>
 
 <script>
-import SimpleText from './SimpleText.vue'
-
 export default {
     name: 'Quote',
-    functional: true,
-    components: {
-        SimpleText
-    },
-    props: {
-        quote: {
-            type: String,
-            required: true
-        }
-    }
+    functional: true
 }
 </script>
 
