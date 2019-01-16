@@ -1,5 +1,6 @@
 const path = require('path')
 const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin')
+const CourseLoader = path.resolve(__dirname, 'packages/@salp/course-loader')
 
 const isTesting = process.env.NODE_ENV === 'test'
 const isCoverage = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event.includes('coverage')
@@ -92,6 +93,17 @@ module.exports = {
                 }
                 return options
             })
+
+        // courses
+        config.module
+            .rule('course')
+            .test(/salp-course-.*\.md$/)
+            .use('vue-loader')
+            .loader('vue-loader')
+            .end()
+            .use('course-loader')
+            .loader(CourseLoader)
+            .end()
 
         if (!isTesting) {
             // Create chunks for (larger) libraries
