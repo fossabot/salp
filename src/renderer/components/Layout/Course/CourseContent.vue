@@ -1,8 +1,8 @@
 <template>
     <div class="course-content__container">
-        <component :is="getCurrentLecture"></component>
+        <component :is="currentChapter"></component>
         <div class="course-content__container__pagination__wrapper">
-            <Pagination layout="prev, pager, next" :total="pages" :page-size="1" @current-change="handlePageChange"/>
+            <Pagination layout="prev, pager, next" :total="pagesCount" :page-size="1" @current-change="handlePageChange"/>
         </div>
     </div>
 </template>
@@ -54,20 +54,20 @@ export default {
                 'Lecture1',
                 'Lecture2'
             ],
-            currentLecture: 0
+            currentChapterIndex: 0
         }
     },
     computed: {
-        getCurrentLecture: function() {
-            return this.chapters[this.currentLecture]
+        currentChapter: function() {
+            return this.chapters[this.currentChapterIndex]
         },
-        pages: function() {
+        pagesCount: function() {
             return this.chapters.length
         }
     },
     methods: {
         handlePageChange(page) {
-            this.currentLecture = page - 1
+            this.currentChapterIndex = page - 1
         }
     }
 }
