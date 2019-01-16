@@ -15,6 +15,8 @@ import SimpleLink from '../../ContentElements/SimpleLink.vue'
 import SimpleText from '../../ContentElements/SimpleText.vue'
 import AppPreview from '../../ContentElements/AppPreview.vue'
 import SimpleVideo from '../../ContentElements/SimpleVideo.vue'
+import SimpleList from '../../ContentElements/SimpleList.vue'
+import SimpleListItem from '../../ContentElements/SimpleListItem.vue'
 import Quote from '../../ContentElements/Quote.vue'
 import YouTube from '../../ContentElements/YouTube.vue'
 import Table from '../../ContentElements/Table.vue'
@@ -41,6 +43,8 @@ export default {
         YouTube,
         Table,
         Code,
+        SimpleList,
+        SimpleListItem,
 
         Lecture1,
         Lecture2,
