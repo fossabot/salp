@@ -2,7 +2,10 @@
   "name": "salp-course-example",
   "version": "1.0.0",
   "description": "Example salp course with dummy content",
-  "main": "index.js",
+  "main": "dist/course.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
