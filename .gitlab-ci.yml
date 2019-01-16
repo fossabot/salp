@@ -23,16 +23,20 @@ variables:
 
 before_script:
   - npm ci
-  - npx lerna bootstrap
+  - npx lerna bootstrap $LERNA_ARGS
 
 # jobs
 eslint:
   stage: lint
+  variables:
+    LERNA_ARGS: --ignore-prepublish
   script:
     - npm run lint:code -- --no-fix
 
 stylelint:
   stage: lint
+  variables:
+    LERNA_ARGS: --ignore-prepublish
   script:
     - npm run lint:style -- --no-fix
 
