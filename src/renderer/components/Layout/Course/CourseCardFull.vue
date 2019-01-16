@@ -42,7 +42,7 @@ export default {
         description: String,
         author: String,
         version: String,
-        lessons: Number,
+        chapters: Number,
         tests: Number,
         tags: Array,
         progress: Number,

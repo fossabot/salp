@@ -5,7 +5,7 @@
         "result": "Show result"
     },
     "result": {
-        "passed": "You have passed the test.",
-        "failed": "You have failed the test."
+        "passed": "You have passed the assignment.",
+        "failed": "You have failed the assignment."
     }
 }

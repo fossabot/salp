@@ -1,11 +1,11 @@
 <template>
-    <Card class="test-content__container">
+    <Card class="assignment-content__container">
         <h1>SQL-Injection</h1>
         <Steps :active="currentQuestion">
             <Step v-for="(question, index) in questions" :key="`step${index}`"
                 :status="question.$correct ? 'success' : question.$correct === false ? 'error' : 'process'"/>
         </Steps>
-            <div class="test-content__question-container">
+            <div class="assignment-content__question-container">
                 <component v-for="(question, index) in questions"
                     :key="`question_${index}`" :ref="`question_${index}`" :is="question.component"
                     :question="question.question" :answers="question.answers"
@@ -13,25 +13,25 @@
                     @validated="handleQuestionValidated">
                 </component>
             </div>
-        <div v-if="showResult" class="test-content__result-container">
-            <h3 v-if="passed">{{ $t('Layout.Test.result.passed') }}</h3>
-            <h3 v-else>{{ $t('Layout.Test.result.failed') }}</h3>
+        <div v-if="showResult" class="assignment-content__result-container">
+            <h3 v-if="passed">{{ $t('Layout.Assignment.result.passed') }}</h3>
+            <h3 v-else>{{ $t('Layout.Assignment.result.failed') }}</h3>
         </div>
-        <div v-if="!showResult" class="test-content__button-container">
-            <Button class="test-content__button-container__button" type="primary" @click="handleButtonClick">{{ buttonText }}</Button>
+        <div v-if="!showResult" class="assignment-content__button-container">
+            <Button class="assignment-content__button-container__button" type="primary" @click="handleButtonClick">{{ buttonText }}</Button>
         </div>
     </Card>
 </template>
 
 <script>
 import { Card, Button, Steps, Step } from 'element-ui'
-import MultipleChoice from '../../TestElements/MultipleChoice.vue'
-import SingleChoice from '../../TestElements/SingleChoice.vue'
-import UserInput from '../../TestElements/UserInput.vue'
-import { questions } from '@/__mocks__/test/questions.js'
+import MultipleChoice from '../../AssignmentElements/MultipleChoice.vue'
+import SingleChoice from '../../AssignmentElements/SingleChoice.vue'
+import UserInput from '../../AssignmentElements/UserInput.vue'
+import { questions } from '@/__mocks__/assignment/questions.js'
 
 export default {
-    name: 'Test',
+    name: 'Assignment',
     components: {
         Card,
         Button,
@@ -45,7 +45,7 @@ export default {
     data() {
         return {
             questions: questions,
-            buttonText: this.$t('Layout.Test.button.check'),
+            buttonText: this.$t('Layout.Assignment.button.check'),
             currentQuestion: 0,
             passedAt: 0.5,
             validate: true,
@@ -69,11 +69,11 @@ export default {
     methods: {
         handleButtonClick() {
             if (this.validate) {
-                this.buttonText = this.$t('Layout.Test.button.next')
+                this.buttonText = this.$t('Layout.Assignment.button.next')
                 this.$refs[`question_${this.currentQuestion}`][0].validate()
 
                 if (this.currentQuestion === this.questions.length - 1) {
-                    this.buttonText = this.$t('Layout.Test.button.result')
+                    this.buttonText = this.$t('Layout.Assignment.button.result')
                 }
             } else {
                 this.currentQuestion++
@@ -83,7 +83,7 @@ export default {
                     return this.passed
                 }
 
-                this.buttonText = this.$t('Layout.Test.button.check')
+                this.buttonText = this.$t('Layout.Assignment.button.check')
                 this.validate = true
             }
         },
@@ -96,20 +96,20 @@ export default {
 </script>
 
 <style lang="scss">
-.test-content__container {
-    .test-content__question-container {
+.assignment-content__container {
+    .assignment-content__question-container {
         margin-top: 1em;
         display: flex;
         justify-content: center;
     }
 
-    .test-content__button-container {
+    .assignment-content__button-container {
         display: flex;
         justify-content: center;
         margin-top: 1em;
     }
 
-    .test-content__result-container {
+    .assignment-content__result-container {
         margin-top: 2em;
         display: flex;
         justify-content: center;
