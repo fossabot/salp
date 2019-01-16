@@ -3,6 +3,8 @@
 
 const tablePlugin = require('./table')
 
+const escapeHtml = require('markdown-it/lib/common/utils').escapeHtml
+
 module.exports = function ContentElementsPlugin(md) {
     tablePlugin.call(this, md)
 
@@ -104,5 +106,14 @@ module.exports = function ContentElementsPlugin(md) {
 
         // TODO: escape attributes
         return `<SimpleVideo src="${token.info.videoReference}"/>`
+    }
+
+    md.renderer.rules.code_block = md.renderer.rules.fence = renderCode
+    function renderCode(tokens, idx) {
+        const token = tokens[idx]
+
+        const code = escapeHtml(token.content)
+
+        return `<Code language="${token.info}">${code}</Code>`
     }
 }
