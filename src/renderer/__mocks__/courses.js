@@ -6,7 +6,7 @@ let course = {
     author: 'John Doe',
     version: '1.0',
     chapters: 6,
-    tests: 3,
+    assignments: 3,
     tags: ['SQL', 'active attack', 'web applications'],
     progress: 72
 }
