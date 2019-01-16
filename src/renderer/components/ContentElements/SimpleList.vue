@@ -22,6 +22,7 @@ export default {
 
 <style lang="scss">
 .contentelement-list {
+    margin-top: 1em;
     margin-bottom: 0;
 }
 </style>

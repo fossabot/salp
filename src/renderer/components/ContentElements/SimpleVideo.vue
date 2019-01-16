@@ -19,6 +19,8 @@ export default {
 
 <style lang="scss">
 .contentelement-video {
-    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 0;
+    max-width: 100%;
 }
 </style>
