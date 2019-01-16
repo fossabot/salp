@@ -18,6 +18,7 @@ export default {
 <style lang="scss">
 .contentelement-image {
     margin-top: 1em;
+    margin-bottom: 0;
     max-width: 100%;
     object-fit: contain;
 }

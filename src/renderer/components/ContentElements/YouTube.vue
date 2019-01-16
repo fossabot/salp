@@ -47,7 +47,9 @@ export default {
 
 <style lang="scss">
 .contentelement-youtube {
-    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 0;
+    max-width: 100%;
     height: 34em;
 }
 </style>

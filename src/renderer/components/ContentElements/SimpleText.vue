@@ -15,3 +15,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.contentelement-text {
+    margin-top: 1em;
+    margin-bottom: 0;
+}
+</style>

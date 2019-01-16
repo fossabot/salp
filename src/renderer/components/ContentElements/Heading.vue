@@ -24,6 +24,7 @@ export default {
 
 <style lang="scss">
 .contentelement-heading {
+    margin-top: 1em;
     margin-bottom: 0;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="code__wrapper">
+    <div class="code__container">
         <textarea ref="textarea"/>
     </div>
 </template>
@@ -102,7 +102,10 @@ export default {
 </script>
 
 <style lang="scss">
-.code__wrapper {
+.code__container {
+    margin-top: 1em;
+    margin-bottom: 0;
+
     .CodeMirror {
         height: auto;
     }
