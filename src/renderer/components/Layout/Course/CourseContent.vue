@@ -19,7 +19,7 @@ import Quote from '../../ContentElements/Quote.vue'
 import YouTube from '../../ContentElements/YouTube.vue'
 import Table from '../../ContentElements/Table.vue'
 import Code from '../../Elements/Code.vue'
-import TheCourse from '$src/../packages/salp-course-example'
+import TheCourse from '$src/../packages/salp-course-example/dist/course'
 
 import { Card, Pagination } from 'element-ui'
 
