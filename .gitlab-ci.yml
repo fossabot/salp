@@ -23,6 +23,7 @@ variables:
 
 before_script:
   - npm ci
+  - npx lerna bootstrap
 
 # jobs
 eslint:
