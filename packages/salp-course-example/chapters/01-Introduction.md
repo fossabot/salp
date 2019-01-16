@@ -58,7 +58,7 @@ Penthea quod, ad permanet habet potentia montes et, in viget pulchros. Meis moti
 ### Media
 ![Some image alt text](https://images.pexels.com/photos/1036371/pexels-photo-1036371.jpeg?cs=srgb&dl=cloud-landscape-mountain-1036371.jpg&fm=jpg)
 
-[![Big bucks Bunny](http://img.youtube.com/vi/aqz-KE-bpKQ/0.jpg)](http://www.youtube.com/watch?v=aqz-KE-bpKQ)
+@[youtube](http://youtu.be/aqz-KE-bpKQ)
 
 ### Hyperlinks
 [An external link](https://example.com)

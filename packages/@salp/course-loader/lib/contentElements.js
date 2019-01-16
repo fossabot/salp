@@ -61,4 +61,15 @@ module.exports = function ContentElementsPlugin(md) {
             return `<SimpleImage src="${src}" alt="${alt}"/>`
         }
     }
+
+    md.renderer.rules.video = function renderVideo(tokens, idx) {
+        const token = tokens[idx]
+
+        if (token.info.serviceName !== 'youtube') {
+            return `<!-- ${token.info.serviceName} videos are not supported -->`
+        }
+
+        // TODO: escape attributes
+        return `<SimpleVideo src="${token.info.videoReference}"/>`
+    }
 }
