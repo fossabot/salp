@@ -64,8 +64,8 @@ module.exports = {
 
         config.module.rule('eslint')
             .exclude
-                .add(/dist/)
-                .end()
+            .add(/dist/)
+            .end()
 
         // Inject scss variables in each vue SFC styles
         // @see https://cli.vuejs.org/guide/css.html#automatic-imports
