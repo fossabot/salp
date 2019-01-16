@@ -17,7 +17,7 @@ const expectedNestedPaths = [
 ]
 
 describe('i18n.js: i18n vue plugin integration', () => {
-    it('creates correct messages object from nested locale files', () => {
+    it('should create correct messages object from nested locale files', () => {
         const loader = fake(file => {
             if (file in filesMock) {
                 return filesMock[file]

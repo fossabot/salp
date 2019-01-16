@@ -1,5 +1,5 @@
 <template functional>
-    <img class="contentelement-image" :src="props.src" :style="{height: props.height}"/>
+    <img class="contentelement-image" :src="props.src"/>
 </template>
 
 <script>
@@ -10,12 +10,6 @@ export default {
         src: {
             type: String,
             required: true
-        },
-        height: {
-            type: String,
-            default() {
-                return 'auto'
-            }
         }
     }
 }
@@ -23,6 +17,9 @@ export default {
 
 <style lang="scss">
 .contentelement-image {
+    margin-top: 1em;
+    margin-bottom: 0;
+    max-width: 100%;
     object-fit: contain;
 }
 </style>

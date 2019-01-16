@@ -9,8 +9,9 @@ localVue.use(icons)
 
 describe('Icon.vue', () => {
     describe('always renders "el-icon-fa" as first class', () => {
-        const test = wrapper => expect(wrapper.classes().indexOf('el-icon-fa')).to.equal(0)
+        const testClassIsFirst = wrapper => expect(wrapper.classes().indexOf('el-icon-fa')).to.equal(0)
 
+        /* eslint-disable-next-line mocha/valid-test-description */
         it('by default', () => {
             const wrapper = shallowMount(Icon, {
                 context: {
@@ -18,9 +19,10 @@ describe('Icon.vue', () => {
                 }
             })
 
-            test(wrapper)
+            testClassIsFirst(wrapper)
         })
 
+        /* eslint-disable-next-line mocha/valid-test-description */
         it('when additional classes are provided', () => {
             const wrapper = shallowMount(Icon, {
                 context: {
@@ -29,11 +31,11 @@ describe('Icon.vue', () => {
                 }
             })
 
-            test(wrapper)
+            testClassIsFirst(wrapper)
         })
     })
 
-    it('resolves icon from parent', () => {
+    it('should resolve icon from parent', () => {
         const fakeComponent = {
             localVue,
             name: 'Fake',
@@ -53,11 +55,11 @@ describe('Icon.vue', () => {
 
         const wrapper = createWrapper(parentVm).find(Icon)
 
-        expect(wrapper.name()).to.equal('svg')
-        expect(wrapper.classes('fa-band-aid')).to.be.true
+        expect(wrapper).to.have.name('svg')
+        expect(wrapper).to.have.classes('fa-band-aid')
     })
 
-    it('passes through additional classes', () => {
+    it('should pass through additional classes', () => {
         const expectedClass = 'some-other-class'
 
         const wrapper = shallowMount(Icon, {
@@ -67,6 +69,6 @@ describe('Icon.vue', () => {
             }
         })
 
-        expect(wrapper.classes(expectedClass)).to.be.true
+        expect(wrapper).to.have.classes(expectedClass)
     })
 })

@@ -62,6 +62,7 @@ export default {
                 }
             })
             let correctPercentage = (correctQuestions / totalQuestions)
+
             return correctPercentage >= this.passedAt
         }
     },
@@ -78,6 +79,7 @@ export default {
                 this.currentQuestion++
                 if (this.currentQuestion >= this.questions.length) {
                     this.showResult = true
+
                     return this.passed
                 }
 

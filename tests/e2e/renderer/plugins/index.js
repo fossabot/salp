@@ -8,6 +8,7 @@ function getWebpackConfig() {
     // Disable external plugins because they might use ES6 features
     const service = new Service(process.env.VUE_CLI_CONTEXT || process.cwd(), { plugins: [] })
     service.init(process.env.VUE_CLI_MODE || process.env.NODE_ENV)
+
     return service.resolveWebpackConfig()
 }
 

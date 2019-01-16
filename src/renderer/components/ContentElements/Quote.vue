@@ -19,7 +19,7 @@ export default {
 
 <style lang="scss">
 .contentelement-quote {
-    margin: 1em 0 1em 2em;
+    margin: 1em 0 0 2em;
     padding: 1em;
     border-left: 8px solid $--color-primary;
 

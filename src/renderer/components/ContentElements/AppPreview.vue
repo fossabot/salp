@@ -63,6 +63,9 @@ export default {
 
 <style lang="scss">
 .contentelement-app-preview {
+    margin-top: 1em;
+    margin-bottom: 0;
+
     .contentelement-app-preview__content-image__container {
         display: flex;
         flex-direction: row;

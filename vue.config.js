@@ -90,6 +90,7 @@ module.exports = {
                     'SimpleVideo': 'src',
                     'AppPreview': 'src'
                 }
+
                 return options
             })
 
