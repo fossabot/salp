@@ -72,3 +72,20 @@ Penthea quod, ad permanet habet potentia montes et, in viget pulchros. Meis moti
 | col 3 is      | right-aligned | $1600 |
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
+
+### Lists
+
+Unordered:
+* item1
+* item2
+* item3
+
+Unordered2:
+* item21
+* item22
+* item23
+
+Ordered:
+1. item31
+2. item32
+3. item33

@@ -46,6 +46,39 @@ module.exports = function ContentElementsPlugin(md) {
     addCEStaticMapping('SimpleText', 'paragraph', 'SimpleText')
     addCEStaticMapping('Quote', 'blockquote', 'Quote')
 
+    addCEStaticMapping('SimpleListItem', 'list_item', 'SimpleListItem')
+    addCEMapping(
+        'SimpleList_ordered',
+        'bullet_list',
+        token => {
+            token.tag = 'SimpleList'
+
+            if (!token.attrs) {
+                token.attrs = []
+            }
+            token.attrs.push([':ordered', false])
+        },
+        token => {
+            token.tag = 'SimpleList'
+        }
+    )
+
+    addCEMapping(
+        'SimpleList_ordered',
+        'ordered_list',
+        token => {
+            token.tag = 'SimpleList'
+
+            if (!token.attrs) {
+                token.attrs = []
+            }
+            token.attrs.push([':ordered', true])
+        },
+        token => {
+            token.tag = 'SimpleList'
+        }
+    )
+
     md.renderer.rules.image = function renderCEImage(tokens, idx) {
         const token = tokens[idx]
 
