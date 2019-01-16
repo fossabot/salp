@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { shallowMount, mount } from '@vue/assignment-utils'
+import { shallowMount, mount } from '@vue/test-utils'
 import Assignment from './Assignment.vue'
 import { spy } from 'sinon'
 
