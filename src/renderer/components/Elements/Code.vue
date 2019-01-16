@@ -18,8 +18,7 @@ export default {
     },
     props: {
         code: {
-            type: String,
-            required: true
+            type: String
         },
         language: {
             type: String,
@@ -64,8 +63,10 @@ export default {
                 mode: this.language
             }
 
+            const code = this.code || this.$slots.default.map(node => node.text).join()
+
             this.editor = codeMirror.fromTextArea(this.$refs.textarea, options)
-            this.editor.setValue(this.code)
+            this.editor.setValue(code)
 
             this.highlightLines(this.highlightedLines)
         },
