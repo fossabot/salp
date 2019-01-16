@@ -50,7 +50,7 @@ export default {
     },
     data() {
         return {
-            lectures: [
+            chapters: [
                 'Lecture1',
                 'Lecture2'
             ],
@@ -59,10 +59,10 @@ export default {
     },
     computed: {
         getCurrentLecture: function() {
-            return this.lectures[this.currentLecture]
+            return this.chapters[this.currentLecture]
         },
         pages: function() {
-            return this.lectures.length
+            return this.chapters.length
         }
     },
     methods: {

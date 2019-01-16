@@ -34,7 +34,7 @@
                     <Tag size="small" v-for="(tag, index) in tags" :key="index">{{ tag }}</Tag>
                 </div>
 
-                <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.lessonsAndTests', args: {lessons, tests}}"></span>
+                <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.chaptersAndTests', args: {chapters, tests}}"></span>
                 <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
             </div>
 
@@ -58,7 +58,7 @@ export default {
         description: String,
         author: String,
         version: String,
-        lessons: Number,
+        chapters: Number,
         tests: Number,
         tags: Array,
         progress: Number,
