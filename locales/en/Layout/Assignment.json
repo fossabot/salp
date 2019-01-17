@@ -2,7 +2,8 @@
     "button": {
         "check": "Check",
         "next": "Next question",
-        "result": "Show result"
+        "result": "Show result",
+        "retry": "Not correct, check again"
     },
     "result": {
         "passed": "You have passed the assignment.",

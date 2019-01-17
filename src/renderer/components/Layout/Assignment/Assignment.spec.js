@@ -85,8 +85,52 @@ describe('Assignment.vue', () => {
             expect(handleQuestionValidated.calledOnce).to.be.true
         })
 
-        it('should show next question if button is presst the second time', () => {
+        it('should allow multiple tries for validation, if in retry mode ', () => {
+            const questionsRetry = [
+                {
+                    component: 'MultipleChoice',
+                    question: 'What does the fox say?',
+                    answers: [
+                        { answer: 'Hacki Hacki Hacki Ho', correct: false },
+                        { answer: 'GubelGubel', correct: false },
+                        { answer: 'LabelLabel', correct: true }
+                    ]
+                },
+                {
+                    component: 'SingleChoice',
+                    question: 'Chicken or Egg?',
+                    answers: [
+                        { answer: 'Hacki Hacki Hacki Ho', correct: false },
+                        { answer: 'Egg', correct: true },
+                        { answer: 'Chicken', correct: false }
+                    ]
+                }
+            ]
+
             const wrapper = mount(Assignment, {})
+            let handleQuestionValidated = spy()
+
+            wrapper.setMethods({
+                handleQuestionValidated
+            })
+
+            wrapper.setData({
+                questionsRetry
+            })
+
+            wrapper.findAll('label').at(0).trigger('click')
+            wrapper.find('.assignment-content__button-container__button').trigger('click')
+            wrapper.findAll('label').at(1).trigger('click')
+            wrapper.find('.assignment-content__button-container__button').trigger('click')
+            expect(handleQuestionValidated.calledTwice).to.be.true
+        })
+
+        it('should show next question if button is presst the second time and no retry', () => {
+            const wrapper = mount(Assignment, {
+                propsData: {
+                    retry: false
+                }
+            })
 
             wrapper.setData({
                 questions
@@ -94,12 +138,15 @@ describe('Assignment.vue', () => {
 
             wrapper.find('.assignment-content__button-container__button').trigger('click')
             wrapper.find('.assignment-content__button-container__button').trigger('click')
-            expect(wrapper.vm.$data.currentQuestion).to.equal(1)
+            expect(wrapper.vm.$data.currentQuestionIndex).to.equal(1)
         })
 
         it('should check if the assignment is passed if the button is presst at the last question', () => {
             let passed = spy()
             const wrapper = mount(Assignment, {
+                propsData: {
+                    retry: false
+                },
                 computed: {
                     passed
                 }

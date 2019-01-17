@@ -21,6 +21,10 @@ export default {
         SingleChoiceRadiobutton
     },
     props: {
+        retry: {
+            type: Boolean,
+            required: true
+        },
         question: {
             type: String,
             required: true
@@ -81,16 +85,22 @@ export default {
 
             const correct = answer.correct
             let isValid = true
-            if (!correct && this.checked === answer.answer) {
+            if ((!correct && this.checked === answer.answer) && !this.retry) {
                 isValid = false
             }
-            if (!correct && this.checked !== answer.answer) {
+            if ((!correct && this.checked !== answer.answer)
+                || (this.retry && !this.questionIsCorrect())) {
                 isValid = undefined
             }
             this.isValid.push(isValid)
         },
         validate() {
-            this.disabled = true
+            this.isValid = []
+
+            if (!this.retry) {
+                this.disabled = true
+            }
+
             this.answers.forEach(answer => {
                 this.validateAnswer(answer)
             })
