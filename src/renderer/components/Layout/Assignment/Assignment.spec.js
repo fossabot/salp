@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 import { shallowMount, mount } from '@vue/test-utils'
-import Test from './Test.vue'
+import Assignment from './Assignment.vue'
 import { spy } from 'sinon'
 
-describe('Test.vue', () => {
+describe('Assignment.vue', () => {
     const questions = [
         {
             component: 'MultipleChoice',
@@ -54,8 +54,8 @@ describe('Test.vue', () => {
     ]
 
     expectedValues.forEach(({ passedAt, expects }) => {
-        it(`should evaluate the test is passed to:${expects} for passedAt:${passedAt}`, () => {
-            const wrapper = shallowMount(Test, {})
+        it(`should evaluate the assignment is passed to:${expects} for passedAt:${passedAt}`, () => {
+            const wrapper = shallowMount(Assignment, {})
 
             wrapper.setData({
                 questions,
@@ -67,9 +67,9 @@ describe('Test.vue', () => {
         })
     })
 
-    describe('Test check button', () => {
+    describe('Assignment check button', () => {
         it('should handle question validation if button is pressed once', () => {
-            const wrapper = mount(Test, {})
+            const wrapper = mount(Assignment, {})
 
             let handleQuestionValidated = spy()
 
@@ -81,25 +81,25 @@ describe('Test.vue', () => {
                 handleQuestionValidated
             })
 
-            wrapper.find('.test-content__button-container__button').trigger('click')
+            wrapper.find('.assignment-content__button-container__button').trigger('click')
             expect(handleQuestionValidated.calledOnce).to.be.true
         })
 
         it('should show next question if button is presst the second time', () => {
-            const wrapper = mount(Test, {})
+            const wrapper = mount(Assignment, {})
 
             wrapper.setData({
                 questions
             })
 
-            wrapper.find('.test-content__button-container__button').trigger('click')
-            wrapper.find('.test-content__button-container__button').trigger('click')
+            wrapper.find('.assignment-content__button-container__button').trigger('click')
+            wrapper.find('.assignment-content__button-container__button').trigger('click')
             expect(wrapper.vm.$data.currentQuestion).to.equal(1)
         })
 
-        it('should check if the test is passed if the button is presst at the last question', () => {
+        it('should check if the assignment is passed if the button is presst at the last question', () => {
             let passed = spy()
-            const wrapper = mount(Test, {
+            const wrapper = mount(Assignment, {
                 computed: {
                     passed
                 }
@@ -110,8 +110,8 @@ describe('Test.vue', () => {
             })
 
             questions.forEach(question => {
-                wrapper.find('.test-content__button-container__button').trigger('click')
-                wrapper.find('.test-content__button-container__button').trigger('click')
+                wrapper.find('.assignment-content__button-container__button').trigger('click')
+                wrapper.find('.assignment-content__button-container__button').trigger('click')
             })
             expect(passed.calledOnce).to.be.true
         })

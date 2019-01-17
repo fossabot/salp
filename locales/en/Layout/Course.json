@@ -7,7 +7,7 @@
     },
     "info": {
         "shortDescription": {
-            "lessonsAndTests": "{lessons} lessons, {tests} tests.",
+            "chaptersAndAssignments": "{chapters} chapters, {assignments} assignments.",
             "authorAndVersion": "By {author}, version {version}."
         }
     },
