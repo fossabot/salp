@@ -20,6 +20,7 @@ import SimpleListItem from '../../ContentElements/SimpleListItem.vue'
 import Quote from '../../ContentElements/Quote.vue'
 import YouTube from '../../ContentElements/YouTube.vue'
 import Table from '../../ContentElements/Table.vue'
+import InlineCode from '../../ContentElements/InlineCode.vue'
 import Code from '../../Elements/Code.vue'
 import Lecture1 from '@/__mocks__/lectures/lecture1.vue'
 import Lecture2 from '@/__mocks__/lectures/lecture2.vue'
@@ -45,6 +46,7 @@ export default {
         Code,
         SimpleList,
         SimpleListItem,
+        InlineCode,
 
         Lecture1,
         Lecture2,

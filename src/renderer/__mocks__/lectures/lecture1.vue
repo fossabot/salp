@@ -3,7 +3,7 @@
         <Heading :level="1">Database Management Systems</Heading>
         <SimpleText>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Doloremque pariatur quo ut dolorem? Numquam, in veniam nobis veritatis,
+            Doloremque pariatur <InlineCode>const lorem = 1;</InlineCode> quo ut dolorem? Numquam, in veniam nobis veritatis,
             fugiat vitae quaerat officiis cupiditate ducimus explicabo temporibus
             exercitationem ipsum blanditiis recusandae.
         </SimpleText>
