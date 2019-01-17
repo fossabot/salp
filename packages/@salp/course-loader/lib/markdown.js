@@ -13,6 +13,7 @@ module.exports = markdown({
         config.plugins
             .delete('highlight-lines')
             .delete('component')
+            .delete('convert-router-link')
 
         config.plugin('block-embed')
             .use(blockEmbedPlugin)

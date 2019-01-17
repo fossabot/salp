@@ -116,4 +116,30 @@ module.exports = function ContentElementsPlugin(md) {
 
         return `<Code language="${token.info}">${code}</Code>`
     }
+
+    md.renderer.rules.link_open = function renderLinkOpen(tokens, idx, options, env, self) {
+        const token = tokens[idx]
+        const hrefIndex = token.attrIndex('href')
+
+        if (hrefIndex >= 0) {
+            const link = token.attrs[hrefIndex]
+            const href = link[1]
+            const isExternal = /^https?:/.test(href)
+
+            if (isExternal) {
+                token.tag = 'SimpleLink'
+
+                // find closing link tag
+                const closingLink = tokens.slice(idx)
+                    .find(token => token.type === 'link_close')
+                if (closingLink) {
+                    closingLink.tag = 'SimpleLink'
+                }
+            }
+        }
+
+        return self.renderToken(tokens, idx, options)
+    }
+
+
 }
