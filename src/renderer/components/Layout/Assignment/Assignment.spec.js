@@ -85,7 +85,7 @@ describe('Assignment.vue', () => {
             expect(handleQuestionValidated.calledOnce).to.be.true
         })
 
-        it('should allow multiple trys for validation, if in retry mode ', () => {
+        it('should allow multiple tries for validation, if in retry mode ', () => {
             const questionsRetry = [
                 {
                     component: 'MultipleChoice',
