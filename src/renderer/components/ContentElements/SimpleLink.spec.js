@@ -13,7 +13,7 @@ describe('SimpleLink.vue', () => {
         wrapper = shallowMount(SimpleLink, {
             context: {
                 props: {
-                    url: expectedUrl
+                    href: expectedUrl
                 }
             }
         })
