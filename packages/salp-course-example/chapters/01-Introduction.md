@@ -1,6 +1,6 @@
 # Introductions
 
-Lorem markdownum pati poscit: addidit exhibuit concordia aurata: dare, igitur arguis **armis** Inachidos profitemur cum dare. Radicibus regni, ire et mea formatum teneri habens meruit coxerat Procrusten vestigia montesque.
+Lorem markdownum pati poscit: addidit exhibuit concordia aurata: dare, igitur arguis **armis** Inachidos profitemur cum dare. Radicibus regni, `const lorem = 1;` et mea formatum teneri habens meruit coxerat Procrusten vestigia montesque.
 
 > Vim melius sensibus in. Eam viris homero ad. Graeci abhorreant ea eum, id quem sonet nonumy quo. Option epicuri abhorreant quo id, quo quem dicunt eruditi et.
 

@@ -20,6 +20,7 @@ import SimpleListItem from '../../ContentElements/SimpleListItem.vue'
 import Quote from '../../ContentElements/Quote.vue'
 import YouTube from '../../ContentElements/YouTube.vue'
 import Table from '../../ContentElements/Table.vue'
+import InlineCode from '../../ContentElements/InlineCode.vue'
 import Code from '../../Elements/Code.vue'
 import TheCourse from '$src/../packages/salp-course-example'
 
@@ -44,6 +45,7 @@ export default {
         Code,
         SimpleList,
         SimpleListItem,
+        InlineCode,
 
         Card,
         Pagination
