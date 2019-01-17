@@ -117,6 +117,14 @@ module.exports = function ContentElementsPlugin(md) {
         return `<Code language="${token.info}">${code}</Code>`
     }
 
+    md.renderer.rules.code_inline = function renderInlineCode(tokens, idx) {
+        const token = tokens[idx]
+
+        const code = escapeHtml(token.content)
+
+        return `<InlineCode>${code}</InlineCode>`
+    }
+
     md.renderer.rules.link_open = function renderLinkOpen(tokens, idx, options, env, self) {
         const token = tokens[idx]
         const hrefIndex = token.attrIndex('href')
