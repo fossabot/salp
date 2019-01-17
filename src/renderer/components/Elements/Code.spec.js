@@ -105,6 +105,8 @@ describe('Code.vue', () => {
             expect(setValue.lastArg).to.equal(sampleCode)
         })
 
+        it('should set code from slot')
+
         it('should set default options', () => {
             const expectedDefaultOptions = {
                 tabSize: 4,

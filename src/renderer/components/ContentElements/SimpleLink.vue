@@ -5,16 +5,13 @@ export default {
     name: 'SimpleLink',
     functional: true,
     props: {
-        url: {
+        href: {
             type: String,
-            required: true,
-            default() {
-                return ''
-            }
+            required: true
         }
     },
     render(createElement, context) {
-        const { props } = context
+        const { props, children } = context
 
         return createElement(
             'a',
@@ -22,11 +19,11 @@ export default {
                 staticClass: `contentelement-link`,
                 on: {
                     click: () => {
-                        shell.openExternal(props.url)
+                        shell.openExternal(props.href)
                     }
                 }
             },
-            props.url
+            children
         )
     }
 }

@@ -21,8 +21,7 @@ import Quote from '../../ContentElements/Quote.vue'
 import YouTube from '../../ContentElements/YouTube.vue'
 import Table from '../../ContentElements/Table.vue'
 import Code from '../../Elements/Code.vue'
-import Lecture1 from '@/__mocks__/lectures/lecture1.vue'
-import Lecture2 from '@/__mocks__/lectures/lecture2.vue'
+import TheCourse from '$src/../packages/salp-course-example'
 
 import { Card, Pagination } from 'element-ui'
 
@@ -46,17 +45,15 @@ export default {
         SimpleList,
         SimpleListItem,
 
-        Lecture1,
-        Lecture2,
-
         Card,
         Pagination
     },
     data() {
         return {
             chapters: [
-                'Lecture1',
-                'Lecture2'
+                TheCourse.chapter1,
+                TheCourse.chapter2,
+                TheCourse.chapter3
             ],
             currentChapterIndex: 0
         }

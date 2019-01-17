@@ -4,7 +4,7 @@ import Settings from '../components/Pages/Settings.vue'
 import Profile from '../components/Pages/Profile.vue'
 import Course from '../components/Pages/Course.vue'
 import CourseDetail from '../components/Layout/Course/CourseDetail.vue'
-import CourseContent from '../components/Layout/Course/CourseContent.vue'
+import CourseView from '../components/Layout/Course/CourseView.vue'
 
 let router
 const routes = [
@@ -37,7 +37,7 @@ const routes = [
             {
                 path: 'content',
                 name: 'coursecontent',
-                component: CourseContent
+                component: CourseView
             }
         ]
     }

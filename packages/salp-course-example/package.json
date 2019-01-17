@@ -1,0 +1,22 @@
+{
+  "name": "salp-course-example",
+  "version": "1.0.0",
+  "description": "Example salp course with dummy content",
+  "main": "dist/course.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@salp/course-loader": "^1.0.0",
+    "vue-loader": "^15.5.1",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  }
+}
