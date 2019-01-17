@@ -59,6 +59,14 @@ module.exports = {
         config.plugin('lodash')
             .use(LodashModuleReplacementPlugin)
 
+        config.module
+            .noParse(/^(vue|vue-router|vuex|vuex-router-sync|dist)$/)
+
+        config.module.rule('eslint')
+            .exclude
+            .add(/dist/)
+            .end()
+
         // Inject scss variables in each vue SFC styles
         // @see https://cli.vuejs.org/guide/css.html#automatic-imports
         config.module.rule('scss').oneOf('vue')
