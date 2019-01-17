@@ -1,5 +1,5 @@
 <template functional>
-    <pre class="contentelement-inline-code"><slot/></pre>
+    <code class="contentelement-inline-code"><slot/></code>
 </template>
 
 <script>
@@ -15,6 +15,7 @@ export default {
     display: inline-block;
     border-radius: 4px;
     margin: 0 0 0 0;
+    padding: 0 0.25em;
     background-color: rgba(orangered, 0.2);
 }
 </style>

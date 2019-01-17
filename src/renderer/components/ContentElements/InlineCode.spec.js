@@ -18,11 +18,11 @@ describe('InlineCode.vue', () => {
         expect(wrapper).to.have.classes('contentelement-inline-code')
     })
 
-    it('should create tag pre', () => {
-        expect(wrapper).to.contain('pre')
+    it('should create tag code', () => {
+        expect(wrapper).to.contain('code')
     })
 
-    it('should set heading text correctly', () => {
+    it('should set code text correctly', () => {
         expect(wrapper).to.have.text(expectedCode)
     })
 })
