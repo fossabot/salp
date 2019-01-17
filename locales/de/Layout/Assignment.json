@@ -2,7 +2,8 @@
     "button": {
         "check": "Überprüfen",
         "next": "Nächste Frage",
-        "result": "Ergebnis anzeigen"
+        "result": "Ergebnis anzeigen",
+        "retry": "Nicht korrekt, erneut überprüfen"
     },
     "result": {
         "passed": "Du hast die Aufgabe geschafft.",

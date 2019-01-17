@@ -1,15 +1,15 @@
 <template>
     <Card class="assignment-content__container">
         <h1>SQL-Injection</h1>
-        <Steps :active="currentQuestion">
+        <Steps :active="currentQuestionIndex">
             <Step v-for="(question, index) in questions" :key="`step${index}`"
                 :status="question.$correct ? 'success' : question.$correct === false ? 'error' : 'process'"/>
         </Steps>
             <div class="assignment-content__question-container">
                 <component v-for="(question, index) in questions"
                     :key="`question_${index}`" :ref="`question_${index}`" :is="question.component"
-                    :question="question.question" :answers="question.answers"
-                    v-show="index === currentQuestion"
+                    :question="question.question" :answers="question.answers" :retry="retry"
+                    v-show="index === currentQuestionIndex"
                     @validated="handleQuestionValidated">
                 </component>
             </div>
@@ -32,6 +32,12 @@ import { questions } from '@/__mocks__/assignment/questions.js'
 
 export default {
     name: 'Assignment',
+    props: {
+        retry: {
+            type: Boolean,
+            default: true
+        }
+    },
     components: {
         Card,
         Button,
@@ -46,7 +52,7 @@ export default {
         return {
             questions: questions,
             buttonText: this.$t('Layout.Assignment.button.check'),
-            currentQuestion: 0,
+            currentQuestionIndex: 0,
             passedAt: 0.5,
             validate: true,
             showResult: false
@@ -70,17 +76,20 @@ export default {
         handleButtonClick() {
             if (this.validate) {
                 this.buttonText = this.$t('Layout.Assignment.button.next')
-                this.$refs[`question_${this.currentQuestion}`][0].validate()
 
-                if (this.currentQuestion === this.questions.length - 1) {
-                    this.buttonText = this.$t('Layout.Assignment.button.result')
+                this.$refs[`question_${this.currentQuestionIndex}`][0].validate()
+
+                if (this.currentQuestionIndex === this.questions.length - 1) {
+                    if ((this.retry && this.questions[this.currentQuestionIndex].$correct)
+                        || !this.retry) {
+                        this.buttonText = this.$t('Layout.Assignment.button.result')
+                    }
                 }
             } else {
-                this.currentQuestion++
-                if (this.currentQuestion >= this.questions.length) {
-                    this.showResult = true
+                this.currentQuestionIndex++
 
-                    return this.passed
+                if (this.currentQuestionIndex >= this.questions.length) {
+                    this.showResult = true
                 }
 
                 this.buttonText = this.$t('Layout.Assignment.button.check')
@@ -88,8 +97,15 @@ export default {
             }
         },
         handleQuestionValidated(result) {
-            this.questions[this.currentQuestion].$correct = result
-            this.validate = false
+            this.questions[this.currentQuestionIndex].$correct = result
+
+            if (!this.retry || (this.retry && result)) {
+                this.validate = false
+            }
+
+            if (this.retry && !this.questions[this.currentQuestionIndex].$correct) {
+                this.buttonText = this.$t('Layout.Assignment.button.retry')
+            }
         }
     }
 }

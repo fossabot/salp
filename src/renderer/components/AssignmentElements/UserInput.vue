@@ -3,7 +3,7 @@
         <h1 class="user-input__container__text">{{ question }}</h1>
         <Input class="user-input__container__input"
             v-model="answer" placeholder="Insert Answer"
-            :disabled="disabled" :class="{ 'is-valid': correct === true, 'is-invalid': correct === false }"/>
+            :disabled="disabled" :class="{ 'is-valid': correct === true, 'is-invalid': correct === false && !retry }"/>
     </div>
 </template>
 
@@ -16,6 +16,10 @@ export default {
         Input
     },
     props: {
+        retry: {
+            type: Boolean,
+            required: true
+        },
         question: {
             type: String,
             required: true
@@ -74,7 +78,9 @@ export default {
             return correct
         },
         validate() {
-            this.disabled = true
+            if (!this.retry) {
+                this.disabled = true
+            }
             this.correct = this.questionIsCorrect()
             this.$emit('validated', this.correct)
         }
