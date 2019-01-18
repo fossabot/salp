@@ -94,6 +94,10 @@ module.exports = {
                 return options
             })
 
+        config.externals({
+            electron: 'electron'
+        })
+
         if (!isTesting) {
             // Create chunks for (larger) libraries
             config.optimization.splitChunks({
@@ -128,15 +132,6 @@ module.exports = {
         }
     },
     pluginOptions: {
-        electronBuilder: {
-            mainProcessFile: 'src/main/index.js',
-            mainProcessWatch: [
-                'src/main/'
-            ],
-            chainWebpackMainProcess: config => {
-                createResolveAlias(config, 'main/')
-            }
-        },
         lintStyleOnBuild: false
     }
 }
