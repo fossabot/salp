@@ -22,7 +22,7 @@ if (!isTesting) {
             'libraryName': 'element-ui',
             'style': name => {
                 const component = name.split('/').pop()
-                let stylePath = path.resolve(__dirname, `src/renderer/theme/element/${component}.scss`)
+                let stylePath = path.resolve(__dirname, `src/theme/element/${component}.scss`)
 
                 if (!fileExists(stylePath)) {
                     stylePath = `element-ui/packages/theme-chalk/src/${component}.scss`

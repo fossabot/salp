@@ -34,24 +34,15 @@ const chunks = {
     }
 }
 
-function createResolveAlias(config, dir) {
-    config.resolve.alias
-        .set('@', path.resolve(__dirname, 'src/', dir))
-        .set('$src', path.resolve(__dirname, 'src/'))
-        .set('$root', path.resolve(__dirname))
-}
-
 module.exports = {
     pages: {
         index: {
-            entry: 'src/renderer/index.js',
-            template: 'src/renderer/index.html',
+            entry: 'src/index.js',
+            template: 'src/index.html',
             chunks: Object.keys(chunks).map(key => chunks[key].name || key).concat('index')
         }
     },
     chainWebpack: config => {
-        createResolveAlias(config, 'renderer/')
-
         config.resolve.alias
             .set('$root', path.resolve(__dirname))
 
@@ -62,10 +53,12 @@ module.exports = {
         config.plugin('lodash')
             .use(LodashModuleReplacementPlugin)
 
-        config.module
-            .noParse(/^(vue|vue-router|vuex|vuex-router-sync|dist)$/)
-
         config.module.rule('eslint')
+            .exclude
+            .add(/dist/)
+            .end()
+
+        config.module.rule('js')
             .exclude
             .add(/dist/)
             .end()
@@ -77,7 +70,7 @@ module.exports = {
             .loader('style-resources-loader')
             .options({
                 patterns: [
-                    path.resolve(__dirname, 'src/renderer/theme/element/common/var.scss')
+                    path.resolve(__dirname, 'src/theme/element/common/var.scss')
                 ]
             })
             .end()
@@ -97,9 +90,8 @@ module.exports = {
                 return options
             })
 
-        config.externals({
-            electron: 'electron'
-        })
+        config.resolve.alias
+            .set('electron', path.resolve(__dirname, 'src/__mocks__/browser/electron'))
 
         if (!isTesting) {
             // Create chunks for (larger) libraries
@@ -108,12 +100,6 @@ module.exports = {
                 cacheGroups: chunks
             })
             config.output.chunkFilename('js/[name].chunk.js')
-        }
-
-        // Inject mocked electron api when building browser version
-        if (!process.env.IS_ELECTRON) {
-            config.resolve.alias
-                .set('electron', path.resolve(__dirname, 'src/renderer/__mocks__/browser/electron'))
         }
 
         if (process.env.IS_REMOTE_DEBUG) {

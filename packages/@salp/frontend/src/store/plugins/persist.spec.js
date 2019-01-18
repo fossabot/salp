@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { spy, stub } from 'sinon'
 import createPersistPlugin from '@/store/plugins/persist'
-import { userInputDebounceTimer } from '$src/shared/constants'
+import { userInputDebounceTimer } from '@/constants'
 
 const testPluginName = 'testplugin'
 

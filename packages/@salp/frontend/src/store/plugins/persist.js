@@ -1,7 +1,7 @@
 // Plugin to persist stores
 import { ipcRenderer } from 'electron'
 import { debounce } from 'lodash'
-import { userInputDebounceTimer } from '$src/shared/constants'
+import { userInputDebounceTimer } from '@/constants'
 
 export default function createPersistPlugin(
     name,
