@@ -52,6 +52,9 @@ module.exports = {
     chainWebpack: config => {
         createResolveAlias(config, 'renderer/')
 
+        config.resolve.alias
+            .set('$root', path.resolve(__dirname))
+
         config.plugins
             .delete('preload-index')
             .delete('prefetch-index')
