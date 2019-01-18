@@ -11,9 +11,9 @@
     "lint:style": "vue-cli-service lint:style",
     "dev": "vue-cli-service electron:serve --debug",
     "test:e2e": "vue-cli-service test:e2e --headless --browser chrome",
-    "test:unit_cmd": "vue-cli-service test:unit --include tests/unit/renderer/setup.js",
-    "test:unit": "npm run test:unit_cmd -- '{src,tests/unit}/renderer/**/*.spec.js'",
-    "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/renderer/setup.js '{src,tests/unit}/renderer/**/*.{spec.js,vue}'"
+    "test:unit_cmd": "vue-cli-service test:unit --include tests/unit/setup.js",
+    "test:unit": "npm run test:unit_cmd -- '{src,tests/unit}/**/*.spec.js'",
+    "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/setup.js '{src,tests/unit}/**/*.{spec.js,vue}'"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
