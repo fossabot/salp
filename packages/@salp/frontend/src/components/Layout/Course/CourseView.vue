@@ -22,7 +22,7 @@ import YouTube from '../../ContentElements/YouTube.vue'
 import Table from '../../ContentElements/Table.vue'
 import InlineCode from '../../ContentElements/InlineCode.vue'
 import Code from '../../Elements/Code.vue'
-import TheCourse from '$src/../packages/salp-course-example'
+import TheCourse from 'salp-course-example'
 
 import { Card, Pagination } from 'element-ui'
 
