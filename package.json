@@ -2,5 +2,8 @@
   "name": "salp",
   "version": "0.1.0",
   "private": true,
-  "main": "background.js"
+  "main": "background.js",
+  "devDependencies": {
+    "lerna": "^3.10.5"
+  }
 }
