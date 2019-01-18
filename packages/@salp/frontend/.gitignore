@@ -1,1 +1,17 @@
 node_modules/
+dist/
+
+# local env files
+.env.local
+.env.*.local
+
+# electron-builder output
+dist_electron/
+
+# tests
+tests/e2e/renderer/screenshots
+tests/e2e/renderer/videos
+
+# coverage
+coverage/
+.nyc_output/
