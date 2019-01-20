@@ -4,6 +4,15 @@
   "description": "salp electron application",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^4.0.1",
+    "electron-devtools-installer": "^2.2.4"
+  },
+  "dependencies": {
+    "@salp/frontend": "^1.0.0",
+    "electron-log": "^2.2.17"
   }
 }

@@ -1,14 +1,11 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
-import * as path from 'path'
-import { format as formatUrl } from 'url'
-import {
-    createProtocol,
-    installVueDevtools
-} from 'vue-cli-plugin-electron-builder/lib'
-import { setup as setupLog } from '../shared/util/log'
-import './services'
+const { app, BrowserWindow } = require('electron')
+const path = require('path')
+const { format: formatUrl } = require('url')
+const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
+const { setup: setupLog } = require('./services/log')
+require('./services')
 const isDevelopment = process.env.NODE_ENV !== 'production'
 if (isDevelopment) {
     // Don't load any native (external) modules until the following line is run:
@@ -18,8 +15,6 @@ if (isDevelopment) {
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow
 
-// Standard scheme must be registered before the app is ready
-protocol.registerStandardSchemes(['app'], { secure: true })
 function createMainWindow() {
     const window = new BrowserWindow({
         width: 1440,
@@ -34,11 +29,10 @@ function createMainWindow() {
         window.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
         if (!process.env.IS_TEST && !process.env.IS_REMOTE_DEBUG) window.webContents.openDevTools({ mode: 'detach' })
     } else {
-        createProtocol('app')
         //   Load the index.html when not in development
         window.loadURL(
             formatUrl({
-                pathname: path.join(__dirname, 'index.html'),
+                pathname: path.join(__dirname, 'node_modules/@salp/frontend', 'dist/index.html'),
                 protocol: 'file',
                 slashes: true
             })
@@ -78,7 +72,7 @@ app.on('activate', () => {
 app.on('ready', async () => {
     if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
-        await installVueDevtools()
+        await installExtension(VUEJS_DEVTOOLS)
     }
     mainWindow = createMainWindow()
 })

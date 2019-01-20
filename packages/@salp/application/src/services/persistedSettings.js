@@ -1,9 +1,9 @@
 // This service is responsible to persist settings
 // See also: vuex persist plugin
-import { app, ipcMain } from 'electron'
-import { promises as fs } from 'fs'
-import path from 'path'
-import { persistedSettingsDir } from '$src/shared/constants.js'
+const { app, ipcMain } = require('electron')
+const { promises: fs } = require('fs')
+const path = require('path')
+const { persistedSettingsDir } = require('../constants')
 
 const emptySettingsFileContent = '{}'
 
