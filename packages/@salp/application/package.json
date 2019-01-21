@@ -5,11 +5,12 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "serve": "./scripts/serve.js"
   },
   "devDependencies": {
     "electron": "^4.0.1",
-    "electron-devtools-installer": "^2.2.4"
+    "electron-devtools-installer": "^2.2.4",
+    "prepend-transform": "^0.0.1018"
   },
   "dependencies": {
     "@salp/frontend": "^1.0.0",
