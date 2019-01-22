@@ -5,11 +5,13 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "./scripts/serve.js"
+    "serve": "./scripts/serve.js",
+    "lint": "eslint src/"
   },
   "devDependencies": {
     "electron": "^4.0.1",
-    "electron-devtools-installer": "^2.2.4"
+    "electron-devtools-installer": "^2.2.4",
+    "eslint": "^5.12.1"
   },
   "dependencies": {
     "@salp/frontend": "^1.0.0",
