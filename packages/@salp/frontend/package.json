@@ -10,6 +10,7 @@
     "lint:code": "vue-cli-service lint",
     "lint:style": "vue-cli-service lint:style",
     "dev": "vue-cli-service electron:serve --debug",
+    "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "vue-cli-service test:e2e --headless --browser chrome",
     "test:unit_cmd": "vue-cli-service test:unit --include tests/unit/setup.js",
     "test:unit": "npm run test:unit_cmd -- '{src,tests/unit}/**/*.spec.js'",
