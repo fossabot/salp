@@ -8,7 +8,7 @@ module.exports = {
     'extends': [
         'plugin:vue/essential',
         '@vue/standard',
-        '../../../.eslintrc.js'
+        '../../.eslintrc.js'
     ],
     parserOptions: {
         parser: 'babel-eslint'
