@@ -6,8 +6,8 @@ dist/
 .env.*.local
 
 # tests
-tests/e2e/renderer/screenshots
-tests/e2e/renderer/videos
+tests/e2e/screenshots
+tests/e2e/videos
 
 # coverage
 coverage/
