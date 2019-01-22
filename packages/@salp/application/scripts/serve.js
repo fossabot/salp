@@ -7,11 +7,10 @@ const { pt } = require('prepend-transform')
 
 let apps = []
 
-const frontend = proc.spawn('npm', ['run serve'], {
+const frontend = proc.fork(require.resolve('@salp/frontend/scripts/serve.js'), [], {
     cwd: path.dirname(require.resolve('@salp/frontend')),
     env: process.env,
     stdio: 'pipe',
-    shell: true,
     windowsHide: false
 })
 
@@ -36,25 +35,13 @@ handleFrontendStart(addr => {
 })
 
 function handleFrontendStart(cb) {
-    function checkDevServer(data) {
-        const match = data.toString().match(/App running at:$\s+-\sLocal:\s+(http:\/\/.+\/)/m)
-        if (match) {
-            return match[1]
+    frontend.on('message', m => {
+        if (m.type === 'error') {
+            process.exit(1)
+        } else if (m.type === 'success') {
+            cb(m.content)
         }
-
-        return false
-    }
-
-    function handleMessages(data) {
-        const result = checkDevServer(data)
-        if (result) {
-            frontend.stdout.off('data', handleMessages)
-
-            cb(result)
-        }
-    }
-
-    frontend.stdout.on('data', handleMessages)
+    })
 }
 
 function handleLogging(p, name) {
