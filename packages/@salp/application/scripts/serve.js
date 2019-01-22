@@ -3,51 +3,40 @@
 const electron = require('electron')
 const path = require('path')
 const proc = require('child_process')
-const { pt } = require('prepend-transform')
 
 let apps = []
 
 const frontend = proc.fork(require.resolve('@salp/frontend/scripts/serve.js'), [], {
     cwd: path.dirname(require.resolve('@salp/frontend')),
     env: process.env,
-    stdio: 'pipe',
+    stdio: 'inherit',
     windowsHide: false
 })
 
 handleProcClose(frontend)
-handleLogging(frontend, 'Vue')
 apps.push(frontend)
 
-let application
-handleFrontendStart(addr => {
-    application = proc.spawn(electron, ['' + path.resolve(__dirname, '..')], {
-        stdio: 'pipe',
+frontend.on('message', m => {
+    if (m.type === 'error') {
+        throw new Error('[> master]\tFrontend could not be compiled. Reason:' + m.content.message)
+    }
+
+    console.log('\n[> master]\tFrontend running. Starting electron...\n')
+
+    const url = m.content
+
+    const application = proc.spawn(electron, ['' + path.resolve(__dirname, '..')], {
+        stdio: 'inherit',
         windowsHide: false,
         env: {
             ...process.env,
-            WEBPACK_DEV_SERVER_URL: addr
+            WEBPACK_DEV_SERVER_URL: url
         }
     })
 
     handleProcClose(application)
-    handleLogging(application, 'electron')
     apps.push(application)
 })
-
-function handleFrontendStart(cb) {
-    frontend.on('message', m => {
-        if (m.type === 'error') {
-            process.exit(1)
-        } else if (m.type === 'success') {
-            cb(m.content)
-        }
-    })
-}
-
-function handleLogging(p, name) {
-    p.stdout.pipe(pt(`[> ${name}]\t`, { color: true })).pipe(process.stdout)
-    p.stderr.pipe(pt(`[> ${name}]\t`, { color: true })).pipe(process.stderr)
-}
 
 function handleProcClose(p) {
     p.on('close', code => {

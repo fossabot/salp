@@ -9,8 +9,7 @@
   },
   "devDependencies": {
     "electron": "^4.0.1",
-    "electron-devtools-installer": "^2.2.4",
-    "prepend-transform": "^0.0.1018"
+    "electron-devtools-installer": "^2.2.4"
   },
   "dependencies": {
     "@salp/frontend": "^1.0.0",
