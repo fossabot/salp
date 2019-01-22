@@ -1,29 +1,29 @@
 <template>
     <Menu id="meta-menu" :router="true" mode="horizontal">
-        <MenuItem index="0" class="meta-menu__user" :route="{name: 'profile'}">
+        <ElMenuItem index="0" class="meta-menu__user" :route="{name: 'profile'}">
             <Icon icon="faUser"/>
             <span slot="title">{{ username }}</span>
-        </MenuItem>
-        <MenuItem index="1">
+        </ElMenuItem>
+        <ElMenuItem index="1">
             <Tooltip placement="bottom" :content="$t('App.menu.health')">
                 <Icon icon="faHeartbeat"/>
             </Tooltip>
-        </MenuItem>
-        <MenuItem index="2">
+        </ElMenuItem>
+        <ElMenuItem index="2">
             <Tooltip placement="bottom" :content="$t('App.menu.updates')">
                 <Icon icon="faDownload"/>
             </Tooltip>
-        </MenuItem>
-        <MenuItem index="3" :route="{name: 'settings'}">
+        </ElMenuItem>
+        <ElMenuItem index="3" :route="{name: 'settings'}">
             <Tooltip placement="bottom" :content="$t('App.menu.settings')">
                 <Icon icon="faCog"/>
             </Tooltip>
-        </MenuItem>
-        <MenuItem index="4">
+        </ElMenuItem>
+        <ElMenuItem index="4">
             <Tooltip placement="bottom" :content="$t('App.menu.about')">
                 <Icon icon="faInfoCircle"/>
             </Tooltip>
-        </MenuItem>
+        </ElMenuItem>
     </Menu>
 </template>
 
@@ -39,7 +39,8 @@ export default {
     name: 'MetaMenu',
     components: {
         Menu,
-        MenuItem,
+        /* eslint-disable-next-line vue/no-unused-components */
+        [MenuItem.name]: MenuItem,
         Tooltip
     },
     icons: {

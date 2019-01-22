@@ -202,6 +202,7 @@ function parseTable(state, startLine, endLine, silent) {
 
     tableLines[ 1 ] = nextLine
     state.line = nextLine
+
     return true
 }
 
