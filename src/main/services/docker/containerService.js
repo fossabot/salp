@@ -5,20 +5,20 @@ module.exports = class ContainerService {
         this.containers = []
     }
 
-    async create(config, networkName) {
+    async create(config, networkName, name) {
         await this._loadContainers()
-        const containerName = this._getContainerName(config, this.course.name)
+        const containerName = this._getContainerName(name, this.course.name)
         if (this.containers.length !== 0) {
             if (!this._containerExists(`/${containerName}`)) {
-                await this._createContainer(config, networkName)
+                await this._createContainer(config, networkName, name)
             }
         } else {
-            await this._createContainer(config, networkName)
+            await this._createContainer(config, networkName, name)
         }
     }
 
-    async _createContainer(config, networkName) {
-        let container = await this.docker.createContainer(this._validateConfig(config, networkName))
+    async _createContainer(config, networkName, name) {
+        let container = await this.docker.createContainer(this._validateConfig(config, networkName, name))
         this.containers.push(container)
     }
 
@@ -50,7 +50,7 @@ module.exports = class ContainerService {
         this.containers = []
     }
 
-    _validateConfig(config, networkName) {
+    _validateConfig(config, networkName, name) {
         if (typeof config !== 'object') {
             throw new Error('Config is not an object!')
         }
@@ -63,15 +63,13 @@ module.exports = class ContainerService {
             throw new Error('Name is not defined!')
         }
 
-        config.name = this._getContainerName(config, this.course.name)
-
-        if (config.ports !== undefined) {
+        if (config.Ports !== undefined) {
             let valid = true
-            if (!Array.isArray(config.ports)) {
+            if (!Array.isArray(config.Ports)) {
                 valid = false
             }
 
-            config.ports.forEach(port => {
+            config.Ports.forEach(port => {
                 if (typeof port !== 'string') {
                     valid = false
                 }
@@ -82,8 +80,9 @@ module.exports = class ContainerService {
             }
 
             this._processPorts(config)
-            this._processNetwork(config, networkName)
         }
+        this._processNetwork(config, networkName, name)
+        config.name = this._getContainerName(name, this.course.name)
 
         return config
     }
@@ -108,8 +107,8 @@ module.exports = class ContainerService {
 
     async _discoverContainers() {
         const containers = await this._listContainers()
-        for (const config of this.course.containers) {
-            const containerName = this._getContainerName(config, this.course.name)
+        for (const name in this.course.containers) {
+            const containerName = this._getContainerName(name, this.course.name)
             for (const container of containers) {
                 for (const name of container._containerInfo.Names) {
                     if (name === `/${containerName}`) {
@@ -135,7 +134,7 @@ module.exports = class ContainerService {
         config.HostConfig = {}
 
         let portBindings = {}
-        config.ports.forEach(entry => {
+        config.Ports.forEach(entry => {
             let protocol = 'tcp'
             if (entry.indexOf('/udp') !== -1) {
                 protocol = 'udp'
@@ -147,15 +146,19 @@ module.exports = class ContainerService {
         config.HostConfig.PortBindings = portBindings
     }
 
-    _processNetwork(config, networkName) {
+    _processNetwork(config, networkName, alias) {
         config.NetworkingConfig = {}
-        config.NetworkingConfig.EndpointsConfig = { [networkName]: {} }
+        config.NetworkingConfig.EndpointsConfig = {
+            [networkName]: {
+                Aliases: [alias]
+            }
+        }
     }
 
-    _getContainerName(config, courseName) {
+    _getContainerName(suffix, courseName) {
         let name = courseName.trim()
         name = name.replace(/\s/g, '').toLowerCase()
 
-        return `salp_${name}_${config.Image}`
+        return `salp_${name}_${suffix}`
     }
 }

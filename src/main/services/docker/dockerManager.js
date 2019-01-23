@@ -14,9 +14,9 @@ module.exports = class DockerManager {
 
     async up() {
         this.networkService.create()
-        for (const container of this.course.containers) {
-            await this.imageService.pull(container.Image)
-            await this.containerService.create(container, this.networkService.getNetworkName())
+        for (const name in this.course.containers) {
+            await this.imageService.pull(this.course.containers[name].Image)
+            await this.containerService.create(this.course.containers[name], await this.networkService.getNetworkName(), name)
         }
         await this.containerService.start()
     }

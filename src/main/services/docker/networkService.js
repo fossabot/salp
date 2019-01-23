@@ -5,35 +5,49 @@ module.exports = class NetworkService {
     }
 
     async create() {
-        let name = this.courseName.trim()
-        name = name.replace(/\s/g, '')
-        let networkName = `salp_${name}_network`
-        this.networkName = networkName.toLocaleLowerCase()
-        if (!await this._networkExists()) {
+        await this._loadNetwork()
+        if (this.network === undefined) {
             let network = await this.docker.createNetwork({ 'Name': this.networkName, 'Driver': 'bridge' })
             this.network = network
         }
     }
 
     async remove() {
-        await this.network.remove()
-        this.network = undefined
-        this.networkName = ''
+        await this._loadNetwork()
+        if (this.network !== undefined) {
+            await this.network.remove()
+            this.network = undefined
+            this.networkName = undefined
+        }
     }
 
-    getNetworkName() {
+    async getNetworkName() {
+        await this._loadNetwork()
+
         return this.networkName
     }
 
-    async _networkExists() {
-        const networks = await this.docker.listNetworks()
-        let found = false
-        for (const network of networks) {
-            if (network.Name === this.networkName) {
-                found = true
-            }
+    async _loadNetwork() {
+        if (this.network !== undefined) {
+            return
         }
 
-        return found
+        this.networkName = this._getNetworkName()
+        const networks = await this.docker.listNetworks()
+        for (const network of networks) {
+            if (network.Name === this.networkName) {
+                this.network = await this.docker.getNetwork(network.Id)
+
+                return
+            }
+        }
+    }
+
+    _getNetworkName() {
+        let name = this.courseName.trim()
+        name = name.replace(/\s/g, '')
+        let networkName = `salp_${name}_network`
+
+        return networkName.toLocaleLowerCase()
     }
 }
