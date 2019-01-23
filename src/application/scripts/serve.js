@@ -4,9 +4,19 @@ const electron = require('electron')
 const path = require('path')
 const proc = require('child_process')
 
+// example: ./scripts/serve -- --mode production -- --inspect=5858
+//    frontend args:    --mode production
+//    app args:         --inspect=5858
+const args = process.argv.slice(2)
+let sepIndex = args.indexOf('--')
+let frontendArgs = args.slice(sepIndex + 1)
+sepIndex = frontendArgs.indexOf('--')
+let appArgs = frontendArgs.splice(sepIndex)
+appArgs.shift()
+
 let apps = []
 
-const frontend = proc.fork(require.resolve('@salp/frontend/scripts/serve.js'), [], {
+const frontend = proc.fork(require.resolve('@salp/frontend/scripts/serve.js'), frontendArgs, {
     cwd: path.dirname(require.resolve('@salp/frontend')),
     env: {
         ...process.env,
@@ -28,7 +38,7 @@ frontend.on('message', m => {
 
     const url = m.content
 
-    const application = proc.spawn(electron, ['' + path.resolve(__dirname, '..')], {
+    const application = proc.spawn(electron, ['' + path.resolve(__dirname, '..')].concat(appArgs), {
         stdio: 'inherit',
         windowsHide: false,
         env: {
