@@ -47,8 +47,8 @@ module.exports = {
             .set('$root', path.resolve(__dirname))
 
         config.plugins
-            .delete('preload-index')
             .delete('prefetch-index')
+            .delete('preload-index')
 
         config.plugin('lodash')
             .use(LodashModuleReplacementPlugin)
