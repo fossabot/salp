@@ -8,7 +8,10 @@ let apps = []
 
 const frontend = proc.fork(require.resolve('@salp/frontend/scripts/serve.js'), [], {
     cwd: path.dirname(require.resolve('@salp/frontend')),
-    env: process.env,
+    env: {
+        ...process.env,
+        IS_ELECTRON: true
+    },
     stdio: 'inherit',
     windowsHide: false
 })
