@@ -54,6 +54,17 @@ test:unit:frontend:
   script:
     - cd src/frontend/
     - npm run coverage:unit
+  coverage: '/^Statements\s*:\s*([^%]+)/'
+  artifacts:
+    paths:
+      - coverage/
+
+test:unit:application:
+  stage: test
+  script:
+    - cd src/application/
+    - npm run coverage:unit
+  coverage: '/^Statements\s*:\s*([^%]+)/'
   artifacts:
     paths:
       - coverage/
