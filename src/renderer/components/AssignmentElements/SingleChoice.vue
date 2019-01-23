@@ -68,14 +68,9 @@ export default {
     },
     methods: {
         questionIsCorrect() {
-            let answeredCorrect = true
-            this.answers.forEach(({ answer, correct }) => {
-                if ((correct && this.checked !== answer) || (!correct && this.checked === answer)) {
-                    answeredCorrect = false
-                }
+            return this.answers.every(({ answer, correct }) => {
+                return (correct && this.checked === answer) || (!correct && this.checked !== answer)
             })
-
-            return answeredCorrect
         },
         validateAnswer(answer) {
             // Answer is correct and checked = valid/green

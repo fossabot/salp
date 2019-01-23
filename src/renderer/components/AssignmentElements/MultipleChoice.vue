@@ -41,14 +41,7 @@ export default {
                 const isValidCorrect = entry => entry.hasOwnProperty('correct') && typeof entry.correct === 'boolean'
                 const isValidEntry = entry => isValidAnswer(entry) && isValidCorrect(entry)
 
-                let isValid = true
-                answers.forEach(entry => {
-                    if (!isValidEntry(entry)) {
-                        isValid = false
-                    }
-                })
-
-                return isValid
+                return answers.every(isValidEntry)
             }
         }
     },
@@ -61,14 +54,9 @@ export default {
     },
     methods: {
         questionIsCorrect() {
-            let answeredCorrect = true
-            this.answers.forEach(({ answer, correct }) => {
-                if ((correct && this.checked.indexOf(answer) === -1) || (!correct && this.checked.indexOf(answer) !== -1)) {
-                    answeredCorrect = false
-                }
+            return this.answers.every(({ answer, correct }) => {
+                return (correct && this.checked.includes(answer)) || (!correct && !this.checked.includes(answer))
             })
-
-            return answeredCorrect
         },
         validateAnswer(answer) {
             // Answer is correct and checked = valid/green
