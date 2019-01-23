@@ -40,14 +40,7 @@ export default {
 
                 const isValidAnswer = entry => entry.hasOwnProperty('answer') && typeof entry.answer === 'string' && entry.answer.length > 0
 
-                let isValid = true
-                answers.forEach(entry => {
-                    if (!isValidAnswer(entry)) {
-                        isValid = false
-                    }
-                })
-
-                return isValid
+                return answers.every(isValidAnswer)
             }
         }
     },
@@ -68,14 +61,7 @@ export default {
     },
     methods: {
         questionIsCorrect() {
-            let correct = false
-            this.answers.forEach(({ answer }) => {
-                if (answer === this.answer.trim()) {
-                    correct = true
-                }
-            })
-
-            return correct
+            return this.answers.some(({ answer }) => answer === this.answer.trim())
         },
         validate() {
             if (!this.retry) {
