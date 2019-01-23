@@ -1,0 +1,29 @@
+{
+  "name": "@salp/application",
+  "version": "1.0.0",
+  "description": "salp electron application",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha",
+    "coverage:unit": "nyc mocha",
+    "serve": "./scripts/serve.js",
+    "lint": "eslint src/ test/"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "electron": "^4.0.1",
+    "electron-devtools-installer": "^2.2.4",
+    "eslint": "^5.12.1",
+    "mocha": "^5.2.0",
+    "mock-require": "^3.0.3",
+    "nyc": "^13.1.0",
+    "rewire": "^4.0.1",
+    "sinon": "^7.2.3",
+    "sinon-chai": "^3.3.0"
+  },
+  "dependencies": {
+    "@salp/frontend": "^1.0.0",
+    "dockerode": "^2.5.8",
+    "electron-log": "^2.2.17"
+  }
+}

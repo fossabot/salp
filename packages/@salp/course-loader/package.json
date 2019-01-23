@@ -4,7 +4,7 @@
   "description": "Webpack loader to compile salp course content (markdown) to Vue (javascript)",
   "main": "lib/course-loader.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint lib/"
   },
   "files": [
     "lib/"
@@ -21,7 +21,12 @@
   "license": "MIT",
   "dependencies": {
     "@vuepress/markdown": "^1.0.0-alpha.0",
+    "loader-utils": "^1.2.3",
+    "lru-cache": "^4.1.5",
     "markdown-it-block-embed": "^0.0.3",
     "semver": "^5.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.1"
   }
 }
