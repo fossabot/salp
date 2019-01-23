@@ -1,13 +1,5 @@
 module.exports = {
     root: true,
-    env: {
-        node: true,
-        mocha: true
-    },
-    'extends': [
-        'plugin:vue/essential',
-        '@vue/standard'
-    ],
     plugins: [
         'chai-friendly',
         'mocha'
@@ -41,8 +33,8 @@ module.exports = {
         ],
         'padding-line-between-statements': [
             'error',
-            { blankLine: 'always', prev: '*', next: 'return' },
-            { blankLine: 'always', prev: '*', next: 'return' }
+            {blankLine: 'always', prev: '*', next: 'return'},
+            {blankLine: 'always', prev: '*', next: 'return'}
         ],
         // eslint-plugin-chai-friendly
         // @see https://github.com/ihordiachenko/eslint-plugin-chai-friendly#usage
@@ -54,7 +46,5 @@ module.exports = {
         'mocha/no-nested-tests': ['error'],
         'mocha/valid-test-description': ['error']
     },
-    parserOptions: {
-        parser: 'babel-eslint'
-    }
+    parser: 'babel-eslint'
 }

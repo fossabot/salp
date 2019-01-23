@@ -20,40 +20,56 @@ variables:
   ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
   CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/.cache/Cypress
   CYPRESS_INSTALL_BINARY: "0"
+  CORE_PACKAGES: "@salp/{frontend,application}"
 
 before_script:
   - npm ci
-  - npx lerna bootstrap $LERNA_ARGS
+  - npm run postinstall --unsafe-perm
 
 # jobs
-eslint:
+eslint:core:
   stage: lint
   variables:
     LERNA_ARGS: --ignore-prepublish
   script:
-    - npm run lint:code -- --no-fix
+    - npx lerna run lint --no-bail --scope=$CORE_PACKAGES -- -- --no-fix
 
-stylelint:
+eslint:packages:
   stage: lint
   variables:
     LERNA_ARGS: --ignore-prepublish
   script:
-    - npm run lint:style -- --no-fix
+    - npx lerna run lint --no-bail --ignore=$CORE_PACKAGES -- -- --no-fix
 
-app:test:unit:
+stylelint:frontend:
+  stage: lint
+  variables:
+    LERNA_ARGS: --ignore-prepublish
+  script:
+    - cd src/frontend/
+    - npm run lint:style
+
+test:unit:frontend:
   stage: test
   script:
+    - cd src/frontend/
     - npm run coverage:unit
   artifacts:
     paths:
       - coverage/
 
-app:test:e2e:
+test:unit:packages:
+  stage: test
+  script:
+    - npx lerna run test --no-bail --ignore=$CORE_PACKAGES
+
+test:e2e:frontend:
   image: cypress/browsers:chrome69
   stage: test
   variables:
     CYPRESS_INSTALL_BINARY: ""
   script:
+    - cd src/frontend/
     - NODE_ENV="production" npm run test:e2e
   artifacts:
     expire_in: 1 day
@@ -70,6 +86,7 @@ npm_audit:
     - 'true'
   script:
     - npm audit
+    - ./scripts/npm-audit-packages.js
 
 dependency_scanning:
   stage: audit
