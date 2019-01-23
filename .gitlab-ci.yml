@@ -58,6 +58,12 @@ test:unit:frontend:
     paths:
       - coverage/
 
+test:unit:application:
+  stage: test
+  script:
+    - cd src/application/
+    - npm run test
+
 test:unit:packages:
   stage: test
   script:
