@@ -62,7 +62,10 @@ test:unit:application:
   stage: test
   script:
     - cd src/application/
-    - npm run test
+    - npm run coverage:unit
+  artifacts:
+    paths:
+      - coverage/
 
 test:unit:packages:
   stage: test

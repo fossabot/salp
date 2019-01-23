@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "mocha",
+    "coverage:unit": "nyc mocha",
     "serve": "./scripts/serve.js",
     "lint": "eslint src/ test/"
   },
@@ -15,6 +16,7 @@
     "eslint": "^5.12.1",
     "mocha": "^5.2.0",
     "mock-require": "^3.0.3",
+    "nyc": "^13.1.0",
     "sinon": "^7.2.3",
     "sinon-chai": "^3.3.0"
   },
