@@ -93,7 +93,7 @@ module.exports = {
         // Inject mocked electron api when building browser version
         if (!process.env.IS_ELECTRON) {
             config.resolve.alias
-                .set('electron', path.resolve(__dirname, 'src/renderer/__mocks__/browser/electron'))
+                .set('electron', path.resolve(__dirname, 'src/__mocks__/browser/electron'))
         }
 
         if (!isTesting) {
