@@ -94,6 +94,10 @@ module.exports = {
         if (!process.env.IS_ELECTRON) {
             config.resolve.alias
                 .set('electron', path.resolve(__dirname, 'src/__mocks__/browser/electron'))
+        } else {
+            config.externals({
+                electron: 'require("electron")'
+            })
         }
 
         if (!isTesting) {
