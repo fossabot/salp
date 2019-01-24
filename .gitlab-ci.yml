@@ -60,6 +60,7 @@ test:unit:frontend:
       - coverage/
 
 test:unit:application:
+  image: node:11.6
   stage: test
   script:
     - cd src/application/
