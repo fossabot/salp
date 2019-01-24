@@ -1,0 +1,21 @@
+{
+  "name": "@salp/course-bundler",
+  "version": "1.0.0",
+  "description": "Bundles courses for use with salp",
+  "keywords": [
+    "salp-course",
+    "course",
+    "bundler",
+    "webpack",
+    "build"
+  ],
+  "author": "Joshua Westerheide <dev@jdoubleu.de>",
+  "license": "MIT",
+  "main": "lib/course-bundler.js",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}
