@@ -8,6 +8,12 @@ const util = require('util')
 const execFile = util.promisify(proc.execFile)
 const exec = util.promisify(proc.exec)
 
+process.on('unhandledRejection', error => {
+    throw error
+})
+
+run()
+
 async function run() {
     const packages = await getLernaPackages()
     const status = await handlePackages(packages)
@@ -133,5 +139,3 @@ class Package {
         return output
     }
 }
-
-run()

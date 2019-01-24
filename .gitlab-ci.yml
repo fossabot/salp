@@ -95,7 +95,7 @@ npm_audit:
   only:
     - schedules
   before_script:
-    - 'true'
+    - npm ci
   script:
     - npm audit
     - ./scripts/npm-audit-packages.js
