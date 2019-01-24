@@ -124,7 +124,7 @@ module.exports = {
                 .devtoolModuleFilenameTemplate('[absolute-resource-path]')
                 .devtoolFallbackModuleFilenameTemplate('[absolute-resource-path]?[hash]')
 
-            config.devtool('inline-cheap-module-source-map')
+            config.devtool('devtool')
         }
     },
     pluginOptions: {
