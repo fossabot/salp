@@ -93,7 +93,7 @@ module.exports = {
         // Inject mocked electron api when building browser version
         if (!process.env.IS_ELECTRON) {
             config.resolve.alias
-                .set('electron', path.resolve(__dirname, 'src/__mocks__/browser/electron'))
+                .set('electron', path.resolve(__dirname, '__mocks__/browser/electron'))
         } else {
             config.externals({
                 electron: 'require("electron")'
@@ -124,7 +124,7 @@ module.exports = {
                 .devtoolModuleFilenameTemplate('[absolute-resource-path]')
                 .devtoolFallbackModuleFilenameTemplate('[absolute-resource-path]?[hash]')
 
-            config.devtool('inline-cheap-module-source-map')
+            config.devtool('devtool')
         }
     },
     pluginOptions: {

@@ -57,7 +57,7 @@ test:unit:frontend:
   coverage: '/^Statements\s*:\s*([^%]+)/'
   artifacts:
     paths:
-      - coverage/
+      - src/frontend/coverage/
 
 test:unit:application:
   image: node:11.6
@@ -68,7 +68,7 @@ test:unit:application:
   coverage: '/^Statements\s*:\s*([^%]+)/'
   artifacts:
     paths:
-      - coverage/
+      - src/application/coverage/
 
 test:unit:packages:
   stage: test
@@ -87,8 +87,8 @@ test:e2e:frontend:
     expire_in: 1 day
     when: always
     paths:
-    - tests/e2e/renderer/screenshots
-    - tests/e2e/renderer/videos
+    - src/frontend/tests/e2e/renderer/screenshots
+    - src/frontend/tests/e2e/renderer/videos
 
 npm_audit:
   stage: audit

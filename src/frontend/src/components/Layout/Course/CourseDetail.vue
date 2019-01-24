@@ -15,7 +15,7 @@ import SectionHeader from '../Content/SectionHeader.vue'
 import CourseCardFull from './CourseCardFull.vue'
 import TableOfContents from '../Content/TableOfContents.vue'
 import ProgressBar from '../../Elements/ProgressBar.vue'
-import { courseContents } from '@/__mocks__/courses.js'
+import { courseContents } from '$root/__mocks__/courses.js'
 
 export default {
     name: 'CourseDetail',

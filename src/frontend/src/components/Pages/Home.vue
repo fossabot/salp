@@ -6,7 +6,7 @@
 
 <script>
 import CoursesOverview from '../Layout/Course/CoursesOverview.vue'
-import { groups } from '@/__mocks__/courses.js'
+import { groups } from '$root/__mocks__/courses.js'
 
 export default {
     name: 'Home',
