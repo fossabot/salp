@@ -65,15 +65,17 @@ module.exports = {
 
         // Inject scss variables in each vue SFC styles
         // @see https://cli.vuejs.org/guide/css.html#automatic-imports
-        config.module.rule('scss').oneOf('vue')
-            .use('style-resource')
-            .loader('style-resources-loader')
-            .options({
-                patterns: [
-                    path.resolve(__dirname, 'src/theme/element/common/var.scss')
-                ]
-            })
-            .end()
+        ;['vue', 'vue-modules'].forEach(type => {
+            config.module.rule('scss').oneOf(type)
+                .use('style-resource')
+                .loader('style-resources-loader')
+                .options({
+                    patterns: [
+                        path.resolve(__dirname, 'src/theme/element/common/var.scss')
+                    ]
+                })
+                .end()
+        })
 
         config.module
             .rule('vue')
