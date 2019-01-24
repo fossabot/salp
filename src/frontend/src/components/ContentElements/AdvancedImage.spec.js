@@ -12,7 +12,7 @@ localVue.component('Card', Card)
 
 describe('AdvancedImage.vue', () => {
     let wrapper = {}
-    const expectedSrc = '@/__mocks__/images/lorem.jpg'
+    const expectedSrc = '$root/__mocks__/images/lorem.jpg'
     const expectedDesc = 'lorem ipsum dollor sit atmet'
 
     beforeEach(() => {

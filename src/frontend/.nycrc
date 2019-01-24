@@ -8,6 +8,6 @@
     ],
     "exclude": [
       "src/**/*.spec.js",
-      "src/__mocks__/"
+      "__mocks__/"
     ]
 }

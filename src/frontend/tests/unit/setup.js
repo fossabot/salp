@@ -3,7 +3,7 @@ import { config } from '@vue/test-utils'
 import chai from 'chai'
 import SinonChai from 'sinon-chai'
 import VueTestChai from 'vue-test-chai'
-import $store from '@/__mocks__/store/empty'
+import $store from '$root/__mocks__/store/empty'
 
 chai.use(SinonChai)
 chai.use(VueTestChai)
