@@ -17,11 +17,6 @@ module.exports = class ContainerService {
         }
     }
 
-    async _createContainer(config, networkName, name) {
-        let container = await this.docker.createContainer(this._validateConfig(config, networkName, name))
-        this.containers.push(container)
-    }
-
     async start() {
         await this._loadContainers()
         for (const container of this.containers) {
@@ -48,6 +43,11 @@ module.exports = class ContainerService {
             await container.remove()
         }
         this.containers = []
+    }
+
+    async _createContainer(config, networkName, name) {
+        let container = await this.docker.createContainer(this._validateConfig(config, networkName, name))
+        this.containers.push(container)
     }
 
     _validateConfig(config, networkName, name) {
