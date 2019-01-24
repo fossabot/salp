@@ -1,6 +1,6 @@
 const markdown = require('./markdown')
 
-module.exports = function courseLoader(src) {
+module.exports = function markdownLoader(src) {
     // TODO: implement caching
     const { html } = markdown.render(src)
 

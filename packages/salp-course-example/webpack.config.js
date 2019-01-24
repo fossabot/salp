@@ -23,7 +23,7 @@ module.exports = {
                         loader: 'vue-loader'
                     },
                     {
-                        loader: require.resolve('@salp/course-loader'),
+                        loader: require.resolve('@salp/markdown-loader'),
                         options: {
                             sourceDir: path.resolve('chapters')
                         }

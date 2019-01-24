@@ -1,8 +1,8 @@
 {
-  "name": "@salp/course-loader",
+  "name": "@salp/markdown-loader",
   "version": "1.0.0",
   "description": "Webpack loader to compile salp course content (markdown) to Vue (javascript)",
-  "main": "lib/course-loader.js",
+  "main": "lib/markdown-loader.js",
   "scripts": {
     "lint": "eslint lib/"
   },
