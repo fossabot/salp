@@ -75,14 +75,34 @@ test:unit:packages:
   script:
     - npx lerna run test --no-bail --ignore=$CORE_PACKAGES
 
-test:e2e:frontend:
+test:e2e:frontend:production:
   image: cypress/browsers:chrome69
   stage: test
   variables:
     CYPRESS_INSTALL_BINARY: ""
+    VUE_CLI_MODE: "production"
   script:
     - cd src/frontend/
-    - NODE_ENV="production" npm run test:e2e
+    - npm run test:e2e
+  artifacts:
+    expire_in: 1 day
+    when: always
+    paths:
+    - src/frontend/tests/e2e/renderer/screenshots
+    - src/frontend/tests/e2e/renderer/videos
+
+test:e2e:frontend:development:
+  image: cypress/browsers:chrome69
+  stage: test
+  only:
+    - master
+    - schedules
+  variables:
+    CYPRESS_INSTALL_BINARY: ""
+    VUE_CLI_MODE: "development"
+  script:
+    - cd src/frontend/
+    - npm run test:e2e
   artifacts:
     expire_in: 1 day
     when: always

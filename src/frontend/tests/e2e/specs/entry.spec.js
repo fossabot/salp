@@ -30,6 +30,25 @@ describe('App (Entry)', () => {
                 })
         })
 
+        it('should load element-ui styles for Main component', () => {
+            // see 'element-ui/packages/theme-chalk/src/main.scss'
+            const expectedCssRules = [
+                'display',
+                'flex',
+                'flex-basis',
+                'overflow',
+                'box-sizing',
+                'padding'
+            ]
+
+            cy.get('body')
+                .should($el => {
+                    expectedCssRules.forEach(rule => {
+                        expect($el).to.have.css(rule)
+                    })
+                })
+        })
+
         it('should have the correct font family', () => {
             cy.get('body')
                 .should('have.css', 'font-family')
