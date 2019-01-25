@@ -41,7 +41,7 @@ describe('App (Entry)', () => {
                 'padding'
             ]
 
-            cy.get('body')
+            cy.get('#app-content')
                 .should($el => {
                     expectedCssRules.forEach(rule => {
                         expect($el).to.have.css(rule)
