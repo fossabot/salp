@@ -80,6 +80,7 @@ test:e2e:frontend:production:
   stage: test
   variables:
     CYPRESS_INSTALL_BINARY: ""
+    NODE_ENV: "production"
     VUE_CLI_MODE: "production"
   script:
     - cd src/frontend/
@@ -99,6 +100,7 @@ test:e2e:frontend:development:
     - schedules
   variables:
     CYPRESS_INSTALL_BINARY: ""
+    NODE_ENV: "production"
     VUE_CLI_MODE: "development"
   script:
     - cd src/frontend/
