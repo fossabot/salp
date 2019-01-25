@@ -76,7 +76,7 @@ test:unit:packages:
     - npx lerna run test --no-bail --ignore=$CORE_PACKAGES
 
 test:e2e:frontend:production: &test_e2e_frontend
-  image: cypress/browsers:chrome69
+  image: cypress/base:10
   stage: test
   variables:
     CYPRESS_INSTALL_BINARY: ""
