@@ -3,6 +3,7 @@ const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin')
 
 const isTesting = process.env.NODE_ENV === 'test'
 const isCoverage = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event.includes('coverage')
+const isUnitTesting = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event === 'test:unit'
 
 const chunks = {
     vue: {
@@ -127,6 +128,20 @@ module.exports = {
                 .devtoolFallbackModuleFilenameTemplate('[absolute-resource-path]?[hash]')
 
             config.devtool('devtool')
+        }
+
+        // @see https://github.com/vuejs/vue-cli/issues/3370
+        if (isTesting && !isUnitTesting) {
+            config.target(undefined)
+
+            config.module
+                .rule('vue')
+                .use('vue-loader')
+                .tap(options => {
+                    options.optimizeSSR = true
+
+                    return options
+                })
         }
     },
     pluginOptions: {
