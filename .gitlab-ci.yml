@@ -81,10 +81,10 @@ test:e2e:frontend:production: &test_e2e_frontend
   variables:
     CYPRESS_INSTALL_BINARY: ""
     RUNTIME_NODE_ENV: "production"
-    VUE_CLI_MODE: "production"
+    COMPILE_MODE: "production"
   script:
     - cd src/frontend/
-    - NODE_ENV="RUNTIME_NODE_ENV" npm run test:e2e
+    - NODE_ENV="RUNTIME_NODE_ENV" npm run test:e2e -- --mode $COMPILE_MODE
   artifacts:
     expire_in: 1 day
     when: always
@@ -97,7 +97,7 @@ test:e2e:frontend:development:
   variables:
     CYPRESS_INSTALL_BINARY: ""
     RUNTIME_NODE_ENV: "production"
-    VUE_CLI_MODE: "development"
+    COMPILE_MODE: "development"
 
 npm_audit:
   stage: audit
