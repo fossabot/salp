@@ -37,7 +37,7 @@ module.exports = class NetworkService {
         for (const network of networks) {
             if (network.Name === this.networkName) {
                 this.network = await this.docker.getNetwork(network.Id)
-
+                
                 return
             }
         }
