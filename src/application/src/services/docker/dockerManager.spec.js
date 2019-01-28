@@ -4,6 +4,15 @@ let ImageService = require('./imageService')
 let NetworkService = require('./networkService')
 
 describe('dockerManager.js', () => {
+    const course = {
+        name: 'lorem',
+        containers: {
+            wp: {
+                image: 'wordpress'
+            }
+        }
+    }
+
     let sandbox = require('sinon').createSandbox()
     let dockerManager
     let pull
@@ -15,16 +24,7 @@ describe('dockerManager.js', () => {
     let removeNetwork
     let createNetwork
 
-    beforeEach('create new dockerManager', () => {
-        const course = {
-            name: 'lorem',
-            containers: {
-                wp: {
-                    image: 'wordpress'
-                }
-            }
-        }
-
+    before(() => {
         createNetwork = sandbox.stub(NetworkService.prototype, 'create')
         removeNetwork = sandbox.stub(NetworkService.prototype, 'remove')
 
@@ -35,11 +35,17 @@ describe('dockerManager.js', () => {
         startContainer = sandbox.stub(ContainerService.prototype, 'start')
         stopContainer = sandbox.stub(ContainerService.prototype, 'stop')
         removeAllContainer = sandbox.stub(ContainerService.prototype, 'removeAll')
+    })
 
-        dockerManager = new DockerManager(course)
+    beforeEach('create new dockerManager', () => {
+        dockerManager = new DockerManager({ ...course })
     })
 
     afterEach('', () => {
+        sandbox.reset()
+    })
+
+    after(() => {
         sandbox.restore()
     })
 
