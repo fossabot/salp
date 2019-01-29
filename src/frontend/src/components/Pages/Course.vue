@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { course } from '@/__mocks__/courses.js'
+import { course } from '$root/__mocks__/courses.js'
 
 export default {
     name: 'Course',

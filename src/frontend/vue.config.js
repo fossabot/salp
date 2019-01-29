@@ -3,6 +3,7 @@ const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin')
 
 const isTesting = process.env.NODE_ENV === 'test'
 const isCoverage = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event.includes('coverage')
+const isUnitTesting = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event === 'test:unit'
 
 const chunks = {
     vue: {
@@ -65,15 +66,17 @@ module.exports = {
 
         // Inject scss variables in each vue SFC styles
         // @see https://cli.vuejs.org/guide/css.html#automatic-imports
-        config.module.rule('scss').oneOf('vue')
-            .use('style-resource')
-            .loader('style-resources-loader')
-            .options({
-                patterns: [
-                    path.resolve(__dirname, 'src/theme/element/common/var.scss')
-                ]
-            })
-            .end()
+        ;['vue', 'vue-modules'].forEach(type => {
+            config.module.rule('scss').oneOf(type)
+                .use('style-resource')
+                .loader('style-resources-loader')
+                .options({
+                    patterns: [
+                        path.resolve(__dirname, 'src/theme/element/common/var.scss')
+                    ]
+                })
+                .end()
+        })
 
         config.module
             .rule('vue')
@@ -93,7 +96,7 @@ module.exports = {
         // Inject mocked electron api when building browser version
         if (!process.env.IS_ELECTRON) {
             config.resolve.alias
-                .set('electron', path.resolve(__dirname, 'src/__mocks__/browser/electron'))
+                .set('electron', path.resolve(__dirname, '__mocks__/browser/electron'))
         } else {
             config.externals({
                 electron: 'require("electron")'
@@ -124,7 +127,21 @@ module.exports = {
                 .devtoolModuleFilenameTemplate('[absolute-resource-path]')
                 .devtoolFallbackModuleFilenameTemplate('[absolute-resource-path]?[hash]')
 
-            config.devtool('inline-cheap-module-source-map')
+            config.devtool('devtool')
+        }
+
+        // @see https://github.com/vuejs/vue-cli/issues/3370
+        if (isTesting && !isUnitTesting) {
+            config.target(undefined)
+
+            config.module
+                .rule('vue')
+                .use('vue-loader')
+                .tap(options => {
+                    options.optimizeSSR = true
+
+                    return options
+                })
         }
     },
     pluginOptions: {
