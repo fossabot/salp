@@ -1,4 +1,4 @@
-import { app, ipcMain } from 'electron'
+const { app, ipcMain } = require('electron')
 const DockerManager = require('./docker/dockerManager.js')
 
 let dockerManagers = {}
@@ -38,7 +38,7 @@ function getDockerManager(course) {
     return dockerManager
 }
 
-app.on('ready', async () => {
+app.on('ready', () => {
     ipcMain.on('docker:up', up)
     ipcMain.on('docker:down', down)
     ipcMain.on('docker:removeContainer', removeContainersAndNetwork)
