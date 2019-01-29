@@ -23,10 +23,14 @@ describe('dockerManager.js', () => {
     let removeAllImage
     let removeNetwork
     let createNetwork
+    let getNetworkName
 
     before(() => {
+        sandbox.stub(DockerManager.prototype, '_initialize')
+
         createNetwork = sandbox.stub(NetworkService.prototype, 'create')
         removeNetwork = sandbox.stub(NetworkService.prototype, 'remove')
+        getNetworkName = sandbox.stub(NetworkService.prototype, 'getNetworkName')
 
         pull = sandbox.stub(ImageService.prototype, 'pull')
         removeAllImage = sandbox.stub(ImageService.prototype, 'removeAll')
@@ -41,7 +45,7 @@ describe('dockerManager.js', () => {
         dockerManager = new DockerManager({ ...course })
     })
 
-    afterEach('', () => {
+    afterEach(() => {
         sandbox.reset()
     })
 
@@ -53,6 +57,7 @@ describe('dockerManager.js', () => {
         it('should start up the docker container', async () => {
             await dockerManager.up()
             expect(createNetwork).to.have.been.calledOnce
+            expect(getNetworkName).to.have.been.calledOnce
             expect(pull).to.have.been.calledOnce
             expect(createContainer).to.have.been.calledOnce
             expect(startContainer).to.have.been.calledOnce
