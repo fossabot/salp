@@ -75,14 +75,16 @@ test:unit:packages:
   script:
     - npx lerna run test --no-bail --ignore=$CORE_PACKAGES
 
-test:e2e:frontend:
-  image: cypress/browsers:chrome69
+test:e2e:frontend:production: &test_e2e_frontend
+  image: cypress/base:10
   stage: test
   variables:
     CYPRESS_INSTALL_BINARY: ""
+    RUNTIME_NODE_ENV: "production"
+    COMPILE_MODE: "production"
   script:
     - cd src/frontend/
-    - NODE_ENV="production" npm run test:e2e
+    - NODE_ENV="RUNTIME_NODE_ENV" npm run test:e2e -- --mode $COMPILE_MODE
   artifacts:
     expire_in: 1 day
     when: always
@@ -90,12 +92,19 @@ test:e2e:frontend:
     - src/frontend/tests/e2e/renderer/screenshots
     - src/frontend/tests/e2e/renderer/videos
 
+test:e2e:frontend:development:
+  <<: *test_e2e_frontend
+  variables:
+    CYPRESS_INSTALL_BINARY: ""
+    RUNTIME_NODE_ENV: "production"
+    COMPILE_MODE: "development"
+
 npm_audit:
   stage: audit
   only:
     - schedules
   before_script:
-    - 'true'
+    - npm ci
   script:
     - npm audit
     - ./scripts/npm-audit-packages.js

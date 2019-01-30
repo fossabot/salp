@@ -11,7 +11,7 @@
     "lint:style": "vue-cli-service lint:style",
     "dev": "vue-cli-service electron:serve --debug",
     "test": "npm run test:unit && npm run test:e2e",
-    "test:e2e": "vue-cli-service test:e2e --headless --browser chrome",
+    "test:e2e": "vue-cli-service test:e2e --headless",
     "test:unit_cmd": "vue-cli-service test:unit --include tests/unit/setup.js",
     "test:unit": "npm run test:unit_cmd -- '{src,tests/unit}/**/*.spec.js'",
     "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/setup.js '{src,tests/unit}/**/*.{spec.js,vue}'"
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@ascendancyy/vue-cli-plugin-stylelint": "^1.1.0",
+    "@babel/plugin-transform-spread": "^7.2.2",
     "@cypress/webpack-preprocessor": "^4.0.2",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-e2e-cypress": "^3.2.0",
