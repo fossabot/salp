@@ -19,7 +19,7 @@
     "course": "./cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1",
+    "test": "mocha",
     "lint": "eslint lib/"
   },
   "dependencies": {
@@ -31,6 +31,12 @@
     "webpack-chain": "^5.2.0"
   },
   "devDependencies": {
-    "eslint": "^5.12.1"
+    "chai": "^4.2.0",
+    "eslint": "^5.12.1",
+    "mocha": "^5.2.0",
+    "mock-require": "^3.0.3",
+    "rewire": "^4.0.1",
+    "sinon": "^7.2.3",
+    "sinon-chai": "^3.3.0"
   }
 }
