@@ -9,7 +9,10 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
         'indent': [
             'error',
-            4
+            4,
+            {
+                "MemberExpression": 'off'
+            }
         ],
         'new-cap': [
             'error',

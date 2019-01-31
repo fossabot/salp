@@ -56,42 +56,41 @@ module.exports = {
 
         config.module.rule('eslint')
             .exclude
-            .add(/dist/)
-            .end()
+                .add(/dist/)
+                .end()
 
         config.module.rule('js')
             .exclude
-            .add(/dist/)
-            .end()
+                .add(/dist/)
+                .end()
 
         // Inject scss variables in each vue SFC styles
         // @see https://cli.vuejs.org/guide/css.html#automatic-imports
         ;['vue', 'vue-modules'].forEach(type => {
             config.module.rule('scss').oneOf(type)
                 .use('style-resource')
-                .loader('style-resources-loader')
-                .options({
-                    patterns: [
-                        path.resolve(__dirname, 'src/theme/element/common/var.scss')
-                    ]
-                })
-                .end()
+                    .loader('style-resources-loader')
+                    .options({
+                        patterns: [
+                            path.resolve(__dirname, 'src/theme/element/common/var.scss')
+                        ]
+                    })
+                    .end()
         })
 
-        config.module
-            .rule('vue')
+        config.module.rule('vue')
             .use('vue-loader')
-            .loader('vue-loader')
-            .tap(options => {
-                options['transformAssetUrls'] = {
-                    'SimpleImage': 'src',
-                    'AdvancedImage': 'src',
-                    'SimpleVideo': 'src',
-                    'AppPreview': 'src'
-                }
+                .loader('vue-loader')
+                .tap(options => {
+                    options['transformAssetUrls'] = {
+                        'SimpleImage': 'src',
+                        'AdvancedImage': 'src',
+                        'SimpleVideo': 'src',
+                        'AppPreview': 'src'
+                    }
 
-                return options
-            })
+                    return options
+                })
 
         // Inject mocked electron api when building browser version
         if (!process.env.IS_ELECTRON) {
@@ -120,8 +119,8 @@ module.exports = {
         if (isCoverage) {
             config.module.rule('js')
                 .use('istanbul')
-                .loader('istanbul-instrumenter-loader')
-                .options({ esModules: true })
+                    .loader('istanbul-instrumenter-loader')
+                    .options({ esModules: true })
 
             config.output
                 .devtoolModuleFilenameTemplate('[absolute-resource-path]')
@@ -134,14 +133,13 @@ module.exports = {
         if (isTesting && !isUnitTesting) {
             config.target(undefined)
 
-            config.module
-                .rule('vue')
+            config.module.rule('vue')
                 .use('vue-loader')
-                .tap(options => {
-                    options.optimizeSSR = true
+                    .tap(options => {
+                        options.optimizeSSR = true
 
-                    return options
-                })
+                        return options
+                    })
         }
     },
     pluginOptions: {
