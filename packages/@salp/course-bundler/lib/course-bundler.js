@@ -45,6 +45,7 @@ module.exports = function courseBundler(projectDir, outputDir) {
             throw new Error('Error building course. Reason: ' + err.message)
         }
 
+        /* eslint-disable-next-line no-console */
         console.log(stats.toString())
     })
 }
@@ -52,5 +53,6 @@ module.exports = function courseBundler(projectDir, outputDir) {
 module.exports.inspect = function inspectConfig(projectDir, outputDir) {
     const config = getWebpackConfig(projectDir, outputDir).map(c => c.toString())
 
+    /* eslint-disable-next-line no-console */
     console.log(config)
 }
