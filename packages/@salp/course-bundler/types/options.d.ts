@@ -15,6 +15,9 @@ export interface CourseConfiguration {
     // whether the chapters are nested into different languages (e.g. en/01-Introduction.md, de/01-Einleitung.md)
     multilang?: boolean;
 
+    // A custom output directory; might be overwritten by CLI
+    output?: string;
+
     // path to content script entry file; this script is executed in content context
     contentScript?: string;
     // path to background script entry file; this script is executed in background context
