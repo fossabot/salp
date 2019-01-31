@@ -1,1 +1,3 @@
-module.exports = require('./persistedSettings.js')
+const persisted = require('./persistedSettings.js')
+const dockerService = require('./dockerService.js')
+module.exports = { persisted,dockerService }

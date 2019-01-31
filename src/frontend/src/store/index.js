@@ -1,9 +1,11 @@
 import modules, { PersistedUserPreferences, PersistedAppState } from './modules'
+import docker from './plugins/docker'
 
 export default {
     plugins: [
         PersistedUserPreferences,
-        PersistedAppState
+        PersistedAppState,
+        docker
     ],
     modules
 }

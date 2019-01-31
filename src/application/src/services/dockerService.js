@@ -5,27 +5,32 @@ let dockerManagers = {}
 
 function up({ sender }, course) {
     const dockerManager = getDockerManager(course)
-    dockerManager.up()
+    dockerManager.up(sender)
 }
 
 function down({ sender }, course) {
     const dockerManager = getDockerManager(course)
-    dockerManager.down()
+    dockerManager.down(sender)
 }
 
 function removeContainersAndNetwork({ sender }, course) {
     const dockerManager = getDockerManager(course)
-    dockerManager.removeContainersAndNetwork()
+    dockerManager.removeContainersAndNetwork(sender)
 }
 
 function remove({ sender }, course) {
     const dockerManager = getDockerManager(course)
-    dockerManager.removeAll()
+    dockerManager.removeAll(sender)
 }
 
 function reset({ sender }, course) {
     const dockerManager = getDockerManager(course)
-    dockerManager.reset()
+    dockerManager.reset(sender)
+}
+
+function checkState({ sender }, course) {
+    const dockerManager = getDockerManager(course)
+    dockerManager.checkState(sender)
 }
 
 function getDockerManager(course) {
@@ -44,4 +49,5 @@ app.on('ready', () => {
     ipcMain.on('docker:removeContainer', removeContainersAndNetwork)
     ipcMain.on('docker:removeAll', remove)
     ipcMain.on('docker:reset', reset)
+    ipcMain.on('docker:checkState', checkState)
 })

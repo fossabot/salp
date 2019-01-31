@@ -45,6 +45,47 @@ module.exports = class ContainerService {
         this.containers = []
     }
 
+    async checkStatues() {
+        await this._loadContainers()
+        if( this.containers.length === 0 ) {
+            return {}
+        }
+        let statuses = {}
+        for (const container of this.containers) {
+            let inspect = await container.inspect()
+            let name = inspect.Name.split('/')[1]
+            statuses[name] = inspect.State.Status
+        }
+
+        return statuses
+    }
+
+    async getPorts() {
+        await this._loadContainers()
+        if( this.containers.length === 0 ) {
+            return {}
+        }
+        let result = {}
+        for (const container of this.containers) {
+            let inspect = await container.inspect()
+            let name = inspect.Name.split('/')[1]
+            result[name] = {}
+            const ports = inspect.NetworkSettings.Ports
+            for(const port in ports) {
+                const hostPorts = []
+                const hostConfig = ports[port]
+                if(hostConfig !== null && Array.isArray(hostConfig)){
+                    for (const config of hostConfig){
+                        hostPorts.push(config.HostPort)
+                    }
+                    result[name][port] = hostPorts
+                }
+            }
+        }
+
+        return result
+    }
+
     async _createContainer(config, networkName, name) {
         let container = await this.docker.createContainer(this._validateConfig(config, networkName, name))
         this.containers.push(container)

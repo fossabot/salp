@@ -12,31 +12,59 @@ module.exports = class DockerManager {
         this.networkService = new NetworkService(this.docker, this.course.name)
     }
 
-    async up() {
+    async up(sender) {
         this.networkService.create()
         for (const name in this.course.containers) {
+            const courseName = this.course.name.trim().replace(/\s/g, '').toLowerCase()
+            const containerName = `salp_${courseName}_${name}`
+            sender.send('docker:status', containerName, 'pulling')
             await this.imageService.pull(this.course.containers[name].Image)
+            sender.send('docker:status', containerName, 'starting')
             const networkName = await this.networkService.getNetworkName()
             await this.containerService.create(this.course.containers[name], networkName, name)
         }
         await this.containerService.start()
+        await this.checkState(sender)
     }
 
-    async down() {
+    async down(sender) {
         await this.containerService.stop()
+        await this.checkState(sender)
     }
 
-    async removeAll() {
-        await this.down()
+    async removeAll(sender) {
+        await this.down(sender)
         await this.containerService.removeAll()
         await this.imageService.removeAll()
         await this.networkService.remove()
+        await this.checkState(sender)
     }
 
-    async removeContainersAndNetwork() {
+    async removeContainersAndNetwork(sender) {
         await this.down()
         await this.containerService.removeAll()
         await this.networkService.remove()
+        await this.checkState(sender)
+    }
+
+    async checkState(sender) {
+        let statues = await this.containerService.checkStatues()
+        for (const containerName in statues) {
+            let status = statues[containerName]
+            sender.send('docker:status', containerName, status)
+        }
+        await this.getPorts(sender)
+    }
+
+    async getPorts(sender) {
+        let containers = await this.containerService.getPorts()
+        for(const containerName in containers) {
+            const ports = containers[containerName]
+            for(const port in ports) {
+                const hostPorts = ports[port]
+                sender.send('docker:port', containerName, port, hostPorts)
+            }
+        }
     }
 
     _initialize() {
