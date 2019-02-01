@@ -84,7 +84,7 @@ test:e2e:frontend:production: &test_e2e_frontend
     COMPILE_MODE: "production"
   script:
     - cd src/frontend/
-    - NODE_ENV="RUNTIME_NODE_ENV" npm run test:e2e -- --mode $COMPILE_MODE
+    - NODE_ENV="$RUNTIME_NODE_ENV" npm run test:e2e -- --mode $COMPILE_MODE
   artifacts:
     expire_in: 1 day
     when: always
