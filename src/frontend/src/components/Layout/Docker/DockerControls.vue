@@ -1,10 +1,13 @@
 <template>
     <Card shadow="never" class="docker-controls">
-        <h3>Docker</h3>
+        <div class="top-container">
+            <h3>Docker</h3>
+            <Button :disabled="disabled" icon="el-icon-refresh"
+                type="danger" :round="true" size="small" @click="handleReset">Reset</Button>
+        </div>
         <Containers :course-name="courseName" :containers="course.containers"/>
         <div class="docker-controls__button-container">
-            <Button @click="handleButtonClick">{{ buttonText }}</Button>
-            <Button @click="handleRemove">Remove</Button>
+            <Button :disabled="disabled" @click="handleButtonClick">{{ buttonText }}</Button>
         </div>
     </Card>
 </template>
@@ -42,11 +45,10 @@ export default {
             return containersUp === this.containersCount
         },
         buttonText() {
-            if (this.allContainersUp) {
-                return 'Down'
-            }
-
-            return 'Up'
+            return this.allContainersUp ? 'Stop' : 'Start'
+        },
+        disabled() {
+            return this.$store.getters[namespace + '/' + types.GET_CONTAINER_STATUS_IS_BLOCKING](this.courseName)
         },
         courseName() {
             return this.course.name.trim().replace(/\s/g, '').toLowerCase()
@@ -55,12 +57,12 @@ export default {
     methods: {
         handleButtonClick() {
             if (this.allContainersUp) {
-                ipcRenderer.send('docker:down', this.course)
+                ipcRenderer.send('docker:removeContainer', this.course)
             } else {
                 ipcRenderer.send('docker:up', this.course)
             }
         },
-        handleRemove() {
+        handleReset() {
             ipcRenderer.send('docker:removeAll', this.course)
         }
     },
@@ -74,6 +76,11 @@ export default {
 .docker-controls {
     padding: 1em 1em;
     max-width: 40em;
+
+    .top-container {
+        display: flex;
+        justify-content: space-between;
+    }
 
     .docker-controls__button-container {
         margin-top: 1em;

@@ -1,6 +1,7 @@
 module.exports = class ImageService {
-    constructor(docker) {
+    constructor(docker, course) {
         this.docker = docker
+        this.course = course
         this.images = []
     }
 
@@ -19,9 +20,14 @@ module.exports = class ImageService {
     }
 
     async removeAll() {
+        this._loadImages()
         for (const image of this.images) {
-            const img = await this.docker.getImage(image)
-            await img.remove()
+            try {
+                let img = await this.docker.getImage(image)
+                await img.remove()
+            } catch (err) {
+                // Image does not exist
+            }
         }
         this.images = []
     }
@@ -32,5 +38,16 @@ module.exports = class ImageService {
         }
 
         return image
+    }
+
+    _loadImages() {
+        if(this.images.length !== 0) {
+            return
+        }
+        for (const name in this.course.containers) {
+            let image = this.course.containers[name].Image
+            image = this._validateImage(image)
+            this.images.push(image)
+        }
     }
 }

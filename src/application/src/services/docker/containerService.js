@@ -27,20 +27,24 @@ module.exports = class ContainerService {
         }
     }
 
-    async stop() {
+    async stop(sender) {
         await this._loadContainers()
         for (const container of this.containers) {
             let inspect = await container.inspect()
             if (inspect.State.Status !== 'exited') {
+                sender.send('docker:status', this._getContainerNameFromInspect(inspect), 'stoping')
                 await container.stop()
             }
         }
     }
 
-    async removeAll() {
+    async removeAll(sender) {
         await this._loadContainers()
         for (const container of this.containers) {
+            let inspect = await container.inspect()
+            sender.send('docker:status', this._getContainerNameFromInspect(inspect), 'removing')
             await container.remove()
+            sender.send('docker:status', this._getContainerNameFromInspect(inspect), 'removed')
         }
         this.containers = []
     }
@@ -53,7 +57,7 @@ module.exports = class ContainerService {
         let statuses = {}
         for (const container of this.containers) {
             let inspect = await container.inspect()
-            let name = inspect.Name.split('/')[1]
+            let name = this._getContainerNameFromInspect(inspect)
             statuses[name] = inspect.State.Status
         }
 
@@ -68,7 +72,7 @@ module.exports = class ContainerService {
         let result = {}
         for (const container of this.containers) {
             let inspect = await container.inspect()
-            let name = inspect.Name.split('/')[1]
+            let name = this._getContainerNameFromInspect(inspect)
             result[name] = {}
             const ports = inspect.NetworkSettings.Ports
             for(const port in ports) {
@@ -201,5 +205,9 @@ module.exports = class ContainerService {
         name = name.replace(/\s/g, '').toLowerCase()
 
         return `salp_${name}_${suffix}`
+    }
+
+    _getContainerNameFromInspect(inspect) {
+        return inspect.Name.split('/')[1]
     }
 }

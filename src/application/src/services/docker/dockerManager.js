@@ -7,7 +7,7 @@ module.exports = class DockerManager {
     constructor(course) {
         this.course = course
         this.docker = this._initialize()
-        this.imageService = new ImageService(this.docker)
+        this.imageService = new ImageService(this.docker, this.course)
         this.containerService = new ContainerService(this.docker, this.course)
         this.networkService = new NetworkService(this.docker, this.course.name)
     }
@@ -28,21 +28,21 @@ module.exports = class DockerManager {
     }
 
     async down(sender) {
-        await this.containerService.stop()
+        await this.containerService.stop(sender)
         await this.checkState(sender)
     }
 
     async removeAll(sender) {
         await this.down(sender)
-        await this.containerService.removeAll()
+        await this.containerService.removeAll(sender)
         await this.imageService.removeAll()
         await this.networkService.remove()
         await this.checkState(sender)
     }
 
     async removeContainersAndNetwork(sender) {
-        await this.down()
-        await this.containerService.removeAll()
+        await this.down(sender)
+        await this.containerService.removeAll(sender)
         await this.networkService.remove()
         await this.checkState(sender)
     }

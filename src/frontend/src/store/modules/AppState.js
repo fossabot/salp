@@ -11,6 +11,7 @@ export const types = {
     SET_CONTAINER_PORTS: 'SET_CONTAINER_PORTS',
     GET_CONTAINER_PORTS_SIMPLE: 'GET_CONTAINER_PORTS_SIMPLE',
     GET_CONTAINER_STATUS: 'GET_CONTAINER_STATUS',
+    GET_CONTAINER_STATUS_IS_BLOCKING: 'GET_CONTAINER_STATUS_IS_BLOCKING',
     GET_CONTAINER_UP_COUNT: 'GET_CONTAINER_UP_COUNT',
     GET_ALL_CONTAINERS: 'GET_ALL_CONTAINERS'
 }
@@ -55,11 +56,11 @@ export default {
             return containerName => {
                 const container = state.containers[containerName]
                 if (!container) {
-                    return 'down'
+                    return 'removed'
                 }
                 const status = state.containers[containerName].status
                 if (!status) {
-                    return 'down'
+                    return 'removed'
                 }
 
                 return status
@@ -78,6 +79,24 @@ export default {
                 }
 
                 return containersUp
+            }
+        },
+
+        [types.GET_CONTAINER_STATUS_IS_BLOCKING](state) {
+            return courseName => {
+                const courseContainerName = `salp_${courseName}_`
+                let blockingCount = 0
+                for (const containerName in state.containers) {
+                    const container = state.containers[containerName]
+                    if (containerName.indexOf(courseContainerName) !== -1
+                        && !(container.status === 'running' || container.status === 'exited'
+                        || container.status === 'removed')) {
+                        blockingCount = blockingCount + 1
+                    }
+                }
+                console.log('blocking', blockingCount)
+
+                return blockingCount > 0
             }
         },
 
