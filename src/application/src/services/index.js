@@ -1,1 +1,1 @@
-module.exports = require('./persistedSettings.js')
+require('./persistedSettings.js')()

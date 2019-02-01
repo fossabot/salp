@@ -51,9 +51,13 @@ async function settingsSaveHandler({ sender }, name, content) {
     sender.send(`settings:saved:${name}`)
 }
 
-app.on('ready', async () => {
+async function init() {
     await ensureSettingsDir()
 
     ipcMain.on('settings:load', settingsLoadHandler)
     ipcMain.on('settings:save', settingsSaveHandler)
-})
+}
+
+module.exports = function() {
+    app.on('ready', init)
+}
