@@ -52,11 +52,7 @@ export default {
     },
     data() {
         return {
-            chapters: [
-                TheCourse.chapter1,
-                TheCourse.chapter2,
-                TheCourse.chapter3
-            ],
+            chapters: Object.values(TheCourse),
             currentChapterIndex: 0
         }
     },
