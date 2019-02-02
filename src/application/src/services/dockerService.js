@@ -23,14 +23,17 @@ function remove({ sender }, course) {
     dockerManager.removeAll(sender)
 }
 
-function reset({ sender }, course) {
-    const dockerManager = getDockerManager(course)
-    dockerManager.reset(sender)
-}
-
 function checkState({ sender }, course) {
     const dockerManager = getDockerManager(course)
     dockerManager.checkState(sender)
+}
+
+function getAllContainers({ sender }) {
+    const course = {
+        name: 'allCourses'
+    }
+    const dockerManager = getDockerManager(course)
+    dockerManager.getAllContainers(sender)
 }
 
 function getDockerManager(course) {
@@ -48,6 +51,6 @@ app.on('ready', () => {
     ipcMain.on('docker:down', down)
     ipcMain.on('docker:removeContainer', removeContainersAndNetwork)
     ipcMain.on('docker:removeAll', remove)
-    ipcMain.on('docker:reset', reset)
     ipcMain.on('docker:checkState', checkState)
+    ipcMain.on('docker:getAllContainers', getAllContainers)
 })

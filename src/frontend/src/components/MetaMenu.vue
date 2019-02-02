@@ -4,7 +4,7 @@
             <Icon icon="faUser"/>
             <span slot="title">{{ username }}</span>
         </ElMenuItem>
-        <ElMenuItem index="1">
+        <ElMenuItem index="1" :route="{name: 'container'}">
             <Tooltip placement="bottom" :content="$t('App.menu.health')">
                 <Icon icon="faHeartbeat"/>
             </Tooltip>

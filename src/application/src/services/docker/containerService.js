@@ -90,6 +90,20 @@ module.exports = class ContainerService {
         return result
     }
 
+    async getAllContainers() {
+        let allContainers = await this._listContainers()
+        let salpContainers = {}
+        for (const container of allContainers) {
+            let inspect = await container.inspect()
+            let name = this._getContainerNameFromInspect(inspect)
+            if(name.indexOf('salp_') !== -1) {
+                const status = inspect.State.Status
+                salpContainers[name] = status
+            }
+        }
+        return salpContainers
+    }
+
     async _createContainer(config, networkName, name) {
         let container = await this.docker.createContainer(this._validateConfig(config, networkName, name))
         this.containers.push(container)

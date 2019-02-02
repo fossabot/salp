@@ -67,6 +67,14 @@ module.exports = class DockerManager {
         }
     }
 
+    async getAllContainers(sender) {
+        let allContainers = await this.containerService.getAllContainers()
+        for (const containerName in allContainers) {
+            let status = allContainers[containerName]
+            sender.send('docker:status', containerName, status)
+        }
+    }
+
     _initialize() {
         const path = os.type() === 'Windows_NT' ? '//./pipe/docker_engine' : '/var/run/docker.sock'
 
