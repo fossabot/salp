@@ -1,8 +1,8 @@
 <template>
-    <div shadow="never" class="docker-containers">
+    <div class="docker-containers">
         <Table :stripe="true" class="docker-containers__table"
         :data="tableData">
-            <TableColumn label="Container" prop="name" />
+            <TableColumn label="Image" prop="image" />
             <TableColumn label="Status" prop="status">
                 <template slot-scope="scope">
                     <Tag
@@ -52,10 +52,10 @@ export default {
     computed: {
         tableData() {
             let tableData = []
-            for (const name in this.containers) {
+            for (const image in this.containers) {
                 let row = {}
-                row['name'] = name
-                let containerName = `salp_${this.courseName}_${name}`
+                row['image'] = image
+                let containerName = `salp_${this.courseName}_${image}`
                 row['status'] = this.$store.getters[namespace + '/' + types.GET_CONTAINER_STATUS](containerName)
                 row['ports'] = this.$store.getters[namespace + '/' + types.GET_CONTAINER_PORTS_SIMPLE](containerName)
                 tableData.push(row)
@@ -63,16 +63,6 @@ export default {
 
             return tableData
         }
-    },
-    methods: {
-        /* tableCellClassName({ row, column, rowIndex, columnIndex }) {
-            console.log('row', row, ' column', column, ' rowIndex', rowIndex, ' columnIndex', columnIndex)
-            if (row.status === 'running' && columnIndex === 1) {
-                return 'running'
-            }
-
-            return ''
-        } */
     }
 }
 </script>
