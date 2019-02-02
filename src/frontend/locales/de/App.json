@@ -1,0 +1,18 @@
+{
+    "menu": {
+        "home": "Home",
+        "health": "Container",
+        "updates": "Updates",
+        "settings": "Einstellungen",
+        "about": "Über"
+    },
+    "pages": {
+        "home": "Home",
+        "settings": "Einstellungen",
+        "profile": "Profil",
+        "course": "Kurs"
+    },
+    "headlines": {
+        "toc": "Inhaltsverzeichnis"
+    }
+}

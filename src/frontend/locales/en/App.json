@@ -1,7 +1,7 @@
 {
     "menu": {
         "home": "Home",
-        "health": "Health",
+        "health": "Container",
         "updates": "Updates",
         "settings": "Settings",
         "about": "About"
