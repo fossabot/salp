@@ -16,18 +16,26 @@ async function getChapters(chaptersDir) {
 
 async function genChaptersCode(ctx) {
     const paths = await getChapters(ctx.options.chapters)
-    let code = `/* chapters generated code */
-    exports.default = {`
+    let code = '/* chapters generated code */\n'
+    const imports = []
 
-    code = paths.reduce((acc, cur) => {
-        const chapterName = cur.split('/').pop().match(/^\d{2,}-(.+)\.md/)[1]
+    // generate imports
+    code = paths.reduce((previousCode, chapterFile) => {
+        const chapterName = chapterFile.split('/').pop().match(/^\d{2,}-(.+)\.md/)[1]
 
-        return acc + `
-        /* chapter: ${cur} */
-        '${chapterName}': require('${cur}'),`
+        imports.push(chapterName)
+
+        return previousCode + `
+        import ${chapterName} from '${chapterFile}'`
     }, code)
+
+    // generate export
+    const exportsModules = imports.map(m => '\t' + m).join(',\n')
     code += `
-    };`
+    
+    export default {
+    ${exportsModules}
+    }`
 
     return code
 }
