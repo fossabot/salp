@@ -1,20 +1,20 @@
-const { fake, stub } = require('sinon')
 const NetworkService = require('./networkService')
 
 describe('networkService.js', () => {
+    let sandbox = require('sinon').createSandbox()
     const courseName = 'lorem'
     let networkName = courseName.trim().replace(/\s/g, '')
     networkName = `salp_${networkName}_network`
     const Id = '123'
 
-    const remove = stub()
-    const getNetwork = fake.resolves({
+    const remove = sandbox.stub()
+    const getNetwork = sandbox.fake.resolves({
         remove
     })
-    const createNetwork = fake.resolves({
+    const createNetwork = sandbox.fake.resolves({
         Name: networkName
     })
-    const listNetworks = fake.resolves(
+    const listNetworks = sandbox.fake.resolves(
         [{Name: networkName, Id}]
     )
 
@@ -27,9 +27,17 @@ describe('networkService.js', () => {
         networkService = new NetworkService(docker, courseName)
     })
 
+    afterEach(() => {
+        sandbox.reset()
+    })
+
+    after(() => {
+        sandbox.restore()
+    })
+
     describe('public methods', () => {
         it('should create a new network', async () => {
-            stub(networkService, "_loadNetwork")
+            sandbox.stub(networkService, "_loadNetwork")
             expect(networkService.network).to.be.undefined
             networkService.networkName = networkName
             await networkService.create()
@@ -54,7 +62,7 @@ describe('networkService.js', () => {
 
     describe('private methods', () => {
         it('should load network if one exsits', async () => {
-            stub(networkService, "_getNetworkName").callsFake(() => {return networkName})
+            sandbox.stub(networkService, "_getNetworkName").callsFake(() => {return networkName})
             expect(networkService.networkName).to.be.undefined
             expect(networkService.network).to.be.undefined
             await networkService._loadNetwork()
