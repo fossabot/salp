@@ -48,31 +48,16 @@ module.exports = class DockerManager {
     }
 
     async checkState(sender) {
-        let statues = await this.containerService.checkStatues()
-        for (const containerName in statues) {
-            let status = statues[containerName]
-            sender.send('docker:status', containerName, status)
-        }
+        await this.containerService.getStatues(sender)
         await this.getPorts(sender)
     }
 
     async getPorts(sender) {
-        let containers = await this.containerService.getPorts()
-        for(const containerName in containers) {
-            const ports = containers[containerName]
-            for(const port in ports) {
-                const hostPorts = ports[port]
-                sender.send('docker:port', containerName, port, hostPorts)
-            }
-        }
+        await this.containerService.getPorts(sender)
     }
 
     async getAllContainers(sender) {
-        let allContainers = await this.containerService.getAllContainers()
-        for (const containerName in allContainers) {
-            let status = allContainers[containerName]
-            sender.send('docker:status', containerName, status)
-        }
+        await this.containerService.getAllContainers(sender)
     }
 
     _initialize() {
