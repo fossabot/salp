@@ -1,10 +1,10 @@
-const { fake, stub } = require('sinon')
 const ImageService = require('./imageService')
 
 describe('imageService.js', () => {
-    const pull = stub()
-    const remove = stub()
-    const getImage = fake.resolves({
+    let sandbox = require('sinon').createSandbox()
+    const pull = sandbox.stub()
+    const remove = sandbox.stub()
+    const getImage = sandbox.fake.resolves({
         remove
     })
 
@@ -13,7 +13,7 @@ describe('imageService.js', () => {
             pull,
             getImage,
             modem: {
-                followProgress: fake((stream, cb) => {
+                followProgress: sandbox.fake((stream, cb) => {
                     cb(false, {})
                 })
             }
@@ -21,10 +21,18 @@ describe('imageService.js', () => {
         imageService = new ImageService(docker)
     })
 
+    afterEach(() => {
+        sandbox.reset()
+    })
+
+    after(() => {
+        sandbox.restore()
+    })
+
     describe('public methods', () => {
 
         it('should pull a new image', async () => {
-            stub(imageService, "_validateImage").callsFake(() => {return 'lorem'})
+            sandbox.stub(imageService, "_validateImage").callsFake(() => {return 'lorem'})
             expect(imageService.images).to.be.an('array').that.is.empty
             await imageService.pull('ipsum')
             expect(pull).to.have.been.calledOnce
@@ -45,6 +53,23 @@ describe('imageService.js', () => {
             let image = 'wp'
             expect(imageService._validateImage(image)).to.equal(`${image}:latest`)
             expect(imageService._validateImage(`${image}:fpm`)).to.equal(`${image}:fpm`)
+        })
+
+        it('should load images from course', () => {
+            const expectedImage = 'lorem'
+            imageService.course = {
+                containers: {
+                    'ipsum': {
+                        Image: expectedImage
+                    }
+                }
+            }
+            imageService.images = []
+            const validateImageStub = sandbox.stub(imageService, "_validateImage").callsFake(() => {return expectedImage})
+            expect(imageService.images).to.be.an('array').that.is.empty
+            imageService._loadImages()
+            expect(validateImageStub).to.have.been.calledOnce
+            expect(imageService.images).to.be.an('array').that.is.not.empty
         })
     })
 })
