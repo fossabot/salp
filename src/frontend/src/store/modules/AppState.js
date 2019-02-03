@@ -94,7 +94,6 @@ export default {
                         blockingCount = blockingCount + 1
                     }
                 }
-                console.log('blocking', blockingCount)
 
                 return blockingCount > 0
             }
