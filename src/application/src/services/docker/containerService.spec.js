@@ -1,7 +1,7 @@
-const { fake, stub } = require('sinon')
 const ContainerService = require('./containerService')
 
 describe('containerService.js', () => {
+    let sandbox = require('sinon').createSandbox()
     const course = {
         name: 'lorem Ipsum',
         containers: {
@@ -22,25 +22,34 @@ describe('containerService.js', () => {
     for(let alias in course.containers) {
         aliases.push(alias)
     }
-    const createContainer = fake.resolves(
+    const createContainer = sandbox.fake.resolves(
         {Id: '123'}
     )
-    const listContainers = fake.resolves(
+    const listContainers = sandbox.fake.resolves(
         [
             {
                 Names: [`/salp_${course.name.toLocaleLowerCase().trim().replace(/\s/g, '')}_${aliases[0]}`]
             }
         ])
 
-    const start = stub()
-    const stop = stub()
-    const getContainer = fake.resolves(
+    const start = sandbox.stub()
+    const stop = sandbox.stub()
+    const send = sandbox.spy()
+    const getContainer = sandbox.fake.resolves(
         {
             Id: "123",
             start,
             stop
         }
     )
+
+    afterEach(() => {
+        sandbox.reset()
+    })
+
+    after(() => {
+        sandbox.restore()
+    })
 
     describe('private methods', () => {
 
@@ -123,6 +132,21 @@ describe('containerService.js', () => {
             expect(containerService.containers).to.be.an('array').that.is.not.empty
         })
 
+        it('should call _createContainer', async () => {
+            sandbox.stub(containerService, "_loadContainers")
+            sandbox.stub(containerService, "_getContainerName").callsFake(() => {return 'lorem'})
+            const createContainer = sandbox.stub(containerService, "_createContainer")
+            await containerService.create({},expectedNetworkName, aliases[0])
+            expect(createContainer).to.have.been.calledOnce
+        })
+
+        it('should get container name from inspect', () => {
+            const inspectName = '/salp_lorem_ipsum'
+            const containerName = containerService._getContainerNameFromInspect({Name: inspectName})
+            const expectedName = inspectName.split('/')[1]
+            expect(containerName).to.equal(expectedName)
+        })
+
         describe('validate and process a config object', () => {
             let portsStub
             let networkStub
@@ -131,9 +155,9 @@ describe('containerService.js', () => {
 
             beforeEach('create new containerService and call _validateConfig',() => {
                 containerService = new ContainerService(docker, {...course})
-                portsStub = stub(containerService, "_processPorts")
-                networkStub = stub(containerService, "_processNetwork")
-                containerStub = stub(containerService, "_getContainerName")
+                portsStub = sandbox.stub(containerService, "_processPorts")
+                networkStub = sandbox.stub(containerService, "_processNetwork")
+                containerStub = sandbox.stub(containerService, "_getContainerName")
 
                 config = course.containers[aliases[0]]
                 containerService._validateConfig(config, expectedNetworkName, aliases[0])
@@ -187,7 +211,7 @@ describe('containerService.js', () => {
             })
 
             it('should create a container', async () => {
-                stub(containerService, "_validateConfig").callsFake(() =>{return {}})
+                sandbox.stub(containerService, "_validateConfig").callsFake(() =>{return {}})
                 await containerService._createContainer({}, expectedNetworkName, aliases[0])
 
                 expect(createContainer).to.have.been.calledOnce
@@ -209,19 +233,24 @@ describe('containerService.js', () => {
         })
 
         it('should remove all containers', async () => {
-            stub(containerService, "_loadContainers")
-            const remove = stub()
-            containerService.containers = [{remove}, {remove}]
+            sandbox.stub(containerService, "_loadContainers")
+            const getContainerName = sandbox.stub(containerService, "_getContainerNameFromInspect")
+            const remove = sandbox.stub()
+            const inspectStub = sandbox.stub().callsFake(() => {return 'lorem'})
+            containerService.containers = [{remove, inspect: inspectStub}, {remove, inspect: inspectStub}]
             expect(containerService.containers).to.be.an('array').that.is.not.empty
-            await containerService.removeAll()
+            await containerService.removeAll({send})
             expect(remove).to.have.been.calledTwice
+            expect(send).to.have.callCount(4)
+            expect(getContainerName).to.have.callCount(4)
             expect(containerService.containers).to.be.an('array').that.is.empty
         })
 
         it('should stop all containers', async () => {
-            stub(containerService, "_loadContainers")
-            const stop = stub()
-            const inspect = fake.resolves({
+            sandbox.stub(containerService, "_loadContainers")
+            const getContainerName = sandbox.stub(containerService, "_getContainerNameFromInspect")
+            const stop = sandbox.stub()
+            const inspect = sandbox.fake.resolves({
                 State: {
                     Status: 'running'
                 }
@@ -231,14 +260,16 @@ describe('containerService.js', () => {
                 stop
             }
             containerService.containers = [container, container]
-            await containerService.stop()
+            await containerService.stop({send})
             expect(stop).to.have.been.calledTwice
+            expect(send).to.have.been.calledTwice
+            expect(getContainerName).to.have.been.calledTwice
         })
 
         it('should start all containers', async () => {
-            stub(containerService, "_loadContainers")
-            const start = stub()
-            const inspect = fake.resolves({
+            sandbox.stub(containerService, "_loadContainers")
+            const start = sandbox.stub()
+            const inspect = sandbox.fake.resolves({
                 State: {
                     Status: 'exited'
                 }
@@ -252,12 +283,72 @@ describe('containerService.js', () => {
             expect(start).to.have.been.calledTwice
         })
 
-        it('should call _createContainer', async () => {
-            stub(containerService, "_loadContainers")
-            stub(containerService, "_getContainerName").callsFake(() => {return 'lorem'})
-            const createContainer = stub(containerService, "_createContainer")
-            await containerService.create({},expectedNetworkName, aliases[0])
-            expect(createContainer).to.have.been.calledOnce
+        it('should get all salp related containers', async () => {
+            const expectedSalpContainerName = 'salp_lorem_ispum'
+            const expectedSalpContainerStatus = 'running'
+            const inspectStub1 = sandbox.stub().callsFake(() => {return {Name: `/${expectedSalpContainerName}`, State: {Status: expectedSalpContainerStatus}}})
+            const inspectStub2 = sandbox.stub().callsFake(() => {return {Name: 'hello_world'}})
+            const containers = [{inspect: inspectStub1},{ inspect: inspectStub2}]
+            sandbox.stub(containerService, "_listContainers").callsFake(() => {return containers})
+            await containerService.getAllContainers({send})
+
+            expect(send).to.have.been.calledOnce
+            expect(send).to.have.been.calledWith('docker:status', expectedSalpContainerName, expectedSalpContainerStatus)
         })
+
+        it('should get all exposed and maped host ports', async () => {
+            sandbox.stub(containerService, "_loadContainers")
+            const containerPort1 = '80/tcp'
+            const containerPort2 = '8080/udp'
+            const hostPort1 = '32769'
+            const hostPort2 = '32770'
+            const hostPort3 = '32771'
+            const expectedName = 'salp_lorem_ipsum'
+            const mockedInspect = {
+                Name: `/${expectedName}`,
+                NetworkSettings: {
+                    Ports: {
+                        [containerPort1]: [{HostIp: '0.0.0.0', HostPort: hostPort1}, {HostIp: '0.0.0.0', HostPort: hostPort2}],
+                        [containerPort2]: [{HostIp: '0.0.0.0', HostPort: hostPort3}]
+                    }
+                }
+            }
+            const inspectStub = sandbox.stub().callsFake(() => {return mockedInspect})
+            containerService.containers = [{inspect: inspectStub}]
+            await containerService.getPorts({send})
+            expect(send).to.have.been.calledWith('docker:port', expectedName, containerPort1, [hostPort1, hostPort2])
+            expect(send).to.have.been.calledWith('docker:port', expectedName, containerPort2, [hostPort3])
+        })
+
+        it('should get the status of all containers', async () => {
+            sandbox.stub(containerService, "_loadContainers")
+            const expectedContainerName1 = 'salp_lorem_ipsum'
+            const expectedContainerName2 = 'salp_ipsum_ipsum'
+            const expectedStatus1 = 'running'
+            const expectedStatus2 = 'exited'
+            const inspect1 = {
+                Name: `/${expectedContainerName1}`,
+                State: {
+                    Status: expectedStatus1
+                }
+            }
+
+            const inspect2 = {
+                Name: `/${expectedContainerName2}`,
+                State: {
+                    Status: expectedStatus2
+                }
+            }
+
+            containerService.containers = [
+                {inspect: sandbox.stub().callsFake(() => {return inspect1})},
+                {inspect: sandbox.stub().callsFake(() => {return inspect2})}
+            ]
+
+            await containerService.getStatues({send})
+            expect(send.getCall(0)).to.have.been.calledWith('docker:status', expectedContainerName1, expectedStatus1)
+            expect(send.getCall(1)).to.have.been.calledWith('docker:status', expectedContainerName2, expectedStatus2)
+        })
+
     })
 })

@@ -49,31 +49,27 @@ module.exports = class ContainerService {
         this.containers = []
     }
 
-    async checkStatues() {
+    async getStatues(sender) {
         await this._loadContainers()
         if( this.containers.length === 0 ) {
             return {}
         }
-        let statuses = {}
-        for (const container of this.containers) {
+        for (const containerName in this.containers) {
+            let container = this.containers[containerName]
             let inspect = await container.inspect()
             let name = this._getContainerNameFromInspect(inspect)
-            statuses[name] = inspect.State.Status
+            sender.send('docker:status', name, inspect.State.Status)
         }
-
-        return statuses
     }
 
-    async getPorts() {
+    async getPorts(sender) {
         await this._loadContainers()
         if( this.containers.length === 0 ) {
             return {}
         }
-        let result = {}
         for (const container of this.containers) {
             let inspect = await container.inspect()
             let name = this._getContainerNameFromInspect(inspect)
-            result[name] = {}
             const ports = inspect.NetworkSettings.Ports
             for(const port in ports) {
                 const hostPorts = []
@@ -82,26 +78,21 @@ module.exports = class ContainerService {
                     for (const config of hostConfig){
                         hostPorts.push(config.HostPort)
                     }
-                    result[name][port] = hostPorts
+                    sender.send('docker:port', name, port, hostPorts)
                 }
             }
         }
-
-        return result
     }
 
-    async getAllContainers() {
+    async getAllContainers(sender) {
         let allContainers = await this._listContainers()
-        let salpContainers = {}
         for (const container of allContainers) {
             let inspect = await container.inspect()
             let name = this._getContainerNameFromInspect(inspect)
             if(name.indexOf('salp_') !== -1) {
-                const status = inspect.State.Status
-                salpContainers[name] = status
+                sender.send('docker:status', name, inspect.State.Status)
             }
         }
-        return salpContainers
     }
 
     async _createContainer(config, networkName, name) {
@@ -222,6 +213,8 @@ module.exports = class ContainerService {
     }
 
     _getContainerNameFromInspect(inspect) {
-        return inspect.Name.split('/')[1]
+        const name = inspect.Name.split('/')[1]
+
+        return name ? name : ''
     }
 }
