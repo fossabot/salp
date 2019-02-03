@@ -71,7 +71,7 @@ export default {
 .docker-containers {
     .docker-containers__table {
         .running {
-            background-color: rgba($color: $--color-success , $alpha: 0.25)
+            background-color: rgba($color: $--color-success, $alpha: 0.25);
         }
     }
 }
