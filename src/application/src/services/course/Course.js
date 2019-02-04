@@ -46,6 +46,17 @@ class Course {
             .replace(/[^a-zA-Z0-9]/gi, '_')
     }
 
+    get isValid() {
+        try {
+            return !!(this.path
+                && this.name
+                && this.resolveContentEntry()
+                && this.resolveBackgroundEntry())
+        } catch (e) {
+            return false
+        }
+    }
+
     // methods
     resolveContentEntry() {
         const file = this.pkgInfo['browser']

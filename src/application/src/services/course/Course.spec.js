@@ -82,6 +82,45 @@ describe('Course class from CourseService', () => {
                 expect(course[key]).to.equal(undefined)
             })
         })
+
+        context('valid state', () => {
+            it('should be valid if it has a name and can resolve entry scripts', () => {
+                readPkgInfoStub.returns({
+                    ...pkgJsonData,
+                    'browser': 'browser.js',
+                    'main': 'main.js'
+                })
+
+                const course = new Course('/some/path')
+                const isValid = course.isValid
+
+                expect(isValid, 'Course is valid').to.be.true
+            })
+
+            it('should not be valid if it has an invalid path', () => {
+                readPkgInfoStub.returns({})
+                const course = new Course()
+                const isValid = course.isValid
+
+                expect(isValid, 'Course is not valid').to.be.false
+            })
+
+            it('should not be valid if it has no name', () => {
+                readPkgInfoStub.returns({})
+                const course = new Course('/some/path')
+                const isValid = course.isValid
+
+                expect(isValid, 'Course is not valid').to.be.false
+            })
+
+            it('should not be valid if it cannot resolve entry script', () => {
+                readPkgInfoStub.returns({...pkgJsonData})
+                const course = new Course('/some/path')
+                const isValid = course.isValid
+
+                expect(isValid, 'Course is not valid').to.be.false
+            })
+        })
     })
 
     describe('#sanitizedName', () => {
