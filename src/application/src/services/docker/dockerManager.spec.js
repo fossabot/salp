@@ -30,8 +30,6 @@ describe('dockerManager.js', () => {
     let send
 
     before(() => {
-        sandbox.stub(DockerManager.prototype, '_initialize')
-
         createNetwork = sandbox.stub(NetworkService.prototype, 'create')
         removeNetwork = sandbox.stub(NetworkService.prototype, 'remove')
         getNetworkName = sandbox.stub(NetworkService.prototype, 'getNetworkName')

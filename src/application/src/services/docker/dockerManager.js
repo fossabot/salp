@@ -6,7 +6,7 @@ const NetworkService = require('./networkService')
 module.exports = class DockerManager {
     constructor(course) {
         this.course = course
-        this.docker = this._initialize()
+        this.docker = new Docker()
         this.imageService = new ImageService(this.docker, this.course)
         this.containerService = new ContainerService(this.docker, this.course)
         this.networkService = new NetworkService(this.docker, this.course.name)
@@ -58,11 +58,5 @@ module.exports = class DockerManager {
 
     async getAllContainers(sender) {
         await this.containerService.getAllContainers(sender)
-    }
-
-    _initialize() {
-        const path = os.type() === 'Windows_NT' ? '//./pipe/docker_engine' : '/var/run/docker.sock'
-
-        return new Docker({ socketPath: path })
     }
 }
