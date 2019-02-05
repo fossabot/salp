@@ -45,10 +45,6 @@ export default {
         Tag,
         SimpleLink
     },
-    data() {
-        return {
-        }
-    },
     computed: {
         tableData() {
             let tableData = []
