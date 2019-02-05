@@ -31,10 +31,6 @@ export default {
         Card,
         Containers
     },
-    data() {
-        return {
-        }
-    },
     computed: {
         containersCount() {
             return Object.keys(this.course.containers).length
