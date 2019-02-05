@@ -39,10 +39,6 @@ export default {
         Tag,
         SimpleLink
     },
-    data() {
-        return {
-        }
-    },
     computed: {
         allSalpContainers() {
             return this.$store.getters[namespace + '/' + types.GET_ALL_CONTAINERS]
