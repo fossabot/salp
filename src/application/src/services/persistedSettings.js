@@ -7,6 +7,8 @@ const { persistedSettingsDir } = require('../constants')
 
 const emptySettingsFileContent = '{}'
 
+const settings = {}
+
 const settingsDir = path.resolve(app.getPath('userData'), persistedSettingsDir)
 
 async function ensureSettingsDir() {
@@ -33,7 +35,11 @@ async function readSettingsFile(name) {
 
 async function settingsLoadHandler({ sender }, name) {
     try {
-        const content = await readSettingsFile(name)
+        const data = await readSettingsFile(name)
+
+        const content = JSON.parse(data) || {}
+
+        settings[name] = content
 
         sender.send(`settings:loaded:${name}`, content)
     } catch (e) {
@@ -46,7 +52,10 @@ async function settingsLoadHandler({ sender }, name) {
 }
 
 async function settingsSaveHandler({ sender }, name, content) {
-    await writeSettingsFile(name, content)
+    const data = JSON.stringify(content)
+    await writeSettingsFile(name, data)
+
+    settings[name] = content
 
     sender.send(`settings:saved:${name}`)
 }
@@ -57,3 +66,9 @@ app.on('ready', async () => {
     ipcMain.on('settings:load', settingsLoadHandler)
     ipcMain.on('settings:save', settingsSaveHandler)
 })
+
+function getSettings(name) {
+    return settings.userpreferences[name]
+}
+
+module.exports = { getSettings }

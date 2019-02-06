@@ -55,11 +55,9 @@ export default function createPersistPlugin(
     const actions = {
         async [loadAction]({ commit }) {
             ipcRenderer.once(`settings:loaded:${name}`, (_, content) => {
-                const data = JSON.parse(content) || {}
-
                 commit({
                     type: mutationTypeAll,
-                    props: data
+                    props: content
                 })
 
                 return true
@@ -68,8 +66,7 @@ export default function createPersistPlugin(
             ipcRenderer.send('settings:load', name)
         },
         [saveAction]({ state }) {
-            const settings = Object.assign({}, state)
-            const content = JSON.stringify(settings)
+            const content = Object.assign({}, state)
 
             ipcRenderer.send('settings:save', name, content)
         }
