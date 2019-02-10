@@ -9,6 +9,10 @@ export const types = {
     SET_CURRENT_COURSE: 'SET_CURRENT_COURSE',
     SET_CONTAINER_STATUS: 'SET_CONTAINER_STATUS',
     SET_CONTAINER_PORTS: 'SET_CONTAINER_PORTS',
+    SET_DOCKER_READY: 'SET_DOCKER_READY',
+    SET_DOCKER_ERROR: 'SET_DOCKER_ERROR',
+    GET_DOCKER_ERROR: 'GET_DOCKER_ERROR',
+    GET_DOCKER_READY: 'GET_DOCKER_READY',
     GET_CONTAINER_PORTS_SIMPLE: 'GET_CONTAINER_PORTS_SIMPLE',
     GET_CONTAINER_STATUS: 'GET_CONTAINER_STATUS',
     GET_CONTAINER_STATUS_IS_BLOCKING: 'GET_CONTAINER_STATUS_IS_BLOCKING',
@@ -22,12 +26,22 @@ export default {
 
     state: {
         currentCourse: null,
-        containers: {}
+        containers: {},
+        dockerReady: false,
+        dockerError: ''
     },
 
     mutations: {
         [types.SET_CURRENT_COURSE](state, { course }) {
             state.currentCourse = course
+        },
+
+        [types.SET_DOCKER_READY](state, { ready }) {
+            state.dockerReady = ready
+        },
+
+        [types.SET_DOCKER_ERROR](state, { message }) {
+            state.dockerError = message
         },
 
         [types.SET_CONTAINER_STATUS](state, { containerName, status }) {
@@ -124,6 +138,14 @@ export default {
 
         [types.GET_ALL_CONTAINERS](state) {
             return state.containers
+        },
+
+        [types.GET_DOCKER_READY](state) {
+            return state.dockerReady
+        },
+
+        [types.GET_DOCKER_ERROR](state) {
+            return state.dockerError
         }
     }
 }
