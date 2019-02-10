@@ -1,0 +1,15 @@
+{
+    "label": {
+        "ml": "Machine Learining verwenden",
+        "status": "Status",
+        "socket": "Socket-Adresse",
+        "certificate": "Zertifikats-Adresse",
+        "tls": "TLS Verifizieren"
+    },
+    "description": {
+        "ml": "Falls Machine Learning verwendet wird, erhälst Hinweise und Empfehlungen basierend auf deinen Wissensstand.",
+        "socket": "Addresse zu deinem docker Deamon.",
+        "certificate": "Addresse des Zertifikates, welches von Docker verwendet wird.",
+        "tls": "TLS Verifizieren."
+    }
+}

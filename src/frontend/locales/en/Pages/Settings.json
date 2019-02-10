@@ -1,0 +1,15 @@
+{
+    "label": {
+        "ml": "Use Machine Learning",
+        "status": "Status",
+        "socket": "Socket",
+        "certificate": "Certificate",
+        "tls": "Verifiy TLS"
+    },
+    "description": {
+        "ml": "If Machine Learning is switched on, you will recieve recommendations for courses and hinds based on your knowledge.",
+        "socket": "Adress to your docker deamon.",
+        "certificate": "Adress to your certificate used by docker.",
+        "tls": "Verifies TLS."
+    }
+}
