@@ -1,12 +1,16 @@
 const os = require('os')
+const splitca = require('split-ca')
+const path = require('path')
+const fs = require('fs')
 const Docker = require('dockerode')
+const { getSettings } = require('../persistedSettings')
 const ImageService = require('./imageService')
 const ContainerService = require('./containerService')
 const NetworkService = require('./networkService')
 module.exports = class DockerManager {
     constructor(course) {
         this.course = course
-        this.docker = new Docker()
+        this.docker = this._initialize()
         this.imageService = new ImageService(this.docker, this.course)
         this.containerService = new ContainerService(this.docker, this.course)
         this.networkService = new NetworkService(this.docker, this.course.name)
@@ -58,5 +62,59 @@ module.exports = class DockerManager {
 
     async getAllContainers(sender) {
         await this.containerService.getAllContainers(sender)
+    }
+
+    async ping(sender) {
+        await this.docker.ping()
+    }
+
+    _initialize() {
+        let options = {}
+        this._setOptions(options)
+
+        return new Docker(options)
+    }
+
+    _setOptions(options) {
+        this._setSocketPath(options)
+        this._loadCert(options)
+        this._setTLS(options)
+    }
+
+    _loadCert(options) {
+        let certDir = getSettings('certDir')
+        try {
+            if (certDir !== undefined && certDir.trim() !== '') {
+                certDir = certDir.trim()
+                options['ca'] = splitca(path.join(certDir, 'ca.pem'));
+                options['cert'] = fs.readFileSync(path.join(certDir, 'cert.pem'));
+                options['key'] = fs.readFileSync(path.join(certDir, 'key.pem'));
+            }
+        } catch (error) {
+            throw new Error('Cert not found. Reason: ' + error.message)
+        }
+    }
+
+    _setTLS(options) {
+        const checkServerIdentity = getSettings('verifyTls')
+        options['checkServerIdentity'] = checkServerIdentity
+    }
+
+    _setSocketPath(options) {
+        let socket = getSettings('socket')
+        if (socket !== undefined && socket.trim() !== '') {
+            socket = socket.trim()
+            if(socket.indexOf('unix://') === 0) {
+                socket = socket.substring(7)
+            }
+            options['socketPath'] = socket
+        } else {
+            this._getDefaultSocket(options)
+        }
+    }
+
+    _getDefaultSocket(options) {
+        const isWin = os.type() === 'Windows_NT'
+        options['socketPath'] = isWin ? '//./pipe/docker_engine' : '/var/run/docker.sock'
     }
 }

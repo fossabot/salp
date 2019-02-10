@@ -1,4 +1,4 @@
-let DockerManager = require('./dockerManager')
+const mock = require('mock-require');
 let ContainerService = require('./containerService')
 let ImageService = require('./imageService')
 let NetworkService = require('./networkService')
@@ -28,6 +28,7 @@ describe('dockerManager.js', () => {
     let createNetwork
     let getNetworkName
     let send
+    let getSettings
 
     before(() => {
         createNetwork = sandbox.stub(NetworkService.prototype, 'create')
@@ -48,10 +49,14 @@ describe('dockerManager.js', () => {
 
     beforeEach('create new dockerManager', () => {
         send = sandbox.spy()
+        getSettings = sandbox.stub().callsFake(() => '')
+        mock('../persistedSettings', {getSettings})
+        const DockerManager = mock.reRequire('./dockerManager')
         dockerManager = new DockerManager({ ...course })
     })
 
     afterEach(() => {
+        mock.stop('../persistedSettings')
         sandbox.reset()
     })
 
@@ -118,5 +123,161 @@ describe('dockerManager.js', () => {
             expect(getAllContainers).to.have.been.calledOnce
         })
 
+    })
+
+    describe('private methods', () => {
+        it('should set options', () => {
+            const setSocketPath = sandbox.stub(dockerManager, '_setSocketPath')
+            const loadCert = sandbox.stub(dockerManager, '_loadCert')
+            const setTLS = sandbox.stub(dockerManager, '_setTLS')
+
+            let options = {}
+            dockerManager._setOptions(options)
+            expect(setSocketPath).to.have.been.calledOnce
+            expect(loadCert).to.have.been.calledOnce
+            expect(setTLS).to.have.been.calledOnce
+        })
+
+        it('should load and set certificate', () => {
+            mock.stop('../persistedSettings')
+            const expectedCert = 'cert-data'
+            const expectedCa = 'ca-data'
+            getSettings = sandbox.stub().callsFake(() => 'path/to/cert')
+            const readFileSync = sandbox.stub().callsFake(() => expectedCert)
+            mock('../persistedSettings', { getSettings })
+            mock('fs', {readFileSync})
+            mock('split-ca', () => expectedCa)
+            const DockerManager = mock.reRequire('./dockerManager')
+            sandbox.stub(DockerManager.prototype, '_initialize')
+            dockerManager = new DockerManager({ ...course })
+
+            let options = {}
+            const expectedOptions = {
+                'ca': expectedCa,
+                'cert': expectedCert,
+                'key': expectedCert
+            }
+            dockerManager._loadCert(options)
+            expect(getSettings).to.have.been.calledOnce
+            expect(readFileSync).to.have.been.calledTwice
+            expect(options).to.deep.equal(expectedOptions)
+
+            mock.stop('../persistedSettings')
+            mock.stop('fs')
+            mock.stop('split-ca')
+        })
+
+        it('should throw error if certificate not found', () => {
+            mock.stop('../persistedSettings')
+            getSettings = sandbox.stub().callsFake(() => '/directory/does/not/exist')
+            const readFileSync = sandbox.stub().callsFake(() => expectedCert)
+            mock('../persistedSettings', { getSettings })
+            const DockerManager = mock.reRequire('./dockerManager')
+            sandbox.stub(DockerManager.prototype, '_initialize')
+            dockerManager = new DockerManager({ ...course })
+
+            let options = {}
+
+            expect(() => dockerManager._loadCert(options)).to.throw(/Cert not found. Reason: /)
+
+            mock.stop('../persistedSettings')
+        })
+
+        it('should set tls option', () => {
+            mock.stop('../persistedSettings')
+            const expectedTLS = '1'
+            getSettings = sandbox.stub().callsFake(() => expectedTLS)
+            mock('../persistedSettings', { getSettings })
+            const DockerManager = mock.reRequire('./dockerManager')
+            sandbox.stub(DockerManager.prototype, '_initialize')
+            dockerManager = new DockerManager({ ...course })
+
+            const expectedOptions = {
+                'checkServerIdentity': expectedTLS
+            }
+            let options = {}
+            dockerManager._setTLS(options)
+
+            expect(getSettings).to.have.been.calledOnce
+            expect(options).to.deep.equal(expectedOptions)
+
+            mock.stop('../persistedSettings')
+        })
+
+        it('should set default socket path if none is provided', () => {
+            mock.stop('../persistedSettings')
+            getSettings = sandbox.stub().callsFake(() => '')
+            mock('../persistedSettings', { getSettings })
+            const DockerManager = mock.reRequire('./dockerManager')
+            sandbox.stub(DockerManager.prototype, '_initialize')
+            dockerManager = new DockerManager({ ...course })
+            const getDefaultSocket = sandbox.stub(dockerManager, '_getDefaultSocket')
+
+            let options = {}
+
+            dockerManager._setSocketPath(options)
+
+            expect(getDefaultSocket).to.have.been.calledOnce
+
+            mock.stop('../persistedSettings')
+        })
+
+        it('should set default socket path for windows', () => {
+            mock.stop('os')
+            type = sandbox.stub().callsFake(() => 'Windows_NT')
+            mock('os', { type })
+            const DockerManager = mock.reRequire('./dockerManager')
+            sandbox.stub(DockerManager.prototype, '_initialize')
+            dockerManager = new DockerManager({ ...course })
+
+            let options = {}
+            const expectedOptions = {
+                'socketPath': '//./pipe/docker_engine'
+            }
+            dockerManager._getDefaultSocket(options)
+
+            expect(expectedOptions).to.deep.equal(options)
+
+            mock.stop('os')
+        })
+
+        it('should set default socket path for *nix based systems', () => {
+            mock.stop('os')
+            type = sandbox.stub().callsFake(() => 'linux')
+            mock('os', { type })
+            const DockerManager = mock.reRequire('./dockerManager')
+            sandbox.stub(DockerManager.prototype, '_initialize')
+            dockerManager = new DockerManager({ ...course })
+
+            let options = {}
+            const expectedOptions = {
+                'socketPath': '/var/run/docker.sock'
+            }
+            dockerManager._getDefaultSocket(options)
+
+            expect(expectedOptions).to.deep.equal(options)
+
+            mock.stop('os')
+        })
+
+        it('should set provided socket path ', () => {
+            mock.stop('../persistedSettings')
+            const expectedPath = 'path/to/socket'
+            getSettings = sandbox.stub().callsFake(() => `unix://${expectedPath}`)
+            mock('../persistedSettings', { getSettings })
+            const DockerManager = mock.reRequire('./dockerManager')
+            sandbox.stub(DockerManager.prototype, '_initialize')
+            dockerManager = new DockerManager({ ...course })
+
+            let options = {}
+            const expectedOptions = {
+                'socketPath': expectedPath
+            }
+            dockerManager._setSocketPath(options)
+
+            expect(expectedOptions).to.deep.equal(options)
+
+            mock.stop('../persistedSettings')
+        })
     })
 })
