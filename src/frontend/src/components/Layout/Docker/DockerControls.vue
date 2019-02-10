@@ -1,13 +1,22 @@
 <template>
     <Card shadow="never" class="docker-controls">
-        <div class="top-container">
-            <h3>Docker</h3>
-            <Button :disabled="disabled" icon="el-icon-refresh"
-                type="danger" :round="true" size="small" @click="handleReset">Reset</Button>
+        <div class="controls-container" v-if="dockerReady">
+            <div class="top-container">
+                <h3>Docker</h3>
+                <Button :disabled="disabled" icon="el-icon-refresh"
+                    type="danger" :round="true" size="small" @click="handleReset">Reset</Button>
+            </div>
+            <Containers :course-name="courseName" :containers="course.containers"/>
+            <div class="docker-controls__button-container">
+                <Button :disabled="disabled" @click="handleButtonClick">{{ buttonText }}</Button>
+            </div>
         </div>
-        <Containers :course-name="courseName" :containers="course.containers"/>
-        <div class="docker-controls__button-container">
-            <Button :disabled="disabled" @click="handleButtonClick">{{ buttonText }}</Button>
+        <div class="docker-error" v-if="!dockerReady">
+            <h3>Docker</h3>
+            <SimpleLink href="/settings">
+                <ErrorLog :error="errorMessage"/>
+            </SimpleLink>
+            <SimpleLink href="/settings">{{ $t('App.pages.settings') }}</SimpleLink>
         </div>
     </Card>
 </template>
@@ -16,6 +25,8 @@
 import { Card, Button } from 'element-ui'
 import { ipcRenderer } from 'electron'
 import { namespace, types } from '@/store/modules/AppState.js'
+import ErrorLog from '@/components/Elements/ErrorLog.vue'
+import SimpleLink from '@/components/ContentElements/SimpleLink.vue'
 import Containers from './Containers.vue'
 
 export default {
@@ -29,7 +40,9 @@ export default {
     components: {
         Button,
         Card,
-        Containers
+        Containers,
+        ErrorLog,
+        SimpleLink
     },
     computed: {
         containersCount() {
@@ -48,6 +61,12 @@ export default {
         },
         courseName() {
             return this.course.name.trim().replace(/\s/g, '').toLowerCase()
+        },
+        dockerReady() {
+            return this.$store.getters[namespace + '/' + types.GET_DOCKER_READY]
+        },
+        errorMessage() {
+            return this.$store.getters[namespace + '/' + types.GET_DOCKER_ERROR]
         }
     },
     methods: {
@@ -63,7 +82,10 @@ export default {
         }
     },
     mounted() {
-        ipcRenderer.send('docker:checkState', this.course)
+        ipcRenderer.send('docker:test')
+        if (this.dockerReady) {
+            ipcRenderer.send('docker:checkState', this.course)
+        }
     }
 }
 </script>
