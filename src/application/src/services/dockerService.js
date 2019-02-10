@@ -4,36 +4,79 @@ const DockerManager = require('./docker/dockerManager.js')
 let dockerManagers = {}
 
 function up({ sender }, course) {
-    const dockerManager = getDockerManager(course)
-    dockerManager.up(sender)
+    try {
+        const dockerManager = getDockerManager(course)
+        dockerManager.up(sender)
+        sender.send('docker:ready', true)
+    } catch (error) {
+        sender.send('docker:ready', false, error.message)
+    }
 }
 
 function down({ sender }, course) {
-    const dockerManager = getDockerManager(course)
-    dockerManager.down(sender)
+    try {
+        const dockerManager = getDockerManager(course)
+        dockerManager.down(sender)
+        sender.send('docker:ready', true)
+    } catch (error) {
+        sender.send('docker:ready', false, error.message)
+    }
 }
 
 function removeContainersAndNetwork({ sender }, course) {
-    const dockerManager = getDockerManager(course)
-    dockerManager.removeContainersAndNetwork(sender)
+    try {
+        const dockerManager = getDockerManager(course)
+        dockerManager.removeContainersAndNetwork(sender)
+        sender.send('docker:ready', true)
+    } catch (error) {
+        sender.send('docker:ready', false, error.message)
+    }
 }
 
 function remove({ sender }, course) {
-    const dockerManager = getDockerManager(course)
-    dockerManager.removeAll(sender)
+    try {
+        const dockerManager = getDockerManager(course)
+        dockerManager.removeAll(sender)
+        sender.send('docker:ready', true)
+    } catch (error) {
+        sender.send('docker:ready', false, error.message)
+    }
 }
 
 function checkState({ sender }, course) {
-    const dockerManager = getDockerManager(course)
-    dockerManager.checkState(sender)
+    try {
+        const dockerManager = getDockerManager(course)
+        dockerManager.checkState(sender)
+        sender.send('docker:ready', true)
+    } catch (error) {
+        sender.send('docker:ready', false, error.message)
+    }
 }
 
 function getAllContainers({ sender }) {
     const course = {
         name: 'allCourses'
     }
-    const dockerManager = getDockerManager(course)
-    dockerManager.getAllContainers(sender)
+    try {
+        const dockerManager = getDockerManager(course)
+        dockerManager.getAllContainers(sender)
+        sender.send('docker:ready', true)
+    } catch (error) {
+        sender.send('docker:ready', false, error.message)
+    }
+}
+
+async function testSettings({ sender }) {
+    const course = {
+        name: 'testDocker'
+    }
+    try {
+        const dockerManager = new DockerManager(course)
+        await dockerManager.ping(sender)
+        sender.send('docker:ready', true)
+    } catch (error) {
+        sender.send('docker:ready', false, error.message)
+    }
 }
 
 function getDockerManager(course) {
@@ -53,4 +96,5 @@ app.on('ready', () => {
     ipcMain.on('docker:removeAll', remove)
     ipcMain.on('docker:checkState', checkState)
     ipcMain.on('docker:getAllContainers', getAllContainers)
+    ipcMain.on('docker:test', testSettings)
 })
