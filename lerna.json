@@ -1,6 +1,7 @@
 {
   "packages": [
-    "packages/**",
+    "packages/*",
+    "packages/@salp/*",
     "src/*"
   ],
   "version": "independent"
