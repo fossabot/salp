@@ -16,7 +16,15 @@ class CourseManager {
     }
 
     loadCourses() {
+        // TODO: implement patching existing courses combined with caching
         const courses = this.discoverCourses()
+        // dumb caching
+        if (this.courses.length === courses.length) {
+            return this.courses
+        } else {
+            this.loadedCourses = []
+        }
+
         const errors = courses.reduce((errors, course) => {
             try {
                 this._loadCourse(course)
