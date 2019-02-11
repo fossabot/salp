@@ -24,13 +24,7 @@ export default {
     },
     computed: {
         hydratedCourses() {
-            return this.courses.map(({ info }) => ({
-                id: info.id,
-                name: info.name,
-                description: info.description,
-                author: info.author,
-                version: info.version
-            }))
+            return this.courses.map(({ info }) => info)
         }
     },
     methods: {
