@@ -15,7 +15,7 @@
 <script>
 import SectionHeader from '../Content/SectionHeader.vue'
 import CourseList from './CourseList.vue'
-import { groups } from '$root/__mocks__/courses.js'
+import { faHistory } from '@fortawesome/free-solid-svg-icons'
 
 export default {
     name: 'CoursesOverview',
@@ -25,9 +25,18 @@ export default {
         CourseList
     },
     data() {
-        return {
-            groups: groups.call(this, this.$t)
+        const recent = {
+            title: this.$t('Layout.Course.overview.categories.recent'),
+            icon: faHistory,
+            items: []
         }
+
+        return {
+            groups: { recent }
+        }
+    },
+    async created() {
+        this.groups.recent.items = await this.$courses.loadCourses()
     },
     computed: {
         activeGroups() {
