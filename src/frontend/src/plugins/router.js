@@ -24,9 +24,10 @@ const routes = [
         component: Profile
     },
     {
-        path: '/course',
+        path: '/course/:courseId',
         name: 'course',
         component: Course,
+        props: true,
         children: [
             {
                 path: 'detail',

@@ -26,6 +26,13 @@ class CourseService {
                 errors: e.errors.map(e => e.message)
             }
         } finally {
+            // fix dynamic props not being included in ipc
+            courses = courses.map(c => {
+                c.info.id = c.id
+
+                return c
+            })
+
             sender.send('courses:loaded', error, courses)
         }
     }

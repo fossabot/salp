@@ -1,7 +1,7 @@
 <template>
     <Row class="course-list" :gutter="20">
         <ElCol v-for="(item, index) in hydratedCourses" :key="index" :span="6">
-            <CourseCard v-bind="item"/>
+            <CourseCard v-bind="item" @click="handleCourseClick"/>
         </ElCol>
     </Row>
 </template>
@@ -25,11 +25,17 @@ export default {
     computed: {
         hydratedCourses() {
             return this.courses.map(({ info }) => ({
+                id: info.id,
                 name: info.name,
                 description: info.description,
                 author: info.author,
                 version: info.version
             }))
+        }
+    },
+    methods: {
+        handleCourseClick(course) {
+            this.$emit('select', course)
         }
     }
 }

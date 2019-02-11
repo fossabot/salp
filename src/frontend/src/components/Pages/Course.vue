@@ -1,18 +1,32 @@
 <template>
   <div id="page-course">
-      <router-view :course="course"/>
+      <router-view v-if="course" :course="course"/>
   </div>
 </template>
 
 <script>
-import { course } from '$root/__mocks__/courses.js'
-
 export default {
     name: 'Course',
     pageTitleTranslationKey: 'App.pages.course',
+    props: {
+        courseId: String
+    },
     data() {
         return {
-            course: course
+            course: null
+        }
+    },
+    created() {
+        this.loadCourse()
+    },
+    watch: {
+        '$route': 'loadCourse'
+    },
+    methods: {
+        async loadCourse() {
+            // TODO: get courses from state
+            const courses = await this.$courses.loadCourses()
+            this.course = courses.find(c => c.info.id === this.courseId)
         }
     }
 }

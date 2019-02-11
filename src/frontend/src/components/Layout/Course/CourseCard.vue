@@ -1,12 +1,12 @@
 <template>
-    <a href="#" class="course-card--link">
+    <a href="#" class="course-card--link" @click="handleCardClick">
         <Card class="course-card" shadow="hover">
             <header slot="header" class="course-card__header">
                 <h3 class="course-card__name">{{ name }}</h3>
 
                 <div class="course-card__context-menu">
                     <Dropdown trigger="click">
-                        <Button type="text" class="dropdown__trigger">
+                        <Button type="text" class="dropdown__trigger ignore-click">
                             <Icon icon="faEllipsisV"/>
                         </Button>
                         <DropdownMenu slot="dropdown">
@@ -79,6 +79,15 @@ export default {
         faExclamation,
         faRedo,
         faTrashAlt
+    },
+    methods: {
+        handleCardClick(event) {
+            if (event.target.closest('.ignore-click')) {
+                return
+            }
+
+            this.$emit('click', this.id)
+        }
     }
 }
 </script>

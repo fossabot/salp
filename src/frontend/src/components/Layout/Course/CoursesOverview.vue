@@ -7,7 +7,7 @@
                 <small class="text-smaller" v-if="group.showCount">{{ group.items | count }}</small>
             </SectionHeader>
 
-            <CourseList :courses="group.items"/>
+            <CourseList :courses="group.items" @select="handleCourseSelect"/>
         </div>
     </div>
 </template>
@@ -43,6 +43,16 @@ export default {
             return Object.entries(this.groups)
                 .filter(group => !group[1].collapsed)
                 .map(group => group[0])
+        }
+    },
+    methods: {
+        handleCourseSelect(courseId) {
+            this.$router.push({
+                name: 'coursedetail',
+                params: {
+                    courseId
+                }
+            })
         }
     },
     filters: {
