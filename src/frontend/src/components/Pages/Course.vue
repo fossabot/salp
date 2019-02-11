@@ -26,7 +26,8 @@ export default {
         async loadCourse() {
             // TODO: get courses from state
             const courses = await this.$courses.loadCourses()
-            this.course = courses.find(c => c.info.id === this.courseId)
+            const course = courses.find(c => c.info.id === this.courseId)
+            this.course = course ? course.info : {}
         }
     }
 }
