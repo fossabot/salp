@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@salp/markdown-loader": "^1.0.0",
+    "copy-webpack-plugin": "^4.6.0",
     "globby": "^9.0.0",
     "vue-loader": "^15.6.1",
     "vue-template-compiler": "^2.5.22",

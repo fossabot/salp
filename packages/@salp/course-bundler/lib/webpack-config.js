@@ -3,6 +3,7 @@ const path = require('path')
 const Config = require('webpack-chain')
 const VueLoaderPlugin = require.resolve('vue-loader/lib/plugin')
 const CodeInjectionWebpackResolverPlugin = require.resolve('./plugins/code-injection-resolver-plugin.js')
+const CopyWebpackPlugin = require.resolve('copy-webpack-plugin')
 const ChaptersInjector = require('./injectors/chapters-injector')
 const ContentScriptInjector = require('./injectors/content-script-injector')
 const BackgroundScriptInjector = require('./injectors/background-script-injector')
@@ -114,6 +115,17 @@ function buildBackgroundConfig(options, projectDir, outputDir) {
     config.resolve
         .plugin('injection-plugin')
         .tap(args => [...args, [BackgroundScriptInjector]])
+
+    // core courses fixes
+    if (projectDir.includes('salp/packages/salp-course')) {
+        config.plugin('copy-package-info')
+            .use(CopyWebpackPlugin, [[
+                {
+                    from: path.resolve(projectDir, 'package.json'),
+                    to: outputDir
+                }
+            ]])
+    }
 
     // user adjustments
     if (options.chainBackgroundWebpack) {
