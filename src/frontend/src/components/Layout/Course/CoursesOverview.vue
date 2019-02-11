@@ -15,16 +15,19 @@
 <script>
 import SectionHeader from '../Content/SectionHeader.vue'
 import CourseList from './CourseList.vue'
+import { groups } from '$root/__mocks__/courses.js'
 
 export default {
     name: 'CoursesOverview',
-    props: {
-        groups: Object
-    },
     components: {
         SectionHeader,
 
         CourseList
+    },
+    data() {
+        return {
+            groups: groups.call(this, this.$t)
+        }
     },
     computed: {
         activeGroups() {
