@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@salp/frontend": "^1.0.0",
-    "electron-log": "^2.2.17"
+    "electron-log": "^2.2.17",
+    "salp-course-example": "^1.0.0"
   }
 }

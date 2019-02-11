@@ -1,8 +1,9 @@
+const path = require('path')
 const Course = require('./Course')
 
 const coreCourses = [
     'salp-course-example'
-]
+].map(require.resolve).map(path.dirname)
 
 class CourseManager {
     constructor() {
