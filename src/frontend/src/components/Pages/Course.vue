@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { namespace, types } from '@/store/modules/Courses'
+
 export default {
     name: 'Course',
     pageTitleTranslationKey: 'App.pages.course',
@@ -24,10 +26,9 @@ export default {
     },
     methods: {
         async loadCourse() {
-            // TODO: get courses from state
-            const courses = await this.$courses.loadCourses()
-            const course = courses.find(c => c.info.id === this.courseId)
-            this.course = course ? course.info : {}
+            const getter = this.$store.getters[`${namespace}/${types.GET_COURSE_BY_ID}`]
+            const course = getter(this.courseId) || {}
+            this.course = course.info || {}
         }
     }
 }
