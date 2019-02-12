@@ -49,7 +49,7 @@ export default {
             return state.courses
         },
         [types.GET_COURSE_BY_ID](state) {
-            return (id) => state.courses.find(c => c.info.id === id)
+            return (id) => state.courses.find(c => c.id === id)
         }
     }
 }

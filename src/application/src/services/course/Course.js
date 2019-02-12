@@ -85,6 +85,19 @@ class Course {
 
         return require(pkgJson, [])
     }
+
+    /**
+     * Converts this object to a simple representation which can be used for IPC
+     */
+    toSimple() {
+        const data = {
+            ...this.info
+        }
+
+        data.id = this.id
+
+        return data
+    }
 }
 
 module.exports = Course
