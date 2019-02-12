@@ -13,22 +13,12 @@ export default {
     props: {
         courseId: String
     },
-    data() {
-        return {
-            course: null
-        }
-    },
-    created() {
-        this.loadCourse()
-    },
-    watch: {
-        '$route': 'loadCourse'
-    },
-    methods: {
-        async loadCourse() {
+    computed: {
+        course() {
             const getter = this.$store.getters[`${namespace}/${types.GET_COURSE_BY_ID}`]
             const course = getter(this.courseId) || {}
-            this.course = course.info || {}
+
+            return course.info || {}
         }
     }
 }
