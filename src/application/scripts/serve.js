@@ -16,7 +16,7 @@ appArgs.shift()
 
 let apps = []
 
-const frontend = proc.fork(require.resolve('@salp/frontend/scripts/serve.js'), frontendArgs, {
+const frontend = proc.fork(require.resolve('@salp/frontend/scripts/app-serve.js'), frontendArgs, {
     cwd: path.resolve(__dirname, '../node_modules', '@salp/frontend'),
     env: {
         ...process.env,

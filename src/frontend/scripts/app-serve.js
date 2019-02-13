@@ -1,9 +1,7 @@
-#!/usr/bin/env node
-// manually run 'vue-cli-service serve' as a script
-// mainly used by @salp/application to detect when to start electron
+#!/usr/bin/env node\
+// serve script client used by @salp/application to start dev server
 const path = require('path')
 const Service = require('@vue/cli-service/lib/Service')
-
 
 async function run() {
     const service = new Service(process.env.VUE_CLI_CONTEXT || path.resolve(__dirname, '../'))
