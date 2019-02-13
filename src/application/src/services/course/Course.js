@@ -57,6 +57,11 @@ class Course {
         }
     }
 
+    // meta information
+    get dir() {
+        return this.path
+    }
+
     // methods
     resolveContentEntry() {
         const file = this.pkgInfo['browser']

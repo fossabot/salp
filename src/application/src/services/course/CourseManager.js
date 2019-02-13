@@ -58,6 +58,10 @@ class CourseManager {
     get courses() {
         return this.loadedCourses
     }
+
+    findCourseById(id) {
+        return this.courses.find(c => c.id === id)
+    }
 }
 
 module.exports = CourseManager
