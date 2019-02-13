@@ -5,7 +5,6 @@ import Profile from '../components/Pages/Profile.vue'
 import Course from '../components/Pages/Course.vue'
 import CourseDetail from '../components/Layout/Course/CourseDetail.vue'
 import CourseView from '../components/Layout/Course/CourseView.vue'
-import CourseCardFull from '../components/Layout/Course/CourseCardFull.vue'
 import ContainerOverview from '../components/Layout/Docker/ContainerOverview.vue'
 
 let router
@@ -45,11 +44,6 @@ const routes = [
                 path: 'content',
                 name: 'coursecontent',
                 component: CourseView
-            },
-            {
-                path: 'full',
-                name: 'coursecardfull',
-                component: CourseCardFull
             }
         ]
     }
