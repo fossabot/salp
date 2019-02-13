@@ -27,7 +27,7 @@ import TheCourse from 'salp-course-example'
 import { Card, Pagination } from 'element-ui'
 
 export default {
-    name: 'CourseContent',
+    name: 'CourseView',
     props: {
         course: Object
     },
@@ -57,11 +57,8 @@ export default {
         }
     },
     computed: {
-        currentChapter: function() {
-            return this.chapters[this.currentChapterIndex]
-        },
-        pagesCount: function() {
-            return this.chapters.length
+        courseUrl() {
+            return `course://${this.course.id}/index.html`
         }
     },
     methods: {
