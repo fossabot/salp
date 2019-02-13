@@ -88,6 +88,10 @@ function buildContentConfig(options, projectDir, outputDir) {
             .add(options.contentScript)
     }
 
+    // output
+    config.output
+        .libraryTarget('window')
+
     // plugins
     config.resolve
         .plugin('injection-plugin')

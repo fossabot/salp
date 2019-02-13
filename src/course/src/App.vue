@@ -1,11 +1,16 @@
 <template>
   <div id="app">
-    Course Sandbox
+    <CourseContent/>
   </div>
 </template>
 
 <script>
+import CourseContent from './components/CourseContent'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    CourseContent
+  }
 }
 </script>
