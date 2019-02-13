@@ -8,9 +8,9 @@
 import CourseContent from './components/CourseContent'
 
 export default {
-  name: 'app',
-  components: {
-    CourseContent
-  }
+    name: 'app',
+    components: {
+        CourseContent
+    }
 }
 </script>

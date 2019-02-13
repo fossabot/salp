@@ -5,7 +5,7 @@ export default async function CourseContent() {
         /* webpackMode: 'lazy' */
         /* webpackPrefetch: true */
         'content.js'
-        )
+    )
 
     const chapters = contentScript.default
 
