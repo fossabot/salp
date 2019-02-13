@@ -17,7 +17,7 @@ export default {
         course() {
             const getter = this.$store.getters[`${namespace}/${types.GET_COURSE_BY_ID}`]
 
-            return getter(this.courseId) || {}
+            return getter(this.courseId) || false
         }
     }
 }
