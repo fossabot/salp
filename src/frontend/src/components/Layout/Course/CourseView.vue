@@ -1,60 +1,24 @@
 <template>
-    <div class="course-content__container">
-        <component :is="currentChapter"></component>
-        <div class="course-content__container__pagination__wrapper">
-            <Pagination layout="prev, pager, next" :total="pagesCount" :page-size="1" @current-change="handlePageChange"/>
-        </div>
+    <div id="course-view">
+        <webview id="course-frame"
+                 ref="course-frame"
+                 :src="courseUrl"
+                 v-once
+                 @did-start-loading="handleWebviewDidStartLoading"
+                 @did-stop-loading="handleWebviewDidStopLoading"
+                 @dom-ready="handleWebviewDomReady"
+                 @did-finish-load="handleWebviewDidFinishLoad"
+                 @did-fail-load="handleWebviewDidFailLoad">
+        </webview>
     </div>
 </template>
 
 <script>
-import Heading from '../../ContentElements/Heading.vue'
-import SimpleImage from '../../ContentElements/SimpleImage.vue'
-import AdvancedImage from '../../ContentElements/AdvancedImage.vue'
-import SimpleLink from '../../ContentElements/SimpleLink.vue'
-import SimpleText from '../../ContentElements/SimpleText.vue'
-import AppPreview from '../../ContentElements/AppPreview.vue'
-import SimpleVideo from '../../ContentElements/SimpleVideo.vue'
-import SimpleList from '../../ContentElements/SimpleList.vue'
-import SimpleListItem from '../../ContentElements/SimpleListItem.vue'
-import Quote from '../../ContentElements/Quote.vue'
-import YouTube from '../../ContentElements/YouTube.vue'
-import Table from '../../ContentElements/Table.vue'
-import InlineCode from '../../ContentElements/InlineCode.vue'
-import Code from '../../Elements/Code.vue'
-import TheCourse from 'salp-course-example'
-
-import { Card, Pagination } from 'element-ui'
 
 export default {
     name: 'CourseView',
     props: {
         course: Object
-    },
-    components: {
-        Heading,
-        SimpleLink,
-        SimpleText,
-        SimpleImage,
-        AdvancedImage,
-        SimpleVideo,
-        AppPreview,
-        Quote,
-        YouTube,
-        Table,
-        Code,
-        SimpleList,
-        SimpleListItem,
-        InlineCode,
-
-        Card,
-        Pagination
-    },
-    data() {
-        return {
-            chapters: Object.values(TheCourse),
-            currentChapterIndex: 0
-        }
     },
     computed: {
         courseUrl() {
@@ -62,17 +26,30 @@ export default {
         }
     },
     methods: {
-        handlePageChange(page) {
-            this.currentChapterIndex = page - 1
-        }
+        handleWebviewDidStartLoading(event) {
+            // TODO: implement
+        },
+        handleWebviewDidStopLoading(event) {
+            // TODO: implement
+        },
+        handleWebviewDomReady(event) {
+            if (process.env.NODE_ENV === 'development') {
+                event.target.openDevTools()
+            }
+        },
+        handleWebviewDidFinishLoad(event) {
+            // TODO: implement
+        },
+        handleWebviewDidFailLoad(event) {
+            // TODO: implement
+        },
     }
 }
 </script>
 
 <style lang="scss">
-.course-content__container__pagination__wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 1em;
+#course-view,
+#course-frame {
+    height: 100%;
 }
 </style>
