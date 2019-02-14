@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { isProduction } from '@/constants'
 
 export default {
     name: 'CourseView',
@@ -33,7 +34,7 @@ export default {
             // TODO: implement
         },
         handleWebviewDomReady(event) {
-            if (process.env.NODE_ENV === 'development') {
+            if (!isProduction) {
                 event.target.openDevTools()
             }
         },
