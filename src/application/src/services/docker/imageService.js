@@ -1,4 +1,4 @@
-module.exports = class ImageService {
+class ImageService {
     constructor(docker, course) {
         this.docker = docker
         this.course = course
@@ -51,3 +51,5 @@ module.exports = class ImageService {
         }
     }
 }
+
+module.exports = ImageService

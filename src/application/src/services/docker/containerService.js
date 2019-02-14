@@ -1,4 +1,4 @@
-module.exports = class ContainerService {
+class ContainerService {
     constructor(docker, course) {
         this.docker = docker
         this.course = course
@@ -218,3 +218,5 @@ module.exports = class ContainerService {
         return name ? name : ''
     }
 }
+
+module.exports = ContainerService

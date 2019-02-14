@@ -7,7 +7,8 @@ const { getSettings } = require('../persistedSettings')
 const ImageService = require('./imageService')
 const ContainerService = require('./containerService')
 const NetworkService = require('./networkService')
-module.exports = class DockerManager {
+
+class DockerManager {
     constructor(course) {
         this.course = course
         this.docker = this._initialize()
@@ -118,3 +119,5 @@ module.exports = class DockerManager {
         options['socketPath'] = isWin ? '//./pipe/docker_engine' : '/var/run/docker.sock'
     }
 }
+
+module.exports = DockerManager

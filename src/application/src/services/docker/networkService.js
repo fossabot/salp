@@ -1,4 +1,4 @@
-module.exports = class NetworkService {
+class NetworkService {
     constructor(docker, courseName) {
         this.docker = docker
         this.courseName = courseName
@@ -51,3 +51,5 @@ module.exports = class NetworkService {
         return networkName.toLocaleLowerCase()
     }
 }
+
+module.exports = NetworkService
