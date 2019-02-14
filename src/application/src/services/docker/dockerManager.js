@@ -40,7 +40,7 @@ class DockerManager {
     async removeAll(sender) {
         await this.down(sender)
         await this.containerService.removeAll(sender)
-        await this.imageService.removeAll()
+        await this.imageService.removeAll(sender)
         await this.networkService.remove()
         await this.checkState(sender)
     }

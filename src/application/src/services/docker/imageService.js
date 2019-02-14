@@ -13,27 +13,27 @@ class ImageService {
                 if (err) {
                     reject(err)
                 }
-                resolve(res)
                 this.images.push(image)
+                resolve(res)
             })
         })
     }
 
-    async removeAll() {
+    async removeAll(sender) {
         this._loadImages()
         for (const image of this.images) {
             try {
                 let img = await this.docker.getImage(image)
                 await img.remove()
-            } catch (err) {
-                // Image does not exist
+            } catch (error) {
+                sender.send('docker:ready', false, error.message)
             }
         }
         this.images = []
     }
 
     _validateImage(image) {
-        if (image.indexOf(':') === -1) {
+        if (!image.includes(':')) {
             return image + ':latest'
         }
 
