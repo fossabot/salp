@@ -15,7 +15,14 @@ export default {
     },
     computed: {
         isExternalLink() {
-            return this.href.indexOf('http') !== -1
+            try {
+                /* eslint-disable no-new */
+                new URL(this.href)
+
+                return true
+            } catch (error) {
+                return false
+            }
         }
     },
     methods: {
