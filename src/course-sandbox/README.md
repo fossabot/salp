@@ -1,4 +1,4 @@
-# @salp/course
+# @salp/course-sandbox
 
 ## Project setup
 ```

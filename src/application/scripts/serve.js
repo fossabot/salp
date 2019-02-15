@@ -19,8 +19,8 @@ const sandboxArgs = ['--mode', 'production']
 
 let apps = []
 
-const sandbox = proc.fork(require.resolve('@salp/course/scripts/app-serve.js'), sandboxArgs, {
-    cwd: path.resolve(__dirname, '../node_modules', '@salp/course'),
+const sandbox = proc.fork(require.resolve('@salp/course-sandbox/scripts/app-serve.js'), sandboxArgs, {
+    cwd: path.resolve(__dirname, '../node_modules', '@salp/course-sandbox'),
     env: {
         ...process.env,
         IS_ELECTRON: true

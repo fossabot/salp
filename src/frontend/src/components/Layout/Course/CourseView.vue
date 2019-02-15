@@ -34,6 +34,8 @@ export default {
             // TODO: implement
         },
         handleWebviewDomReady(event) {
+            // TODO: implement
+
             if (!isProduction) {
                 event.target.openDevTools()
             }
