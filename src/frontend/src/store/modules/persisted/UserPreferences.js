@@ -33,7 +33,8 @@ const defaults = {
     ml: true,
     socket: '',
     verifyTls: false,
-    certDir: ''
+    certDir: '',
+    baseIp: '127.0.0.1'
 }
 
 // store

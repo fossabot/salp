@@ -15,6 +15,10 @@
                     </Tag>
                 </FormItem>
             </div>
+            <FormItem :label="$t('Pages.Settings.label.baseIp')">
+                <Input autosize v-model="baseIp" @blur="testDocker"/>
+                <span class="form-item__description">{{ $t('Pages.Settings.description.baseIp') }}</span>
+            </FormItem>
             <FormItem :label="$t('Pages.Settings.label.socket')">
                 <Input autosize v-model="socket" @blur="testDocker"/>
                 <span class="form-item__description">{{ $t('Pages.Settings.description.socket') }}</span>
@@ -55,7 +59,7 @@ export default {
         ErrorLog
     },
     computed: {
-        ...mapStateTwoWay(['ml', 'socket', 'certDir', 'verifyTls']),
+        ...mapStateTwoWay(['ml', 'socket', 'certDir', 'verifyTls', 'baseIp']),
         deamonFound() {
             this.testDocker()
 
