@@ -12,6 +12,7 @@ import Quote from './ContentElements/Quote.vue'
 import YouTube from './ContentElements/YouTube.vue'
 import Table from './ContentElements/Table.vue'
 import InlineCode from './ContentElements/InlineCode.vue'
+import Code from './ContentElements/Code'
 
 // include actual course content
 export default async function CourseContent() {
@@ -40,6 +41,7 @@ export default async function CourseContent() {
             SimpleList,
             SimpleListItem,
             InlineCode,
+            Code,
 
             Card
         },

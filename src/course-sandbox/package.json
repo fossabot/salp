@@ -12,6 +12,7 @@
     "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/setup.js '{src,tests/unit}/**/*.{spec.js,vue}'"
   },
   "dependencies": {
+    "codemirror": "^5.43.0",
     "element-ui": "^2.5.4",
     "vue": "^2.5.22"
   },
