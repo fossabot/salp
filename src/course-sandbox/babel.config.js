@@ -30,6 +30,8 @@ if (!isTesting) {
             }
         }
     ])
+} else {
+    babelConfig.plugins.push('rewire')
 }
 
 module.exports = babelConfig
