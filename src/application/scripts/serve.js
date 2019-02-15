@@ -13,11 +13,14 @@ let frontendArgs = args.slice(sepIndex + 1)
 sepIndex = frontendArgs.indexOf('--')
 let appArgs = frontendArgs.splice(sepIndex)
 appArgs.shift()
+// TODO: allow custom args for course sandbox
+// dev server does not work with current protocol implementation and CORS
+const sandboxArgs = ['--mode', 'production']
 
 let apps = []
 
-const frontend = proc.fork(require.resolve('@salp/frontend/scripts/app-serve.js'), frontendArgs, {
-    cwd: path.resolve(__dirname, '../node_modules', '@salp/frontend'),
+const sandbox = proc.fork(require.resolve('@salp/course/scripts/app-serve.js'), sandboxArgs, {
+    cwd: path.resolve(__dirname, '../node_modules', '@salp/course'),
     env: {
         ...process.env,
         IS_ELECTRON: true
@@ -26,29 +29,54 @@ const frontend = proc.fork(require.resolve('@salp/frontend/scripts/app-serve.js'
     windowsHide: false
 })
 
-handleProcClose(frontend)
-apps.push(frontend)
+handleProcClose(sandbox)
+apps.push(sandbox)
 
-frontend.on('message', m => {
+sandbox.on('message', m => {
     if (m.type === 'error') {
-        throw new Error('[> master]\tFrontend could not be compiled. Reason:' + m.content.message)
+        throw new Error('[> master]\tCourse sandbox could not be compiled. Reason:' + m.content.message)
     }
 
-    console.log('\n[> master]\tFrontend running. Starting electron...\n')
+    console.log('\n[> master]\tCourse sandbox running. Starting frontend...\n')
 
-    const url = m.content
+    const sandboxUrl = m.content
 
-    const application = proc.spawn(electron, ['' + path.resolve(__dirname, '..')].concat(appArgs), {
-        stdio: 'inherit',
-        windowsHide: false,
+    const frontend = proc.fork(require.resolve('@salp/frontend/scripts/app-serve.js'), frontendArgs, {
+        cwd: path.resolve(__dirname, '../node_modules', '@salp/frontend'),
         env: {
             ...process.env,
-            WEBPACK_DEV_SERVER_URL: url
-        }
+            IS_ELECTRON: true,
+            VUE_APP_COURSE_SANDBOX_URL: sandboxUrl
+        },
+        stdio: 'inherit',
+        windowsHide: false
     })
 
-    handleProcClose(application)
-    apps.push(application)
+    handleProcClose(frontend)
+    apps.push(frontend)
+
+    frontend.on('message', m => {
+        if (m.type === 'error') {
+            throw new Error('[> master]\tFrontend could not be compiled. Reason:' + m.content.message)
+        }
+
+        console.log('\n[> master]\tFrontend running. Starting electron...\n')
+
+        const frontendUrl = m.content
+
+        const application = proc.spawn(electron, ['' + path.resolve(__dirname, '..')].concat(appArgs), {
+            stdio: 'inherit',
+            windowsHide: false,
+            env: {
+                ...process.env,
+                WEBPACK_DEV_SERVER_URL: frontendUrl,
+                COURSE_SANDBOX_URL: sandboxUrl
+            }
+        })
+
+        handleProcClose(application)
+        apps.push(application)
+    })
 })
 
 function handleProcClose(p) {
