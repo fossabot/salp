@@ -25,10 +25,10 @@
 
 <script>
 import { Card, Button, Steps, Step } from 'element-ui'
-import MultipleChoice from '../../AssignmentElements/MultipleChoice.vue'
-import SingleChoice from '../../AssignmentElements/SingleChoice.vue'
-import UserInput from '../../AssignmentElements/UserInput.vue'
-import { questions } from '$root/__mocks__/assignment/questions.js'
+import MultipleChoice from './AssignmentElements/MultipleChoice.vue'
+import SingleChoice from './AssignmentElements/SingleChoice.vue'
+import UserInput from './AssignmentElements/UserInput.vue'
+import { questions } from '@/../__mocks__/assignment/questions.js'
 
 export default {
     name: 'Assignment',
