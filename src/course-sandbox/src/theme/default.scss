@@ -1,0 +1,19 @@
+/* Default theme which extends element's theme-chalk */
+@import "element/common/var.scss";
+@import '~element-ui/packages/theme-chalk/src/reset';
+@import "~element-ui/packages/theme-chalk/src/base";
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Muli', 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
