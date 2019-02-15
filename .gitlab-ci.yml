@@ -20,7 +20,7 @@ variables:
   ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
   CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/.cache/Cypress
   CYPRESS_INSTALL_BINARY: "0"
-  CORE_PACKAGES: "@salp/{frontend,application}"
+  CORE_PACKAGES: "@salp/{frontend,application,course-sandbox}"
 
 before_script:
   - npm ci
@@ -69,6 +69,16 @@ test:unit:application:
   artifacts:
     paths:
       - src/application/coverage/
+
+test:unit:course-sandbox:
+  stage: test
+  script:
+    - cd src/course-sandbox/
+    - npm run coverage:unit
+  coverage: '/^Statements\s*:\s*([^%]+)/'
+  artifacts:
+    paths:
+      - src/course-sandbox/coverage/
 
 test:unit:packages:
   stage: test
