@@ -83,9 +83,7 @@ export default {
     },
     mounted() {
         ipcRenderer.send('docker:test')
-        if (this.dockerReady) {
-            ipcRenderer.send('docker:checkState', this.course)
-        }
+        ipcRenderer.send('docker:checkState', this.course)
     }
 }
 </script>
