@@ -16,19 +16,19 @@
                 </FormItem>
             </div>
             <FormItem :label="$t('Pages.Settings.label.baseIp')">
-                <Input autosize v-model="baseIp" @blur="testDocker"/>
+                <Input autosize v-model="baseIp"/>
                 <span class="form-item__description">{{ $t('Pages.Settings.description.baseIp') }}</span>
             </FormItem>
             <FormItem :label="$t('Pages.Settings.label.socket')">
-                <Input autosize v-model="socket" @blur="testDocker"/>
+                <Input autosize v-model="socket"/>
                 <span class="form-item__description">{{ $t('Pages.Settings.description.socket') }}</span>
             </FormItem>
             <FormItem :label="$t('Pages.Settings.label.certificate')">
-                <Input autosize v-model="certDir" @click.native="handleCertClick" @blur="testDocker"/>
+                <Input autosize v-model="certDir" @click.native="handleCertClick"/>
                 <span class="form-item__description">{{ $t('Pages.Settings.description.certificate') }}</span>
             </FormItem>
             <FormItem :label="$t('Pages.Settings.label.tls')">
-                <ElSwitch v-model="verifyTls" @click.native="testDocker"></ElSwitch>
+                <ElSwitch v-model="verifyTls" @change="testDocker"></ElSwitch>
                 <span class="form-item__description">{{ $t('Pages.Settings.description.tls') }}</span>
             </FormItem>
         </div>
@@ -38,9 +38,11 @@
 </template>
 
 <script>
+import { debounce } from 'lodash'
+import { userInputDebounceTimer } from '@/constants'
 import { Switch, Form, FormItem, Input, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
+import { createHelpers, namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
 import { ipcRenderer, remote } from 'electron'
 import ErrorLog from '@/components/Elements/ErrorLog.vue'
 
@@ -59,7 +61,7 @@ export default {
         ErrorLog
     },
     computed: {
-        ...mapStateTwoWay(['ml', 'socket', 'certDir', 'verifyTls', 'baseIp']),
+        ...mapStateTwoWay(['ml', 'verifyTls', 'baseIp']),
         deamonFound() {
             this.testDocker()
 
@@ -70,12 +72,40 @@ export default {
         },
         dockerStatus() {
             return this.deamonFound ? 'Docker found and ready to use' : 'Docker not found'
+        },
+        certDir: {
+            set(value) {
+                this.$store.commit({
+                    type: `${userPreferencesNamespace}/${userPreferencesTypes.SET}`,
+                    name: 'certDir',
+                    value
+                })
+
+                this.testDocker()
+            },
+            get() {
+                return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('certDir')
+            }
+        },
+        socket: {
+            set(value) {
+                this.$store.commit({
+                    type: `${userPreferencesNamespace}/${userPreferencesTypes.SET}`,
+                    name: 'socket',
+                    value
+                })
+
+                this.testDocker()
+            },
+            get() {
+                return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('socket')
+            }
         }
     },
     methods: {
-        testDocker() {
+        testDocker: debounce(() => {
             ipcRenderer.send('docker:test')
-        },
+        }, userInputDebounceTimer * 2),
         handleCertClick() {
             const path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
             if (path) {
