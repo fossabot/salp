@@ -22,6 +22,7 @@ class CourseService {
     }
 
     _registerProtocol() {
+        protocol.registerStandardSchemes(['course'])
         app.on('ready', () => {
             // unfortunately registerStreamProtocol does not work
             // @see https://github.com/electron/electron/issues/13519

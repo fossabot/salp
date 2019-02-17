@@ -4,6 +4,10 @@ const isCoverage = process.env.npm_lifecycle_event && process.env.npm_lifecycle_
 
 module.exports = {
     filenameHashing: false,
+    devServer: {
+        // @see https://github.com/webpack/webpack-dev-server/issues/1604
+        disableHostCheck: true
+    },
     chainWebpack: config => {
         config.externals({
             'content.js': 'course'

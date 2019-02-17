@@ -14,8 +14,7 @@ sepIndex = frontendArgs.indexOf('--')
 let appArgs = frontendArgs.splice(sepIndex)
 appArgs.shift()
 // TODO: allow custom args for course sandbox
-// dev server does not work with current protocol implementation and CORS
-const sandboxArgs = ['--mode', 'production']
+const sandboxArgs = []
 
 let apps = []
 
