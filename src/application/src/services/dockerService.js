@@ -79,6 +79,16 @@ async function testSettings({ sender }) {
     }
 }
 
+async function exec({ sender }, course, alias, cmd) {
+    try {
+        const dockerManager = getDockerManager(course)
+        await dockerManager.exec(sender, alias, cmd)
+        sender.send('docker:ready', true)
+    } catch (error) {
+        sender.send('docker:ready', false, error.message)
+    }
+}
+
 function getDockerManager(course) {
     let dockerManager = dockerManagers[course.name]
     if (dockerManager === undefined) {
@@ -97,4 +107,5 @@ app.on('ready', () => {
     ipcMain.on('docker:checkState', checkState)
     ipcMain.on('docker:getAllContainers', getAllContainers)
     ipcMain.on('docker:test', testSettings)
+    ipcMain.on('docker:exec', exec)
 })

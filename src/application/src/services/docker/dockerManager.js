@@ -69,6 +69,10 @@ class DockerManager {
         await this.docker.ping()
     }
 
+    async exec(sender, alias, cmd) {
+        await this.containerService.exec(sender, alias, cmd)
+    }
+
     _initialize() {
         let options = {}
         this._setOptions(options)

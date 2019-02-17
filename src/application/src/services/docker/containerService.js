@@ -95,6 +95,44 @@ class ContainerService {
         }
     }
 
+    async exec(sender, alias, cmd) {
+        const containerName = this._getContainerName(alias, this.course.name)
+        const container = this._getContainerByName(containerName)
+        await this._runExec(sender, container, cmd)
+    }
+
+    async _runExec(sender, container, cmd) {
+        const newStream = require('stream')
+        let logStream = new newStream.PassThrough()
+        let streamData = ''
+
+        logStream.on('data', (chunk) => {
+            streamData += chunk.toString()
+        });
+
+
+
+        let options = {
+            Cmd: ['bash', '-c', cmd],
+            AttachStdout: true,
+            AttachStderr: true
+        };
+
+        await container.exec(options, function(err, exec) {
+            if (err) return;
+            exec.start(function(err, stream) {
+                if (err) return;
+
+                container.modem.demuxStream(stream, logStream, process.stderr);
+
+                stream.on('end', () => {
+                    sender.send('docker:execResult', streamData)
+                })
+            });
+        });
+
+    }
+
     async _createContainer(config, networkName, name) {
         let container = await this.docker.createContainer(this._validateConfig(config, networkName, name))
         this.containers.push(container)
@@ -216,6 +254,19 @@ class ContainerService {
         const name = inspect.Name.split('/')[1]
 
         return name ? name : ''
+    }
+
+    _getContainerByName(containerName) {
+        for (const container of this.containers) {
+            if(!container._containerInfo) {
+                return
+            }
+            for(const name of container._containerInfo.Names) {
+                if(name === '/' + containerName) {
+                    return container
+                }
+            }
+        }
     }
 }
 
