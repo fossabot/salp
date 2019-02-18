@@ -77,8 +77,8 @@ class CourseService {
             stream = await fs.readFile(subRequest)
         } else {
             // resolve internal files
-            if (!isProduction && process.env.COURSE_SANDBOX_URL) {
-                const subRequest = new URL(process.env.COURSE_SANDBOX_URL)
+            if (!isProduction && process.env.FRONTEND_URL_COURSE_SANDBOX) {
+                const subRequest = new URL(process.env.FRONTEND_URL_COURSE_SANDBOX)
                 subRequest.pathname = requestedPath
 
                 stream = await this._httpGet(subRequest)
