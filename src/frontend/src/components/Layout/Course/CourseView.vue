@@ -4,6 +4,7 @@
                  ref="course-frame"
                  :src="courseUrl"
                  :preload="sandboxApiScript"
+                 :enableremotemodule="enableRemoteModule"
                  v-once
                  @did-start-loading="handleWebviewDidStartLoading"
                  @did-stop-loading="handleWebviewDidStopLoading"
@@ -32,6 +33,10 @@ export default {
         sandboxApiScript() {
             // sandboxApiScript path is already absolute (leading "/")
             return 'file://' + sandboxApiScript
+        },
+        enableRemoteModule() {
+            // @see https://github.com/electron/electron/issues/17021
+            return !isProduction
         }
     },
     methods: {
