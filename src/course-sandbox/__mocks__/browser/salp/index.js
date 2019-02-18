@@ -1,6 +1,2 @@
 // Mock salp APIs for use in browser
-import links from './links'
-
-export {
-    links
-}
+export { default as links } from './links'
