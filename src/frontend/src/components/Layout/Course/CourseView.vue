@@ -3,6 +3,7 @@
         <webview id="course-frame"
                  ref="course-frame"
                  :src="courseUrl"
+                 :preload="sandboxApiScript"
                  v-once
                  @did-start-loading="handleWebviewDidStartLoading"
                  @did-stop-loading="handleWebviewDidStopLoading"
@@ -15,6 +16,9 @@
 
 <script>
 import { isProduction } from '@/constants'
+import { remote } from 'electron'
+
+const sandboxApiScript = remote.require('./sandbox-api/index.js')
 
 export default {
     name: 'CourseView',
@@ -24,6 +28,10 @@ export default {
     computed: {
         courseUrl() {
             return `course://${this.course.id}/index.html`
+        },
+        sandboxApiScript() {
+            // sandboxApiScript path is already absolute (leading "/")
+            return 'file://' + sandboxApiScript
         }
     },
     methods: {

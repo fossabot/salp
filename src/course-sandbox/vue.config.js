@@ -10,7 +10,8 @@ module.exports = {
     },
     chainWebpack: config => {
         config.externals({
-            'content.js': 'course'
+            'content.js': 'course',
+            'salp': 'salp'
         })
 
         // Inject scss variables in each vue SFC styles
