@@ -1,5 +1,5 @@
 <script>
-import { shell } from 'electron'
+import { links } from 'salp'
 
 export default {
     name: 'SimpleLink',
@@ -19,7 +19,7 @@ export default {
                 staticClass: `contentelement-link`,
                 on: {
                     click: () => {
-                        shell.openExternal(props.href)
+                        links.openExternalLink(props.href)
                     }
                 }
             },
