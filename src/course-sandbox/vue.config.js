@@ -10,8 +10,7 @@ module.exports = {
     },
     chainWebpack: config => {
         config.externals({
-            'content.js': 'course',
-            'salp': 'salp'
+            'content.js': 'course'
         })
 
         // Inject scss variables in each vue SFC styles
@@ -31,11 +30,11 @@ module.exports = {
         // Inject mocked electron api when building browser version
         if (!process.env.IS_ELECTRON) {
             config.resolve.alias
-                .set('electron', path.resolve(__dirname, '__mocks__/browser/electron'))
+                .set('salp', path.resolve(__dirname, '__mocks__/browser/salp'))
         } else {
             config.externals({
                 ...config.get('externals'),
-                electron: 'require("electron")'
+                'salp': 'salp'
             })
         }
 
