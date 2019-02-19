@@ -6,10 +6,10 @@ import SimpleLink from './SimpleLink.vue'
 describe('SimpleLink.vue', () => {
     let wrapper = {}
     const expectedUrl = 'loremURL'
-    const openExternal = spy()
+    const openExternalLink = spy()
 
     beforeEach(() => {
-        SimpleLink.__Rewire__('shell', { openExternal })
+        SimpleLink.__Rewire__('links', { openExternalLink })
         wrapper = shallowMount(SimpleLink, {
             context: {
                 props: {
@@ -27,10 +27,10 @@ describe('SimpleLink.vue', () => {
         expect(wrapper).to.contain('a')
     })
 
-    it('should call openExternal with expected URL on click event', () => {
+    it('should call openExternalLink with expected URL on click event', () => {
         wrapper.trigger('click')
 
-        expect(openExternal).to.have.been.calledWith(expectedUrl)
+        expect(openExternalLink).to.have.been.calledWith(expectedUrl)
     })
     SimpleLink.__ResetDependency__('shell')
 })
