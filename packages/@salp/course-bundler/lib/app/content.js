@@ -1,2 +1,2 @@
 export { default } from '@internal/chapters'
-import '@internal/content-script'
+import '@internal/user-script'

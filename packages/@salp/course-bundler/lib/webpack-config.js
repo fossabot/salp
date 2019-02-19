@@ -83,10 +83,10 @@ function buildContentConfig(options, projectDir, outputDir) {
         .entry('content')
         .add(path.resolve(appPath, 'content.js'))
 
-    if (options.contentScript) {
+    if (options.userScript) {
         config
-            .entry('content-script')
-            .add(options.contentScript)
+            .entry('user-script')
+            .add(options.userScript)
     }
 
     // output
@@ -94,8 +94,8 @@ function buildContentConfig(options, projectDir, outputDir) {
         .libraryTarget('window')
 
     // user adjustments
-    if (options.chainContentWebpack) {
-        options.chainContentWebpack(config)
+    if (options.chainUserWebpack) {
+        options.chainUserWebpack(config)
     }
 
     return config

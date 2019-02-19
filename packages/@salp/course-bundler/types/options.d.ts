@@ -44,7 +44,7 @@ export interface CourseConfiguration {
     output?: string;
 
     // path to content script entry file; this script is executed in content context
-    contentScript?: string;
+    userScript?: string;
 
     // docker configuration (mainly for images)
     docker?: DockerConfiguration;
@@ -55,7 +55,7 @@ export interface CourseConfiguration {
     // optional: chain webpack config for both content and background scripts
     chainWebpack?: Function;
     // optional: chain webpack config for content script
-    chainContentWebpack?: Function;
+    chainUserWebpack?: Function;
 }
 
 export default CourseConfiguration
