@@ -12,8 +12,6 @@ export interface ImageConfiguration {
 export interface CourseConfiguration {
     // path to course content/chapters
     chapters: string;
-    // whether the chapters are nested into different languages (e.g. en/01-Introduction.md, de/01-Einleitung.md)
-    multilang?: boolean;
 
     // A custom output directory; might be overwritten by CLI
     output?: string;
