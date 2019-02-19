@@ -2,11 +2,7 @@
 const path = require('path')
 const Config = require('webpack-chain')
 const VueLoaderPlugin = require.resolve('vue-loader/lib/plugin')
-const CodeInjectionWebpackResolverPlugin = require.resolve('./plugins/code-injection-resolver-plugin.js')
 const CopyWebpackPlugin = require.resolve('copy-webpack-plugin')
-const ChaptersInjector = require('./injectors/chapters-injector')
-const ContentScriptInjector = require('./injectors/content-script-injector')
-const BackgroundScriptInjector = require('./injectors/background-script-injector')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -15,12 +11,9 @@ const packageLoaders = path.resolve(__dirname, 'loaders/')
 
 const appPath = path.resolve(__dirname, 'app')
 
-function buildDefaultConfig(options, projectDir, outputDir) {
-    const ctx = {
-        cwd: projectDir,
-        options
-    }
+const internalInjectors = path.resolve(__dirname, 'injectors/')
 
+function buildDefaultConfig(options, projectDir, outputDir) {
     const config = new Config()
 
     // general
@@ -32,6 +25,10 @@ function buildDefaultConfig(options, projectDir, outputDir) {
         .path(outputDir)
         .libraryTarget('commonjs2')
         .library('course')
+
+    // alias resolving
+    config.resolve.alias
+        .set('@internal', internalInjectors)
 
     // module
     config.module
@@ -49,14 +46,19 @@ function buildDefaultConfig(options, projectDir, outputDir) {
             .use('markdown-loader')
                 .loader('@salp/markdown-loader')
 
+    config.module
+        .rule('dynamic-injection')
+            .test(/injectors\/.+\.js$/)
+            .use('val-loader')
+                .loader('val-loader')
+                .options({
+                    ...options
+                })
+
     // plugins
     config
         .plugin('vue-loader')
         .use(VueLoaderPlugin)
-
-    config.resolve
-        .plugin('injection-plugin')
-        .use(CodeInjectionWebpackResolverPlugin, [ctx, '@internal'])
 
     // resolve loaders
     config.resolveLoader.modules
@@ -92,11 +94,6 @@ function buildContentConfig(options, projectDir, outputDir) {
     config.output
         .libraryTarget('window')
 
-    // plugins
-    config.resolve
-        .plugin('injection-plugin')
-        .tap(args => [...args, [ChaptersInjector, ContentScriptInjector]])
-
     // user adjustments
     if (options.chainContentWebpack) {
         options.chainContentWebpack(config)
@@ -114,11 +111,6 @@ function buildBackgroundConfig(options, projectDir, outputDir) {
     config
         .entry('background')
         .add(path.resolve(appPath, 'background.js'))
-
-    // plugins
-    config.resolve
-        .plugin('injection-plugin')
-        .tap(args => [...args, [BackgroundScriptInjector]])
 
     // core courses fixes
     if (projectDir.includes('salp/packages/salp-course')) {

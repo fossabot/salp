@@ -1,11 +1,8 @@
 const globby = require('globby')
 
-module.exports = ctx => ({
-    name: 'chapters',
-    apply() {
-        return genChaptersCode(ctx)
-    }
-})
+module.exports = async options => {
+    return { code: await genChaptersCode(options) }
+}
 
 async function getChapters(chaptersDir) {
     const paths = await globby([chaptersDir + '/**/*.md'])
@@ -14,8 +11,8 @@ async function getChapters(chaptersDir) {
     return paths
 }
 
-async function genChaptersCode(ctx) {
-    const paths = await getChapters(ctx.options.chapters)
+async function genChaptersCode(options) {
+    const paths = await getChapters(options.chapters)
     let code = '/* chapters generated code */\n'
     const imports = []
 
