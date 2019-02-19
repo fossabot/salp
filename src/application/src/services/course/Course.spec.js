@@ -87,8 +87,7 @@ describe('Course class from CourseService', () => {
             it('should be valid if it has a name and can resolve entry scripts', () => {
                 readPkgInfoStub.returns({
                     ...pkgJsonData,
-                    'browser': 'browser.js',
-                    'main': 'main.js'
+                    'browser': 'browser.js'
                 })
 
                 const course = new Course('/some/path')
@@ -176,24 +175,6 @@ describe('Course class from CourseService', () => {
             const course = new Course(givenPath)
 
             expect(course.resolveContentEntry()).to.equal(givenPath + '/' + expectedEntryFile)
-        })
-    })
-
-    describe('#resolveBackgroundEntry', () => {
-        it('should throw an exception when "main" field was not defined in package.json', () => {
-            const course = new Course()
-
-            expect(course.resolveBackgroundEntry.bind(course)).to.throw(Error, 'missing in package.json')
-        })
-
-        it('should resolve entry from "main" field in current path', () => {
-            const givenPath = '/tmp/_salp_application_tests/_course_tests/resolver'
-            const expectedEntryFile = 'entry/file_Background'
-
-            readPkgInfoStub.returns({ main: expectedEntryFile })
-            const course = new Course(givenPath)
-
-            expect(course.resolveBackgroundEntry()).to.equal(givenPath + '/' + expectedEntryFile)
         })
     })
 })

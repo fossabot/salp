@@ -2,7 +2,6 @@
 const path = require('path')
 const Config = require('webpack-chain')
 const VueLoaderPlugin = require.resolve('vue-loader/lib/plugin')
-const CopyWebpackPlugin = require.resolve('copy-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -102,37 +101,7 @@ function buildContentConfig(options, projectDir, outputDir) {
     return config
 }
 
-function buildBackgroundConfig(options, projectDir, outputDir) {
-    const config = buildDefaultConfig(options, projectDir, outputDir)
-
-    config.target('node')
-
-    // entry scripts
-    config
-        .entry('background')
-        .add(path.resolve(appPath, 'background.js'))
-
-    // core courses fixes
-    if (projectDir.includes('salp/packages/salp-course')) {
-        config.plugin('copy-package-info')
-            .use(CopyWebpackPlugin, [[
-                {
-                    from: path.resolve(projectDir, 'package.json'),
-                    to: outputDir
-                }
-            ]])
-    }
-
-    // user adjustments
-    if (options.chainBackgroundWebpack) {
-        options.chainBackgroundWebpack(config)
-    }
-
-    return config
-}
-
 module.exports = {
     buildDefaultConfig,
-    buildContentConfig,
-    buildBackgroundConfig
+    buildContentConfig
 }

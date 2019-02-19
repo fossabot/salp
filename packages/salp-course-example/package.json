@@ -2,8 +2,8 @@
   "name": "salp-course-example",
   "version": "1.0.0",
   "description": "Example salp course with dummy content",
-  "main": "dist/background.js",
   "browser": "dist/content.js",
+  "main": "dist/content.js",
   "files": [
     "dist/"
   ],

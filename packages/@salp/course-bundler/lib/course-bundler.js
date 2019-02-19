@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const loadConfig = require('./config-loader')
-const { buildContentConfig, buildBackgroundConfig } = require('./webpack-config')
+const { buildContentConfig } = require('./webpack-config')
 
 function determineOutputDir(cwd, given, options) {
     let outputDir
@@ -27,19 +27,15 @@ function determineOutputDir(cwd, given, options) {
 
 function getWebpackConfig(projectDir, outputDir) {
     const config = loadConfig(projectDir)
-
     outputDir = determineOutputDir(projectDir, outputDir, config)
 
-    return [
-        buildContentConfig(config, projectDir, outputDir),
-        buildBackgroundConfig(config, projectDir, outputDir)
-    ]
+    return buildContentConfig(config, projectDir, outputDir)
 }
 
 module.exports = function courseBundler(projectDir, outputDir) {
-    const config = getWebpackConfig(projectDir, outputDir).map(c => c.toConfig())
+    const config = getWebpackConfig(projectDir, outputDir)
 
-    const compiler = webpack(config)
+    const compiler = webpack(config.toConfig())
     compiler.run((err, stats) => {
         if (err) {
             throw new Error('Error building course. Reason: ' + err.message)
@@ -51,8 +47,8 @@ module.exports = function courseBundler(projectDir, outputDir) {
 }
 
 module.exports.inspect = function inspectConfig(projectDir, outputDir) {
-    const config = getWebpackConfig(projectDir, outputDir).map(c => c.toString())
+    const config = getWebpackConfig(projectDir, outputDir).toString()
 
     /* eslint-disable-next-line no-console */
-    console.log(config)
+    console.log(config.toString())
 }

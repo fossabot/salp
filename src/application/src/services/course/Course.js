@@ -50,8 +50,7 @@ class Course {
         try {
             return !!(this.path
                 && this.name
-                && this.resolveContentEntry()
-                && this.resolveBackgroundEntry())
+                && this.resolveContentEntry())
         } catch (e) {
             return false
         }
@@ -68,17 +67,6 @@ class Course {
 
         if (!file) {
             throw new Error('Field \'browser\' missing in package.json of course ' + this.name)
-        }
-
-        // TODO: implement resolving for external and internal bundled courses!
-        return path.join(this.path, file)
-    }
-
-    resolveBackgroundEntry() {
-        const file = this.pkgInfo['main']
-
-        if (!file) {
-            throw new Error('Field \'main\' missing in package.json of course ' + this.name)
         }
 
         // TODO: implement resolving for external and internal bundled courses!

@@ -4,7 +4,6 @@ const path = require('path')
 module.exports = {
     chapters: path.resolve(__dirname, 'chapters/'),
     contentScript: path.resolve(__dirname, 'src/content.js'),
-    backgroundScript: path.resolve(__dirname, 'src/background.js'),
     docker: {
         images: {
             'db': {
