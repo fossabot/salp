@@ -9,6 +9,33 @@ export interface ImageConfiguration {
     ports?: number[]
 }
 
+// one image per property; key is a unique identifier for that course
+export type DockerImages = { [key: string]: ImageConfiguration }
+
+export interface DockerConfiguration {
+    // list of all provided docker images
+    images?: DockerImages;
+}
+
+export interface AssignmentQuestionAnswers {
+    answer: string;
+    // determines whether the answer is correct; only one answer can be correct for 'SingleChoice';
+    // defaults to false when omitted
+    correct?: boolean;
+}
+
+export interface AssignmentQuestion {
+    component: 'SingleChoice' | 'MultipleChoice' | 'UserInput';
+    question: string;
+    answers: Array<AssignmentQuestionAnswers>;
+}
+
+export interface Assignment {
+    questions: Array<AssignmentQuestion>;
+}
+
+export type Assignments = { [name: string]: Assignment }
+
 export interface CourseConfiguration {
     // path to course content/chapters
     chapters: string;
@@ -21,9 +48,11 @@ export interface CourseConfiguration {
     // path to background script entry file; this script is executed in background context
     backgroundScript?: string;
 
-    // register docker images
-    // one image per property; key is a unique identifier for that course
-    images?: { [key: string]: ImageConfiguration };
+    // docker configuration (mainly for images)
+    docker?: DockerConfiguration;
+
+    // assignment configuration
+    assignments?: Assignments;
 
     // optional: chain webpack config for both content and background scripts
     chainWebpack?: Function;
