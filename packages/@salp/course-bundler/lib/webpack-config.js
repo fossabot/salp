@@ -83,12 +83,6 @@ function buildContentConfig(options, projectDir, outputDir) {
         .entry('content')
         .add(path.resolve(appPath, 'content.js'))
 
-    if (options.userScript) {
-        config
-            .entry('user-script')
-            .add(options.userScript)
-    }
-
     // output
     config.output
         .libraryTarget('window')
