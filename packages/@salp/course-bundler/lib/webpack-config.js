@@ -87,6 +87,11 @@ function buildContentConfig(options, projectDir, outputDir) {
     config.output
         .libraryTarget('window')
 
+    // external salp api
+    config.externals({
+        'salp': 'salp'
+    })
+
     // user adjustments
     if (options.chainUserWebpack) {
         options.chainUserWebpack(config)

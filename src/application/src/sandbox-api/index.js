@@ -3,6 +3,7 @@
 // the execution context is a special process which has access to node APIs
 // @see https://electronjs.org/docs/api/webview-tag#preload
 const links = require('./links')
+const Course = require('./Course')
 
 // if called from nodejs, return path to this script
 if (module && module.exports) {
@@ -12,6 +13,7 @@ if (module && module.exports) {
 process.once('loaded', () => {
     global.__API__ = 'salp/course-sandbox'
     global.salp = {
-        links
+        links,
+        Course
     }
 })
