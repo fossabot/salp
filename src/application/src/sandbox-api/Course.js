@@ -7,6 +7,19 @@ class Course extends EventEmitter {
         this.name = name
         this.chapters = chapters
     }
+
+    get routes() {
+        return Object.entries(this.chapters)
+            .map(([name, component]) => ({
+                name,
+                component,
+                path: name
+            }))
+    }
+
+    get chaptersCount() {
+        return Object.keys(this.chapters).length
+    }
 }
 
 module.exports = Course

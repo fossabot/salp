@@ -1,16 +1,16 @@
 <template>
-  <div id="app">
-    <CourseContent/>
-  </div>
+    <div id="app">
+        <Content/>
+    </div>
 </template>
 
 <script>
-import CourseContent from './components/CourseContent'
+import Content from './components/Content.js'
 
 export default {
     name: 'app',
     components: {
-        CourseContent
+        Content
     }
 }
 </script>
