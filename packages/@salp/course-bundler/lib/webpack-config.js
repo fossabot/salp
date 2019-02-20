@@ -2,6 +2,7 @@
 const path = require('path')
 const Config = require('webpack-chain')
 const VueLoaderPlugin = require.resolve('vue-loader/lib/plugin')
+const CopyWebpackPlugin = require.resolve('copy-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -64,6 +65,17 @@ function buildDefaultConfig(options, projectDir, outputDir) {
         .add(packageNodeModules)
         .add(packageLoaders)
         .add(path.resolve(projectDir, 'node_modules/'))
+
+    // core courses fixes
+    if (projectDir.includes('salp/packages/salp-course')) {
+        config.plugin('copy-package-info')
+            .use(CopyWebpackPlugin, [[
+                {
+                    from: path.resolve(projectDir, 'package.json'),
+                    to: outputDir
+                }
+            ]])
+    }
 
     // user adjustments
     if (options.chainWebpack) {
