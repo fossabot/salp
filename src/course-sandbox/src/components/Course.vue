@@ -1,11 +1,11 @@
 <template>
-    <article :id="courseId" class="course">
+    <main :id="courseId" class="course">
         <router-view/>
 
         <footer class="course-page-footer">
             <ChapterPagination :chapters="chapters"/>
         </footer>
-    </article>
+    </main>
 </template>
 
 <script>
