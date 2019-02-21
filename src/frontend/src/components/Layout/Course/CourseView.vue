@@ -28,7 +28,7 @@ export default {
     },
     computed: {
         courseUrl() {
-            return `course://${this.course.id}/index.html`
+            return `course://${this.course.id}/`
         },
         sandboxApiScript() {
             // sandboxApiScript path is already absolute (leading "/")

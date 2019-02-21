@@ -74,7 +74,7 @@ class CourseService {
             const course = this.manager.findCourseById(requestedCourse)
             const subRequest = path.resolve(course.dir, requestedPath)
 
-            stream = await fs.readFile(subRequest)
+            stream = await this._fileGet(subRequest)
         } else {
             // resolve internal files
             if (!isProduction && process.env.FRONTEND_URL_COURSE_SANDBOX) {
@@ -84,11 +84,48 @@ class CourseService {
                 stream = await this._httpGet(subRequest)
             } else {
                 const subRequest = path.resolve(embeddedCoursePath, requestedPath)
-                stream = await fs.readFile(subRequest)
+                stream = await this._fileGet(subRequest)
             }
         }
 
         return stream
+    }
+
+    /**
+     * Returns a buffer with file contents and guesses mime-type of file
+     * @param path
+     * @return {Promise<{ mimeType: string, data: Buffer }>}
+     * @private
+     */
+    async _fileGet(path) {
+        const suffix = path.split('.').pop()
+        let mimeType
+        switch (suffix) {
+            case 'html':
+                mimeType = 'text/html'
+                break
+            case 'js':
+                mimeType = 'application/javascript'
+                break
+            case 'jpg':
+            case 'JPG':
+            case 'jpeg':
+            case 'JPEG':
+                mimeType = 'image/jpeg'
+                break
+            case 'png':
+            case 'PNG':
+                mimeType = 'image/png'
+                break
+            default:
+                mimeType = 'text/plain'
+                break
+        }
+
+        return {
+            mimeType,
+            data: await fs.readFile(path)
+        }
     }
 
     async _httpGet(url) {
@@ -101,7 +138,12 @@ class CourseService {
                 })
 
                 res.on('end', () => {
-                    resolve(Buffer.concat(data))
+                    const mimeType = (res.headers['content-type'] || 'text/plain').replace('; charset=UTF-8', '')
+
+                    resolve({
+                        mimeType,
+                        data: Buffer.concat(data)
+                    })
                 })
             }).on('error', e => {
                 reject(e)
