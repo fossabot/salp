@@ -10,7 +10,8 @@
                  @did-stop-loading="handleWebviewDidStopLoading"
                  @dom-ready="handleWebviewDomReady"
                  @did-finish-load="handleWebviewDidFinishLoad"
-                 @did-fail-load="handleWebviewDidFailLoad">
+                 @did-fail-load="handleWebviewDidFailLoad"
+                 @ipc-message="handleWebviewIPCMessage">
         </webview>
     </div>
 </template>
@@ -18,6 +19,7 @@
 <script>
 import { isProduction } from '@/constants'
 import { remote } from 'electron'
+import SandboxAPI from '@/sandbox-api'
 
 const sandboxApiScript = remote.require('./sandbox-api/index.js')
 
@@ -39,9 +41,17 @@ export default {
             return !isProduction
         }
     },
+    destroyed() {
+        if (this.$sandboxAPI) {
+            this.$sandboxAPI.destroy()
+        }
+    },
     methods: {
         handleWebviewDidStartLoading(event) {
-            // TODO: implement
+            // initially create sandbox API instance on first load
+            if (!this.$sandboxAPI) {
+                this.$sandboxAPI = new SandboxAPI(event.target)
+            }
         },
         handleWebviewDidStopLoading(event) {
             // TODO: implement
@@ -58,6 +68,9 @@ export default {
         },
         handleWebviewDidFailLoad(event) {
             // TODO: implement
+        },
+        handleWebviewIPCMessage(event) {
+            this.$sandboxAPI.handleSandboxIPCMessage(event)
         }
     }
 }

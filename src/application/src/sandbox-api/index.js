@@ -4,6 +4,7 @@
 // @see https://electronjs.org/docs/api/webview-tag#preload
 const links = require('./links')
 const Course = require('./Course')
+const Router = require('./Router')
 
 // if called from nodejs, return path to this script
 if (module && module.exports) {
@@ -11,9 +12,13 @@ if (module && module.exports) {
 }
 
 process.once('loaded', () => {
+    // ipcRenderer is only available in renderer process
+    const { ipcRenderer } = require('electron')
+
     global.__API__ = 'salp/course-sandbox'
     global.salp = {
         links,
-        Course
+        Course,
+        router: new Router(ipcRenderer)
     }
 })

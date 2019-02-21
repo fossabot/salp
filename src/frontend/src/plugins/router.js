@@ -38,7 +38,14 @@ const routes = [
             {
                 path: 'content',
                 name: 'coursecontent',
-                component: CourseView
+                component: CourseView,
+                children: [
+                    {
+                        path: '*',
+                        name: 'coursecontent-default',
+                        component: CourseView
+                    }
+                ]
             }
         ]
     }

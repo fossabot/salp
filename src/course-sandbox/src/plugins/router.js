@@ -1,4 +1,5 @@
 import Router from 'vue-router'
+import { router as salpRouter } from 'salp'
 
 let router
 const routes = []
@@ -15,5 +16,13 @@ export default {
         Vue.use(Router)
 
         router = new Router(routerOpts)
+
+        router.afterEach(to => {
+            salpRouter.push(to)
+        })
+
+        salpRouter.on('route:change', to => {
+            router.push(to)
+        })
     }
 }
