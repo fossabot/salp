@@ -4,7 +4,8 @@
         <CheckboxGroup class="multiple-choice-content__container__checkbox-group" v-model="checked"
             :min="0" :max="getMaxAnswers" :disabled="disabled">
             <MultipleChoiceCheckbox
-                v-for="({answer}, index) in answers" :answer="answer" :isValid="isValid[index]"
+                v-for="({answer}, index) in answers" :question="question" :answer="answer"
+                :isValid="isValid[index]" :assignmentName="assignmentName"
                 :key="`choice_${index}`"/>
         </CheckboxGroup>
     </div>
@@ -21,6 +22,10 @@ export default {
         MultipleChoiceCheckbox
     },
     props: {
+        assignmentName: {
+            type: String,
+            required: true
+        },
         retry: {
             type: Boolean,
             required: true

@@ -2,7 +2,7 @@
     <div class="user-input__container" v-bind:class="{left: isLeftPosition, top: isTopPosition}">
         <h1 class="user-input__container__text">{{ question }}</h1>
         <Input class="user-input__container__input"
-            v-model="answer" placeholder="Insert Answer"
+            v-model="answer" placeholder="Insert Answer" @blur="handleBlur"
             :disabled="disabled" :class="{ 'is-valid': correct === true, 'is-invalid': correct === false && !retry }"/>
     </div>
 </template>
@@ -16,6 +16,10 @@ export default {
         Input
     },
     props: {
+        assignmentName: {
+            type: String,
+            required: true
+        },
         retry: {
             type: Boolean,
             required: true
@@ -69,6 +73,9 @@ export default {
             }
             this.correct = this.questionIsCorrect()
             this.$emit('validated', this.correct)
+        },
+        handleBlur(event) {
+            this.$matomo.trackEvent(this.assignmentName + '_assignment', 'ui_' + this.question, '' + this.answer)
         }
     }
 }
