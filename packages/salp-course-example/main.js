@@ -2,11 +2,11 @@ import { Course } from 'salp'
 
 class ExampleCourse extends Course {
     ready() {
-        console.log(`Course ${this.name} ready!`)
+        console.log(`Course ${this.id} ready!`)
     }
 
     beforeDestroy() {
-        console.log(`Course ${this.name} is being destroyed!`)
+        console.log(`Course ${this.id} is being destroyed!`)
     }
 }
 

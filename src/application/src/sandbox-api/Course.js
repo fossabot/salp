@@ -1,10 +1,10 @@
 const EventEmitter = require('events')
 
 class Course extends EventEmitter {
-    constructor(name, chapters) {
+    constructor(id, chapters) {
         super()
 
-        this.name = name
+        this.id = id
         this.chapters = chapters
     }
 

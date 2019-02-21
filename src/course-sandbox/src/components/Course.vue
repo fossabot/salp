@@ -16,7 +16,7 @@ export default {
     name: 'Course',
     mixins: [ContentElements],
     props: {
-        name: String,
+        id: String,
         chapters: Object
     },
     components: {
@@ -24,7 +24,7 @@ export default {
     },
     computed: {
         courseId() {
-            return 'course-' + this.name
+            return this.id
         }
     }
 }

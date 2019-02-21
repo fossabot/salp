@@ -19,7 +19,7 @@ async function loadCourse() {
         render(createElement) {
             return createElement(Course, {
                 props: {
-                    name: course.name,
+                    id: course.id,
                     chapters: course.chapters
                 }
             })
