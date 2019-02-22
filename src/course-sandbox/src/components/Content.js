@@ -14,7 +14,7 @@ async function loadCourse() {
             this.$router.addRoutes(routes)
 
             // TODO: load last opened page
-            this.$router.push({ name: routes[0].name })
+            this.$router.replace({ name: routes[0].name })
         },
         render(createElement) {
             return createElement(Course, {
