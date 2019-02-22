@@ -3,8 +3,9 @@
 import { router } from '@/plugins/router'
 
 class SandboxAPI {
-    constructor(sandbox) {
+    constructor(sandbox, host) {
         this.sandbox = sandbox
+        this.host = host
 
         this.unregisterRouterHandlers = []
         this._registerRouterHandlers()
@@ -31,6 +32,8 @@ class SandboxAPI {
         router.push({
             path: contentRoute.fullPath + to.fullPath,
             query: { 'fromSandbox': true }
+        }, () => {
+            this.host.$emit('pageTitle', to.meta.title)
         })
     }
 

@@ -25,6 +25,7 @@ import { Container, Header, Main, Aside } from 'element-ui'
 import MainMenu from './MainMenu.vue'
 import MetaMenu from './MetaMenu.vue'
 
+// TODO: implement page title handling fallback when new route didn't emit 'pageTitle' event
 export default {
     name: 'App',
     components: {
@@ -42,9 +43,6 @@ export default {
         }
     },
     watch: {
-        $route(to) {
-            this.pageTitle = to.name
-        },
         pageTitle(title) {
             remote.getCurrentWindow().setTitle(title)
         }

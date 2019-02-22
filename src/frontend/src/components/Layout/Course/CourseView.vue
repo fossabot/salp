@@ -50,7 +50,7 @@ export default {
         handleWebviewDidStartLoading(event) {
             // initially create sandbox API instance on first load
             if (!this.$sandboxAPI) {
-                this.$sandboxAPI = new SandboxAPI(event.target)
+                this.$sandboxAPI = new SandboxAPI(event.target, this)
             }
         },
         handleWebviewDidStopLoading(event) {

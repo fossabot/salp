@@ -18,6 +18,12 @@ export default {
         router = new Router(routerOpts)
 
         router.afterEach(to => {
+            if (to.meta && to.meta.title) {
+                document.title = to.meta.title
+            }
+        })
+
+        router.afterEach(to => {
             salpRouter.push(to)
         })
 

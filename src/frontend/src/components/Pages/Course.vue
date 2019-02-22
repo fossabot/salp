@@ -1,6 +1,6 @@
 <template>
   <div id="page-course">
-      <router-view v-if="course" :course="course"/>
+      <router-view v-if="course" :course="course" @pageTitle="handlePageTitleChange"/>
   </div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
             const getter = this.$store.getters[`${namespace}/${types.GET_COURSE_BY_ID}`]
 
             return getter(this.courseId) || false
+        }
+    },
+    methods: {
+        handlePageTitleChange(title) {
+            this.$emit('pageTitle', title + ' - ' + this.course.name)
         }
     }
 }
