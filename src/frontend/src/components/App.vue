@@ -4,26 +4,19 @@
       <h1 class="app-header__item page-title">
         {{ pageTitle }}
       </h1>
-      <MetaMenu class="app-header__item meta-menu"/>
+      <MainMenu class="app-header__item meta-menu"/>
     </Header>
 
-    <Container>
-      <Aside id="app-sidebar">
-        <MainMenu/>
-      </Aside>
-
-      <Main id="app-content">
-        <router-view @pageTitle="handlePageTitleChange"></router-view>
-      </Main>
-    </Container>
+    <Main id="app-content">
+      <router-view @pageTitle="handlePageTitleChange"></router-view>
+    </Main>
   </Container>
 </template>
 
 <script>
 import { remote } from 'electron'
-import { Container, Header, Main, Aside } from 'element-ui'
+import { Container, Header, Main } from 'element-ui'
 import MainMenu from './MainMenu.vue'
-import MetaMenu from './MetaMenu.vue'
 
 // TODO: implement page title handling fallback when new route didn't emit 'pageTitle' event
 export default {
@@ -32,10 +25,8 @@ export default {
         Container,
         Header,
         Main,
-        Aside,
 
-        MainMenu,
-        MetaMenu
+        MainMenu
     },
     data() {
         return {
@@ -64,7 +55,7 @@ export default {
     height: 60px !important;
     background-color: $--color-primary;
     color: $--color-white;
-    padding: 2px 10px 2px (200px + $--main-padding);
+    padding: 2px 10px 2px 85px;
     font-size: 18px;
     line-height: 58px;
     -webkit-app-region: drag;
@@ -76,20 +67,19 @@ export default {
     }
 }
 
-#app-sidebar {
-    width: 200px !important;
-    border-right: solid 1px $--border-color-lighter;
-
-    .el-menu {
-        border-right: none;
-    }
-}
-
 .page-title {
     color: $--color-white;
 }
 
 .meta-menu {
     float: right;
+}
+
+#app-content {
+    display: flex;
+
+    & > [id^="page-"] {
+        flex: 1;
+    }
 }
 </style>

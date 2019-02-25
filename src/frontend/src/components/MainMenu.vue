@@ -1,68 +1,87 @@
 <template>
-    <Menu :router="true" :default-openeds="['1']">
-        <Submenu index="1">
-            <template slot="title">First</template>
-            <MenuItemGroup>
-                <template slot="title">Group 1</template>
-                <ElMenuItem index="1-1">Option 1</ElMenuItem>
-                <ElMenuItem index="1-2">Option 2</ElMenuItem>
-            </MenuItemGroup>
-            <MenuItemGroup title="Group 2">
-                <ElMenuItem index="1-3">Option 3</ElMenuItem>
-            </MenuItemGroup>
-            <Submenu index="1-4">
-                <template slot="title">Option4</template>
-                <ElMenuItem index="1-4-1">Option 4-1</ElMenuItem>
-            </Submenu>
-        </Submenu>
-        <Submenu index="2">
-            <template slot="title"><i class="el-icon-menu"></i>Navigator Two</template>
-            <MenuItemGroup>
-                <template slot="title">Group 1</template>
-                <ElMenuItem index="2-1">Option 1</ElMenuItem>
-                <ElMenuItem index="2-2">Option 2</ElMenuItem>
-            </MenuItemGroup>
-            <MenuItemGroup title="Group 2">
-                <ElMenuItem index="2-3">Option 3</ElMenuItem>
-            </MenuItemGroup>
-            <Submenu index="2-4">
-                <template slot="title">Option 4</template>
-                <ElMenuItem index="2-4-1">Option 4-1</ElMenuItem>
-            </Submenu>
-        </Submenu>
-        <Submenu index="3">
-            <template slot="title"><i class="el-icon-setting"></i>Navigator Three</template>
-            <MenuItemGroup>
-                <template slot="title">Group 1</template>
-                <ElMenuItem index="3-1">Option 1</ElMenuItem>
-                <ElMenuItem index="3-2">Option 2</ElMenuItem>
-            </MenuItemGroup>
-            <MenuItemGroup title="Group 2">
-                <ElMenuItem index="3-3">Option 3</ElMenuItem>
-            </MenuItemGroup>
-            <Submenu index="3-4">
-                <template slot="title">Option 4</template>
-                <ElMenuItem index="3-4-1">Option 4-1</ElMenuItem>
-            </Submenu>
-        </Submenu>
+    <Menu id="meta-menu" :router="true" mode="horizontal">
+        <ElMenuItem index="0" :route="{name: 'home'}">
+            <Tooltip placement="bottom" :content="$t('App.menu.home')">
+                <Icon icon="faHome"/>
+            </Tooltip>
+        </ElMenuItem>
+        <ElMenuItem index="0" class="meta-menu__user" :route="{name: 'profile'}">
+            <Icon icon="faUser"/>
+            <span slot="title">{{ username }}</span>
+        </ElMenuItem>
+        <ElMenuItem index="1">
+            <Tooltip placement="bottom" :content="$t('App.menu.health')">
+                <Icon icon="faHeartbeat"/>
+            </Tooltip>
+        </ElMenuItem>
+        <ElMenuItem index="2">
+            <Tooltip placement="bottom" :content="$t('App.menu.updates')">
+                <Icon icon="faDownload"/>
+            </Tooltip>
+        </ElMenuItem>
+        <ElMenuItem index="3" :route="{name: 'settings'}">
+            <Tooltip placement="bottom" :content="$t('App.menu.settings')">
+                <Icon icon="faCog"/>
+            </Tooltip>
+        </ElMenuItem>
+        <ElMenuItem index="4">
+            <Tooltip placement="bottom" :content="$t('App.menu.about')">
+                <Icon icon="faInfoCircle"/>
+            </Tooltip>
+        </ElMenuItem>
     </Menu>
 </template>
 
 <script>
-import { Menu, Submenu, MenuItem, MenuItemGroup } from 'element-ui'
-import { faHome } from '@fortawesome/free-solid-svg-icons'
+import { Menu, MenuItem, Tooltip } from 'element-ui'
+import { faUser, faHeartbeat, faDownload, faCog, faInfoCircle, faHome } from '@fortawesome/free-solid-svg-icons'
+import { createNamespacedHelpers } from 'vuex'
+import { namespace } from '@/store/modules/persisted/UserPreferences.js'
+
+const { mapState } = createNamespacedHelpers(namespace)
 
 export default {
-    name: 'MainMenu',
+    name: 'MetaMenu',
     components: {
         Menu,
-        Submenu,
         /* eslint-disable-next-line vue/no-unused-components */
         [MenuItem.name]: MenuItem,
-        MenuItemGroup
+        Tooltip
     },
     icons: {
+        faUser,
+        faHeartbeat,
+        faDownload,
+        faCog,
+        faInfoCircle,
         faHome
-    }
+    },
+    computed: mapState(['username'])
 }
 </script>
+
+<style lang="scss">
+#meta-menu {
+    border: none;
+    background: initial;
+
+    .el-menu-item {
+        border: none;
+        color: $--color-white;
+        padding: 0 2px;
+
+        &:hover,
+        &:focus {
+            background: initial;
+        }
+
+        i {
+            color: $--color-white;
+        }
+    }
+
+    .meta-menu__user {
+        margin-right: 1em;
+    }
+}
+</style>

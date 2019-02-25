@@ -27,9 +27,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-#page-course {
-    height: 100%;
-}
-</style>

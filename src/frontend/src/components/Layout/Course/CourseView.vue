@@ -1,19 +1,17 @@
 <template>
-    <div id="course-view">
-        <webview id="course-frame"
-                 ref="course-frame"
-                 :src="courseUrl"
-                 :preload="sandboxApiScript"
-                 :enableremotemodule="enableRemoteModule"
-                 v-once
-                 @did-start-loading="handleWebviewDidStartLoading"
-                 @did-stop-loading="handleWebviewDidStopLoading"
-                 @dom-ready="handleWebviewDomReady"
-                 @did-finish-load="handleWebviewDidFinishLoad"
-                 @did-fail-load="handleWebviewDidFailLoad"
-                 @ipc-message="handleWebviewIPCMessage">
-        </webview>
-    </div>
+    <webview id="course-view"
+             ref="course-frame"
+             :src="courseUrl"
+             :preload="sandboxApiScript"
+             :enableremotemodule="enableRemoteModule"
+             v-once
+             @did-start-loading="handleWebviewDidStartLoading"
+             @did-stop-loading="handleWebviewDidStopLoading"
+             @dom-ready="handleWebviewDomReady"
+             @did-finish-load="handleWebviewDidFinishLoad"
+             @did-fail-load="handleWebviewDidFailLoad"
+             @ipc-message="handleWebviewIPCMessage">
+    </webview>
 </template>
 
 <script>
@@ -77,8 +75,7 @@ export default {
 </script>
 
 <style lang="scss">
-#course-view,
-#course-frame {
+#course-view {
     height: 100%;
 }
 </style>
