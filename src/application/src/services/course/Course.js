@@ -11,7 +11,10 @@ class Course {
             description: this.pkgInfo.description,
             version: this.pkgInfo.version,
             author: this.pkgInfo.author,
-            keywords: this.pkgInfo.keywords
+            keywords: this.pkgInfo.keywords,
+            repositoryUrl: (this.pkgInfo.repository || {}).url,
+            homepage: this.pkgInfo.homepage,
+            issuesUrl: this.pkgInfo.bugs
         }
     }
 
@@ -38,6 +41,18 @@ class Course {
 
     get keywords() {
         return this.info.keywords
+    }
+
+    get repositoryUrl() {
+        return this.info.repositoryUrl
+    }
+
+    get homepage() {
+        return this.info.homepage
+    }
+
+    get issuesUrl() {
+        return this.info.issuesUrl
     }
 
     get sanitizedName() {
