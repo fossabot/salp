@@ -1,5 +1,10 @@
 <template>
     <Menu id="meta-menu" :router="true" mode="horizontal">
+        <ElMenuItem index="0" :route="{name: 'home'}">
+            <Tooltip placement="bottom" :content="$t('App.menu.home')">
+                <Icon icon="faHome"/>
+            </Tooltip>
+        </ElMenuItem>
         <ElMenuItem index="0" class="meta-menu__user" :route="{name: 'profile'}">
             <Icon icon="faUser"/>
             <span slot="title">{{ username }}</span>
@@ -29,7 +34,7 @@
 
 <script>
 import { Menu, MenuItem, Tooltip } from 'element-ui'
-import { faUser, faHeartbeat, faDownload, faCog, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faHeartbeat, faDownload, faCog, faInfoCircle, faHome } from '@fortawesome/free-solid-svg-icons'
 import { createNamespacedHelpers } from 'vuex'
 import { namespace } from '@/store/modules/persisted/UserPreferences.js'
 
@@ -48,7 +53,8 @@ export default {
         faHeartbeat,
         faDownload,
         faCog,
-        faInfoCircle
+        faInfoCircle,
+        faHome
     },
     computed: mapState(['username'])
 }
