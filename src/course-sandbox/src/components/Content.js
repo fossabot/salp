@@ -1,5 +1,6 @@
 import loadContent from '../load-content'
 import Course from './Course.vue'
+import { Alert } from 'element-ui'
 
 async function loadCourse() {
     const course = await loadContent()
@@ -31,10 +32,22 @@ export default function ContentFactory() {
     return {
         component: loadCourse(),
         loading: {
-            render: h => h('Loading course content...')
+            render: h => h(Alert, {
+                props: {
+                    type: 'info',
+                    closable: false,
+                    title: 'Loading course content...'
+                }
+            })
         },
         error: {
-            render: h => h('Loading course content failed!')
+            render: h => h(Alert, {
+                props: {
+                    type: 'error',
+                    closable: false,
+                    title: 'Loading course content failed!'
+                }
+            })
         }
     }
 }
