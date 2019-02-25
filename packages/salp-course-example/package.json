@@ -2,6 +2,20 @@
   "name": "salp-course-example",
   "version": "1.0.0",
   "description": "Example salp course with dummy content",
+  "author": "SALP Team",
+  "license": "ISC",
+  "keywords": [
+    "salp",
+    "course",
+    "example",
+    "user-content"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salp/salp"
+  },
+  "homepage": "https://github.com/salp",
+  "bugs": "https://github.com/salp/salp-course-example/issues",
   "browser": "dist/content.js",
   "main": "dist/content.js",
   "files": [
@@ -11,8 +25,6 @@
     "build": "course",
     "prepublish": "npm run build"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@salp/course-bundler": "^1.0.0",
     "vue-loader": "^15.5.1",
