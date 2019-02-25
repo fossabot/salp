@@ -13,7 +13,7 @@ class Course extends EventEmitter {
             .map(([name, component]) => ({
                 name,
                 component,
-                path: '/' + name,
+                path: '/chapter/' + name,
                 meta: {
                     title: name
                 }

@@ -77,6 +77,11 @@ class CourseService {
             stream = await this._fileGet(subRequest)
         } else {
             // resolve internal files
+            if (requestedPath.startsWith('chapter/')) {
+                // serve index, as this is a dynamic route of sandbox SPA
+                requestedPath = 'index.html'
+            }
+
             if (!isProduction && process.env.FRONTEND_URL_COURSE_SANDBOX) {
                 const subRequest = new URL(process.env.FRONTEND_URL_COURSE_SANDBOX)
                 subRequest.pathname = requestedPath

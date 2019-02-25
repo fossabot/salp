@@ -14,8 +14,13 @@ async function loadCourse() {
             // TODO: fix duplicate route registration when hot-reloading
             this.$router.addRoutes(routes)
 
-            // TODO: load last opened page
-            this.$router.replace({ name: routes[0].name })
+            // default route redirects to first chapter
+            this.$router.addRoutes([
+                {
+                    path: '/',
+                    redirect: routes[0].path
+                }
+            ])
         },
         render(createElement) {
             return createElement(Course, {

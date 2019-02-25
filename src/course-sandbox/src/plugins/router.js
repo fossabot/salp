@@ -4,6 +4,7 @@ import { router as salpRouter } from 'salp'
 let router
 const routes = []
 const routerOpts = {
+    mode: 'history',
     routes,
     scrollBehavior(to, from, savedPosition) {
         return { x: 0, y: 0 }
