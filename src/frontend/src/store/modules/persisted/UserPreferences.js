@@ -30,7 +30,9 @@ export { PersistedUserPreferences }
 const defaults = {
     username: '',
     path: '~/',
-    ml: true
+    ml: true,
+    showInitialInformation: true,
+    allowTracking: true
 }
 
 // store
