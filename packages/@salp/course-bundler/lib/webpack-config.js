@@ -47,6 +47,13 @@ function buildDefaultConfig(options, projectDir, outputDir) {
                 .loader('@salp/markdown-loader')
 
     config.module
+        .rule('manifest-file')
+            .test(/manifest\.js$/)
+            .use('file-loader')
+                .loader('file-loader')
+                .options({ name: 'manifest.json' })
+
+    config.module
         .rule('dynamic-injection')
             .test(/injectors\/.+\.js$/)
             .use('val-loader')
@@ -55,10 +62,22 @@ function buildDefaultConfig(options, projectDir, outputDir) {
                     ...options
                 })
 
+    /*config.module
+        .rule('manifest')
+            .test(/manifest$/)
+            .use('extract-manifest')
+                .loader(ExtractTextPlugin.extract({
+                    use: 'val-loader'
+                }))*/
+
     // plugins
     config
         .plugin('vue-loader')
         .use(VueLoaderPlugin)
+
+    /*config
+        .plugin('extract-manifest')
+        .use(ExtractTextPlugin, [])*/
 
     // resolve loaders
     config.resolveLoader.modules
