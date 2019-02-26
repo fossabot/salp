@@ -149,5 +149,8 @@ module.exports = function ContentElementsPlugin(md) {
         return self.renderToken(tokens, idx, options)
     }
 
-
+    // disable custom html rendering
+    md.renderer.rules.html_inline = md.renderer.rules.html_block = function renderHtml() {
+        return ''
+    }
 }
