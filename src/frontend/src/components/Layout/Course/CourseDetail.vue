@@ -15,7 +15,6 @@ import SectionHeader from '../Content/SectionHeader.vue'
 import CourseCardFull from './CourseCardFull.vue'
 import TableOfContents from '../Content/TableOfContents.vue'
 import ProgressBar from '../../Elements/ProgressBar.vue'
-import { courseContents } from '$root/__mocks__/courses.js'
 
 export default {
     name: 'CourseDetail',
@@ -29,9 +28,17 @@ export default {
         TableOfContents,
         ProgressBar
     },
-    data() {
-        return {
-            toc: courseContents
+    computed: {
+        toc() {
+            const tocObj = {}
+            this.course.chapters.forEach(c => {
+                tocObj[c] = {
+                    title: c,
+                    route: { path: 'content/chapters/' + c }
+                }
+            })
+
+            return tocObj
         }
     }
 }
