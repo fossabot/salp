@@ -46,7 +46,9 @@
                     <Tag size="small" v-for="(keyword, index) in keywords" :key="index">{{ keyword }}</Tag>
                 </div>
 
-                <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.chaptersAndAssignments', args: {chapters, assignments}}"></span>
+                <span class="course-card__info__text"
+                      v-t="{path: 'Layout.Course.info.shortDescription.chaptersAndAssignments', args: {chapters: chaptersCount, assignments: assignmentsCount}}">
+                </span>
                 <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
             </div>
 
@@ -71,8 +73,8 @@ export default {
         description: String,
         author: String,
         version: String,
-        chapters: Number,
-        assignments: Number,
+        chapters: Array,
+        assignments: Array,
         keywords: Array,
         progress: Number,
         favourite: Boolean,
@@ -97,6 +99,14 @@ export default {
         faRedo,
         faTrashAlt,
         faUser
+    },
+    computed: {
+        chaptersCount() {
+            return this.chapters.length
+        },
+        assignmentsCount() {
+            return this.assignments.length
+        }
     },
     methods: {
         handleCardClick(event) {

@@ -16,10 +16,13 @@ describe('Course class from CourseService', () => {
     }
 
     // setup
-    let readPkgInfoStub
+    let readPkgInfoStub,
+        readManifestStub
 
     before('stub', () => {
+        // WARNING: this seems to introduce side-effects in other tests (e.g. CourseManager)
         readPkgInfoStub = stub(Course.prototype, '_readPkgInfo')
+        readManifestStub = stub(Course.prototype, '_readManifest')
     })
 
     afterEach('reset', () => {

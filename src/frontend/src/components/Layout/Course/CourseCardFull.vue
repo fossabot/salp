@@ -55,7 +55,7 @@ export default {
         description: String,
         author: String,
         version: String,
-        chapters: Number,
+        chapters: Array,
         tests: Number,
         keywords: Array,
         progress: Number,

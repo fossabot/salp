@@ -6,6 +6,7 @@ class Course {
 
         // hydrate info
         this.pkgInfo = this._readPkgInfo() || {}
+        this.manifest = this._readManifest() || {}
         this.info = {
             name: this.pkgInfo.name,
             description: this.pkgInfo.description,
@@ -76,6 +77,18 @@ class Course {
         return this.path
     }
 
+    get chapters() {
+        return this.manifest.chapters || {}
+    }
+
+    get assignments() {
+        return this.manifest.assignments || {}
+    }
+
+    get dockerConfig() {
+        return this.manifest.dockerConfig || {}
+    }
+
     // methods
     resolveContentEntry() {
         const file = this.pkgInfo['browser']
@@ -94,12 +107,21 @@ class Course {
         return require(pkgJson, [])
     }
 
+    _readManifest() {
+        const manifestFile = path.join(this.path, 'manifest.json')
+
+        return require(manifestFile, [])
+    }
+
     /**
      * Converts this object to a simple representation which can be used for IPC
      */
     toSimple() {
         const data = {
-            ...this.info
+            ...this.info,
+            chapters: this.chapters,
+            dockerConfig: this.dockerConfig,
+            assignments: this.assignments
         }
 
         data.id = this.id

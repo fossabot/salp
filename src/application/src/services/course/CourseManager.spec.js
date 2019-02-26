@@ -32,6 +32,7 @@ describe('Course class from CourseService', () => {
             isValidStub = stub()
             replaceGetter(Course.prototype, 'isValid', isValidStub)
             stub(Course.prototype, '_readPkgInfo').returns({})
+            stub(Course.prototype, '_readManifest').returns({})
         })
 
         it('should throw an error if course is not valid', () => {
