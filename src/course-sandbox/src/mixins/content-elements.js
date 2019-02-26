@@ -14,6 +14,7 @@ import YouTube from '../components/ContentElements/YouTube.vue'
 import Table from '../components/ContentElements/Table.vue'
 import InlineCode from '../components/ContentElements/InlineCode.vue'
 import Code from '../components/ContentElements/Code'
+import DynamicAssignment from '../components/DynamicAssignment.vue'
 
 export default {
     components: {
@@ -31,6 +32,7 @@ export default {
         SimpleListItem,
         InlineCode,
         Code,
+        DynamicAssignment,
 
         Card
     }

@@ -149,8 +149,21 @@ module.exports = function ContentElementsPlugin(md) {
         return self.renderToken(tokens, idx, options)
     }
 
+    md.renderer.rules.html_block = function renderHtmlBlock(tokens, idx) {
+        const token = tokens[idx]
+        const html = token.content
+        const [, tagName, assignmentId] = html.match(/<(.+)\sid="(.*)"\/?>/) || []
+
+        if (tagName !== 'Assignment') {
+            // other custom tags are not supported
+            return ''
+        }
+
+        return `<DynamicAssignment id="${assignmentId}"/>`
+    }
+
     // disable custom html rendering
-    md.renderer.rules.html_inline = md.renderer.rules.html_block = function renderHtml() {
+    md.renderer.rules.html_inline = function renderHtml() {
         return ''
     }
 }
