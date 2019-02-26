@@ -1,5 +1,6 @@
 // Transient app state store
 import Vue from 'vue'
+export { default as DockerPlugin } from '@/store/plugins/docker'
 
 // module constants/info info
 export const namespace = 'AppState'

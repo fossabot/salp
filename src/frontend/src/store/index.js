@@ -1,12 +1,11 @@
-import modules, { PersistedUserPreferences, PersistedAppState, CoursesStorePlugin } from './modules'
-import docker from './plugins/docker'
+import modules, { PersistedUserPreferences, PersistedAppState, CoursesStorePlugin, DockerPlugin } from './modules'
 
 export default {
     plugins: [
         PersistedUserPreferences,
         PersistedAppState,
         CoursesStorePlugin,
-        docker
+        DockerPlugin
     ],
     modules
 }
