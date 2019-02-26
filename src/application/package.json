@@ -26,7 +26,6 @@
     "@salp/frontend": "^1.0.0",
     "dockerode": "^2.5.8",
     "electron-log": "^2.2.17",
-    "mock-require": "^3.0.3",
     "split-ca": "^1.0.1"
   }
 }
