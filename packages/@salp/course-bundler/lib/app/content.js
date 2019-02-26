@@ -1,5 +1,6 @@
 // course content entry
 export { default  as chapters } from '@internal/chapters'
+export { default as assignments } from '@internal/assignments'
 // execute user-script immediately as side-effect
 export { default as user } from '@internal/user-script'
 // exports path to extracted manifest file

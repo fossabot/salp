@@ -27,6 +27,7 @@ async function loadCourse() {
                 props: {
                     id: course.id,
                     chapters: course.chapters,
+                    assignments: course.assignments,
                     routes: this.routes
                 }
             })

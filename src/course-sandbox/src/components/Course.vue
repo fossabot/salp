@@ -18,6 +18,7 @@ export default {
     props: {
         id: String,
         chapters: Object,
+        assignments: Array,
         routes: Array
     },
     components: {

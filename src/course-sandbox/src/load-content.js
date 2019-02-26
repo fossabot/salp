@@ -14,11 +14,11 @@ async function load() {
     )
 
     // work with ES6 imports
-    const { chapters, user } = _content
+    const { chapters, user, assignments } = _content
     const UserCourse = user || Course
 
     // exported Course class from user-script
-    const course = new UserCourse(getCourseName(), chapters)
+    const course = new UserCourse(getCourseName(), chapters, assignments)
 
     return course
 }
