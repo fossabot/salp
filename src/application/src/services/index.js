@@ -1,9 +1,9 @@
 const persistedSettings = require('./persistedSettings.js')
 const CourseService = require('./course')
-const dockerService = require('./dockerService.js')
+const docker = require('./docker')
 
 module.exports = {
     persistedSettings: persistedSettings(),
     course: new CourseService(),
-    dockerService
+    docker: docker()
 }
