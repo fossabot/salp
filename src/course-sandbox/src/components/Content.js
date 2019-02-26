@@ -9,7 +9,7 @@ async function loadCourse() {
         name: 'Content',
         beforeCreate() {
             // add chapter routes to router
-            const routes = course.routes
+            const routes = this.routes = course.routes
 
             // TODO: fix duplicate route registration when hot-reloading
             this.$router.addRoutes(routes)
@@ -26,7 +26,8 @@ async function loadCourse() {
             return createElement(Course, {
                 props: {
                     id: course.id,
-                    chapters: course.chapters
+                    chapters: course.chapters,
+                    routes: this.routes
                 }
             })
         }

@@ -3,7 +3,7 @@
         <router-view/>
 
         <footer class="course-page-footer">
-            <ChapterPagination :chapters="chapters"/>
+            <ChapterPagination :routes="routes"/>
         </footer>
     </main>
 </template>
@@ -17,7 +17,8 @@ export default {
     mixins: [ContentElements],
     props: {
         id: String,
-        chapters: Object
+        chapters: Object,
+        routes: Array
     },
     components: {
         ChapterPagination

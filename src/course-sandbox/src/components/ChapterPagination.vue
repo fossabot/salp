@@ -1,6 +1,10 @@
 <template>
     <div id="chapter-pagination">
-        <Pagination layout="prev, pager, next" :page-count="chaptersCount" @current-change="handleCurrentPageChange"/>
+        <Pagination
+            layout="prev, pager, next"
+            :page-count="routesCount"
+            :current-page="initialPage"
+            @current-change="handleCurrentPageChange"/>
     </div>
 </template>
 
@@ -10,23 +14,29 @@ import { Pagination } from 'element-ui'
 export default {
     name: 'ChapterPagination',
     props: {
-        chapters: Object
+        routes: Array
     },
     components: {
         Pagination
     },
+    data() {
+        return {
+            initialPage: 0
+        }
+    },
+    beforeMount() {
+        // +1 because page counting starts at 1
+        this.initialPage = 1 + this.routes.findIndex(r => r.name === this.$route.name)
+    },
     computed: {
-        chapterNames() {
-            return Object.keys(this.chapters)
-        },
-        chaptersCount() {
-            return this.chapterNames.length
+        routesCount() {
+            return this.routes.length
         }
     },
     methods: {
         handleCurrentPageChange(newPage) {
-            const name = this.chapterNames[newPage - 1]
-            this.$router.push({ name })
+            const route = this.routes[newPage - 1]
+            this.$router.push(route)
         }
     }
 }
