@@ -1,0 +1,15 @@
+{
+    "instrument": false,
+    "sourceMap": false,
+    "reporter": [
+        "lcov",
+        "text",
+        "text-summary"
+    ],
+    "include": [
+        "src/**/*.{js,vue}"
+    ],
+    "exclude": [
+        "src/**/*.spec.js"
+    ]
+}

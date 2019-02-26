@@ -8,5 +8,8 @@ export default {
         return {
             setTitle: noop
         }
+    },
+    require(path) {
+        return '__electron_browser_mock__require_path__' + path
     }
 }

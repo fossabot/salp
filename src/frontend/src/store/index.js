@@ -1,9 +1,10 @@
-import modules, { PersistedUserPreferences, PersistedAppState } from './modules'
+import modules, { PersistedUserPreferences, PersistedAppState, CoursesStorePlugin } from './modules'
 
 export default {
     plugins: [
         PersistedUserPreferences,
-        PersistedAppState
+        PersistedAppState,
+        CoursesStorePlugin
     ],
     modules
 }

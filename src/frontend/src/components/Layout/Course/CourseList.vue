@@ -1,7 +1,7 @@
 <template>
     <Row class="course-list" :gutter="20">
         <ElCol v-for="(item, index) in courses" :key="index" :span="6">
-            <CourseCard v-bind="item"/>
+            <CourseCard v-bind="item" @click="handleCourseClick"/>
         </ElCol>
     </Row>
 </template>
@@ -21,6 +21,11 @@ export default {
         [Col.name]: Col,
 
         CourseCard
+    },
+    methods: {
+        handleCourseClick(course) {
+            this.$emit('select', course)
+        }
     }
 }
 </script>

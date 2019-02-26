@@ -19,13 +19,13 @@ export default {
     },
     methods: {
         // render methods
-        createLink(title) {
-            return this.$createElement('a', {
+        createLink(item) {
+            return this.$createElement('router-link', {
                 staticClass: 'toc__link',
-                attrs: {
-                    href: '#'
+                props: {
+                    to: item.route || {}
                 }
-            }, [title])
+            }, [item.title])
         },
         createMenuItem(content) {
             return this.$createElement('li', {
@@ -40,10 +40,10 @@ export default {
         // creation methods
         createMenu(menu) {
             if (typeof menu === 'string') {
-                return this.createMenuItem([this.createLink(menu)])
+                return this.createMenuItem([this.createLink({ title: menu })])
             }
 
-            let menuContent = [this.createLink(menu.title)]
+            let menuContent = [this.createLink(menu)]
 
             let children = []
             if (menu.children && this.$currentDepth <= this.depth) {

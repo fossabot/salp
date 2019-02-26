@@ -34,11 +34,11 @@ describe('Page title mixin: PageTitle.js', () => {
         PageTitle.__ResetDependency__('i18n')
     })
 
-    it('should add "beforeCreate" hook to component', () => {
+    it('should add "beforeMount" hook to component', () => {
         const wrapper = shallowMount(component)
 
-        expect(wrapper.vm.constructor.options.beforeCreate)
-            .to.satisfy(hooks => hooks.filter(fn => fn === PageTitleMixin.beforeCreate).length === 1)
+        expect(wrapper.vm.constructor.options.beforeMount)
+            .to.satisfy(hooks => hooks.filter(fn => fn === PageTitleMixin.beforeMount).length === 1)
     })
 
     it('should not emit "pageTitle" event when option "pageTitleTranslationKey" is not set', () => {

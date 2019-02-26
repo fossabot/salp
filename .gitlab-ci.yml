@@ -20,7 +20,7 @@ variables:
   ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
   CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/.cache/Cypress
   CYPRESS_INSTALL_BINARY: "0"
-  CORE_PACKAGES: "@salp/{frontend,application}"
+  CORE_PACKAGES: "@salp/{frontend,application,course-sandbox}"
 
 before_script:
   - npm ci
@@ -70,6 +70,16 @@ test:unit:application:
     paths:
       - src/application/coverage/
 
+test:unit:course-sandbox:
+  stage: test
+  script:
+    - cd src/course-sandbox/
+    - npm run coverage:unit
+  coverage: '/^Statements\s*:\s*([^%]+)/'
+  artifacts:
+    paths:
+      - src/course-sandbox/coverage/
+
 test:unit:packages:
   stage: test
   script:
@@ -84,7 +94,7 @@ test:e2e:frontend:production: &test_e2e_frontend
     COMPILE_MODE: "production"
   script:
     - cd src/frontend/
-    - NODE_ENV="RUNTIME_NODE_ENV" npm run test:e2e -- --mode $COMPILE_MODE
+    - NODE_ENV="$RUNTIME_NODE_ENV" npm run test:e2e -- --mode $COMPILE_MODE
   artifacts:
     expire_in: 1 day
     when: always

@@ -7,7 +7,7 @@
                 <small class="text-smaller" v-if="group.showCount">{{ group.items | count }}</small>
             </SectionHeader>
 
-            <CourseList :courses="group.items"/>
+            <CourseList :courses="courses" @select="handleCourseSelect"/>
         </div>
     </div>
 </template>
@@ -15,22 +15,46 @@
 <script>
 import SectionHeader from '../Content/SectionHeader.vue'
 import CourseList from './CourseList.vue'
+import { faHistory } from '@fortawesome/free-solid-svg-icons'
+import { mapGetters } from 'vuex'
+import { namespace, types } from '@/store/modules/Courses'
 
 export default {
     name: 'CoursesOverview',
-    props: {
-        groups: Object
-    },
     components: {
         SectionHeader,
 
         CourseList
     },
+    data() {
+        const recent = {
+            title: this.$t('Layout.Course.overview.categories.recent'),
+            icon: faHistory,
+            items: []
+        }
+
+        return {
+            groups: { recent }
+        }
+    },
     computed: {
+        ...mapGetters(namespace, {
+            courses: types.GET_COURSES
+        }),
         activeGroups() {
             return Object.entries(this.groups)
                 .filter(group => !group[1].collapsed)
                 .map(group => group[0])
+        }
+    },
+    methods: {
+        handleCourseSelect(courseId) {
+            this.$router.push({
+                name: 'coursedetail',
+                params: {
+                    courseId
+                }
+            })
         }
     },
     filters: {

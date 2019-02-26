@@ -1,3 +1,4 @@
 module.exports = {
-    persistedSettingsDir: 'appconf'
+    persistedSettingsDir: 'appconf',
+    isProduction: process.env.NODE_ENV === 'production'
 }

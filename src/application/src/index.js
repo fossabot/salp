@@ -26,7 +26,7 @@ function createMainWindow() {
 
     if (isDevelopment) {
     // Load the url of the dev server if in development mode
-        window.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+        window.loadURL(process.env.FRONTEND_URL_FRONTEND)
 
         if (!process.env.IS_TEST && !process.env.IS_REMOTE_DEBUG) {
             window.webContents.once('dom-ready', () => {
