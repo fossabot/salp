@@ -47,6 +47,10 @@ describe('Assignment.vue', () => {
         }
     ]
 
+    const exampleAssignment = {
+        questions
+    }
+
     const expectedValues = [
         { passedAt: 0.5, expects: true },
         { passedAt: 0.75, expects: true },
@@ -55,10 +59,13 @@ describe('Assignment.vue', () => {
 
     expectedValues.forEach(({ passedAt, expects }) => {
         it(`should evaluate the assignment is passed to:${expects} for passedAt:${passedAt}`, () => {
-            const wrapper = shallowMount(Assignment, {})
+            const wrapper = shallowMount(Assignment, {
+                propsData: {
+                    assignment: exampleAssignment
+                }
+            })
 
             wrapper.setData({
-                questions,
                 passedAt
             })
 
@@ -69,13 +76,13 @@ describe('Assignment.vue', () => {
 
     describe('Assignment check button', () => {
         it('should handle question validation if button is pressed once', () => {
-            const wrapper = mount(Assignment, {})
+            const wrapper = mount(Assignment, {
+                propsData: {
+                    assignment: exampleAssignment
+                }
+            })
 
             let handleQuestionValidated = spy()
-
-            wrapper.setData({
-                questions
-            })
 
             wrapper.setMethods({
                 handleQuestionValidated
@@ -107,15 +114,17 @@ describe('Assignment.vue', () => {
                 }
             ]
 
-            const wrapper = mount(Assignment, {})
+            const wrapper = mount(Assignment, {
+                propsData: {
+                    assignment: {
+                        questions: questionsRetry
+                    }
+                }
+            })
             let handleQuestionValidated = spy()
 
             wrapper.setMethods({
                 handleQuestionValidated
-            })
-
-            wrapper.setData({
-                questionsRetry
             })
 
             wrapper.findAll('label').at(0).trigger('click')
@@ -128,12 +137,9 @@ describe('Assignment.vue', () => {
         it('should show next question if button is presst the second time and no retry', () => {
             const wrapper = mount(Assignment, {
                 propsData: {
+                    assignment: exampleAssignment,
                     retry: false
                 }
-            })
-
-            wrapper.setData({
-                questions
             })
 
             wrapper.find('.assignment-content__button-container__button').trigger('click')
@@ -145,15 +151,12 @@ describe('Assignment.vue', () => {
             let passed = spy()
             const wrapper = mount(Assignment, {
                 propsData: {
+                    assignment: exampleAssignment,
                     retry: false
                 },
                 computed: {
                     passed
                 }
-            })
-
-            wrapper.setData({
-                questions
             })
 
             questions.forEach(question => {

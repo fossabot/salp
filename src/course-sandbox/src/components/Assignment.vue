@@ -28,11 +28,11 @@ import { Card, Button, Steps, Step } from 'element-ui'
 import MultipleChoice from './AssignmentElements/MultipleChoice.vue'
 import SingleChoice from './AssignmentElements/SingleChoice.vue'
 import UserInput from './AssignmentElements/UserInput.vue'
-import { questions } from '@/../__mocks__/assignment/questions.js'
 
 export default {
     name: 'Assignment',
     props: {
+        assignment: Object,
         retry: {
             type: Boolean,
             default: true
@@ -50,7 +50,6 @@ export default {
     },
     data() {
         return {
-            questions: questions,
             buttonText: this.$t('Layout.Assignment.button.check'),
             currentQuestionIndex: 0,
             passedAt: 0.5,
@@ -59,6 +58,9 @@ export default {
         }
     },
     computed: {
+        questions() {
+            return this.assignment.questions
+        },
         passed() {
             let totalQuestions = this.questions.length
             let correctQuestions = 0
