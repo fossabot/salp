@@ -13,10 +13,10 @@
         </div>
         <div class="docker-error" v-if="!dockerReady">
             <h3>Docker</h3>
-            <SimpleLink href="/settings">
+            <router-link to="/settings">
                 <ErrorLog :error="errorMessage"/>
-            </SimpleLink>
-            <SimpleLink href="/settings">{{ $t('App.pages.settings') }}</SimpleLink>
+            </router-link>
+            <router-link to="/settings">{{ $t('App.pages.settings') }}</router-link>
         </div>
     </Card>
 </template>
@@ -26,7 +26,6 @@ import { Card, Button } from 'element-ui'
 import { ipcRenderer } from 'electron'
 import { namespace, types } from '@/store/modules/AppState.js'
 import ErrorLog from '@/components/Elements/ErrorLog.vue'
-import SimpleLink from '@/components/ContentElements/SimpleLink.vue'
 import Containers from './Containers.vue'
 
 export default {
@@ -41,8 +40,7 @@ export default {
         Button,
         Card,
         Containers,
-        ErrorLog,
-        SimpleLink
+        ErrorLog
     },
     computed: {
         containersCount() {

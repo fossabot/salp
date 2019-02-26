@@ -15,10 +15,10 @@
             </TableColumn>
             <TableColumn label="Ports" prop="ports">
                 <template slot-scope="scope">
-                    <SimpleLink
+                    <ExternalLink
                         v-for="port in scope.row.ports"
                         :key="`link_${port}`"
-                        :href="`http://${baseIp}:${port}`">{{baseIp}}:{{port}}</SimpleLink>
+                        :href="`http://${baseIp}:${port}`">{{baseIp}}:{{port}}</ExternalLink>
                 </template>
             </TableColumn>
         </Table>
@@ -30,7 +30,7 @@ import { ipcRenderer } from 'electron'
 import { Table, TableColumn, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
 import { namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
-import SimpleLink from '@/components/ContentElements/SimpleLink.vue'
+import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {
     name: 'ContainerOverview',
@@ -38,7 +38,8 @@ export default {
         Table,
         TableColumn,
         Tag,
-        SimpleLink
+
+        ExternalLink
     },
     computed: {
         allSalpContainers() {

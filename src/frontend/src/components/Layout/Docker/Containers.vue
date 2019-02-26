@@ -12,10 +12,10 @@
             </TableColumn>
             <TableColumn label="Ports" prop="ports">
                 <template slot-scope="scope">
-                    <SimpleLink
+                    <ExternalLink
                         v-for="port in scope.row.ports"
                         :key="`link_${port}`"
-                        :href="`http://${baseIp}:${port}`">{{baseIp}}:{{port}}</SimpleLink>
+                        :href="`http://${baseIp}:${port}`">{{baseIp}}:{{port}}</ExternalLink>
                 </template>
             </TableColumn>
         </Table>
@@ -25,7 +25,7 @@
 <script>
 import { Table, TableColumn, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
-import SimpleLink from '@/components/ContentElements/SimpleLink.vue'
+import ExternalLink from '@/components/Elements/ExternalLink.vue'
 import { namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
 
 export default {
@@ -44,7 +44,8 @@ export default {
         Table,
         TableColumn,
         Tag,
-        SimpleLink
+
+        ExternalLink
     },
     computed: {
         tableData() {
