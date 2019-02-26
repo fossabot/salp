@@ -14,8 +14,8 @@
                 </component>
             </div>
         <div v-if="showResult" class="assignment-content__result-container">
-            <h3 v-if="passed">{{ $t('Layout.Assignment.result.passed') }}</h3>
-            <h3 v-else>{{ $t('Layout.Assignment.result.failed') }}</h3>
+            <h3 v-if="passed">{{ $t('Assignment.result.passed') }}</h3>
+            <h3 v-else>{{ $t('Assignment.result.failed') }}</h3>
         </div>
         <div v-if="!showResult" class="assignment-content__button-container">
             <Button class="assignment-content__button-container__button" type="primary" @click="handleButtonClick">{{ buttonText }}</Button>
@@ -50,7 +50,7 @@ export default {
     },
     data() {
         return {
-            buttonText: this.$t('Layout.Assignment.button.check'),
+            buttonText: this.$t('Assignment.button.check'),
             currentQuestionIndex: 0,
             passedAt: 0.5,
             validate: true,
@@ -77,14 +77,14 @@ export default {
     methods: {
         handleButtonClick() {
             if (this.validate) {
-                this.buttonText = this.$t('Layout.Assignment.button.next')
+                this.buttonText = this.$t('Assignment.button.next')
 
                 this.$refs[`question_${this.currentQuestionIndex}`][0].validate()
 
                 if (this.currentQuestionIndex === this.questions.length - 1) {
                     if ((this.retry && this.questions[this.currentQuestionIndex].$correct)
                         || !this.retry) {
-                        this.buttonText = this.$t('Layout.Assignment.button.result')
+                        this.buttonText = this.$t('Assignment.button.result')
                     }
                 }
             } else {
@@ -94,7 +94,7 @@ export default {
                     this.showResult = true
                 }
 
-                this.buttonText = this.$t('Layout.Assignment.button.check')
+                this.buttonText = this.$t('Assignment.button.check')
                 this.validate = true
             }
         },
@@ -106,7 +106,7 @@ export default {
             }
 
             if (this.retry && !this.questions[this.currentQuestionIndex].$correct) {
-                this.buttonText = this.$t('Layout.Assignment.button.retry')
+                this.buttonText = this.$t('Assignment.button.retry')
             }
         }
     }
