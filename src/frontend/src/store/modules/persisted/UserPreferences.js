@@ -30,7 +30,11 @@ export { PersistedUserPreferences }
 const defaults = {
     username: '',
     path: '~/',
-    ml: true
+    ml: true,
+    socket: '',
+    verifyTls: false,
+    certDir: '',
+    baseIp: '127.0.0.1'
 }
 
 // store

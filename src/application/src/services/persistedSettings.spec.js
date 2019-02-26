@@ -179,7 +179,7 @@ describe('persisted settings service', () => {
 
             await subject(event, expectedFileName)
 
-            expect(event.sender.send).have.been.calledWith('settings:loaded:' + expectedFileName, expectedContent)
+            expect(event.sender.send).have.been.calledWith('settings:loaded:' + expectedFileName, JSON.parse(expectedContent))
         })
 
         describe('private function #settingsLoadHandler', () => {
@@ -206,11 +206,11 @@ describe('persisted settings service', () => {
 
             it('should write contents to file and call sender', async () => {
                 const expectedFileName = '_one_settings_file_'
-                const expectedContent = '{ "data2": "more settings content" }'
+                const expectedContent = { "data2": "more settings content" }
 
                 await subject(event, expectedFileName, expectedContent)
 
-                expect(writeSettingsFileStub).to.have.been.calledWith(expectedFileName, expectedContent)
+                expect(writeSettingsFileStub).to.have.been.calledWith(expectedFileName, JSON.stringify(expectedContent))
                 expect(event.sender.send).to.have.been.calledWith('settings:saved:' + expectedFileName)
             })
         })
