@@ -5,11 +5,7 @@ describe('App (Entry)', () => {
         cy.visit('/')
     })
 
-    it('should display the home page title', () => {
-        cy.get('.page-title')
-            .should('be.visible')
-            .contains('Home')
-    })
+    it('should display the home page title')
 
     // These tests make sure the app's stylesheet is loaded
     describe('app stylesheet is loaded', () => {
