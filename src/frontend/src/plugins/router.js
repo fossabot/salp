@@ -5,7 +5,7 @@ import Profile from '../components/Pages/Profile.vue'
 import Course from '../components/Pages/Course.vue'
 import CourseDetail from '../components/Layout/Course/CourseDetail.vue'
 import CourseView from '../components/Layout/Course/CourseView.vue'
-import ContainerOverview from '../components/Layout/Docker/ContainerOverview.vue'
+import Containers from '../components/Pages/Containers.vue'
 
 let router
 const routes = [
@@ -20,9 +20,9 @@ const routes = [
         component: Settings
     },
     {
-        path: '/container',
-        name: 'container',
-        component: ContainerOverview
+        path: '/containers',
+        name: 'containers',
+        component: Containers
     },
     {
         path: '/profile',

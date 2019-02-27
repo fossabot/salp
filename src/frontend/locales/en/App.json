@@ -10,7 +10,8 @@
         "home": "Home",
         "settings": "Settings",
         "profile": "Profile",
-        "course": "Course"
+        "course": "Course",
+        "containers": "Containers"
     },
     "headlines": {
         "toc": "Table of Contents"
