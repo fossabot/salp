@@ -8,6 +8,7 @@
     },
     "pages": {
         "home": "Home",
+        "setup": "Setup",
         "settings": "Settings",
         "profile": "Profile",
         "course": "Course"

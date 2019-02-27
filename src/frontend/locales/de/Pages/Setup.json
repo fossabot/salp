@@ -1,0 +1,36 @@
+{
+    "Steps": {
+        "Welcome": "Willkommen",
+        "User": "Benutzereinstellungen",
+        "Docker": "Docker",
+        "Tracking": "Tracking (Matomo)",
+        "Ready": "Bereit"
+    },
+    "contents": {
+        "Welcome": {
+            "heading": "Willkomen bei der Security Awarness Learning Platforn - SALP",
+            "text": "Mithilfe dieser Platform sollen deine Security Awarness Fähigkeiten verbessert werden."
+        },
+        "User": {
+            "username": "Bitte gib zuerst deinen Benutzernamen ein, welchen du verwenden möchtest."
+        },
+        "Docker": {
+            "description1": "SALP enthält Beispiele zum ausprobieren. SALP benutzt ",
+            "description2": " als Virtualisierunglösung für diese Beispiele.",
+            "installation1": "Falls du die Beispiele ausprobieren möchtest, musst du",
+            "install": "docker installieren",
+            "installation2": ", wenn dies noch nicht auf deinem System vorhanden ist."
+        },
+        "Tracking": {
+            "part1": "SALP benutzt",
+            "part2": " um das Nutzerverhalten zu 'tracken'. Die erhobenen Daten werden zur Verbesserung der Nutzererfahrung mithilfe von 'Machine Learning' Algorithmen verwendet.",
+            "optOut": "Du kannst das Tracking mit Matomo abschalten:",
+            "allowTracking": "Tracking erlauben"
+        },
+        "Ready": "Nun bist du bereit deine Security Awarness Fähigkeiten zu verbessern."
+    },
+    "button": {
+        "next": "Nächster Schritt",
+        "start": "Los gehts"
+    }
+}

@@ -51,7 +51,7 @@ export default {
     data() {
         return {
             questions: questions,
-            buttonText: this.$t('Layout.Assignment.button.check'),
+            nextButtonLabel: this.$t('Layout.Assignment.button.check'),
             currentQuestionIndex: 0,
             passedAt: 0.5,
             validate: true,
