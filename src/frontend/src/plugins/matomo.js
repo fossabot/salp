@@ -1,6 +1,42 @@
 import VueMatomo from 'vue-matomo'
 import { router } from './router'
+import { store } from './store'
+import { namespace, types } from '@/store/modules/persisted/UserPreferences.js'
 
+/**
+ * Overwrite the setConsentGiven() and forgetConsentGive() methods of Matomo
+ * to persist their choice in the persisted/UserPreferences store
+ *
+ * @param {{}} matomo functions/object
+ */
+function extendMatomo(matomo) {
+    const originalSetConsentGive = matomo.setConsentGiven
+    const originalForgetConsentGiven = matomo.forgetConsentGiven
+
+    matomo.setConsentGiven = function() {
+        store.commit({
+            type: namespace + '/' + types.SET,
+            name: 'allowTracking',
+            value: true
+        })
+
+        originalSetConsentGive.apply(this, arguments)
+    }
+
+    matomo.forgetConsentGiven = function() {
+        store.commit({
+            type: namespace + '/' + types.SET,
+            name: 'allowTracking',
+            value: false
+        })
+
+        originalForgetConsentGiven.apply(this, arguments)
+    }
+
+    return matomo
+}
+
+let matomo
 export default {
     install(Vue) {
         Vue.use(VueMatomo, {
@@ -24,7 +60,7 @@ export default {
 
             // Require consent before sending tracking information to matomo
             // Default: false
-            requireConsent: false,
+            requireConsent: true,
 
             // Whether to track the initial page view
             // Default: true
@@ -32,13 +68,16 @@ export default {
 
             // Whether or not to log debug information
             // Default: false
-            debug: true
+            debug: false
         })
 
+        matomo = Vue.prototype.$matomo = extendMatomo(Vue.prototype.$matomo)
+
         router.afterEach((to, from) => {
-            const matomo = Vue.prototype.$matomo
             matomo.setCustomUrl(to.fullPath)
             matomo.trackPageView(to.name)
         })
     }
 }
+
+export { matomo }

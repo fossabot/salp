@@ -12,8 +12,8 @@ Vue.config.ignoredElements = [
 ]
 
 Vue.use(RouterPlugin)
-Vue.use(MatomoPlugin)
 Vue.use(StorePlugin)
+Vue.use(MatomoPlugin)
 Vue.use(i18nPlugin)
 Vue.use(design)
 

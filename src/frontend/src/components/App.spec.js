@@ -1,6 +1,8 @@
 import { expect } from 'chai'
+import { stub } from 'sinon'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 import App from './App.vue'
 
 const initialAppTitle = 'App'
@@ -8,6 +10,7 @@ const testRouteName = 'TheTestRouteNameAndAlsoPageTitle'
 
 const localVue = createLocalVue()
 localVue.use(VueRouter)
+localVue.use(Vuex)
 const router = new VueRouter({
     routes: [
         {
@@ -17,14 +20,32 @@ const router = new VueRouter({
     ]
 })
 
+const matomoStub = {
+    setConsentGiven: stub()
+}
+
 describe('App.vue', () => {
-    let wrapper
+    let wrapper,
+        persistedUserPreferencesGetterStub
 
     beforeEach(() => {
+        persistedUserPreferencesGetterStub = stub()
+        persistedUserPreferencesGetterStub.returns(true)
+
+        const store = new Vuex.Store({
+            getters: {
+                'persisted/UserPreferences/GET_OPTION': () => persistedUserPreferencesGetterStub
+            }
+        })
+
         wrapper = shallowMount(App, {
             localVue,
             router,
-            stubs: ['router-view']
+            store,
+            stubs: ['router-view'],
+            mocks: {
+                $matomo: matomoStub
+            }
         })
     })
 
@@ -59,4 +80,6 @@ describe('App.vue', () => {
 
         expect(wrapper).to.find('.page-title').which.has.text(changedTitle)
     })
+
+    it('should enable tracking if user gave consent on startup')
 })
