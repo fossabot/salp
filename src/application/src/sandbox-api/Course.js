@@ -1,12 +1,13 @@
 const EventEmitter = require('events')
 
 class Course extends EventEmitter {
-    constructor(id, chapters, assignments) {
+    constructor(id, chapters, assignments, dockerImages) {
         super()
 
         this.id = id
         this.chapters = chapters
         this.assignments = assignments
+        this.dockerImages = dockerImages
     }
 
     get routes() {

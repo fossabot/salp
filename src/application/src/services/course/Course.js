@@ -86,7 +86,7 @@ class Course {
     }
 
     get dockerConfig() {
-        return this.manifest.dockerConfig || {}
+        return this.manifest.docker || {}
     }
 
     // methods

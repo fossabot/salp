@@ -14,11 +14,11 @@ async function load() {
     )
 
     // work with ES6 imports
-    const { chapters, user, assignments } = _content
+    const { chapters, user, assignments, docker } = _content
     const UserCourse = user || Course
 
     // exported Course class from user-script
-    const course = new UserCourse(getCourseName(), chapters, assignments)
+    const course = new UserCourse(getCourseName(), chapters, assignments, docker.images)
 
     return course
 }

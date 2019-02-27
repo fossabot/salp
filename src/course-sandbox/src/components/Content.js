@@ -28,6 +28,7 @@ async function loadCourse() {
                     id: course.id,
                     chapters: course.chapters,
                     assignments: course.assignments,
+                    images: course.dockerImages,
                     routes: this.routes
                 }
             })
