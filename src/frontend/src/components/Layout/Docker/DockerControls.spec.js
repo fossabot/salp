@@ -18,7 +18,7 @@ describe('DockerControls.vue', () => {
 
     const course = {
         name: 'Lorem Ipsum',
-        containers
+        images: containers
     }
 
     let expectedContainerUpCount = Object.keys(containers).length

@@ -31,10 +31,8 @@ import Containers from './Containers.vue'
 export default {
     name: 'DockerControls',
     props: {
-        course: {
-            type: Object,
-            required: true
-        }
+        name: String,
+        images: Object
     },
     components: {
         Button,
@@ -43,6 +41,12 @@ export default {
         ErrorLog
     },
     computed: {
+        course() {
+            return {
+                name: this.name,
+                containers: this.images
+            }
+        },
         containersCount() {
             return Object.keys(this.course.containers).length
         },
@@ -58,7 +62,7 @@ export default {
             return this.$store.getters[namespace + '/' + types.GET_CONTAINER_STATUS_IS_BLOCKING](this.courseName)
         },
         courseName() {
-            return this.course.name.trim().replace(/\s/g, '').toLowerCase()
+            return this.name.trim().replace(/\s/g, '').toLowerCase()
         },
         dockerReady() {
             return this.$store.getters[namespace + '/' + types.GET_DOCKER_READY]

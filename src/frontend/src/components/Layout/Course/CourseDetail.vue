@@ -2,6 +2,9 @@
     <div class="course-detail__container">
         <CourseCardFull v-bind="course"/>
 
+        <SectionHeader>{{ $t('Layout.Course.detail.sections.containers') }}</SectionHeader>
+        <DockerControls :name="course.name" :images="course.dockerConfig.images"/>
+
         <SectionHeader>{{ $t('App.headlines.toc') }}</SectionHeader>
         <TableOfContents :toc="toc"/>
 
@@ -15,6 +18,7 @@ import SectionHeader from '../Content/SectionHeader.vue'
 import CourseCardFull from './CourseCardFull.vue'
 import TableOfContents from '../Content/TableOfContents.vue'
 import ProgressBar from '../../Elements/ProgressBar.vue'
+import DockerControls from '../Docker/DockerControls.vue'
 
 export default {
     name: 'CourseDetail',
@@ -26,7 +30,8 @@ export default {
 
         CourseCardFull,
         TableOfContents,
-        ProgressBar
+        ProgressBar,
+        DockerControls
     },
     computed: {
         toc() {
