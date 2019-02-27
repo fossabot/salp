@@ -6,7 +6,7 @@
                 <Button :disabled="disabled" icon="el-icon-refresh"
                     type="danger" :round="true" size="small" @click="handleReset">Reset</Button>
             </div>
-            <Containers :course-name="courseName" :containers="course.containers"/>
+            <Containers :course-name="courseName" :images="course.images"/>
             <div class="docker-controls__button-container">
                 <Button :disabled="disabled" @click="handleButtonClick">{{ buttonText }}</Button>
             </div>
@@ -44,11 +44,11 @@ export default {
         course() {
             return {
                 name: this.name,
-                containers: this.images
+                images: this.images
             }
         },
         containersCount() {
-            return Object.keys(this.course.containers).length
+            return Object.keys(this.course.images).length
         },
         allContainersUp() {
             const containersUp = this.$store.getters[namespace + '/' + types.GET_CONTAINER_UP_COUNT](this.courseName)

@@ -89,7 +89,19 @@ async function exec({ sender }, course, alias, cmd) {
     }
 }
 
+function processCourse(course) {
+    course.containers =  {}
+    Object.entries(course.images).forEach(([alias, config]) => {
+        course.containers[alias] = {
+            Image: config.image,
+            Ports: config.ports || ['']
+        }
+    })
+    delete course.images
+}
+
 function getDockerManager(course) {
+    processCourse(course)
     let dockerManager = dockerManagers[course.name]
     if (dockerManager === undefined) {
         dockerManager = new DockerManager(course)

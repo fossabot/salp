@@ -35,7 +35,7 @@ export default {
             type: String,
             required: true
         },
-        containers: {
+        images: {
             type: Object,
             required: true
         }
@@ -50,7 +50,7 @@ export default {
     computed: {
         tableData() {
             let tableData = []
-            for (const image in this.containers) {
+            for (const image in this.images) {
                 let row = {}
                 row['image'] = image
                 let containerName = `salp_${this.courseName}_${image}`
