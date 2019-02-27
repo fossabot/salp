@@ -31,7 +31,7 @@ const defaults = {
     username: '',
     path: '~/',
     ml: true,
-    showInitialInformation: true,
+    setupDone: false,
     allowTracking: true
 }
 

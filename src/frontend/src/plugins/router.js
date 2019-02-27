@@ -1,5 +1,6 @@
 import Router from 'vue-router'
 import Home from '../components/Pages/Home.vue'
+import Setup, { stepsPages } from '../components/Pages/Setup.vue'
 import Settings from '../components/Pages/Settings.vue'
 import Profile from '../components/Pages/Profile.vue'
 import Course from '../components/Pages/Course.vue'
@@ -12,6 +13,11 @@ const routes = [
         path: '/',
         name: 'home',
         component: Home
+    },
+    {
+        path: '/setup',
+        component: Setup,
+        children: stepsPages
     },
     {
         path: '/settings',
