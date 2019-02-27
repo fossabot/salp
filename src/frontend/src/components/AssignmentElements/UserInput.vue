@@ -68,10 +68,10 @@ export default {
             return this.answers.some(({ answer }) => answer === this.answer.trim())
         },
         validate() {
-            if (!this.retry) {
+            this.correct = this.questionIsCorrect()
+            if (!this.retry || (this.retry && this.correct)) {
                 this.disabled = true
             }
-            this.correct = this.questionIsCorrect()
             this.$emit('validated', this.correct)
         },
         handleBlur(event) {

@@ -89,6 +89,11 @@ export default {
             this.answers.forEach(answer => {
                 this.validateAnswer(answer)
             })
+
+            if (this.retry && this.questionIsCorrect()) {
+                this.disabled = true
+            }
+
             this.$emit('validated', this.questionIsCorrect())
         }
     },

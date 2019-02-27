@@ -90,15 +90,21 @@ export default {
     },
     methods: {
         handleButtonClick() {
+            // Show Result Click
             if (this.buttonText === this.$t('Layout.Assignment.button.result')) {
+                // Matomo finished assignment
                 this.$matomo.trackEvent(this.name + '_assignment', 'finished', '' + this.passed)
             } else {
+                // Matomo track button click
                 this.$matomo.trackEvent(this.name + '_assignment', 'clicked', '' + this.buttonText)
             }
 
+            // Validate current answer
             if (this.validate) {
+                // Set buttonText to 'next question'
                 this.buttonText = this.$t('Layout.Assignment.button.next')
 
+                // Validate answer
                 this.$refs[`question_${this.currentQuestionIndex}`][0].validate()
 
                 if (this.currentQuestionIndex === this.questions.length - 1) {
@@ -107,15 +113,21 @@ export default {
                         this.buttonText = this.$t('Layout.Assignment.button.result')
                     }
                 }
+
+            // Show Next question
             } else {
                 this.currentQuestionIndex++
                 this.currentQuestionIndexRetrys = 0
 
+                // Show result if last question was reached
                 if (this.currentQuestionIndex >= this.questions.length) {
                     this.showResult = true
                 }
 
+                // Set buttontext to 'check answer'
                 this.buttonText = this.$t('Layout.Assignment.button.check')
+
+                // Set validate to true, to validate answer with next button click
                 this.validate = true
             }
         },
