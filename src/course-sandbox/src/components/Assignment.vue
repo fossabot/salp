@@ -39,7 +39,10 @@ import UserInput from './AssignmentElements/UserInput.vue'
 export default {
     name: 'Assignment',
     props: {
-        assignment: Object,
+        questions: {
+            type: Array,
+            required: true
+        },
         retry: {
             type: Boolean,
             default: true
@@ -74,9 +77,6 @@ export default {
         }
     },
     computed: {
-        questions() {
-            return this.assignment.questions
-        },
         passed() {
             let totalQuestions = this.questions.length
             let correctQuestions = 0

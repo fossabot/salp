@@ -54,10 +54,6 @@ describe('Assignment.vue', () => {
         }
     ]
 
-    const exampleAssignment = {
-        questions
-    }
-
     const expectedValues = [
         { passedAt: 0.5, expects: true },
         { passedAt: 0.75, expects: true },
@@ -70,7 +66,7 @@ describe('Assignment.vue', () => {
                 propsData: {
                     name,
                     passedAt,
-                    assignment: exampleAssignment
+                    questions
                 }
             })
 
@@ -89,7 +85,7 @@ describe('Assignment.vue', () => {
                 propsData: {
                     name,
                     passedAt,
-                    assignment: exampleAssignment
+                    questions
                 },
                 mocks: {
                     $matomo: matomoStub
@@ -162,15 +158,11 @@ describe('Assignment.vue', () => {
                     retry: false,
                     name,
                     passedAt,
-                    assignment: exampleAssignment
+                    questions
                 },
                 mocks: {
                     $matomo: matomoStub
                 }
-            })
-
-            wrapper.setData({
-                questions
             })
 
             wrapper.find('.assignment-content__start-button').trigger('click')
@@ -186,7 +178,7 @@ describe('Assignment.vue', () => {
                     retry: false,
                     name,
                     passedAt,
-                    assignment: exampleAssignment
+                    questions
                 },
                 computed: {
                     passed
