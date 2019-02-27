@@ -49,8 +49,7 @@ describe('DockerControls.vue', () => {
                 propsData: {
                     name: course.name,
                     images: course.images
-                },
-                stubs: ['router-link']
+                }
             })
         })
 
@@ -90,8 +89,7 @@ describe('DockerControls.vue', () => {
                 propsData: {
                     name: course.name,
                     images: course.images
-                },
-                stubs: ['router-link']
+                }
             })
         })
 
@@ -129,8 +127,7 @@ describe('DockerControls.vue', () => {
                 propsData: {
                     name: course.name,
                     images: course.images
-                },
-                stubs: ['router-link']
+                }
             })
         })
 
