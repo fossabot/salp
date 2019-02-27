@@ -126,9 +126,7 @@ describe('Assignment.vue', () => {
                 propsData: {
                     name,
                     passedAt,
-                    assignment: {
-                        questions: questionsRetry
-                    }
+                    questions: questionsRetry
                 },
                 mocks: {
                     $matomo: matomoStub
@@ -193,7 +191,6 @@ describe('Assignment.vue', () => {
                 wrapper.find('.assignment-content__button-container__button').trigger('click')
             })
             expect(passed.calledOnce).to.be.true
-
         })
     })
 })
