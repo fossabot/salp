@@ -6,6 +6,7 @@ import Profile from '../components/Pages/Profile.vue'
 import Course from '../components/Pages/Course.vue'
 import CourseDetail from '../components/Layout/Course/CourseDetail.vue'
 import CourseView from '../components/Layout/Course/CourseView.vue'
+import Containers from '../components/Pages/Containers.vue'
 
 let router
 const routes = [
@@ -25,14 +26,20 @@ const routes = [
         component: Settings
     },
     {
+        path: '/containers',
+        name: 'containers',
+        component: Containers
+    },
+    {
         path: '/profile',
         name: 'profile',
         component: Profile
     },
     {
-        path: '/course',
+        path: '/course/:courseId',
         name: 'course',
         component: Course,
+        props: true,
         children: [
             {
                 path: 'detail',
@@ -43,7 +50,14 @@ const routes = [
             {
                 path: 'content',
                 name: 'coursecontent',
-                component: CourseView
+                component: CourseView,
+                children: [
+                    {
+                        path: '*',
+                        name: 'coursecontent-default',
+                        component: CourseView
+                    }
+                ]
             }
         ]
     }

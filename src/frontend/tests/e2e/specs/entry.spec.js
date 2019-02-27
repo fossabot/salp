@@ -29,7 +29,7 @@ describe('App (Entry)', () => {
         it('should load element-ui styles for Main component', () => {
             // see 'element-ui/packages/theme-chalk/src/main.scss'
             const expectedCssRules = {
-                'display': 'block',
+                'display': 'flex',
                 'flex': '1 1 auto',
                 'flex-basis': 'auto',
                 'overflow': 'auto',

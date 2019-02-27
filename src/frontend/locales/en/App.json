@@ -1,7 +1,7 @@
 {
     "menu": {
         "home": "Home",
-        "health": "Health",
+        "health": "Container",
         "updates": "Updates",
         "settings": "Settings",
         "about": "About"
@@ -11,7 +11,8 @@
         "setup": "Setup",
         "settings": "Settings",
         "profile": "Profile",
-        "course": "Course"
+        "course": "Course",
+        "containers": "Containers"
     },
     "headlines": {
         "toc": "Table of Contents"

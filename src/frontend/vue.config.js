@@ -24,10 +24,6 @@ const chunks = {
         test: /\/node_modules\/lodash\//,
         name: 'lodash'
     },
-    codemirror: {
-        test: /\/node_modules\/codemirror\//,
-        name: 'codemirror'
-    },
     vendor: {
         test: /\/node_modules\//,
         priority: -10,

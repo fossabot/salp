@@ -71,7 +71,7 @@ describe('TableOfContents.js mixin', () => {
                     const method = wrapper.vm[func]
 
                     expect(method).to.be.a('function')
-                    expect(method()).to.be.an.instanceof(wrapper.vm.$vnode.constructor)
+                    expect(method({})).to.be.an.instanceof(wrapper.vm.$vnode.constructor)
                 })
             })
         })

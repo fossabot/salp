@@ -1,20 +1,32 @@
 <template>
-    <a href="#" class="course-card--link">
+    <a href="#" class="course-card--link" @click="handleCardClick">
         <Card class="course-card" shadow="hover">
             <header slot="header" class="course-card__header">
                 <h3 class="course-card__name">{{ name }}</h3>
 
                 <div class="course-card__context-menu">
                     <Dropdown trigger="click">
-                        <Button type="text" class="dropdown__trigger">
+                        <Button type="text" class="dropdown__trigger ignore-click">
                             <Icon icon="faEllipsisV"/>
                         </Button>
                         <DropdownMenu slot="dropdown">
-                            <DropdownItem>
-                                <Icon icon="faGlobe"/> {{ $t('Layout.Course.actions.openProjectPage') }}
+                            <DropdownItem v-if="repositoryUrl">
+                                <ExternalLink :href="repositoryUrl">
+                                    <Icon icon="faGlobe"/>
+                                    {{ $t('Layout.Course.actions.openProjectPage') }}
+                                </ExternalLink>
                             </DropdownItem>
-                            <DropdownItem>
-                                <Icon icon="faExclamation"/> {{ $t('Layout.Course.actions.reportIssue') }}
+                            <DropdownItem v-if="issuesUrl">
+                                <ExternalLink :href="issuesUrl">
+                                    <Icon icon="faExclamation"/>
+                                    {{ $t('Layout.Course.actions.reportIssue') }}
+                                </ExternalLink>
+                            </DropdownItem>
+                            <DropdownItem v-if="homepage">
+                                <ExternalLink :href="homepage">
+                                    <Icon icon="faUser"/>
+                                    {{ $t('Layout.Course.actions.visitAuthorPage') }}
+                                </ExternalLink>
                             </DropdownItem>
                             <DropdownItem v-if="progress">
                                 <Icon icon="faRedo"/> Reset
@@ -31,10 +43,12 @@
                 <p>{{ description | truncate(140) }}</p>
 
                 <div class="course-card__tags">
-                    <Tag size="small" v-for="(tag, index) in tags" :key="index">{{ tag }}</Tag>
+                    <Tag size="small" v-for="(keyword, index) in keywords" :key="index">{{ keyword }}</Tag>
                 </div>
 
-                <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.chaptersAndAssignments', args: {chapters, assignments}}"></span>
+                <span class="course-card__info__text"
+                      v-t="{path: 'Layout.Course.info.shortDescription.chaptersAndAssignments', args: {chapters: chaptersCount, assignments: assignmentsCount}}">
+                </span>
                 <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
             </div>
 
@@ -47,8 +61,9 @@
 
 <script>
 import { Card, Button, Dropdown, DropdownMenu, DropdownItem, Tag } from 'element-ui'
-import { faEllipsisV, faGlobe, faExclamation, faRedo, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV, faGlobe, faExclamation, faRedo, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 import ProgressBar from '@/components/Elements/ProgressBar.vue'
+import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {
     name: 'CourseCard',
@@ -58,11 +73,14 @@ export default {
         description: String,
         author: String,
         version: String,
-        chapters: Number,
-        assignments: Number,
-        tags: Array,
+        chapters: Array,
+        assignments: Array,
+        keywords: Array,
         progress: Number,
-        favourite: Boolean
+        favourite: Boolean,
+        repositoryUrl: String,
+        homepage: String,
+        issuesUrl: String
     },
     components: {
         Card,
@@ -71,14 +89,33 @@ export default {
         DropdownMenu,
         DropdownItem,
         Tag,
-        ProgressBar
+        ProgressBar,
+        ExternalLink
     },
     icons: {
         faEllipsisV,
         faGlobe,
         faExclamation,
         faRedo,
-        faTrashAlt
+        faTrashAlt,
+        faUser
+    },
+    computed: {
+        chaptersCount() {
+            return this.chapters.length
+        },
+        assignmentsCount() {
+            return this.assignments.length
+        }
+    },
+    methods: {
+        handleCardClick(event) {
+            if (event.target.closest('.ignore-click')) {
+                return
+            }
+
+            this.$emit('click', this.id)
+        }
     }
 }
 </script>

@@ -1,22 +1,50 @@
 <template>
   <div id="page-settings">
     <Form ref="form" :label-position="'left'" label-width="300px">
-        <FormItem label="Use Machine Learning">
+        <FormItem :label="$t('Pages.Settings.label.ml')">
             <ElSwitch v-model="ml"></ElSwitch>
-            <span class="form-item__description">If Machine Learning is switched on, you will recieve recommendations for courses and hinds
-        based on your inputs.</span>
+            <span class="form-item__description">{{ $t('Pages.Settings.description.ml') }}</span>
         </FormItem>
-        <FormItem label="Homepath">
-            <Input autosize v-model="path"/>
-            <span class="form-item__description">Path to your home folder.</span>
-        </FormItem>
+        <div class="page-settings__docker-settings">
+            <div class="status-container">
+                <h3>Docker</h3>
+                <FormItem :label="$t('Pages.Settings.label.status')">
+                    <Tag disable-transitions
+                        :type="deamonFound ? 'success': 'danger'">
+                    {{ dockerStatus }}
+                    </Tag>
+                </FormItem>
+            </div>
+            <FormItem :label="$t('Pages.Settings.label.baseIp')">
+                <Input autosize v-model="baseIp"/>
+                <span class="form-item__description">{{ $t('Pages.Settings.description.baseIp') }}</span>
+            </FormItem>
+            <FormItem :label="$t('Pages.Settings.label.socket')">
+                <Input autosize v-model="socket"/>
+                <span class="form-item__description">{{ $t('Pages.Settings.description.socket') }}</span>
+            </FormItem>
+            <FormItem :label="$t('Pages.Settings.label.certificate')">
+                <Input autosize v-model="certDir" @click.native="handleCertClick"/>
+                <span class="form-item__description">{{ $t('Pages.Settings.description.certificate') }}</span>
+            </FormItem>
+            <FormItem :label="$t('Pages.Settings.label.tls')">
+                <ElSwitch v-model="verifyTls" @change="testDocker"></ElSwitch>
+                <span class="form-item__description">{{ $t('Pages.Settings.description.tls') }}</span>
+            </FormItem>
+        </div>
     </Form>
+    <ErrorLog :error="errorMessage"/>
   </div>
 </template>
 
 <script>
-import { Switch, Form, FormItem, Input } from 'element-ui'
-import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
+import { debounce } from 'lodash'
+import { userInputDebounceTimer } from '@/constants'
+import { Switch, Form, FormItem, Input, Tag } from 'element-ui'
+import { namespace, types } from '@/store/modules/AppState.js'
+import { createHelpers, namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
+import { ipcRenderer, remote } from 'electron'
+import ErrorLog from '@/components/Elements/ErrorLog.vue'
 
 const { mapStateTwoWay } = createHelpers()
 
@@ -28,9 +56,63 @@ export default {
         [Switch.name]: Switch,
         Form,
         FormItem,
-        Input
+        Input,
+        Tag,
+        ErrorLog
     },
-    computed: mapStateTwoWay(['ml', 'path'])
+    computed: {
+        ...mapStateTwoWay(['ml', 'verifyTls', 'baseIp']),
+        deamonFound() {
+            this.testDocker()
+
+            return this.$store.getters[namespace + '/' + types.GET_DOCKER_READY]
+        },
+        errorMessage() {
+            return this.$store.getters[namespace + '/' + types.GET_DOCKER_ERROR]
+        },
+        dockerStatus() {
+            return this.deamonFound ? 'Docker found and ready to use' : 'Docker not found'
+        },
+        certDir: {
+            set(value) {
+                this.$store.commit({
+                    type: `${userPreferencesNamespace}/${userPreferencesTypes.SET}`,
+                    name: 'certDir',
+                    value
+                })
+
+                this.testDocker()
+            },
+            get() {
+                return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('certDir')
+            }
+        },
+        socket: {
+            set(value) {
+                this.$store.commit({
+                    type: `${userPreferencesNamespace}/${userPreferencesTypes.SET}`,
+                    name: 'socket',
+                    value
+                })
+
+                this.testDocker()
+            },
+            get() {
+                return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('socket')
+            }
+        }
+    },
+    methods: {
+        testDocker: debounce(() => {
+            ipcRenderer.send('docker:test')
+        }, userInputDebounceTimer * 2),
+        handleCertClick() {
+            const path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
+            if (path) {
+                this.certDir = path[0]
+            }
+        }
+    }
 }
 </script>
 

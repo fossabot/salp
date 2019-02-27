@@ -20,7 +20,8 @@
     },
     "detail": {
         "sections": {
-            "personalProgress": "Your progress"
+            "personalProgress": "Your progress",
+            "containers": "Containers"
         }
     }
 }

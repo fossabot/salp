@@ -245,7 +245,7 @@ describe('Vuex Persist Plugin: persist.js', () => {
             await callAction(loadAction, { commit: commitSpy })
 
             const loadHandler = getSettingsLoadedHandler()
-            loadHandler(null, JSON.stringify(testState))
+            loadHandler(null, testState)
 
             expect(commitSpy.firstCall.args[0]).to.deep.equal({
                 type: mutationTypeAll,
@@ -257,7 +257,7 @@ describe('Vuex Persist Plugin: persist.js', () => {
             await callAction(saveAction, { state: testState })
 
             expect(ipcRendererSpy.send).to.have.been.calledWith('settings:save', testPluginName)
-            expect(ipcRendererSpy.send.firstCall.lastArg).to.equal(JSON.stringify(testState))
+            expect(ipcRendererSpy.send.firstCall.lastArg).to.deep.equal(testState)
         })
     })
 
