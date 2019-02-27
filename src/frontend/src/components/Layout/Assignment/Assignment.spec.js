@@ -1,9 +1,13 @@
 import { expect } from 'chai'
 import { shallowMount, mount } from '@vue/test-utils'
 import Assignment from './Assignment.vue'
-import { spy } from 'sinon'
+import { spy, stub } from 'sinon'
 
 describe('Assignment.vue', () => {
+    const matomoStub = {
+        trackEvent: stub()
+    }
+
     const questions = [
         {
             component: 'MultipleChoice',
@@ -69,7 +73,11 @@ describe('Assignment.vue', () => {
 
     describe('Assignment check button', () => {
         it('should handle question validation if button is pressed once', () => {
-            const wrapper = mount(Assignment, {})
+            const wrapper = mount(Assignment, {
+                mocks: {
+                    $matomo: matomoStub
+                }
+            })
 
             let handleQuestionValidated = spy()
 
@@ -80,6 +88,8 @@ describe('Assignment.vue', () => {
             wrapper.setMethods({
                 handleQuestionValidated
             })
+
+            wrapper.find('.assignment-content__start-button').trigger('click')
 
             wrapper.find('.assignment-content__button-container__button').trigger('click')
             expect(handleQuestionValidated.calledOnce).to.be.true
@@ -107,7 +117,12 @@ describe('Assignment.vue', () => {
                 }
             ]
 
-            const wrapper = mount(Assignment, {})
+            const wrapper = mount(Assignment, {
+                mocks: {
+                    $matomo: matomoStub
+                }
+            })
+
             let handleQuestionValidated = spy()
 
             wrapper.setMethods({
@@ -117,6 +132,8 @@ describe('Assignment.vue', () => {
             wrapper.setData({
                 questionsRetry
             })
+
+            wrapper.find('.assignment-content__start-button').trigger('click')
 
             wrapper.findAll('label').at(0).trigger('click')
             wrapper.find('.assignment-content__button-container__button').trigger('click')
@@ -129,12 +146,17 @@ describe('Assignment.vue', () => {
             const wrapper = mount(Assignment, {
                 propsData: {
                     retry: false
+                },
+                mocks: {
+                    $matomo: matomoStub
                 }
             })
 
             wrapper.setData({
                 questions
             })
+
+            wrapper.find('.assignment-content__start-button').trigger('click')
 
             wrapper.find('.assignment-content__button-container__button').trigger('click')
             wrapper.find('.assignment-content__button-container__button').trigger('click')
@@ -149,12 +171,17 @@ describe('Assignment.vue', () => {
                 },
                 computed: {
                     passed
+                },
+                mocks: {
+                    $matomo: matomoStub
                 }
             })
 
             wrapper.setData({
                 questions
             })
+
+            wrapper.find('.assignment-content__start-button').trigger('click')
 
             questions.forEach(question => {
                 wrapper.find('.assignment-content__button-container__button').trigger('click')
