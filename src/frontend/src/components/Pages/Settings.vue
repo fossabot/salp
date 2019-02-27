@@ -1,6 +1,10 @@
 <template>
   <div id="page-settings">
     <Form ref="form" :label-position="'left'" label-width="300px">
+        <FormItem label="Allow tracking">
+            <ElSwitch v-model="allowTracking"></ElSwitch>
+            <span class="form-item__description">Define whether you want to allow user tracking/analytics.</span>
+        </FormItem>
         <FormItem label="Use Machine Learning">
             <ElSwitch v-model="ml"></ElSwitch>
             <span class="form-item__description">If Machine Learning is switched on, you will recieve recommendations for courses and hinds
@@ -30,7 +34,7 @@ export default {
         FormItem,
         Input
     },
-    computed: mapStateTwoWay(['ml', 'path'])
+    computed: mapStateTwoWay(['allowTracking', 'ml', 'path'])
 }
 </script>
 
