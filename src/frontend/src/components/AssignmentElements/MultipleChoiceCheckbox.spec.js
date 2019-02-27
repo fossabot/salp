@@ -3,6 +3,7 @@ import { shallowMount } from '@vue/test-utils'
 import MultipleChoiceCheckbox from './MultipleChoiceCheckbox.vue'
 
 describe('MultipleChoiceCheckbox.vue', () => {
+    const assignmentName = 'lorem'
     const expectedValues = [
         { isValid: true, expects: 'is-valid' },
         { isValid: false, expects: 'is-invalid' },
@@ -15,7 +16,10 @@ describe('MultipleChoiceCheckbox.vue', () => {
             const wrapper = shallowMount(MultipleChoiceCheckbox, {
                 propsData: {
                     answer,
-                    isValid
+                    isValid,
+                    assignmentName,
+                    retry: true,
+                    question: 'lorem'
                 }
             })
 

@@ -1,6 +1,6 @@
 <template>
     <Card class="assignment-content__container piwikTrackContent">
-        <h1>{{ assignmentName }}</h1>
+        <h1>{{ name }}</h1>
         <div v-if="started">
             <Steps :active="currentQuestionIndex">
                 <Step v-for="(question, index) in questions" :key="`step${index}`"
@@ -10,7 +10,7 @@
                 <component v-for="(question, index) in questions"
                     :key="`question_${index}`" :ref="`question_${index}`" :is="question.component"
                     :question="question.question" :answers="question.answers" :retry="retry"
-                    :assignmentName="assignmentName" v-show="index === currentQuestionIndex"
+                    :assignmentName="name" v-show="index === currentQuestionIndex"
                     @validated="handleQuestionValidated">
                 </component>
             </div>
@@ -43,6 +43,14 @@ export default {
         retry: {
             type: Boolean,
             default: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        passedAt: {
+            type: Number,
+            required: true
         }
     },
     components: {
@@ -57,11 +65,9 @@ export default {
     },
     data() {
         return {
-            assignmentName: 'SQLInjection',
             questions: questions,
             buttonText: this.$t('Layout.Assignment.button.check'),
             currentQuestionIndex: 0,
-            passedAt: 0.5,
             validate: true,
             showResult: false,
             currentQuestionIndexRetrys: 0,
@@ -85,9 +91,9 @@ export default {
     methods: {
         handleButtonClick() {
             if (this.buttonText === this.$t('Layout.Assignment.button.result')) {
-                this.$matomo.trackEvent(this.assignmentName + '_assignment', 'finished', '' + this.passed)
+                this.$matomo.trackEvent(this.name + '_assignment', 'finished', '' + this.passed)
             } else {
-                this.$matomo.trackEvent(this.assignmentName + '_assignment', 'clicked', '' + this.buttonText)
+                this.$matomo.trackEvent(this.name + '_assignment', 'clicked', '' + this.buttonText)
             }
 
             if (this.validate) {
@@ -124,10 +130,10 @@ export default {
                 this.currentQuestionIndexRetrys++
                 this.buttonText = this.$t('Layout.Assignment.button.retry')
             }
-            this.$matomo.trackEvent(this.assignmentName + '_assignment', 'question_' + this.currentQuestionIndex, 'retry_' + this.currentQuestionIndexRetrys, result ? 1 : 0)
+            this.$matomo.trackEvent(this.name + '_assignment', 'question_' + this.currentQuestionIndex, 'retry_' + this.currentQuestionIndexRetrys, result ? 1 : 0)
         },
         handleStartClick() {
-            this.$matomo.trackEvent(this.assignmentName + '_assignment', 'started')
+            this.$matomo.trackEvent(this.name + '_assignment', 'started')
             this.started = true
         }
     }

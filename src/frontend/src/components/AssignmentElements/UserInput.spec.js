@@ -4,6 +4,7 @@ import { shallowMount } from '@vue/test-utils'
 import UserInput from './UserInput.vue'
 
 describe('UserInput.vue', () => {
+    const assignmentName = 'lorem'
     const question = 'Lorem ipsum dollor sit atmet?'
     const answers = [
         { answer: 'lorem' }
@@ -24,7 +25,9 @@ describe('UserInput.vue', () => {
                         question,
                         questionPosition,
                         answers,
-                        correctCallback: stub()
+                        correctCallback: stub(),
+                        assignmentName,
+                        retry: true
                     }
                 })
 
@@ -45,7 +48,9 @@ describe('UserInput.vue', () => {
             const wrapper = shallowMount(UserInput, {
                 propsData: {
                     question,
-                    answers
+                    answers,
+                    assignmentName,
+                    retry: true
                 }
             })
 

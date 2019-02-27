@@ -8,6 +8,9 @@ describe('Assignment.vue', () => {
         trackEvent: stub()
     }
 
+    const name = 'loremIpsum'
+    const passedAt = 0.5
+
     const questions = [
         {
             component: 'MultipleChoice',
@@ -59,11 +62,15 @@ describe('Assignment.vue', () => {
 
     expectedValues.forEach(({ passedAt, expects }) => {
         it(`should evaluate the assignment is passed to:${expects} for passedAt:${passedAt}`, () => {
-            const wrapper = shallowMount(Assignment, {})
+            const wrapper = shallowMount(Assignment, {
+                propsData: {
+                    name,
+                    passedAt
+                }
+            })
 
             wrapper.setData({
-                questions,
-                passedAt
+                questions
             })
 
             const passed = wrapper.vm.passed
@@ -74,6 +81,10 @@ describe('Assignment.vue', () => {
     describe('Assignment check button', () => {
         it('should handle question validation if button is pressed once', () => {
             const wrapper = mount(Assignment, {
+                propsData: {
+                    name,
+                    passedAt
+                },
                 mocks: {
                     $matomo: matomoStub
                 }
@@ -118,6 +129,10 @@ describe('Assignment.vue', () => {
             ]
 
             const wrapper = mount(Assignment, {
+                propsData: {
+                    name,
+                    passedAt
+                },
                 mocks: {
                     $matomo: matomoStub
                 }
@@ -145,7 +160,9 @@ describe('Assignment.vue', () => {
         it('should show next question if button is presst the second time and no retry', () => {
             const wrapper = mount(Assignment, {
                 propsData: {
-                    retry: false
+                    retry: false,
+                    name,
+                    passedAt
                 },
                 mocks: {
                     $matomo: matomoStub
@@ -167,7 +184,9 @@ describe('Assignment.vue', () => {
             let passed = spy()
             const wrapper = mount(Assignment, {
                 propsData: {
-                    retry: false
+                    retry: false,
+                    name,
+                    passedAt
                 },
                 computed: {
                     passed
