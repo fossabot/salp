@@ -70,10 +70,6 @@ describe('Assignment.vue', () => {
                 }
             })
 
-            wrapper.setData({
-                passedAt
-            })
-
             const passed = wrapper.vm.passed
             expect(passed).to.equal(expects)
         })
@@ -145,6 +141,7 @@ describe('Assignment.vue', () => {
             })
 
             wrapper.find('.assignment-content__start-button').trigger('click')
+
             wrapper.findAll('label').at(0).trigger('click')
             wrapper.find('.assignment-content__button-container__button').trigger('click')
             wrapper.findAll('label').at(1).trigger('click')
@@ -166,6 +163,7 @@ describe('Assignment.vue', () => {
             })
 
             wrapper.find('.assignment-content__start-button').trigger('click')
+
             wrapper.find('.assignment-content__button-container__button').trigger('click')
             wrapper.find('.assignment-content__button-container__button').trigger('click')
             expect(wrapper.vm.$data.currentQuestionIndex).to.equal(1)
@@ -189,6 +187,7 @@ describe('Assignment.vue', () => {
             })
 
             wrapper.find('.assignment-content__start-button').trigger('click')
+
             questions.forEach(question => {
                 wrapper.find('.assignment-content__button-container__button').trigger('click')
                 wrapper.find('.assignment-content__button-container__button').trigger('click')

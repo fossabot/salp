@@ -93,7 +93,7 @@ export default {
     methods: {
         handleButtonClick() {
             // Show Result Click
-            if (this.buttonText === this.$t('Layout.Assignment.button.result')) {
+            if (this.buttonText === this.$t('Assignment.button.result')) {
                 // Matomo finished assignment
                 this.$matomo.trackEvent(this.name + '_assignment', 'finished', '' + this.passed)
             } else {
