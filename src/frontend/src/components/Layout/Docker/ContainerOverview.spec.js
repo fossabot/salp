@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { namespace, types } from '@/store/modules/AppState.js'
+import { namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
 import ContainerOverview from './ContainerOverview.vue'
 import { stub, spy } from 'sinon'
 import { Table } from 'element-ui'
@@ -13,11 +14,13 @@ describe('ContainerOverview.vue', () => {
     const expectedContainerName = 'salp_lorem_ipsum'
     const expectedContainerState = 'running'
     const expectedContainerPort = ['23342']
+    const expectedBaseIp = '127.0.0.1'
 
     let wrapper
     let allContainers
     let containerStatus
     let containerPorts
+    let baseIp
     let send
     let getters
     let store
@@ -26,11 +29,13 @@ describe('ContainerOverview.vue', () => {
         allContainers = stub().callsFake(() => ({ [expectedContainerName]: {} }))
         containerStatus = stub().callsFake(() => expectedContainerState)
         containerPorts = stub().callsFake(() => expectedContainerPort)
+        baseIp = stub().callsFake(() => expectedBaseIp)
 
         getters = {
             [`${namespace}/${types.GET_ALL_CONTAINERS}`]: allContainers,
             [`${namespace}/${types.GET_CONTAINER_STATUS}`]: (state) => containerStatus,
-            [`${namespace}/${types.GET_CONTAINER_PORTS_SIMPLE}`]: (state) => containerPorts
+            [`${namespace}/${types.GET_CONTAINER_PORTS_SIMPLE}`]: (state) => containerPorts,
+            [`${userPreferencesNamespace}/${userPreferencesTypes.GET}`]: (state) => baseIp
         }
 
         store = new Vuex.Store({

@@ -12,16 +12,16 @@ describe('DockerControls.vue', () => {
     const expectedImage = 'lorem'
     const expectedIsBlocking = false
 
-    const containers = {
+    const images = {
         [expectedImage]: {}
     }
 
     const course = {
         name: 'Lorem Ipsum',
-        images: containers
+        images
     }
 
-    let expectedContainerUpCount = Object.keys(containers).length
+    let expectedContainerUpCount = Object.keys(images).length
     let wrapper
     let containerUpCount
     let containerIsBlocking
@@ -47,13 +47,15 @@ describe('DockerControls.vue', () => {
                 store,
                 localVue,
                 propsData: {
-                    course
-                }
+                    name: course.name,
+                    images: course.images
+                },
+                stubs: ['router-link']
             })
         })
 
         it('should return correct containers count', () => {
-            const expectedContainerCount = Object.keys(containers).length
+            const expectedContainerCount = Object.keys(images).length
             const contaienrCount = wrapper.vm.containersCount
             expect(contaienrCount).to.equal(expectedContainerCount)
         })
@@ -86,8 +88,10 @@ describe('DockerControls.vue', () => {
                 store,
                 localVue,
                 propsData: {
-                    course
-                }
+                    name: course.name,
+                    images: course.images
+                },
+                stubs: ['router-link']
             })
         })
 
@@ -123,8 +127,10 @@ describe('DockerControls.vue', () => {
                 store,
                 localVue,
                 propsData: {
-                    course
-                }
+                    name: course.name,
+                    images: course.images
+                },
+                stubs: ['router-link']
             })
         })
 
