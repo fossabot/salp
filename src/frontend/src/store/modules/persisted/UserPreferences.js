@@ -34,7 +34,9 @@ const defaults = {
     socket: '',
     verifyTls: false,
     certDir: '',
-    baseIp: '127.0.0.1'
+    baseIp: '127.0.0.1',
+    setupDone: false,
+    allowTracking: true
 }
 
 // store

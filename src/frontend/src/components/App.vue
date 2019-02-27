@@ -15,6 +15,7 @@
 
 <script>
 import { remote } from 'electron'
+import { namespace, types } from '@/store/modules/persisted/UserPreferences.js'
 import { Container, Header, Main } from 'element-ui'
 import MainMenu from './MainMenu.vue'
 
@@ -33,9 +34,19 @@ export default {
             pageTitle: 'App'
         }
     },
+    computed: {
+        setupDone() {
+            return this.$store.getters[namespace + '/' + types.GET]('setupDone')
+        }
+    },
     watch: {
         pageTitle(title) {
             remote.getCurrentWindow().setTitle(title)
+        }
+    },
+    beforeMount() {
+        if (!this.setupDone) {
+            this.$router.push({ name: 'setup' })
         }
     },
     methods: {
