@@ -50,7 +50,7 @@ export default {
         },
         passedAt: {
             type: Number,
-            required: true
+            default: 0.5
         }
     },
     components: {
