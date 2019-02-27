@@ -1,0 +1,19 @@
+{
+  "name": "salp-course-heartbleed",
+  "version": "1.0.0",
+  "description": "SALP course about the heartbleed bug",
+  "author": "SALP Team",
+  "license": "ISC",
+  "main": "dist/content.js",
+  "browser": "dist/content.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "course",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@salp/course-bundler": "^1.0.0"
+  }
+}
