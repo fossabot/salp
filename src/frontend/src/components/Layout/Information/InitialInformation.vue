@@ -3,12 +3,12 @@
         <Steps :active="currentStep">
             <Step v-for="(title, index) in steps" :key="`initial-step${index}`" :title="title"/>
         </Steps>
-        <Heading v-if="currentStep === 0" :level="1">{{ $t('Pages.InitialInformation.text.salp.heading') }}</Heading>
+        <Heading v-if="currentStep === 0" :level="1">{{ $t('Pages.Setup.text.salp.heading') }}</Heading>
         <SimpleText v-if="currentStep === 0">
-            {{ $t('Pages.InitialInformation.text.salp.text') }}
+            {{ $t('Pages.Setup.text.salp.text') }}
         </SimpleText>
         <SimpleText v-if="currentStep === 1">
-            {{ $t('Pages.InitialInformation.text.username') }}
+            {{ $t('Pages.Setup.text.username') }}
             <Form ref="form" labelPosition="left" :inline="true" class="profile-form">
                 <FormItem :label="$t('Pages.Profile.description.usernameLabel')">
                     <ElInput autosize v-model="username">
@@ -18,24 +18,24 @@
             </Form>
         </SimpleText>
         <SimpleText v-if="currentStep === 2">
-            {{ $t('Pages.InitialInformation.text.docker.description1') }}<SimpleLink href="https://www.docker.com/">Docker</SimpleLink>{{ $t('Pages.InitialInformation.text.docker.description2') }}
+            {{ $t('Pages.Setup.text.docker.description1') }}<SimpleLink href="https://www.docker.com/">Docker</SimpleLink>{{ $t('Pages.Setup.text.docker.description2') }}
         </SimpleText>
         <SimpleText v-if="currentStep === 2">
-            {{ $t('Pages.InitialInformation.text.docker.installation1') }}<SimpleLink href="https://docs.docker.com/install/">{{ $t('Pages.InitialInformation.text.docker.install') }}</SimpleLink>{{ $t('Pages.InitialInformation.text.docker.installation2') }}
+            {{ $t('Pages.Setup.text.docker.installation1') }}<SimpleLink href="https://docs.docker.com/install/">{{ $t('Pages.Setup.text.docker.install') }}</SimpleLink>{{ $t('Pages.Setup.text.docker.installation2') }}
         </SimpleText>
         <SimpleText v-if="currentStep === 3">
-            {{ $t('Pages.InitialInformation.text.matomo.part1') }} <SimpleLink href="https://matomo.org/">Matomo</SimpleLink>{{ $t('Pages.InitialInformation.text.matomo.part2') }}
+            {{ $t('Pages.Setup.text.matomo.part1') }} <SimpleLink href="https://matomo.org/">Matomo</SimpleLink>{{ $t('Pages.Setup.text.matomo.part2') }}
         </SimpleText>
         <SimpleText v-if="currentStep === 3">
-            {{ $t('Pages.InitialInformation.text.matomo.optOut') }}
+            {{ $t('Pages.Setup.text.matomo.optOut') }}
             <Form>
-                <FormItem :label="$t('Pages.InitialInformation.text.matomo.allowTracking')">
+                <FormItem :label="$t('Pages.Setup.text.matomo.allowTracking')">
                     <ElSwitch v-model="allowTracking"></ElSwitch>
                 </FormItem>
             </Form>
         </SimpleText>
         <SimpleText v-if="currentStep === 4">
-            {{ $t('Pages.InitialInformation.text.ready') }}
+            {{ $t('Pages.Setup.text.ready') }}
         </SimpleText>
         <div class="button-container">
             <Button @click="handleButtonClick" type="primary">{{ buttonText }}</Button>
@@ -72,14 +72,14 @@ export default {
     data() {
         return {
             steps: [
-                this.$t('Pages.InitialInformation.description.salp'),
-                this.$t('Pages.InitialInformation.description.username'),
-                this.$t('Pages.InitialInformation.description.docker'),
-                this.$t('Pages.InitialInformation.description.matomo'),
-                this.$t('Pages.InitialInformation.description.start')
+                this.$t('Pages.Setup.description.salp'),
+                this.$t('Pages.Setup.description.username'),
+                this.$t('Pages.Setup.description.docker'),
+                this.$t('Pages.Setup.description.matomo'),
+                this.$t('Pages.Setup.description.start')
             ],
             currentStep: 0,
-            buttonText: this.$t('Pages.InitialInformation.button.next')
+            buttonText: this.$t('Pages.Setup.button.next')
         }
     },
     computed: mapStateTwoWay(['allowTracking', 'username']),
@@ -94,7 +94,7 @@ export default {
             }
 
             if (this.currentStep + 1 === this.steps.length - 1) {
-                this.buttonText = this.$t('Pages.InitialInformation.button.start')
+                this.buttonText = this.$t('Pages.Setup.button.start')
             }
 
             if (this.currentStep < this.steps.length - 1) {
