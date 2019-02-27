@@ -1,16 +1,18 @@
 {
     "menu": {
         "home": "Home",
-        "health": "Health",
+        "health": "Container",
         "updates": "Updates",
         "settings": "Settings",
         "about": "About"
     },
     "pages": {
         "home": "Home",
+        "setup": "Setup",
         "settings": "Settings",
         "profile": "Profile",
-        "course": "Course"
+        "course": "Course",
+        "containers": "Containers"
     },
     "headlines": {
         "toc": "Table of Contents"

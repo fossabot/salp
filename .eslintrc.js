@@ -11,7 +11,8 @@ module.exports = {
             'error',
             4,
             {
-                "MemberExpression": 'off'
+                "MemberExpression": 'off',
+                'SwitchCase': 1
             }
         ],
         'new-cap': [

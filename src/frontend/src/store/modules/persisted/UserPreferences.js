@@ -31,7 +31,12 @@ const defaults = {
     username: '',
     path: '~/',
     ml: true,
-    allowTracking: false
+    allowTracking: false,
+    socket: '',
+    verifyTls: false,
+    certDir: '',
+    baseIp: '127.0.0.1',
+    setupDone: false
 }
 
 // store

@@ -2,7 +2,7 @@
 import { i18n } from '@/plugins/i18n'
 
 const mixin = {
-    beforeCreate() {
+    beforeMount() {
         const pageTitleTranslationKey = this.$options.pageTitleTranslationKey
         if (!pageTitleTranslationKey) {
             return

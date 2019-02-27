@@ -13,7 +13,8 @@ config.stubs = {
 
     'Icon': true,
     'webview': true,
-    'router-view': true
+    'router-view': true,
+    'router-link': true
 }
 
 config.mocks = {

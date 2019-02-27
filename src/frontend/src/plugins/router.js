@@ -1,10 +1,12 @@
 import Router from 'vue-router'
 import Home from '../components/Pages/Home.vue'
+import Setup, { stepsPages } from '../components/Pages/Setup.vue'
 import Settings from '../components/Pages/Settings.vue'
 import Profile from '../components/Pages/Profile.vue'
 import Course from '../components/Pages/Course.vue'
 import CourseDetail from '../components/Layout/Course/CourseDetail.vue'
 import CourseView from '../components/Layout/Course/CourseView.vue'
+import Containers from '../components/Pages/Containers.vue'
 
 let router
 const routes = [
@@ -14,9 +16,19 @@ const routes = [
         component: Home
     },
     {
+        path: '/setup',
+        component: Setup,
+        children: stepsPages
+    },
+    {
         path: '/settings',
         name: 'settings',
         component: Settings
+    },
+    {
+        path: '/containers',
+        name: 'containers',
+        component: Containers
     },
     {
         path: '/profile',
@@ -24,9 +36,10 @@ const routes = [
         component: Profile
     },
     {
-        path: '/course',
+        path: '/course/:courseId',
         name: 'course',
         component: Course,
+        props: true,
         children: [
             {
                 path: 'detail',
@@ -37,7 +50,14 @@ const routes = [
             {
                 path: 'content',
                 name: 'coursecontent',
-                component: CourseView
+                component: CourseView,
+                children: [
+                    {
+                        path: '*',
+                        name: 'coursecontent-default',
+                        component: CourseView
+                    }
+                ]
             }
         ]
     }

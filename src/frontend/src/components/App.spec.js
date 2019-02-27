@@ -53,12 +53,12 @@ describe('App.vue', () => {
         expect(wrapper.vm.pageTitle).to.equal(initialAppTitle)
     })
 
-    it('should update the page title when route changes', () => {
+    it('should not update the page title when route changes', () => {
         expect(wrapper.vm.pageTitle).to.equal(initialAppTitle)
 
         router.push({ name: testRouteName })
 
-        expect(wrapper.vm.pageTitle).to.equal(testRouteName)
+        expect(wrapper.vm.pageTitle).to.equal(initialAppTitle)
     })
 
     it('should update the page title when event "pageTitle" was emitted', () => {
@@ -82,4 +82,5 @@ describe('App.vue', () => {
     })
 
     it('should enable tracking if user gave consent on startup')
+    it('should show setup page on initial startup')
 })
