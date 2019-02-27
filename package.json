@@ -8,7 +8,8 @@
     "lint": "lerna run lint --no-bail",
     "test": "lerna run test --no-bail",
     "test:core": "lerna run test --no-bail --scope=@salp/{frontend,application}",
-    "serve": "node scripts/serve.js"
+    "serve": "node scripts/serve.js",
+    "clean": "lerna run clean"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

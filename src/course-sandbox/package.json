@@ -9,7 +9,8 @@
     "test": "npm run test:unit",
     "test:unit_cmd": "vue-cli-service test:unit --include tests/unit/setup.js",
     "test:unit": "npm run test:unit_cmd -- '{src,tests/unit}/**/*.spec.js'",
-    "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/setup.js '{src,tests/unit}/**/*.{spec.js,vue}'"
+    "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/setup.js '{src,tests/unit}/**/*.{spec.js,vue}'",
+    "clean": "rm -rf dist/"
   },
   "dependencies": {
     "codemirror": "^5.43.0",
