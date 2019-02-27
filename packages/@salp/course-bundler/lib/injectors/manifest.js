@@ -6,7 +6,7 @@ module.exports = async options => {
     const resultObj = {
         chapters,
         docker: options.docker || null,
-        assignments: options.assignments || []
+        assignments: options.assignments || {}
     }
 
     return { code: JSON.stringify(resultObj, null, 2) }
