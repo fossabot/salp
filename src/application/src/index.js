@@ -6,8 +6,8 @@ const { format: formatUrl } = require('url')
 const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
 const { setup: setupLog } = require('./services/log')
 require('./services')
-const isDevelopment = process.env.NODE_ENV !== 'production'
-if (isDevelopment) {
+const { isProduction } = require('./constants')
+if (!isProduction) {
     // Don't load any native (external) modules until the following line is run:
     require('module').globalPaths.push(process.env.NODE_MODULES_PATH)
 }
@@ -24,7 +24,7 @@ function createMainWindow() {
 
     setupLog()
 
-    if (isDevelopment) {
+    if (!isProduction) {
     // Load the url of the dev server if in development mode
         window.loadURL(process.env.FRONTEND_URL_FRONTEND)
 
@@ -75,7 +75,7 @@ app.on('activate', () => {
 
 // create main BrowserWindow when electron is ready
 app.on('ready', async () => {
-    if (isDevelopment && !process.env.IS_TEST) {
+    if (isProduction && !process.env.IS_TEST) {
     // Install Vue Devtools
         await installExtension(VUEJS_DEVTOOLS)
     }

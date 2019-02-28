@@ -1,8 +1,16 @@
 const rewire = require('rewire')
+const mockRequire = require('mock-require')
+const { app } = require('../../__mocks__/electron')
 const electronLog = require('electron-log')
-const log = require('./log')
 
 describe('log.js service', () => {
+    let log
+
+    before('mock electron.app', () => {
+        mockRequire('electron', { app })
+        log = require('./log')
+    })
+
     it('should export logger as default module', () => {
         expect(log).to.have.property('default').which.equals(electronLog)
     })
@@ -19,21 +27,21 @@ describe('log.js service', () => {
         })
 
         it('should raise log level to "debug" in development', () => {
-            logger.__set__('isDevelopment', true)
+            logger.__set__('isProduction', false)
             logger.setup()
 
             expect(logger.default.transports.console.level).to.equal('debug')
         })
 
         it('should raise log level to "error" in production', () => {
-            logger.__set__('isDevelopment', false)
+            logger.__set__('isProduction', true)
             logger.setup()
 
             expect(logger.default.transports.file.level).to.equal('error')
         })
 
         it('should write log to console in development', () => {
-            logger.__set__('isDevelopment', true)
+            logger.__set__('isProduction', false)
             logger.setup()
 
             expect(logger.default.transports.console.level).to.be.ok
@@ -41,7 +49,7 @@ describe('log.js service', () => {
         })
 
         it('should write log to file in production', () => {
-            logger.__set__('isDevelopment', false)
+            logger.__set__('isProduction', true)
             logger.setup()
 
             expect(logger.default.transports.file.level).to.be.ok

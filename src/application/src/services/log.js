@@ -1,10 +1,9 @@
 const log = require('electron-log')
-
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const { isProduction } = require('../constants')
 
 function setup() {
     // Configure logging
-    if (isDevelopment) {
+    if (!isProduction) {
         log.transports.file.level = false
         log.transports.console.level = 'debug'
     } else {
