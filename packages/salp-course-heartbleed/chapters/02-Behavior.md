@@ -4,7 +4,7 @@ XKCD did a comic showing the behavior of Heartbleed.
 ![XKCD Heartbleed](https://imgs.xkcd.com/comics/heartbleed_explanation.png)  
 
 The Bug can be found inside [OpenSSL 1.0.1](https://github.com/openssl/openssl/blob/4817504d069b4c5082161b02a22116ad75f822b1/ssl/t1_lib.c).  
-```text/x-csrc{32}
+```text/x-csrc{33}
 tls1_process_heartbeat(SSL *s)
 	{
 	unsigned char *p = &s->s3->rrec.data[0], *pl;
@@ -74,7 +74,7 @@ No traces are left if a server was exploited using Heartbleed.
 
 ## Fix
 Heartbleed was fixed with [OpenSSL 1.0.1g](https://github.com/openssl/openssl/blob/731f431497f463f3a2a97236fe0187b11c44aead/ssl/t1_lib.c).
-```text/x-csrc
+```text/x-csrc{13-20}
 tls1_process_heartbeat(SSL *s)
 	{
 	unsigned char *p = &s->s3->rrec.data[0], *pl;
