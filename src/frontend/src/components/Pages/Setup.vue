@@ -59,7 +59,7 @@ export default {
     },
     methods: {
         handleStepPageTitle(stepTitle) {
-            const currentTitle = this.$t(this.options.pageTitleTranslationKey)
+            const currentTitle = this.$t(this.$options.pageTitleTranslationKey)
             const title = `${currentTitle} - ${stepTitle}`
 
             this.$emit('pageTitle', title)
