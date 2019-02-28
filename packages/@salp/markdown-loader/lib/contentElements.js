@@ -115,7 +115,29 @@ module.exports = function ContentElementsPlugin(md) {
         const code = escapeHtml(token.content).trim()
         const random = Math.floor(Math.random() * 100000)
 
-        return `<Code :key="${random}" language="${token.info}">${code}</Code>`
+        let language = token.info
+        let lines = ''
+        const info = token.info.match(/(.+){(.+)}/)
+        if (info) {
+            language = info[1]
+            lines = info[2]
+            lines = lines.split(',')
+                .map(t => {
+                    t = t.split('-')
+                    if (t.length > 1) {
+                        return `[${t.join(',')}]`
+                    } else {
+                        return t[0]
+                    }
+                })
+                .join(',')
+                .replace(/\\/g, '\\\\')
+                .replace(/\$/g, '\\$')
+                .replace(/'/g, '\\\'')
+                .replace(/"/g, '\\"')
+        }
+
+        return `<Code :key="${random}" :highlightedLines="[${lines}]" language="${language}">${code}</Code>`
     }
 
     md.renderer.rules.code_inline = function renderInlineCode(tokens, idx) {
