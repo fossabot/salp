@@ -3,6 +3,7 @@ import { shallowMount } from '@vue/test-utils'
 import SingleChoiceRadiobutton from './SingleChoiceRadiobutton.vue'
 
 describe('SingleChoiceRadiobutton.vue', () => {
+    const assignmentName = 'lorem'
     const expectedValues = [
         { isValid: true, expects: 'is-valid' },
         { isValid: false, expects: 'is-invalid' },
@@ -15,7 +16,10 @@ describe('SingleChoiceRadiobutton.vue', () => {
             const wrapper = shallowMount(SingleChoiceRadiobutton, {
                 propsData: {
                     answer,
-                    isValid
+                    isValid,
+                    assignmentName,
+                    retry: true,
+                    question: 'lorem'
                 }
             })
 

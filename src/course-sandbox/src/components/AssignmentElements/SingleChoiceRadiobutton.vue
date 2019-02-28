@@ -1,7 +1,7 @@
 <template>
-    <Radio class="single-choice-content__container__radio-group__radio"
-        :label="answer" :class="getValidationClass" >
-        {{answer}}
+    <Radio class="single-choice-content__container__radio-group__radio .piwikContentIgnoreInteraction"
+        :label="answer" :class="getValidationClass" @change="handleChange">
+        {{ answer }}
     </Radio>
 </template>
 
@@ -14,6 +14,14 @@ export default {
         Radio
     },
     props: {
+        assignmentName: {
+            type: String,
+            required: true
+        },
+        question: {
+            type: String,
+            required: true
+        },
         answer: {
             type: String,
             required: true
@@ -33,6 +41,11 @@ export default {
             }
 
             return ''
+        }
+    },
+    methods: {
+        handleChange(checked) {
+            this.$matomo.trackEvent(this.assignmentName + '_assignment', 'sc_' + this.question, '' + checked)
         }
     }
 }

@@ -3,6 +3,7 @@ import App from './App.vue'
 import './theme/default.scss'
 import RouterPlugin, { router } from './plugins/router'
 import i18nPlugin, { i18n } from './plugins/i18n'
+import MatomoPlugin from './plugins/matomo'
 
 Vue.config.productionTip = false
 Vue.config.ignoredElements = [
@@ -11,6 +12,7 @@ Vue.config.ignoredElements = [
 
 Vue.use(RouterPlugin)
 Vue.use(i18nPlugin)
+Vue.use(MatomoPlugin)
 
 new Vue({
     router,

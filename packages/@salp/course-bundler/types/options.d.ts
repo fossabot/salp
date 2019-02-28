@@ -31,6 +31,11 @@ export interface AssignmentQuestion {
 }
 
 export interface Assignment {
+    // allow retrying
+    retry?: boolean;
+    // percentage after which the assignment has been passed (default: 0.5)
+    passedAt?: Number;
+    // course questions
     questions: Array<AssignmentQuestion>;
 }
 

@@ -1,5 +1,5 @@
 <template functional>
-    <span id="setup-ready">{{ parent.$t('Pages.Setup.text.ready') }}</span>
+    <span id="setup-ready">{{ parent.$t('Pages.Setup.contents.Ready') }}</span>
 </template>
 
 <script>

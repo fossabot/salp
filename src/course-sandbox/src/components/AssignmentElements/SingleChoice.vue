@@ -3,8 +3,8 @@
         <h1>{{ question }}</h1>
         <RadioGroup class="single-choice-content__container__radio-group" v-model="checked" :disabled="disabled">
             <SingleChoiceRadiobutton v-for="({answer, $isValid}, index) in answers" :isValid="isValid[index]"
-                :key="`single_${index}`" :answer="answer">
-                {{answer}}
+                :key="`single_${index}`" :question="question" :answer="answer" :assignmentName="assignmentName">
+                {{ answer }}
             </SingleChoiceRadiobutton>
         </RadioGroup>
     </div>
@@ -21,6 +21,10 @@ export default {
         SingleChoiceRadiobutton
     },
     props: {
+        assignmentName: {
+            type: String,
+            required: true
+        },
         retry: {
             type: Boolean,
             required: true
@@ -99,6 +103,11 @@ export default {
             this.answers.forEach(answer => {
                 this.validateAnswer(answer)
             })
+
+            if (this.retry && this.questionIsCorrect()) {
+                this.disabled = true
+            }
+
             this.$emit('validated', this.questionIsCorrect())
         }
     }
