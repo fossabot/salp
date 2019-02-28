@@ -11,19 +11,36 @@ module.exports = {
                 items: [
                     {
                         text: 'Introduction',
-                        link: '01-Introduction.md'
+                        link: '/development/01-Introduction.md'
                     },
                     {
                         text: 'Courses',
-                        link: '02-Courses.md'
+                        link: '/development/02-Courses.md'
                     },
                     {
                         text: 'Sandbox',
-                        link: '03-Sandbox.md'
+                        link: '/development/03-Sandbox.md'
                     }
                 ]
             },
-            { text: 'User Manual', link: '/user-manual/' }
+            {
+                text: 'User Manual',
+                link: '/user-manual/',
+                items: [
+                    {
+                        text: 'Getting Started',
+                        link: '/user-manual/01-GettingStarted.md'
+                    },
+                    {
+                        text: 'Docker manual',
+                        link: '/user-manual/02-DockerManual.md'
+                    },
+                    {
+                        text: 'Matomo',
+                        link: '/user-manual/03-Matomo.md'
+                    }
+                ]
+            }
         ]
     }
 }
