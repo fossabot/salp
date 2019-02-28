@@ -2,6 +2,13 @@
   "name": "@salp/frontend",
   "version": "1.0.0",
   "description": "Frontend application of salp",
+  "author": "SALP team",
+  "homepage": "https://github.com/salp-app/salp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salp-app/salp"
+  },
+  "bugs": "https://github.com/salp-app/salp/issues",
   "main": "src/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",

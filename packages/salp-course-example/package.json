@@ -2,7 +2,7 @@
   "name": "salp-course-example",
   "version": "1.0.0",
   "description": "Example salp course with dummy content",
-  "author": "SALP Team",
+  "author": "SALP team",
   "license": "ISC",
   "keywords": [
     "salp",
@@ -12,10 +12,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/salp/salp"
+    "url": "https://github.com/salp-app/salp"
   },
-  "homepage": "https://github.com/salp",
-  "bugs": "https://github.com/salp/salp-course-example/issues",
+  "homepage": "https://github.com/salp-app/salp",
+  "bugs": "https://github.com/salp-app/salp/issues",
   "browser": "dist/content.js",
   "main": "dist/content.js",
   "files": [

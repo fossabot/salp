@@ -2,6 +2,13 @@
   "name": "@salp/application",
   "version": "1.0.0",
   "description": "salp electron application",
+  "author": "SALP team",
+  "homepage": "https://github.com/salp-app/salp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salp-app/salp"
+  },
+  "bugs": "https://github.com/salp-app/salp/issues",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha",
