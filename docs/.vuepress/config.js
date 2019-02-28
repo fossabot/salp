@@ -20,6 +20,10 @@ module.exports = {
                     {
                         text: 'Sandbox',
                         link: '/development/03-Sandbox.md'
+                    },
+                    {
+                        text: 'Matomo',
+                        link: '/development/04-Matomo.md'
                     }
                 ]
             },
