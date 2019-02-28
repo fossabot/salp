@@ -12,6 +12,7 @@ stages:
   - audit
   - lint
   - test
+  - docs
 
 # global defaults
 variables:
@@ -145,3 +146,13 @@ dependency_scanning:
   artifacts:
     reports:
       dependency_scanning: gl-dependency-scanning-report.json
+
+docs:build:
+  before_script:
+    - npm ci
+  script:
+    - npm run docs:build
+    - mv docs/.vuepress/dist/ public
+  artifacts:
+    paths:
+      - public/
