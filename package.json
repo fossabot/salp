@@ -10,7 +10,9 @@
     "test:core": "lerna run test --no-bail --scope=@salp/{frontend,application}",
     "serve": "node scripts/serve.js",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "clean": "lerna run clean",
+    "build": "lerna run build --ignore @salp/application --stream && lerna run build --scope @salp/application --stream"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

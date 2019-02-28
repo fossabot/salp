@@ -1,0 +1,29 @@
+{
+  "name": "salp-course-heartbleed",
+  "version": "1.0.0",
+  "description": "Heartbleed is one of the most severe bug in the last 10 Years. It affected most servers on the internet and allow reading their memory",
+  "author": "SALP Team",
+  "keywords": [
+    "salp",
+    "course",
+    "Heartbleed",
+    "OpenSSL",
+    "Heartbeat",
+    "TLS/SSL",
+    "Metasploit"
+  ],
+  "license": "ISC",
+  "main": "dist/content.js",
+  "browser": "dist/content.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "course",
+    "prepublish": "npm run build",
+    "clean": "rm -rf dist/"
+  },
+  "devDependencies": {
+    "@salp/course-bundler": "^1.0.0"
+  }
+}

@@ -1,4 +1,6 @@
+const isDev = require('electron-is-dev')
+
 module.exports = {
     persistedSettingsDir: 'appconf',
-    isProduction: process.env.NODE_ENV === 'production'
+    isProduction: !isDev
 }

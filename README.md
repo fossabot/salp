@@ -14,3 +14,6 @@ npm run serve
 ```
 npm run build
 ```
+
+## License
+Logo created by [Philipp Taplan](https://taplan.artstation.com/)

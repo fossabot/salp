@@ -53,12 +53,13 @@ export default {
     },
     computed: {
         currentStep() {
-            return stepsPages.findIndex(s => s.name === this.$route.name)
+            // subtract 1 because first page is default/redirect
+            return stepsPages.findIndex(s => s.name === this.$route.name) - 1
         }
     },
     methods: {
         handleStepPageTitle(stepTitle) {
-            const currentTitle = this.$t(this.options.pageTitleTranslationKey)
+            const currentTitle = this.$t(this.$options.pageTitleTranslationKey)
             const title = `${currentTitle} - ${stepTitle}`
 
             this.$emit('pageTitle', title)
@@ -79,8 +80,8 @@ export default {
                 return
             }
 
-            // show next step
-            this.$router.push({ name: stepsPages[nextStep].name })
+            // show next step (+1 because first page is default route)
+            this.$router.push({ name: stepsPages[nextStep + 1].name })
 
             if (nextStep === stepsCount - 1) {
                 this.nextButtonLabel = this.$t('Pages.Setup.button.start')

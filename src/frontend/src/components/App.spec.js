@@ -20,6 +20,10 @@ const router = new VueRouter({
     ]
 })
 
+const matomoStub = {
+    setConsentGiven: stub()
+}
+
 describe('App.vue', () => {
     let wrapper,
         persistedUserPreferencesGetterStub
@@ -38,7 +42,10 @@ describe('App.vue', () => {
             localVue,
             router,
             store,
-            stubs: ['router-view']
+            stubs: ['router-view'],
+            mocks: {
+                $matomo: matomoStub
+            }
         })
     })
 
@@ -74,5 +81,6 @@ describe('App.vue', () => {
         expect(wrapper).to.find('.page-title').which.has.text(changedTitle)
     })
 
+    it('should enable tracking if user gave consent on startup')
     it('should show setup page on initial startup')
 })

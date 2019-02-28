@@ -2,6 +2,14 @@
   "name": "@salp/course-sandbox",
   "version": "0.1.0",
   "private": true,
+  "description": "Course sandbox which hosts a course content",
+  "author": "SALP team",
+  "homepage": "https://github.com/salp-app/salp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salp-app/salp"
+  },
+  "bugs": "https://github.com/salp-app/salp/issues",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -9,7 +17,8 @@
     "test": "npm run test:unit",
     "test:unit_cmd": "vue-cli-service test:unit --include tests/unit/setup.js",
     "test:unit": "npm run test:unit_cmd -- '{src,tests/unit}/**/*.spec.js'",
-    "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/setup.js '{src,tests/unit}/**/*.{spec.js,vue}'"
+    "coverage:unit": "nyc vue-cli-service test:unit --include tests/unit/setup.js '{src,tests/unit}/**/*.{spec.js,vue}'",
+    "clean": "rm -rf dist/"
   },
   "dependencies": {
     "codemirror": "^5.43.0",

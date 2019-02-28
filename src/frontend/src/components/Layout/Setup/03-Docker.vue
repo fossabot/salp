@@ -1,12 +1,16 @@
 <template>
     <div id="setup-docker">
-        {{ $t('Pages.Setup.contents.Docker.description1') }}
-        <ExternalLink href="https://www.docker.com/">Docker</ExternalLink>
-        {{ $t('Pages.Setup.contents.Docker.description2') }}
+        <p>
+            {{ $t('Pages.Setup.contents.Docker.description1') }}
+            <ExternalLink href="https://www.docker.com/">Docker</ExternalLink>
+            {{ $t('Pages.Setup.contents.Docker.description2') }}
+        </p>
 
-        {{ $t('Pages.Setup.contents.Docker.installation1') }}
-        <ExternalLink href="https://docs.docker.com/install/">{{ $t('Pages.Setup.contents.Docker.install') }}</ExternalLink>
-        {{ $t('Pages.Setup.contents.Docker.installation2') }}
+        <p>
+            {{ $t('Pages.Setup.contents.Docker.installation1') }}
+            <ExternalLink href="https://docs.docker.com/install/">{{ $t('Pages.Setup.contents.Docker.install') }}</ExternalLink>
+            {{ $t('Pages.Setup.contents.Docker.installation2') }}
+        </p>
     </div>
 </template>
 

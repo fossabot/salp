@@ -28,9 +28,6 @@
                                     {{ $t('Layout.Course.actions.visitAuthorPage') }}
                                 </ExternalLink>
                             </DropdownItem>
-                            <DropdownItem v-if="progress">
-                                <Icon icon="faRedo"/> Reset
-                            </DropdownItem>
                             <DropdownItem>
                                 <Icon icon="faTrashAlt"/> {{ $t('Layout.Course.actions.delete') }}
                             </DropdownItem>
@@ -51,18 +48,13 @@
                 </span>
                 <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
             </div>
-
-            <div class="course-card__footer">
-                <ProgressBar :progress="progress" class="course-card__progress"/>
-            </div>
         </Card>
     </a>
 </template>
 
 <script>
 import { Card, Button, Dropdown, DropdownMenu, DropdownItem, Tag } from 'element-ui'
-import { faEllipsisV, faGlobe, faExclamation, faRedo, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
-import ProgressBar from '@/components/Elements/ProgressBar.vue'
+import { faEllipsisV, faGlobe, faExclamation, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {
@@ -74,9 +66,8 @@ export default {
         author: String,
         version: String,
         chapters: Array,
-        assignments: Array,
+        assignments: Object,
         keywords: Array,
-        progress: Number,
         favourite: Boolean,
         repositoryUrl: String,
         homepage: String,
@@ -89,14 +80,12 @@ export default {
         DropdownMenu,
         DropdownItem,
         Tag,
-        ProgressBar,
         ExternalLink
     },
     icons: {
         faEllipsisV,
         faGlobe,
         faExclamation,
-        faRedo,
         faTrashAlt,
         faUser
     },
@@ -105,7 +94,7 @@ export default {
             return this.chapters.length
         },
         assignmentsCount() {
-            return this.assignments.length
+            return Object.keys(this.assignments).length
         }
     },
     methods: {
@@ -178,9 +167,5 @@ export default {
     padding: $--card-padding;
     border-top: 1px solid $--card-border-color;
     display: flex;
-}
-
-.course-card__progress {
-    flex: 1 0 auto;
 }
 </style>

@@ -1,4 +1,5 @@
 module.exports = {
+    retry: true,
     questions: [
         {
             component: 'MultipleChoice',

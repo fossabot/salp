@@ -35,6 +35,9 @@ export default {
         }
     },
     computed: {
+        allowTracking() {
+            return this.$store.getters[namespace + '/' + types.GET]('allowTracking')
+        },
         setupDone() {
             return this.$store.getters[namespace + '/' + types.GET]('setupDone')
         }
@@ -42,11 +45,16 @@ export default {
     watch: {
         pageTitle(title) {
             remote.getCurrentWindow().setTitle(title)
-        }
-    },
-    beforeMount() {
-        if (!this.setupDone) {
-            this.$router.push({ name: 'setup' })
+        },
+        allowTracking(allow) {
+            if (allow) {
+                this.$matomo.setConsentGiven()
+            }
+        },
+        setupDone(done) {
+            if (!done) {
+                this.$router.push({ name: 'setup' })
+            }
         }
     },
     methods: {

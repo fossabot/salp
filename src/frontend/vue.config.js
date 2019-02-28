@@ -4,6 +4,7 @@ const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin')
 const isTesting = process.env.NODE_ENV === 'test'
 const isCoverage = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event.includes('coverage')
 const isUnitTesting = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event === 'test:unit'
+const isE2ETesting = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event === 'test:e2e'
 
 const chunks = {
     vue: {
@@ -89,7 +90,7 @@ module.exports = {
                 })
 
         // Inject mocked electron api when building browser version
-        if (!process.env.IS_ELECTRON) {
+        if (!process.env.IS_ELECTRON || isE2ETesting) {
             config.resolve.alias
                 .set('electron', path.resolve(__dirname, '__mocks__/browser/electron'))
         } else {
