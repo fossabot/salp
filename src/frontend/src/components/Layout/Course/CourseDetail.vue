@@ -34,7 +34,7 @@ export default {
             this.course.chapters.forEach(c => {
                 tocObj[c] = {
                     title: c,
-                    route: { path: 'content/chapters/' + c }
+                    route: { path: 'content/chapter/' + c }
                 }
             })
 

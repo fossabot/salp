@@ -21,6 +21,10 @@ class Router extends EventEmitter {
         _fns.sendToHost('route:change', to)
     }
 
+    changeTitle(title) {
+        _fns.sendToHost('change:title', title)
+    }
+
     handleHostRouteChange(_, to) {
         this.emit('route:change', to)
     }
