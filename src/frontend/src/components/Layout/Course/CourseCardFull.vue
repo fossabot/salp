@@ -58,7 +58,6 @@ export default {
         chapters: Array,
         tests: Number,
         keywords: Array,
-        progress: Number,
         favourite: Boolean,
         repositoryUrl: String,
         homepage: String,

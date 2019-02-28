@@ -112,9 +112,10 @@ module.exports = function ContentElementsPlugin(md) {
     function renderCode(tokens, idx) {
         const token = tokens[idx]
 
-        const code = escapeHtml(token.content)
+        const code = escapeHtml(token.content).trim()
+        const random = Math.floor(Math.random() * 100000)
 
-        return `<Code language="${token.info}">${code}</Code>`
+        return `<Code :key="${random}" language="${token.info}">${code}</Code>`
     }
 
     md.renderer.rules.code_inline = function renderInlineCode(tokens, idx) {

@@ -141,6 +141,9 @@ class ContainerService {
     _validateConfig(config, networkName, name) {
         if (typeof config !== 'object') {
             throw new Error('Config is not an object!')
+        } else {
+            config.Tty = true
+            config.OpenStdin  = true
         }
 
         if (config.Image === undefined || typeof config.Image !== 'string') {

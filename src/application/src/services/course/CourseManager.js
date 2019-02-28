@@ -4,7 +4,8 @@ const Course = require('./Course')
 const { isProduction } = require('../../constants')
 
 const coreCourses = [
-    'salp-course-example'
+    'salp-course-example',
+    'salp-course-heartbleed'
 ]
 
 class CourseManager {

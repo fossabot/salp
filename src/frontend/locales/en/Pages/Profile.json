@@ -6,10 +6,5 @@
             "edit": "Edit",
             "save": "Save"
         }
-    },
-    "statistics": {
-        "statistics": "Statistics",
-        "finishedCourses": "Finished<br> <b>{finishedCourses}</b> of <b>{totalCourses}</b><br> courses",
-        "passedTests": "Passed<br> <b>{passedTests}</b> of <b>{totalTests}</b><br> tests"
     }
 }
