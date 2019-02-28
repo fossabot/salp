@@ -2,5 +2,5 @@
 ![SALP logo](/assets/img/logo.png)
 
 ## Index
-* [Developer](/development/)
-* [User Manual](/user-manual/)
+* [Developer](/development/01-Introduction.md)
+* [User Manual](/user-manual/01-GettingStarted.md)
