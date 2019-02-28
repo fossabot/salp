@@ -11,8 +11,8 @@ describe('log.js service', () => {
         log = require('./log')
     })
 
-    it('should export logger as default module', () => {
-        expect(log).to.have.property('default').which.equals(electronLog)
+    it('should export logger as log module', () => {
+        expect(log).to.have.property('log').which.equals(electronLog)
     })
 
     it('should export a setup function', () => {
@@ -30,30 +30,30 @@ describe('log.js service', () => {
             logger.__set__('isProduction', false)
             logger.setup()
 
-            expect(logger.default.transports.console.level).to.equal('debug')
+            expect(logger.log.transports.console.level).to.equal('debug')
         })
 
         it('should raise log level to "error" in production', () => {
             logger.__set__('isProduction', true)
             logger.setup()
 
-            expect(logger.default.transports.file.level).to.equal('error')
+            expect(logger.log.transports.file.level).to.equal('error')
         })
 
         it('should write log to console in development', () => {
             logger.__set__('isProduction', false)
             logger.setup()
 
-            expect(logger.default.transports.console.level).to.be.ok
-            expect(logger.default.transports.file.level).to.be.false
+            expect(logger.log.transports.console.level).to.be.ok
+            expect(logger.log.transports.file.level).to.be.false
         })
 
         it('should write log to file in production', () => {
             logger.__set__('isProduction', true)
             logger.setup()
 
-            expect(logger.default.transports.file.level).to.be.ok
-            expect(logger.default.transports.console.level).to.be.false
+            expect(logger.log.transports.file.level).to.be.ok
+            expect(logger.log.transports.console.level).to.be.false
         })
     })
 })

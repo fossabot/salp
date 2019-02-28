@@ -8,11 +8,12 @@ function setup() {
         log.transports.console.level = 'debug'
     } else {
         log.transports.file.level = 'error'
+        log.transports.file.appName = 'salp'
         log.transports.console.level = false
     }
 }
 
 module.exports = {
     setup,
-    default: log
+    log
 }
