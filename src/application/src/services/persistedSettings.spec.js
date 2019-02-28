@@ -27,7 +27,9 @@ describe('persisted settings service', () => {
     afterEach('reset stubs', () => {
         [appStub, ipcMainStub].forEach(stubs => {
             Object.values(stubs).forEach(s => {
-                s.reset()
+                if (typeof s === 'function') {
+                    s.reset()
+                }
             })
         })
     })

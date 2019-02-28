@@ -2,32 +2,43 @@
   "name": "@salp/application",
   "version": "1.0.0",
   "description": "salp electron application",
+  "author": "SALP team",
+  "homepage": "https://github.com/salp-app/salp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salp-app/salp"
+  },
+  "bugs": "https://github.com/salp-app/salp/issues",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha",
     "coverage:unit": "nyc mocha",
     "serve": "./scripts/serve.js",
-    "lint": "eslint src/ test/"
+    "lint": "eslint src/ test/",
+    "build": "electron-builder build",
+    "clean": "rm -rf dist/"
   },
   "devDependencies": {
+    "@salp/course-sandbox": "^0.1.0",
+    "@salp/frontend": "^1.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "electron": "^4.0.1",
-    "electron-devtools-installer": "^2.2.4",
+    "electron-builder": "^20.38.5",
     "eslint": "^5.12.1",
     "mocha": "^5.2.0",
     "mock-require": "^3.0.3",
     "nyc": "^13.1.0",
     "rewire": "^4.0.1",
+    "salp-course-example": "^1.0.0",
+    "salp-course-heartbleed": "^1.0.0",
     "sinon": "^7.2.3",
     "sinon-chai": "^3.3.0"
   },
   "dependencies": {
-    "@salp/course-sandbox": "^0.1.0",
-    "@salp/frontend": "^1.0.0",
-    "salp-course-example": "^1.0.0",
-    "salp-course-heartbleed": "^1.0.0",
     "dockerode": "^2.5.8",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-is-dev": "^1.0.1",
     "electron-log": "^2.2.17",
     "split-ca": "^1.0.1"
   }

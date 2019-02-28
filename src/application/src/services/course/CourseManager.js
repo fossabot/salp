@@ -1,10 +1,12 @@
 const path = require('path')
+const { app } = require('electron')
 const Course = require('./Course')
+const { isProduction } = require('../../constants')
 
 const coreCourses = [
     'salp-course-example',
     'salp-course-heartbleed'
-].map(require.resolve).map(path.dirname)
+]
 
 class CourseManager {
     constructor() {
@@ -12,8 +14,11 @@ class CourseManager {
     }
 
     discoverCourses() {
-        // TODO: implement courses discovery
-        return coreCourses
+        if (isProduction) {
+            return coreCourses.map(course => path.join(app.getAppPath(), 'courses', course))
+        }
+
+        return coreCourses.map(require.resolve).map(path.dirname)
     }
 
     loadCourses() {
