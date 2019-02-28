@@ -28,7 +28,9 @@ export default {
     },
     computed: {
         courseUrl() {
-            return `course://${this.course.id}/`
+            const sandboxRoute = this.$route.params.pathMatch
+
+            return `course://${this.course.id}/${sandboxRoute}`
         },
         sandboxApiScript() {
             // sandboxApiScript path is already absolute (leading "/")
