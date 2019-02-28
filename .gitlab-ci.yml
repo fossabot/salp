@@ -12,6 +12,7 @@ stages:
   - audit
   - lint
   - test
+  - build
 
 # global defaults
 variables:
@@ -145,3 +146,17 @@ dependency_scanning:
   artifacts:
     reports:
       dependency_scanning: gl-dependency-scanning-report.json
+
+build:application:mac: &build_application
+  stage: build
+  script:
+    - npm run build -- -- --mac
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - src/application/dist
+
+build:application:linux:
+  <<: *build_application
+  script:
+    - npm run build -- -- --linux
