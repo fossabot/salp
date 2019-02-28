@@ -6,6 +6,7 @@ const { URL } = require('url')
 const { app, ipcMain, protocol } = require('electron')
 const CourseManager = require('./CourseManager')
 const { isProduction } = require('../../constants')
+const { log } = require('../log')
 
 let embeddedCoursePath = path.join(app.getAppPath(), 'course-sandbox')
 
@@ -27,7 +28,11 @@ class CourseService {
             // @see https://github.com/electron/electron/issues/13519
             // @see https://github.com/electron/electron/issues/13623
             protocol.registerBufferProtocol('course', async (request, callback) => {
-                callback(await this.handleCourseRequest(request))
+                try {
+                    callback(await this.handleCourseRequest(request))
+                } catch (e) {
+                    log.error('course:// protocol failed: ' + e)
+                }
             }, err => {
                 if (err) {
                     throw err

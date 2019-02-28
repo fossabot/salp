@@ -3,7 +3,7 @@
 const path = require('path')
 const { app, BrowserWindow, protocol } = require('electron')
 const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
-const { setup: setupLog } = require('./services/log')
+const { log, setup: setupLog } = require('./services/log')
 require('./services')
 const { isProduction } = require('./constants')
 if (!isProduction) {
@@ -20,7 +20,7 @@ function registerFrontendScheme() {
         callback({ path: resolvedPath })
     }, error => {
         if (error) {
-            console.error('Could not register frontend:// protocol. Reason: ' + error)
+            log.error('Could not register frontend:// protocol. Reason: ' + error)
         }
     })
 }
