@@ -74,7 +74,7 @@ export default {
         author: String,
         version: String,
         chapters: Array,
-        assignments: Array,
+        assignments: Object,
         keywords: Array,
         progress: Number,
         favourite: Boolean,
@@ -105,7 +105,7 @@ export default {
             return this.chapters.length
         },
         assignmentsCount() {
-            return this.assignments.length
+            return Object.keys(this.assignments).length
         }
     },
     methods: {

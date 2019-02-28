@@ -3,6 +3,7 @@ import { shallowMount } from '@vue/test-utils'
 import MultipleChoice from './MultipleChoice.vue'
 
 describe('MultipleChoice.vue', () => {
+    const assignmentName = 'lorem'
     const expectedValues = [
         {
             answers: [
@@ -59,7 +60,9 @@ describe('MultipleChoice.vue', () => {
             const wrapper = shallowMount(MultipleChoice, {
                 propsData: {
                     question,
-                    answers
+                    answers,
+                    assignmentName,
+                    retry: true
                 }
             })
 

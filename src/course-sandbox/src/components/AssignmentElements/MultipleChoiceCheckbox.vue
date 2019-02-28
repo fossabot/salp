@@ -1,6 +1,6 @@
 <template>
-    <Checkbox class="multiple-choice-content__container__checkbox-group__checkbox"
-        :class="getValidationClass" :label="answer">
+    <Checkbox class="multiple-choice-content__container__checkbox-group__checkbox .piwikContentIgnoreInteraction"
+        :class="getValidationClass" :label="answer" @change="handleChange">
         {{ answer }}
     </Checkbox>
 </template>
@@ -14,6 +14,14 @@ export default {
         Checkbox
     },
     props: {
+        assignmentName: {
+            type: String,
+            required: true
+        },
+        question: {
+            type: String,
+            required: true
+        },
         answer: {
             type: String,
             required: true
@@ -33,6 +41,11 @@ export default {
             }
 
             return ''
+        }
+    },
+    methods: {
+        handleChange(checked) {
+            this.$matomo.trackEvent(this.assignmentName + '_assignment', 'mc_' + this.question, '' + this.answer, checked ? 1 : 0)
         }
     }
 }

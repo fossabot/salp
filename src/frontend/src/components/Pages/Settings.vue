@@ -1,6 +1,10 @@
 <template>
   <div id="page-settings">
     <Form ref="form" :label-position="'left'" label-width="300px">
+        <FormItem label="Allow tracking">
+            <ElSwitch v-model="allowTracking" @change="handleTrackingChange"></ElSwitch>
+            <span class="form-item__description">Define whether you want to allow user tracking/analytics.</span>
+        </FormItem>
         <FormItem :label="$t('Pages.Settings.label.ml')">
             <ElSwitch v-model="ml"></ElSwitch>
             <span class="form-item__description">{{ $t('Pages.Settings.description.ml') }}</span>
@@ -61,7 +65,7 @@ export default {
         ErrorLog
     },
     computed: {
-        ...mapStateTwoWay(['ml', 'verifyTls', 'baseIp']),
+        ...mapStateTwoWay(['allowTracking', 'ml', 'verifyTls', 'baseIp']),
         deamonFound() {
             this.testDocker()
 
@@ -110,6 +114,13 @@ export default {
             const path = remote.dialog.showOpenDialog({ properties: ['openDirectory'] })
             if (path) {
                 this.certDir = path[0]
+            }
+        },
+        handleTrackingChange() {
+            if (this.allowTracking) {
+                this.$matomo.setConsentGiven()
+            } else {
+                this.$matomo.forgetConsentGiven()
             }
         }
     }
