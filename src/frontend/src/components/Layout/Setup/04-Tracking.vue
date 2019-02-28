@@ -1,8 +1,10 @@
 <template>
     <div id="setup-tracking">
-        {{ $t('Pages.Setup.contents.Tracking.part1') }}
-        <ExternalLink href="https://matomo.org/">Matomo</ExternalLink>
-        {{ $t('Pages.Setup.contents.Tracking.part2') }}
+        <p>
+            {{ $t('Pages.Setup.contents.Tracking.part1') }}
+            <ExternalLink href="https://matomo.org/">Matomo</ExternalLink>
+            {{ $t('Pages.Setup.contents.Tracking.part2') }}
+        </p>
 
         {{ $t('Pages.Setup.contents.Tracking.optOut') }}
         <Form>
