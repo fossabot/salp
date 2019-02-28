@@ -5,6 +5,7 @@
 const links = require('./links')
 const Course = require('./Course')
 const Router = require('./Router')
+const Matomo = require('./Matomo')
 
 // if called from nodejs, return path to this script
 if (module && module.exports) {
@@ -19,6 +20,7 @@ process.once('loaded', () => {
     global.salp = {
         links,
         Course,
-        router: new Router(ipcRenderer)
+        router: new Router(ipcRenderer),
+        matomo: new Matomo()
     }
 })

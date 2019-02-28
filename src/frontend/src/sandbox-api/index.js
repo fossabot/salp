@@ -3,9 +3,10 @@
 import { router } from '@/plugins/router'
 
 class SandboxAPI {
-    constructor(sandbox, host) {
+    constructor(sandbox, host, matomo) {
         this.sandbox = sandbox
         this.host = host
+        this.matomo = matomo
 
         this.unregisterRouterHandlers = []
         this._registerRouterHandlers()
@@ -15,6 +16,10 @@ class SandboxAPI {
         switch (event.channel) {
             case 'route:change':
                 this.handleSandboxRouteChange(...event.args)
+                break
+            case 'matomo:trackEvent':
+                this.handleMatomoTrackEvent(...event.args)
+                break
         }
     }
 
@@ -35,6 +40,10 @@ class SandboxAPI {
         }, () => {
             this.host.$emit('pageTitle', to.meta.title)
         })
+    }
+
+    handleMatomoTrackEvent(...args) {
+        this.matomo.trackEvent.apply(this.matomo, args)
     }
 
     handleHostRouteChange(to) {

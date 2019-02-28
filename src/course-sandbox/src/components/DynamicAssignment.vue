@@ -15,7 +15,10 @@ export default {
 
         return createElement(Assignment, {
             props: {
-                assignment
+                name: props.id,
+                questions: assignment.questions,
+                retry: assignment.retry,
+                passedAt: assignment.passedAt
             }
         })
     }

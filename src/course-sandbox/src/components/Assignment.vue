@@ -1,24 +1,31 @@
 <template>
-    <Card class="assignment-content__container">
-        <h1>SQL-Injection</h1>
-        <Steps :active="currentQuestionIndex">
-            <Step v-for="(question, index) in questions" :key="`step${index}`"
-                :status="question.$correct ? 'success' : question.$correct === false ? 'error' : 'process'"/>
-        </Steps>
+    <Card class="assignment-content__container piwikTrackContent">
+        <h1>{{ name }}</h1>
+        <div v-if="started">
+            <Steps :active="currentQuestionIndex">
+                <Step v-for="(question, index) in questions" :key="`step${index}`"
+                    :status="question.$correct ? 'success' : question.$correct === false ? 'error' : 'process'"/>
+            </Steps>
             <div class="assignment-content__question-container">
                 <component v-for="(question, index) in questions"
                     :key="`question_${index}`" :ref="`question_${index}`" :is="question.component"
                     :question="question.question" :answers="question.answers" :retry="retry"
-                    v-show="index === currentQuestionIndex"
+                    :assignmentName="name" v-show="index === currentQuestionIndex"
                     @validated="handleQuestionValidated">
                 </component>
             </div>
-        <div v-if="showResult" class="assignment-content__result-container">
-            <h3 v-if="passed">{{ $t('Assignment.result.passed') }}</h3>
-            <h3 v-else>{{ $t('Assignment.result.failed') }}</h3>
+            <div v-if="showResult" class="assignment-content__result-container">
+                <h3 v-if="passed">{{ $t('Assignment.result.passed') }}</h3>
+                <h3 v-else>{{ $t('Assignment.result.failed') }}</h3>
+            </div>
+            <div v-if="!showResult" class="assignment-content__button-container">
+                <Button class="assignment-content__button-container__button .piwikContentIgnoreInteraction"
+                type="primary" @click="handleButtonClick">{{ buttonText }}</Button>
+            </div>
         </div>
-        <div v-if="!showResult" class="assignment-content__button-container">
-            <Button class="assignment-content__button-container__button" type="primary" @click="handleButtonClick">{{ buttonText }}</Button>
+        <div v-if="!started" class="assignment-content__start-button-container">
+            <Button class="assignment-content__start-button .piwikContentIgnoreInteraction"
+            type="primary" @click="handleStartClick">Start Assignment</Button>
         </div>
     </Card>
 </template>
@@ -32,10 +39,21 @@ import UserInput from './AssignmentElements/UserInput.vue'
 export default {
     name: 'Assignment',
     props: {
-        assignment: Object,
+        questions: {
+            type: Array,
+            required: true
+        },
         retry: {
             type: Boolean,
             default: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        passedAt: {
+            type: Number,
+            default: 0.5
         }
     },
     components: {
@@ -52,15 +70,13 @@ export default {
         return {
             buttonText: this.$t('Assignment.button.check'),
             currentQuestionIndex: 0,
-            passedAt: 0.5,
             validate: true,
-            showResult: false
+            showResult: false,
+            currentQuestionIndexRetrys: 0,
+            started: false
         }
     },
     computed: {
-        questions() {
-            return this.assignment.questions
-        },
         passed() {
             let totalQuestions = this.questions.length
             let correctQuestions = 0
@@ -76,9 +92,21 @@ export default {
     },
     methods: {
         handleButtonClick() {
+            // Show Result Click
+            if (this.buttonText === this.$t('Assignment.button.result')) {
+                // Matomo finished assignment
+                this.$matomo.trackEvent(this.name + '_assignment', 'finished', '' + this.passed)
+            } else {
+                // Matomo track button click
+                this.$matomo.trackEvent(this.name + '_assignment', 'clicked', '' + this.buttonText)
+            }
+
+            // Validate current answer
             if (this.validate) {
+                // Set buttonText to 'next question'
                 this.buttonText = this.$t('Assignment.button.next')
 
+                // Validate answer
                 this.$refs[`question_${this.currentQuestionIndex}`][0].validate()
 
                 if (this.currentQuestionIndex === this.questions.length - 1) {
@@ -87,14 +115,21 @@ export default {
                         this.buttonText = this.$t('Assignment.button.result')
                     }
                 }
+
+            // Show Next question
             } else {
                 this.currentQuestionIndex++
+                this.currentQuestionIndexRetrys = 0
 
+                // Show result if last question was reached
                 if (this.currentQuestionIndex >= this.questions.length) {
                     this.showResult = true
                 }
 
+                // Set buttontext to 'check answer'
                 this.buttonText = this.$t('Assignment.button.check')
+
+                // Set validate to true, to validate answer with next button click
                 this.validate = true
             }
         },
@@ -106,8 +141,14 @@ export default {
             }
 
             if (this.retry && !this.questions[this.currentQuestionIndex].$correct) {
+                this.currentQuestionIndexRetrys++
                 this.buttonText = this.$t('Assignment.button.retry')
             }
+            this.$matomo.trackEvent(this.name + '_assignment', 'question_' + this.currentQuestionIndex, 'retry_' + this.currentQuestionIndexRetrys, result ? 1 : 0)
+        },
+        handleStartClick() {
+            this.$matomo.trackEvent(this.name + '_assignment', 'started')
+            this.started = true
         }
     }
 }
@@ -115,13 +156,10 @@ export default {
 
 <style lang="scss">
 .assignment-content__container {
-    .assignment-content__question-container {
-        margin-top: 1em;
-        display: flex;
-        justify-content: center;
-    }
 
-    .assignment-content__button-container {
+    .assignment-content__button-container,
+    .assignment-content__start-button-container,
+    .assignment-content__question-container {
         display: flex;
         justify-content: center;
         margin-top: 1em;

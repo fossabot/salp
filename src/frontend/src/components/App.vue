@@ -35,6 +35,9 @@ export default {
         }
     },
     computed: {
+        allowTracking() {
+            return this.$store.getters[namespace + '/' + types.GET]('allowTracking')
+        },
         setupDone() {
             return this.$store.getters[namespace + '/' + types.GET]('setupDone')
         }
@@ -47,6 +50,10 @@ export default {
     beforeMount() {
         if (!this.setupDone) {
             this.$router.push({ name: 'setup' })
+        }
+
+        if (this.allowTracking) {
+            this.$matomo.setConsentGiven()
         }
     },
     methods: {
