@@ -19,4 +19,4 @@ class Course {
     }
 }
 
-module.exports = Course
+export default Course
