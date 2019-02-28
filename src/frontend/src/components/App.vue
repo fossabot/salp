@@ -45,15 +45,16 @@ export default {
     watch: {
         pageTitle(title) {
             remote.getCurrentWindow().setTitle(title)
-        }
-    },
-    beforeMount() {
-        if (!this.setupDone) {
-            this.$router.push({ name: 'setup' })
-        }
-
-        if (this.allowTracking) {
-            this.$matomo.setConsentGiven()
+        },
+        allowTracking(allow) {
+            if (allow) {
+                this.$matomo.setConsentGiven()
+            }
+        },
+        setupDone(done) {
+            if (!done) {
+                this.$router.push({ name: 'setup' })
+            }
         }
     },
     methods: {
