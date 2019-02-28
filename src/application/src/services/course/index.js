@@ -1,13 +1,13 @@
 // This service is responsible for loading an (external) course and render its content
 const path = require('path')
-const fs = require('fs').promises
+const fs = require('fs')
 const http = require('http')
 const { URL } = require('url')
 const { app, ipcMain, protocol } = require('electron')
 const CourseManager = require('./CourseManager')
 const { isProduction } = require('../../constants')
 
-const embeddedCoursePath = path.resolve(__dirname, '../../../../course/dist')
+let embeddedCoursePath = path.join(app.getAppPath(), 'course-sandbox')
 
 class CourseService {
     constructor() {
@@ -22,7 +22,6 @@ class CourseService {
     }
 
     _registerProtocol() {
-        protocol.registerStandardSchemes(['course'])
         app.on('ready', () => {
             // unfortunately registerStreamProtocol does not work
             // @see https://github.com/electron/electron/issues/13519
@@ -88,6 +87,11 @@ class CourseService {
 
                 stream = await this._httpGet(subRequest)
             } else {
+                // fix default entry
+                if (!requestedPath) {
+                    requestedPath = 'index.html'
+                }
+
                 const subRequest = path.resolve(embeddedCoursePath, requestedPath)
                 stream = await this._fileGet(subRequest)
             }
@@ -112,6 +116,9 @@ class CourseService {
             case 'js':
                 mimeType = 'application/javascript'
                 break
+            case 'css':
+                mimeType = 'text/css'
+                break
             case 'jpg':
             case 'JPG':
             case 'jpeg':
@@ -127,10 +134,20 @@ class CourseService {
                 break
         }
 
-        return {
-            mimeType,
-            data: await fs.readFile(path)
-        }
+        return new Promise((resolve, reject) => {
+            // use default fs API instead of fs.promises, as it is not supported by asar
+            // @see https://electronjs.org/docs/tutorial/application-packaging#node-api
+            fs.readFile(path, (err, data) => {
+                if (err) {
+                    reject(err)
+                }
+
+                resolve({
+                    mimeType,
+                    data
+                })
+            })
+        })
     }
 
     async _httpGet(url) {

@@ -1,8 +1,7 @@
 'use strict'
 
-const { app, BrowserWindow } = require('electron')
 const path = require('path')
-const { format: formatUrl } = require('url')
+const { app, BrowserWindow, protocol } = require('electron')
 const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
 const { setup: setupLog } = require('./services/log')
 require('./services')
@@ -10,6 +9,20 @@ const { isProduction } = require('./constants')
 if (!isProduction) {
     // Don't load any native (external) modules until the following line is run:
     require('module').globalPaths.push(process.env.NODE_MODULES_PATH)
+}
+
+// handle file loading in production
+protocol.registerStandardSchemes(['frontend', 'course'], { secure: true })
+function registerFrontendScheme() {
+    protocol.registerFileProtocol('frontend', (request, callback) => {
+        const requestedPath = request.url.substr(10)
+        const resolvedPath = path.join(app.getAppPath(), 'frontend', requestedPath)
+        callback({ path: resolvedPath })
+    }, error => {
+        if (error) {
+            console.error('Could not register frontend:// protocol. Reason: ' + error)
+        }
+    })
 }
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
@@ -34,14 +47,9 @@ function createMainWindow() {
             })
         }
     } else {
+        registerFrontendScheme()
         //   Load the index.html when not in development
-        window.loadURL(
-            formatUrl({
-                pathname: path.join(__dirname, 'node_modules/@salp/frontend', 'dist/index.html'),
-                protocol: 'file',
-                slashes: true
-            })
-        )
+        window.loadURL('frontend://./index.html')
     }
 
     window.on('closed', () => {
