@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "build": "course",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "clean": "rm -rf dist/"
   },
   "devDependencies": {
     "@salp/course-bundler": "^1.0.0"
