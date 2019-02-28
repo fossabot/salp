@@ -31,7 +31,7 @@ export default {
         questionPosition: {
             type: String,
             default() {
-                return 'top'
+                return 'left'
             }
         },
         answers: {

@@ -7,9 +7,6 @@
 
         <SectionHeader>{{ $t('App.headlines.toc') }}</SectionHeader>
         <TableOfContents :toc="toc"/>
-
-        <SectionHeader>{{ $t('Layout.Course.detail.sections.personalProgress') }}</SectionHeader>
-        <ProgressBar :progress="course.progress"/>
     </div>
 </template>
 
@@ -17,7 +14,6 @@
 import SectionHeader from '../Content/SectionHeader.vue'
 import CourseCardFull from './CourseCardFull.vue'
 import TableOfContents from '../Content/TableOfContents.vue'
-import ProgressBar from '../../Elements/ProgressBar.vue'
 import DockerControls from '../Docker/DockerControls.vue'
 
 export default {
@@ -30,7 +26,6 @@ export default {
 
         CourseCardFull,
         TableOfContents,
-        ProgressBar,
         DockerControls
     },
     computed: {

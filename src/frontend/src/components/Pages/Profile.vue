@@ -13,25 +13,11 @@
                 </FormItem>
             </Form>
         </div>
-        <div class="profile-statistics__container">
-            <SectionHeader>
-                <Icon icon="faChartBar"/>
-                {{ $t('Pages.Profile.statistics.statistics') }}
-            </SectionHeader>
-            <Progress type="circle" :width="150" :percentage="percentageComplete" status="text">
-                <span v-html="$t('Pages.Profile.statistics.finishedCourses', {finishedCourses, totalCourses})"/>
-            </Progress>
-            <Progress type="circle" :width="150" :percentage="percentagePassed" status="text">
-                <span v-html="$t('Pages.Profile.statistics.passedTests', {passedTests, totalTests})"/>
-            </Progress>
-        </div>
     </div>
 </template>
 
 <script>
-import SectionHeader from '../Layout/Content/SectionHeader.vue'
 import { Form, FormItem, Input } from 'element-ui'
-import { faChartBar } from '@fortawesome/free-solid-svg-icons'
 import { faEdit, faUser } from '@fortawesome/free-regular-svg-icons'
 import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
 
@@ -41,44 +27,22 @@ export default {
     name: 'Profile',
     pageTitleTranslationKey: 'App.pages.profile',
     components: {
-        SectionHeader,
-
         Form,
         FormItem,
         /* eslint-disable-next-line vue/no-unused-components */
         [Input.name]: Input
     },
     icons: {
-        faChartBar,
         faEdit,
         faUser
     },
     data() {
         return {
-            label: 'Edit',
-            totalCourses: 100,
-            finishedCourses: 66,
-            totalTests: 90,
-            passedTests: 45
+            label: 'Edit'
         }
     },
     computed: {
-        ...mapStateTwoWay(['username']),
-        percentageComplete() {
-            if (this.totalCourses === 0) {
-                return 0
-            }
-
-            return Math.floor((this.finishedCourses / this.totalCourses) * 100)
-        },
-
-        percentagePassed() {
-            if (this.totalTests === 0) {
-                return 0
-            }
-
-            return Math.floor((this.passedTests / this.totalTests) * 100)
-        }
+        ...mapStateTwoWay(['username'])
     }
 }
 </script>
@@ -110,26 +74,6 @@ export default {
 
     .statistics-icon__text {
         margin-left: 0.5em;
-    }
-}
-
-.profile-statistics__container {
-    .el-progress__text {
-        font-size: inherit !important;
-        padding: 0.5em !important;
-        box-sizing: border-box;
-    }
-
-    .el-progress.el-progress--circle {
-        margin-right: 1em;
-
-        &:first-of-type {
-            background-color: red !important;
-        }
-
-        &:last-of-type {
-            margin-right: 0;
-        }
     }
 }
 </style>
