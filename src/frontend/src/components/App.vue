@@ -45,17 +45,19 @@ export default {
     watch: {
         pageTitle(title) {
             remote.getCurrentWindow().setTitle(title)
-        },
-        allowTracking(allow) {
-            if (allow) {
-                this.$matomo.setConsentGiven()
-            }
-        },
-        setupDone(done) {
-            if (!done) {
+        }
+    },
+    beforeMount() {
+        // TODO: fix initial settings loading
+        setTimeout(() => {
+            if (!this.setupDone) {
                 this.$router.push({ name: 'setup' })
             }
-        }
+
+            if (this.allowTracking) {
+                this.$matomo.setConsentGiven()
+            }
+        }, 1000)
     },
     methods: {
         handlePageTitleChange(title) {
