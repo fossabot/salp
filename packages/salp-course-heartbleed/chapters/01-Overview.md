@@ -1,7 +1,8 @@
 # Heartbleed
 
 ## Logo  
-![Heartbleed logo](https://upload.wikimedia.org/wikipedia/commons/d/dc/Heartbleed.svg)  
+![Heartbleed logo](https://upload.wikimedia.org/wikipedia/commons/d/dc/Heartbleed.svg)
+Logo Heartbleed (c) Leena Snidate, Wikimedia, CC0
 
 ## Overview  
 Heartbleed is a bug inside the [OpenSSL](https://www.openssl.org/) cryptography library.  
