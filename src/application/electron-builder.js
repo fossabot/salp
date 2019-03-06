@@ -1,6 +1,9 @@
 module.exports = {
     'productName': 'salp',
     'appId': 'de.hsd.salp',
+    'extraMetadata': {
+        'name': 'salp'
+    },
     'files': [
         'src/',
         {
