@@ -148,6 +148,7 @@ dependency_scanning:
       dependency_scanning: gl-dependency-scanning-report.json
 
 docs:build:
+  stage: docs
   before_script:
     - npm ci
   script:
