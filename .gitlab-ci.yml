@@ -181,7 +181,8 @@ build:app:windows:
 
 build:app:macos:
   <<: *build_app
-  image: electronuserland/builder:10
+  image: 'false'
+  tags:
+  - xcode9
   script:
     - npm run build -- -- -- --macos
-
