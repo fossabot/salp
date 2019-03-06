@@ -163,6 +163,8 @@ docs:build:
 build:app:linux: &build_app
   image: electronuserland/builder:10
   stage: build
+  only:
+    - /^release.*$/
   variables:
     NODE_ENV: ""
     BUILD_NUMBER: $CI_COMMIT_SHORT_SHA
