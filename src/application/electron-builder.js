@@ -4,6 +4,7 @@ module.exports = {
     'extraMetadata': {
         'name': 'salp'
     },
+    'publish': false,
     'files': [
         'src/',
         {
