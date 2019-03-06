@@ -178,11 +178,3 @@ build:app:windows:
   image: electronuserland/builder:wine
   script:
     - npm run build -- -- -- --windows
-
-build:app:macos:
-  <<: *build_app
-  image: 'false'
-  tags:
-  - xcode9
-  script:
-    - npm run build -- -- -- --macos
