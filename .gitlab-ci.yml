@@ -149,6 +149,8 @@ dependency_scanning:
 
 docs:build:
   stage: docs
+  variables:
+    NODE_ENV: ""
   before_script:
     - npm ci
   script:
