@@ -6,6 +6,7 @@ cache:
   paths:
     - ${CI_PROJECT_DIR}/.cache/npm
     - ${CI_PROJECT_DIR}/.cache/electron
+    - ${CI_PROJECT_DIR}/.cache/electron-builder
     - ${CI_PROJECT_DIR}/.cache/Cypress
 
 stages:
@@ -13,12 +14,14 @@ stages:
   - lint
   - test
   - docs
+  - build
 
 # global defaults
 variables:
   NODE_ENV: "test"
   npm_config_cache: ${CI_PROJECT_DIR}/.cache/npm
   ELECTRON_CACHE: ${CI_PROJECT_DIR}/.cache/electron
+  ELECTRON_BUILDER_CACHE: ${CI_PROJECT_DIR}/.cache/electron-builder
   CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/.cache/Cypress
   CYPRESS_INSTALL_BINARY: "0"
   CORE_PACKAGES: "@salp/{frontend,application,course-sandbox}"
@@ -159,3 +162,24 @@ docs:build:
   artifacts:
     paths:
       - public/
+
+build:app:linux: &build_app
+  image: electronuserland/builder:10
+  stage: build
+  only:
+    - /^release.*$/
+  variables:
+    NODE_ENV: ""
+    BUILD_NUMBER: $CI_COMMIT_SHORT_SHA
+  script:
+    - npm run build -- -- -- --linux
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - src/application/dist/
+
+build:app:windows:
+  <<: *build_app
+  image: electronuserland/builder:wine
+  script:
+    - npm run build -- -- -- --windows
