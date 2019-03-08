@@ -4,7 +4,7 @@
   "private": true,
   "main": "background.js",
   "scripts": {
-    "postinstall": "lerna bootstrap $LERNA_ARGS",
+    "postinstall": "lerna bootstrap $LERNA_ARGS --ignore-prepublish",
     "lint": "lerna run lint --no-bail",
     "test": "lerna run test --no-bail",
     "test:core": "lerna run test --no-bail --scope=@salp/{frontend,application}",
