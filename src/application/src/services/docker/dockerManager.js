@@ -26,9 +26,9 @@ class DockerManager {
             await this.imageService.pull(this.course.containers[name].Image)
             sender.send('docker:status', containerName, 'starting')
             const networkName = await this.networkService.getNetworkName()
-            await this.containerService.create(this.course.containers[name], networkName, name)
+            await this.containerService.create(sender, this.course.containers[name], networkName, name)
         }
-        await this.containerService.start()
+        await this.containerService.start(sender)
         await this.checkState(sender)
     }
 
