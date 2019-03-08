@@ -25,21 +25,28 @@ describe('containerService.js', () => {
     const createContainer = sandbox.fake.resolves(
         {Id: '123'}
     )
+
+    const expectedName = `/salp_${course.name.toLocaleLowerCase().trim().replace(/\s/g, '')}_${aliases[0]}`
     const listContainers = sandbox.fake.resolves(
         [
             {
-                Names: [`/salp_${course.name.toLocaleLowerCase().trim().replace(/\s/g, '')}_${aliases[0]}`]
+                Names: [expectedName]
             }
         ])
 
     const start = sandbox.stub()
     const stop = sandbox.stub()
     const send = sandbox.spy()
+    const inspect = sandbox.fake.resolves({Name: expectedName})
+    const attach = sandbox.stub()
+
     const getContainer = sandbox.fake.resolves(
         {
             Id: "123",
             start,
-            stop
+            stop,
+            inspect,
+            attach
         }
     )
 
@@ -122,8 +129,8 @@ describe('containerService.js', () => {
         it('should find existing container in containers', async () => {
             await containerService._discoverContainers()
             const containerName = `/salp_${courseName}_${aliases[0]}`
-            expect(containerService._containerExists(containerName)).to.be.true
-            expect(containerService._containerExists('lorem')).to.be.false
+            expect(await containerService._containerExists('lorem')).to.be.false
+            expect(await containerService._containerExists(containerName)).to.be.true
         })
 
         it('should try to load containers if containers are empty', async () =>{
@@ -268,6 +275,7 @@ describe('containerService.js', () => {
 
         it('should start all containers', async () => {
             sandbox.stub(containerService, "_loadContainers")
+            sandbox.stub(containerService, "_attachContainer")
             const start = sandbox.stub()
             const inspect = sandbox.fake.resolves({
                 State: {
