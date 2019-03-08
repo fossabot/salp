@@ -182,7 +182,6 @@ describe('containerService.js', () => {
                 expect(containerStub).to.have.been.calledOnce
             })
 
-
             it('should throw an error if config is not an object', () => {
                 expect(() => containerService._validateConfig("config", expectedNetworkName, aliases[0])).to.throw(Error,'Config is not an object!')
             })
@@ -275,7 +274,8 @@ describe('containerService.js', () => {
 
         it('should start all containers', async () => {
             sandbox.stub(containerService, "_loadContainers")
-            sandbox.stub(containerService, "_attachContainer")
+            const attachToAllContainersStub = sandbox.stub(containerService, "_attachToAllContainers")
+
             const start = sandbox.stub()
             const inspect = sandbox.fake.resolves({
                 State: {
@@ -289,6 +289,33 @@ describe('containerService.js', () => {
             containerService.containers = [container, container]
             await containerService.start()
             expect(start).to.have.been.calledTwice
+            expect(attachToAllContainersStub).to.have.been.calledOnce
+        })
+
+        it('should attach to all containers', async () => {
+            const attachContainerStub = sandbox.stub(containerService, "_attachContainer")
+            containerService.containers = [{}, {}]
+
+            await containerService._attachToAllContainers()
+
+            expect(attachContainerStub).to.have.been.calledTwice
+        })
+
+        it('should attach to a container', async () => {
+            const getContainerNameFromInspectStub = sandbox.stub(containerService, "_getContainerNameFromInspect").callsFake(() => {return expectedName})
+            const inspectStub = sandbox.stub()
+            const attachStub = sandbox.stub()
+
+            const container = {
+                inspect: inspectStub,
+                attach: attachStub
+            }
+
+            await containerService._attachContainer(container, sandbox.stub())
+
+            expect(inspectStub).to.have.been.calledOnce
+            expect(getContainerNameFromInspectStub).to.have.been.calledOnce
+            expect(attachStub).to.have.been.calledOnce
         })
 
         it('should get all salp related containers', async () => {
