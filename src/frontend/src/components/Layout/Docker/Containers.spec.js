@@ -6,6 +6,7 @@ import { namespace as userPreferencesNamespace, types as userPreferencesTypes } 
 import Containers from './Containers.vue'
 import { stub } from 'sinon'
 import { Table } from 'element-ui'
+import formatBytes from '@/utils/formatBytes.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -92,7 +93,6 @@ describe('Containers.vue', () => {
 
         for (const value of expectedValues) {
             it(`should show string: ${value.expected} for ${value.bytes} Bytes, Deciamls:${value.decimals}, Label:${value.label}`, () => {
-                const formatBytes = wrapper.vm.formatBytes
                 expect(formatBytes(value.bytes, value.decimals, value.label)).to.equal(value.expected)
             })
         }
