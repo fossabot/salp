@@ -32,9 +32,14 @@ describe('imageService.js', () => {
     describe('public methods', () => {
 
         it('should pull a new image', async () => {
+            const senderStub = sandbox.stub()
             sandbox.stub(imageService, "_validateImage").callsFake(() => {return 'lorem'})
+
             expect(imageService.images).to.be.an('array').that.is.empty
-            await imageService.pull('ipsum')
+
+            await imageService.pull({send: senderStub}, 'ipsum')
+
+            expect(senderStub).to.have.been.calledOnce
             expect(pull).to.have.been.calledOnce
             expect(imageService.images).to.be.an('array').that.is.not.empty
         })
