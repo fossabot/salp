@@ -27,6 +27,7 @@ import { Table, TableColumn, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 import { namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
+import formatBytes from '@/utils/formatBytes.js'
 
 export default {
     name: 'Containers',
@@ -54,12 +55,20 @@ export default {
                 let row = {}
                 row['image'] = image
                 let containerName = `salp_${this.courseName}_${image}`
-                row['status'] = this.$store.getters[namespace + '/' + types.GET_CONTAINER_STATUS](containerName)
+                let status = this.$store.getters[namespace + '/' + types.GET_CONTAINER_STATUS](containerName)
+                if (status === 'pulling' && this.pullProgress.current !== 0) {
+                    const size = formatBytes(this.pullProgress.current, 2, true)
+                    status += ' ' + size
+                }
+                row['status'] = status
                 row['ports'] = this.$store.getters[namespace + '/' + types.GET_CONTAINER_PORTS_SIMPLE](containerName)
                 tableData.push(row)
             }
 
             return tableData
+        },
+        pullProgress() {
+            return this.$store.getters[namespace + '/' + types.GET_DOCKER_PULL_PROGRESS]
         },
         baseIp() {
             return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('baseIp')

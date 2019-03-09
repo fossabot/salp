@@ -23,7 +23,7 @@ class DockerManager {
             const courseName = this.course.name.trim().replace(/\s/g, '').toLowerCase()
             const containerName = `salp_${courseName}_${name}`
             sender.send('docker:status', containerName, 'pulling')
-            await this.imageService.pull(this.course.containers[name].Image)
+            await this.imageService.pull(sender, this.course.containers[name].Image)
             sender.send('docker:status', containerName, 'starting')
             const networkName = await this.networkService.getNetworkName()
             await this.containerService.create(this.course.containers[name], networkName, name)

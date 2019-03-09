@@ -15,6 +15,8 @@ export const types = {
     SET_CONTAINER_PORTS: 'SET_CONTAINER_PORTS',
     SET_DOCKER_READY: 'SET_DOCKER_READY',
     SET_DOCKER_ERROR: 'SET_DOCKER_ERROR',
+    SET_DOCKER_PULL_PROGRESS: 'SET_DOCKER_PULL_PROGRESS',
+    GET_DOCKER_PULL_PROGRESS: 'GET_DOCKER_PULL_PROGRESS',
     GET_DOCKER_ERROR: 'GET_DOCKER_ERROR',
     GET_DOCKER_READY: 'GET_DOCKER_READY',
     GET_CONTAINER_PORTS_SIMPLE: 'GET_CONTAINER_PORTS_SIMPLE',
@@ -33,7 +35,11 @@ export default {
         loadedCourses: [],
         containers: {},
         dockerReady: false,
-        dockerError: ''
+        dockerError: '',
+        pullProgress: {
+            current: 0,
+            total: 0
+        }
     },
 
     mutations: {
@@ -50,6 +56,11 @@ export default {
 
         [types.SET_DOCKER_ERROR](state, { message }) {
             state.dockerError = message
+        },
+
+        [types.SET_DOCKER_PULL_PROGRESS](state, { current, total }) {
+            state.pullProgress.current = current
+            state.pullProgress.total = total
         },
 
         [types.SET_CONTAINER_STATUS](state, { containerName, status }) {
@@ -77,6 +88,7 @@ export default {
         [types.GET_LOADED_COURSE](state) {
             return state.loadedCourses
         },
+
         [types.GET_LOADED_COURSES_IDS](state) {
             return state.loadedCourses.map(c => c.id)
         },
@@ -161,6 +173,10 @@ export default {
 
         [types.GET_DOCKER_ERROR](state) {
             return state.dockerError
+        },
+
+        [types.GET_DOCKER_PULL_PROGRESS](state) {
+            return state.pullProgress
         }
     }
 }

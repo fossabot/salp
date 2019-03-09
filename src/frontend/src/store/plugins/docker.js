@@ -19,4 +19,8 @@ export default function docker(store) {
         }
         store.commit(`${namespace}/${types.SET_DOCKER_READY}`, { ready })
     })
+
+    ipcRenderer.on('docker:pullProgress', (event, current, total) => {
+        store.commit(`${namespace}/${types.SET_DOCKER_PULL_PROGRESS}`, { current, total })
+    })
 }

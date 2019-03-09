@@ -5,16 +5,37 @@ class ImageService {
         this.images = []
     }
 
-    async pull(image) {
+    async pull(sender, image) {
         const stream = await this.docker.pull(this._validateImage(image))
 
+        let layersProgress = {}
+
+        function calculateProgress(progress) {
+            layersProgress[progress.id] = progress
+
+            let total = 0
+            let current = 0
+            for (const id in layersProgress) {
+                let progress = layersProgress[id]
+                total += progress.progressDetail.total
+                current += progress.progressDetail.current
+            }
+            sender.send('docker:pullProgress', current, total)
+        }
+
         return new Promise((resolve, reject) => {
-            this.docker.modem.followProgress(stream, (err, res) => {
+            this.docker.modem.followProgress(stream, (err, finished) => {
                 if (err) {
                     reject(err)
                 }
                 this.images.push(image)
-                resolve(res)
+                layersProgress = {}
+                sender.send('docker:pullProgress', 0, 0)
+                resolve(finished)
+            }, (progress) => {
+                if(progress.status === 'Downloading') {
+                    calculateProgress(progress)
+                }
             })
         })
     }

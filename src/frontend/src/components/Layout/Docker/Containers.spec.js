@@ -6,6 +6,7 @@ import { namespace as userPreferencesNamespace, types as userPreferencesTypes } 
 import Containers from './Containers.vue'
 import { stub } from 'sinon'
 import { Table } from 'element-ui'
+import formatBytes from '@/utils/formatBytes.js'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -71,5 +72,29 @@ describe('Containers.vue', () => {
 
     it('should render table', () => {
         expect(wrapper.find(Table).exists()).to.be.true
+    })
+
+    describe('it should display bytes in human-readable format', () => {
+        const expectedValues = [
+            { bytes: 0, decimals: 2, label: true, expected: '0 Bytes' },
+            { bytes: 0, decimals: 2, label: false, expected: '0 Bytes' },
+            { bytes: 100, decimals: 2, label: false, expected: '100' },
+            { bytes: 100, decimals: 2, label: true, expected: '100 Bytes' },
+            { bytes: 1024, decimals: 2, label: true, expected: '1 KB' },
+            { bytes: 1239.04, decimals: 2, label: true, expected: '1.21 KB' },
+            { bytes: 1240.064, decimals: 3, label: true, expected: '1.211 KB' },
+            { bytes: 1048576, decimals: 2, label: true, expected: '1 MB' },
+            { bytes: 1289748.48, decimals: 2, label: true, expected: '1.23 MB' },
+            { bytes: 1294467.072, decimals: 4, label: true, expected: '1.2345 MB' },
+            { bytes: 1073741824, decimals: 2, label: true, expected: '1 GB' },
+            { bytes: 1320702443.52, decimals: 2, label: true, expected: '1.23 GB' },
+            { bytes: 1099511627776, decimals: 2, label: true, expected: '1 TB' }
+        ]
+
+        for (const value of expectedValues) {
+            it(`should show string: ${value.expected} for ${value.bytes} Bytes, Deciamls:${value.decimals}, Label:${value.label}`, () => {
+                expect(formatBytes(value.bytes, value.decimals, value.label)).to.equal(value.expected)
+            })
+        }
     })
 })
