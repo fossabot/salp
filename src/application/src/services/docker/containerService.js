@@ -147,8 +147,7 @@ class ContainerService {
             stdout: true,
             stderr: true
         }, (err, stream) => {
-            stream.on('data', (chunk) => {
-            })
+            stream.on('data', (chunk) => {})
 
             stream.on('close', () => {
                 sender.send('docker:status', name, 'exited')

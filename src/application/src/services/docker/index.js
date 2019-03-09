@@ -115,7 +115,7 @@ function init() {
     ipcMain.on('docker:up', up)
     ipcMain.on('docker:down', down)
     ipcMain.on('docker:removeContainer', removeContainersAndNetwork)
-    ipcMain.on('docker:removeAll', remove)
+    ipcMain.on('docker:removeAll', removeContainersAndNetwork)
     ipcMain.on('docker:checkState', checkState)
     ipcMain.on('docker:getAllContainers', getAllContainers)
     ipcMain.on('docker:test', testSettings)

@@ -74,7 +74,7 @@ export default {
     methods: {
         handleButtonClick() {
             if (this.allContainersUp) {
-                ipcRenderer.send('docker:removeContainer', this.course)
+                ipcRenderer.send('docker:down', this.course)
             } else {
                 ipcRenderer.send('docker:up', this.course)
             }
