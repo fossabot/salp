@@ -23,7 +23,7 @@
     "@salp/frontend": "^1.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "electron": "^4.0.1",
+    "electron": "^4.0.8",
     "electron-builder": "^20.38.5",
     "eslint": "^5.12.1",
     "mocha": "^5.2.0",
