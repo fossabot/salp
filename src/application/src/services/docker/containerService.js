@@ -5,11 +5,11 @@ class ContainerService {
         this.containers = []
     }
 
-    async create(config, networkName, name) {
-        await this._loadContainers()
+    async create(sender, config, networkName, name) {
+        await this._loadContainers(sender)
         const containerName = this._getContainerName(name, this.course.name)
         if (this.containers.length !== 0) {
-            if (!this._containerExists(`/${containerName}`)) {
+            if (!await this._containerExists(`/${containerName}`)) {
                 await this._createContainer(config, networkName, name)
             }
         } else {
@@ -17,19 +17,20 @@ class ContainerService {
         }
     }
 
-    async start() {
-        await this._loadContainers()
+    async start(sender) {
+        await this._loadContainers(sender)
         for (const container of this.containers) {
             let inspect = await container.inspect()
             if (inspect.State.Status !== 'running') {
                 await container.start()
             }
         }
+        await this._attachToAllContainers(sender)
     }
 
     async stop(sender) {
-        await this._loadContainers()
-        for (const container of this.containers) {
+        await this._loadContainers(sender)
+        for (const container of this.containers.slice(0)) {
             let inspect = await container.inspect()
             if (inspect.State.Status !== 'exited') {
                 sender.send('docker:status', this._getContainerNameFromInspect(inspect), 'stoping')
@@ -39,7 +40,7 @@ class ContainerService {
     }
 
     async removeAll(sender) {
-        await this._loadContainers()
+        await this._loadContainers(sender)
         for (const container of this.containers) {
             let inspect = await container.inspect()
             sender.send('docker:status', this._getContainerNameFromInspect(inspect), 'removing')
@@ -50,12 +51,11 @@ class ContainerService {
     }
 
     async getStatues(sender) {
-        await this._loadContainers()
+        await this._loadContainers(sender)
         if( this.containers.length === 0 ) {
             return {}
         }
-        for (const containerName in this.containers) {
-            let container = this.containers[containerName]
+        for (const container of this.containers) {
             let inspect = await container.inspect()
             let name = this._getContainerNameFromInspect(inspect)
             sender.send('docker:status', name, inspect.State.Status)
@@ -63,7 +63,7 @@ class ContainerService {
     }
 
     async getPorts(sender) {
-        await this._loadContainers()
+        await this._loadContainers(sender)
         if( this.containers.length === 0 ) {
             return {}
         }
@@ -133,6 +133,32 @@ class ContainerService {
 
     }
 
+    async _attachToAllContainers(sender) {
+        for (const container of this.containers) {
+            await this._attachContainer(container, sender)
+        }
+    }
+
+    async _attachContainer(container, sender) {
+        let inspect = await container.inspect()
+        const name = this._getContainerNameFromInspect(inspect)
+        container.attach({
+            stream: true,
+            stdout: true,
+            stderr: true
+        }, (err, stream) => {
+            stream.on('data', (chunk) => {})
+
+            stream.on('close', () => {
+                sender.send('docker:status', name, 'exited')
+            })
+
+            stream.on('error', () => {
+                sender.send('docker:status', name, 'exited')
+            })
+        })
+    }
+
     async _createContainer(config, networkName, name) {
         let container = await this.docker.createContainer(this._validateConfig(config, networkName, name))
         this.containers.push(container)
@@ -178,22 +204,24 @@ class ContainerService {
         return config
     }
 
-    async _loadContainers() {
+    async _loadContainers(sender) {
         if (this.containers.length === 0) {
             await this._discoverContainers()
+            await this._attachToAllContainers(sender)
         }
     }
 
-    _containerExists(containerName) {
-        let found = this.containers.find(container => {
-            if (container._containerInfo === undefined) {
-                return false
+    async _containerExists(containerName) {
+        let exists = false
+        for(const container of this.containers) {
+            let inspect = await container.inspect()
+            if((container._containerInfo && container._containerInfo.Names.includes(containerName))
+                || (inspect && inspect.Name === containerName)) {
+                exists = true
             }
+        }
 
-            return container._containerInfo.Names.includes(containerName)
-        })
-
-        return !!found
+        return exists
     }
 
     async _discoverContainers() {

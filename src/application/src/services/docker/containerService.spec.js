@@ -25,21 +25,28 @@ describe('containerService.js', () => {
     const createContainer = sandbox.fake.resolves(
         {Id: '123'}
     )
+
+    const expectedName = `/salp_${course.name.toLocaleLowerCase().trim().replace(/\s/g, '')}_${aliases[0]}`
     const listContainers = sandbox.fake.resolves(
         [
             {
-                Names: [`/salp_${course.name.toLocaleLowerCase().trim().replace(/\s/g, '')}_${aliases[0]}`]
+                Names: [expectedName]
             }
         ])
 
     const start = sandbox.stub()
     const stop = sandbox.stub()
     const send = sandbox.spy()
+    const inspect = sandbox.fake.resolves({Name: expectedName})
+    const attach = sandbox.stub()
+
     const getContainer = sandbox.fake.resolves(
         {
             Id: "123",
             start,
-            stop
+            stop,
+            inspect,
+            attach
         }
     )
 
@@ -122,8 +129,8 @@ describe('containerService.js', () => {
         it('should find existing container in containers', async () => {
             await containerService._discoverContainers()
             const containerName = `/salp_${courseName}_${aliases[0]}`
-            expect(containerService._containerExists(containerName)).to.be.true
-            expect(containerService._containerExists('lorem')).to.be.false
+            expect(await containerService._containerExists('lorem')).to.be.false
+            expect(await containerService._containerExists(containerName)).to.be.true
         })
 
         it('should try to load containers if containers are empty', async () =>{
@@ -174,7 +181,6 @@ describe('containerService.js', () => {
             it('should call _getContainerName once', () => {
                 expect(containerStub).to.have.been.calledOnce
             })
-
 
             it('should throw an error if config is not an object', () => {
                 expect(() => containerService._validateConfig("config", expectedNetworkName, aliases[0])).to.throw(Error,'Config is not an object!')
@@ -268,6 +274,8 @@ describe('containerService.js', () => {
 
         it('should start all containers', async () => {
             sandbox.stub(containerService, "_loadContainers")
+            const attachToAllContainersStub = sandbox.stub(containerService, "_attachToAllContainers")
+
             const start = sandbox.stub()
             const inspect = sandbox.fake.resolves({
                 State: {
@@ -281,6 +289,33 @@ describe('containerService.js', () => {
             containerService.containers = [container, container]
             await containerService.start()
             expect(start).to.have.been.calledTwice
+            expect(attachToAllContainersStub).to.have.been.calledOnce
+        })
+
+        it('should attach to all containers', async () => {
+            const attachContainerStub = sandbox.stub(containerService, "_attachContainer")
+            containerService.containers = [{}, {}]
+
+            await containerService._attachToAllContainers()
+
+            expect(attachContainerStub).to.have.been.calledTwice
+        })
+
+        it('should attach to a container', async () => {
+            const getContainerNameFromInspectStub = sandbox.stub(containerService, "_getContainerNameFromInspect").callsFake(() => {return expectedName})
+            const inspectStub = sandbox.stub()
+            const attachStub = sandbox.stub()
+
+            const container = {
+                inspect: inspectStub,
+                attach: attachStub
+            }
+
+            await containerService._attachContainer(container, sandbox.stub())
+
+            expect(inspectStub).to.have.been.calledOnce
+            expect(getContainerNameFromInspectStub).to.have.been.calledOnce
+            expect(attachStub).to.have.been.calledOnce
         })
 
         it('should get all salp related containers', async () => {
