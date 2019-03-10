@@ -16,7 +16,8 @@
     "serve": "./scripts/serve.js",
     "lint": "eslint src/ test/",
     "build": "electron-builder build",
-    "clean": "rm -rf dist/"
+    "clean": "rm -rf dist/",
+    "clean:all": "npm run clean; rm -rf .nyc_output/ coverage/ node_modules/"
   },
   "devDependencies": {
     "@salp/course-sandbox": "^0.1.0",
