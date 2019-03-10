@@ -1,5 +1,8 @@
 // helper to spawn/fork a child_process
 const proc = require('child_process')
+const util = require('util')
+
+const asyncExec = util.promisify(proc.exec)
 
 async function run(mode, script, args, cwd, env) {
     const runFn = proc[mode]
@@ -48,8 +51,20 @@ async function spawn(script, args, cwd, env) {
     return run('spawn', script, args, cwd, env)
 }
 
+async function exec(script, cwd, env) {
+    return asyncExec(script, {
+        cwd,
+        windowsHide: false,
+        env: {
+            ...process.env,
+            ...env
+        }
+    })
+}
+
 module.exports ={
     run,
     fork,
-    spawn
+    spawn,
+    exec
 }
