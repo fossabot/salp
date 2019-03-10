@@ -21,7 +21,8 @@
   "scripts": {
     "test": "mocha",
     "lint": "eslint lib/",
-    "coverage:unit": "nyc mocha"
+    "coverage:unit": "nyc mocha",
+    "clean:all": "rm -rf .nyc_output/ coverage/ node_modules/"
   },
   "dependencies": {
     "@salp/markdown-loader": "^1.0.0",

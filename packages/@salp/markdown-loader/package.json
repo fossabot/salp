@@ -4,7 +4,8 @@
   "description": "Webpack loader to compile salp course content (markdown) to Vue (javascript)",
   "main": "lib/markdown-loader.js",
   "scripts": {
-    "lint": "eslint lib/"
+    "lint": "eslint lib/",
+    "clean:all": "rm -rf node_modules/"
   },
   "files": [
     "lib/"
