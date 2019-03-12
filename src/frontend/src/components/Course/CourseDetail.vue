@@ -2,7 +2,7 @@
     <div class="course-detail__container">
         <CourseCardFull v-bind="course"/>
 
-        <SectionHeader>{{ $t('Layout.Course.detail.sections.containers') }}</SectionHeader>
+        <SectionHeader>{{ $t('Course.detail.sections.containers') }}</SectionHeader>
         <DockerControls :name="course.name" :images="course.dockerConfig.images"/>
 
         <SectionHeader>{{ $t('App.headlines.toc') }}</SectionHeader>

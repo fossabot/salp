@@ -28,7 +28,7 @@ export default {
     },
     data() {
         const recent = {
-            title: this.$t('Layout.Course.overview.categories.recent'),
+            title: this.$t('Course.overview.categories.recent'),
             icon: faHistory,
             items: []
         }
