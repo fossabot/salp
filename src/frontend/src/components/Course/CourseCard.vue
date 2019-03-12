@@ -13,23 +13,23 @@
                             <DropdownItem v-if="repositoryUrl">
                                 <ExternalLink :href="repositoryUrl">
                                     <Icon icon="faGlobe"/>
-                                    {{ $t('Layout.Course.actions.openProjectPage') }}
+                                    {{ $t('Course.actions.openProjectPage') }}
                                 </ExternalLink>
                             </DropdownItem>
                             <DropdownItem v-if="issuesUrl">
                                 <ExternalLink :href="issuesUrl">
                                     <Icon icon="faExclamation"/>
-                                    {{ $t('Layout.Course.actions.reportIssue') }}
+                                    {{ $t('Course.actions.reportIssue') }}
                                 </ExternalLink>
                             </DropdownItem>
                             <DropdownItem v-if="homepage">
                                 <ExternalLink :href="homepage">
                                     <Icon icon="faUser"/>
-                                    {{ $t('Layout.Course.actions.visitAuthorPage') }}
+                                    {{ $t('Course.actions.visitAuthorPage') }}
                                 </ExternalLink>
                             </DropdownItem>
                             <DropdownItem>
-                                <Icon icon="faTrashAlt"/> {{ $t('Layout.Course.actions.delete') }}
+                                <Icon icon="faTrashAlt"/> {{ $t('Course.actions.delete') }}
                             </DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
@@ -44,9 +44,9 @@
                 </div>
 
                 <span class="course-card__info__text"
-                      v-t="{path: 'Layout.Course.info.shortDescription.chaptersAndAssignments', args: {chapters: chaptersCount, assignments: assignmentsCount}}">
+                      v-t="{path: 'Course.info.shortDescription.chaptersAndAssignments', args: {chapters: chaptersCount, assignments: assignmentsCount}}">
                 </span>
-                <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
+                <span class="course-card__info__text" v-t="{path: 'Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
             </div>
         </Card>
     </a>

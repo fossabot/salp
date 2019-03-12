@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CoursesOverview from '../Layout/Course/CoursesOverview.vue'
+import CoursesOverview from '../Course/CoursesOverview.vue'
 
 export default {
     name: 'Home',

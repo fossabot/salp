@@ -5,7 +5,7 @@
 
             <div class="course-card__context-menu">
                 <Button type="text" class="dropdown__trigger">
-                    <Icon icon="faTrashAlt"/> {{ $t('Layout.Course.actions.delete') }}
+                    <Icon icon="faTrashAlt"/> {{ $t('Course.actions.delete') }}
                 </Button>
             </div>
         </header>
@@ -13,23 +13,23 @@
         <div class="course-card__info">
             <p>{{ description }}</p>
 
-            <span class="course-card__info__text" v-t="{path: 'Layout.Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
+            <span class="course-card__info__text" v-t="{path: 'Course.info.shortDescription.authorAndVersion', args: {author, version}}"></span>
 
             <nav>
                 <ul class="course-card__meta-menuicon-list">
                     <li v-if="repositoryUrl">
                         <ExternalLink :href="repositoryUrl">
-                            <Icon icon="faGlobe"/> {{ $t('Layout.Course.actions.openProjectPage') }}
+                            <Icon icon="faGlobe"/> {{ $t('Course.actions.openProjectPage') }}
                         </ExternalLink>
                     </li>
                     <li v-if="issuesUrl">
                         <ExternalLink :href="issuesUrl">
-                            <Icon icon="faExclamation"/> {{ $t('Layout.Course.actions.reportIssue') }}
+                            <Icon icon="faExclamation"/> {{ $t('Course.actions.reportIssue') }}
                         </ExternalLink>
                     </li>
                     <li v-if="homepage">
                         <ExternalLink :href="homepage">
-                            <Icon icon="faUser"/> {{ $t('Layout.Course.actions.visitAuthorPage') }}
+                            <Icon icon="faUser"/> {{ $t('Course.actions.visitAuthorPage') }}
                         </ExternalLink>
                     </li>
                 </ul>

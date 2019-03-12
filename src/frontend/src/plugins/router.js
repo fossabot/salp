@@ -4,8 +4,8 @@ import Setup, { stepsPages } from '../components/Pages/Setup.vue'
 import Settings from '../components/Pages/Settings.vue'
 import Profile from '../components/Pages/Profile.vue'
 import Course from '../components/Pages/Course.vue'
-import CourseDetail from '../components/Layout/Course/CourseDetail.vue'
-import CourseView from '../components/Layout/Course/CourseView.vue'
+import CourseDetail from '../components/Course/CourseDetail.vue'
+import CourseView from '../components/Course/CourseView.vue'
 import Containers from '../components/Pages/Containers.vue'
 
 let router
