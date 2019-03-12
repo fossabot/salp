@@ -17,10 +17,10 @@
 <script>
 import { Steps, Step, Button } from 'element-ui'
 import { namespace, types } from '@/store/modules/persisted/UserPreferences.js'
-import SectionHeader from '@/components/Layout/Content/SectionHeader.vue'
+import SectionHeader from '@/components/Elements/SectionHeader.vue'
 
 // import all steps dynamically
-const stepsContext = require.context('../Layout/Setup', false, /\.vue$/)
+const stepsContext = require.context('../Setup', false, /\.vue$/)
 const steps = stepsContext.keys().map(file => stepsContext(file).default)
 let stepsPages = steps.map(step => ({
     name: step.name,

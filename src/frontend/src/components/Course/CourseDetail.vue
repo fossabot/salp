@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import SectionHeader from '../Content/SectionHeader.vue'
+import SectionHeader from '../Elements/SectionHeader.vue'
 import CourseCardFull from './CourseCardFull.vue'
-import TableOfContents from '../Content/TableOfContents.vue'
+import TableOfContents from '../Elements/TableOfContents.vue'
 import DockerControls from '../Docker/DockerControls.vue'
 
 export default {
