@@ -2,7 +2,7 @@
 image: node:latest
 
 cache:
-  key: "${CI_COMMIT_REF_SLUG}-${CI_JOB_STAGE}"
+  key: "${CI_COMMIT_REF_SLUG}"
   paths:
     - ${CI_PROJECT_DIR}/.cache/npm
     - ${CI_PROJECT_DIR}/.cache/electron
