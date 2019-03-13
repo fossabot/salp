@@ -152,6 +152,12 @@ dependency_scanning:
 
 docs:build:
   stage: docs
+  only:
+    refs:
+      - /^release.*/
+      - merge_requests
+    changes:
+      - docs/**/*
   variables:
     NODE_ENV: ""
   before_script:
