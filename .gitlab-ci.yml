@@ -31,24 +31,25 @@ before_script:
   - npm run postinstall --unsafe-perm
 
 # jobs
-eslint:core:
+.linting: &linting
   stage: lint
+  only:
+    - merge_request
   variables:
     LERNA_ARGS: --ignore-prepublish
+
+eslint:core:
+  <<: *linting
   script:
     - npx lerna run lint --no-bail --scope=$CORE_PACKAGES -- -- --no-fix
 
 eslint:packages:
-  stage: lint
-  variables:
-    LERNA_ARGS: --ignore-prepublish
+  <<: *linting
   script:
     - npx lerna run lint --no-bail --ignore=$CORE_PACKAGES -- -- --no-fix
 
 stylelint:frontend:
-  stage: lint
-  variables:
-    LERNA_ARGS: --ignore-prepublish
+  <<: *linting
   script:
     - cd src/frontend/
     - npm run lint:style
