@@ -167,8 +167,7 @@ docs:build:
   stage: docs
   only:
     refs:
-      - /^release.*/
-      - merge_requests
+      - master
     changes:
       - docs/**/*
   variables:
