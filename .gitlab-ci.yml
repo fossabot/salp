@@ -56,6 +56,9 @@ stylelint:frontend:
 
 test:unit:frontend:
   stage: test
+  only:
+    changes:
+      - src/frontend/**/*
   script:
     - cd src/frontend/
     - npm run coverage:unit
@@ -67,6 +70,9 @@ test:unit:frontend:
 test:unit:application:
   image: node:11.6
   stage: test
+  only:
+    changes:
+      - src/application/**/*
   script:
     - cd src/application/
     - npm run coverage:unit
@@ -77,6 +83,9 @@ test:unit:application:
 
 test:unit:course-sandbox:
   stage: test
+  only:
+    changes:
+      - src/course-sandbox/**/*
   script:
     - cd src/course-sandbox/
     - npm run coverage:unit
@@ -87,6 +96,9 @@ test:unit:course-sandbox:
 
 test:unit:packages:
   stage: test
+  only:
+    changes:
+      - packages/@salp/**/*
   script:
     - npx lerna run test --no-bail --ignore=$CORE_PACKAGES
 
