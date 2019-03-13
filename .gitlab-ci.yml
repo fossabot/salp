@@ -108,6 +108,9 @@ test:unit:packages:
 test:e2e:frontend:production: &test_e2e_frontend
   image: cypress/base:10
   stage: test
+  only:
+    changes:
+      - src/frontend/**/*
   variables:
     CYPRESS_INSTALL_BINARY: ""
     RUNTIME_NODE_ENV: "production"
