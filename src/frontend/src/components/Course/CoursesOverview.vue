@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import SectionHeader from '../Content/SectionHeader.vue'
+import SectionHeader from '../Elements/SectionHeader.vue'
 import CourseList from './CourseList.vue'
 import { faHistory } from '@fortawesome/free-solid-svg-icons'
 import { mapGetters } from 'vuex'
@@ -28,7 +28,7 @@ export default {
     },
     data() {
         const recent = {
-            title: this.$t('Layout.Course.overview.categories.recent'),
+            title: this.$t('Course.overview.categories.recent'),
             icon: faHistory,
             items: []
         }

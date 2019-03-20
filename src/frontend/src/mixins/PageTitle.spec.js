@@ -1,17 +1,16 @@
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import { shallowMount } from '@vue/test-utils'
-import PageTitle from './PageTitle.js'
+import PageTitleMixin from './PageTitle.js'
 
 const testTranslationKey = 'Some.translation.App.key'
 
-describe('Page title mixin: PageTitle.js', () => {
-    const PageTitleMixin = PageTitle.__get__('mixin')
+describe('Page title mixin: PageTitleMixin.js', () => {
     let component
     const translationFunctionSpy = spy()
 
     before('Add spy for i18n translation function', () => {
-        PageTitle.__Rewire__('i18n', {
+        PageTitleMixin.__Rewire__('i18n', {
             t: translationFunctionSpy
         })
     })
@@ -31,7 +30,7 @@ describe('Page title mixin: PageTitle.js', () => {
     })
 
     after('Remove i18n translation function spy', () => {
-        PageTitle.__ResetDependency__('i18n')
+        PageTitleMixin.__ResetDependency__('i18n')
     })
 
     it('should add "beforeMount" hook to component', () => {

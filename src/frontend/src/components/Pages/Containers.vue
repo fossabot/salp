@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ContainerOverview from '../Layout/Docker/ContainerOverview.vue'
+import ContainerOverview from '../Docker/ContainerOverview.vue'
 
 export default {
     name: 'Containers',

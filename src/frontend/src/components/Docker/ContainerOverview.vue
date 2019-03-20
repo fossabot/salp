@@ -1,6 +1,6 @@
 <template>
     <div class="container-overview">
-        <h1>{{ $t('Layout.Docker.overview') }}</h1>
+        <h1>{{ $t('Docker.overview') }}</h1>
         <Table :stripe="true" class="docker-containers__table"
         :data="tableData">
             <TableColumn label="Container Name" prop="fullname" />

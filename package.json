@@ -12,6 +12,7 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "clean": "lerna run clean",
+    "clean:all": "lerna run clean:all && lerna clean -y && rm -rf node_modules/",
     "build": "lerna run build --ignore @salp/application --stream && lerna run build --scope @salp/application --stream"
   },
   "devDependencies": {

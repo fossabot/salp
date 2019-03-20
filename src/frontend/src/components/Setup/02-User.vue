@@ -14,6 +14,7 @@
 <script>
 import { Form, FormItem, Input } from 'element-ui'
 import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 export default {
     name: 'Setup-User',
@@ -23,6 +24,9 @@ export default {
         FormItem,
         /* eslint-disable-next-line vue/no-unused-components */
         [Input.name]: Input
+    },
+    icons: {
+        faEdit
     },
     computed: {
         username: {
