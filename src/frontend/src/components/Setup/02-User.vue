@@ -13,6 +13,7 @@
 
 <script>
 import { Form, FormItem, Input } from 'element-ui'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
 
 const { mapStateTwoWay } = createHelpers()
@@ -25,6 +26,9 @@ export default {
         FormItem,
         /* eslint-disable-next-line vue/no-unused-components */
         [Input.name]: Input
+    },
+    icons: {
+        faEdit
     },
     computed: mapStateTwoWay(['username'])
 }
