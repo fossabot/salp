@@ -13,9 +13,7 @@
 
 <script>
 import { Form, FormItem, Input } from 'element-ui'
-import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
-
-const { mapStateTwoWay } = createHelpers()
+import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
 
 export default {
     name: 'Setup-User',
@@ -26,6 +24,18 @@ export default {
         /* eslint-disable-next-line vue/no-unused-components */
         [Input.name]: Input
     },
-    computed: mapStateTwoWay(['username'])
+    computed: {
+        username: {
+            get() {
+                return this.$store.getters[persistedTypes.GET_USERNAME]
+            },
+            set(value) {
+                this.$store.commit({
+                    type: persistedTypes.SET_USERNAME,
+                    value
+                })
+            }
+        }
+    }
 }
 </script>

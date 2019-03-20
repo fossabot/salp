@@ -29,7 +29,7 @@
 import { ipcRenderer } from 'electron'
 import { Table, TableColumn, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
+import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {
@@ -61,7 +61,7 @@ export default {
             return tableData
         },
         baseIp() {
-            return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('baseIp')
+            return this.$store.getters[persistedTypes.GET_BASE_IP]
         }
     },
     mounted() {

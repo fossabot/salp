@@ -3,10 +3,11 @@ const splitca = require('split-ca')
 const path = require('path')
 const fs = require('fs')
 const Docker = require('dockerode')
-const { getSettings } = require('../persistedSettings')
 const ImageService = require('./imageService')
 const ContainerService = require('./containerService')
 const NetworkService = require('./networkService')
+const persistenceManager = require('../persistence')
+const settingsStore = persistenceManager.get('settings')
 
 class DockerManager {
     constructor(course) {
@@ -87,7 +88,7 @@ class DockerManager {
     }
 
     _loadCert(options) {
-        let certDir = getSettings('certDir')
+        let certDir = settingsStore.get('certDir')
         try {
             if (certDir !== undefined && certDir.trim() !== '') {
                 certDir = certDir.trim()
@@ -101,12 +102,12 @@ class DockerManager {
     }
 
     _setTLS(options) {
-        const checkServerIdentity = getSettings('verifyTls')
+        const checkServerIdentity = settingsStore.get('verifyTls')
         options['checkServerIdentity'] = checkServerIdentity
     }
 
     _setSocketPath(options) {
-        let socket = getSettings('socket')
+        let socket = settingsStore.get('socket')
         if (socket !== undefined && socket.trim() !== '') {
             socket = socket.trim()
             if(socket.indexOf('unix://') === 0) {

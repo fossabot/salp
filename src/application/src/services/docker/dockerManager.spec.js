@@ -50,13 +50,13 @@ describe('dockerManager.js', () => {
     beforeEach('create new dockerManager', () => {
         send = sandbox.spy()
         getSettings = sandbox.stub().callsFake(() => '')
-        mock('../persistedSettings', {getSettings})
+        mock('../persistence', { get: () => ({ get: getSettings }) })
         const DockerManager = mock.reRequire('./dockerManager')
         dockerManager = new DockerManager({ ...course })
     })
 
     afterEach(() => {
-        mock.stop('../persistedSettings')
+        mock.stop('../persistence')
         sandbox.reset()
     })
 
@@ -139,12 +139,12 @@ describe('dockerManager.js', () => {
         })
 
         it('should load and set certificate', () => {
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
             const expectedCert = 'cert-data'
             const expectedCa = 'ca-data'
             getSettings = sandbox.stub().callsFake(() => 'path/to/cert')
             const readFileSync = sandbox.stub().callsFake(() => expectedCert)
-            mock('../persistedSettings', { getSettings })
+            mock('../persistence', { get: () => ({ get: getSettings }) })
             mock('fs', {readFileSync})
             mock('split-ca', () => expectedCa)
             const DockerManager = mock.reRequire('./dockerManager')
@@ -162,16 +162,16 @@ describe('dockerManager.js', () => {
             expect(readFileSync).to.have.been.calledTwice
             expect(options).to.deep.equal(expectedOptions)
 
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
             mock.stop('fs')
             mock.stop('split-ca')
         })
 
         it('should throw error if certificate not found', () => {
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
             getSettings = sandbox.stub().callsFake(() => '/directory/does/not/exist')
             const readFileSync = sandbox.stub().callsFake(() => expectedCert)
-            mock('../persistedSettings', { getSettings })
+            mock('../persistence', { get: () => ({ get: getSettings }) })
             const DockerManager = mock.reRequire('./dockerManager')
             sandbox.stub(DockerManager.prototype, '_initialize')
             dockerManager = new DockerManager({ ...course })
@@ -180,14 +180,14 @@ describe('dockerManager.js', () => {
 
             expect(() => dockerManager._loadCert(options)).to.throw(/Cert not found. Reason: /)
 
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
         })
 
         it('should set tls option', () => {
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
             const expectedTLS = '1'
             getSettings = sandbox.stub().callsFake(() => expectedTLS)
-            mock('../persistedSettings', { getSettings })
+            mock('../persistence', { get: () => ({ get: getSettings }) })
             const DockerManager = mock.reRequire('./dockerManager')
             sandbox.stub(DockerManager.prototype, '_initialize')
             dockerManager = new DockerManager({ ...course })
@@ -201,13 +201,13 @@ describe('dockerManager.js', () => {
             expect(getSettings).to.have.been.calledOnce
             expect(options).to.deep.equal(expectedOptions)
 
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
         })
 
         it('should set default socket path if none is provided', () => {
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
             getSettings = sandbox.stub().callsFake(() => '')
-            mock('../persistedSettings', { getSettings })
+            mock('../persistence', { get: () => ({ get: getSettings }) })
             const DockerManager = mock.reRequire('./dockerManager')
             sandbox.stub(DockerManager.prototype, '_initialize')
             dockerManager = new DockerManager({ ...course })
@@ -219,7 +219,7 @@ describe('dockerManager.js', () => {
 
             expect(getDefaultSocket).to.have.been.calledOnce
 
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
         })
 
         it('should set default socket path for windows', () => {
@@ -261,10 +261,10 @@ describe('dockerManager.js', () => {
         })
 
         it('should set provided socket path ', () => {
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
             const expectedPath = 'path/to/socket'
             getSettings = sandbox.stub().callsFake(() => `unix://${expectedPath}`)
-            mock('../persistedSettings', { getSettings })
+            mock('../persistence', { get: () => ({ get: getSettings }) })
             const DockerManager = mock.reRequire('./dockerManager')
             sandbox.stub(DockerManager.prototype, '_initialize')
             dockerManager = new DockerManager({ ...course })
@@ -277,7 +277,7 @@ describe('dockerManager.js', () => {
 
             expect(expectedOptions).to.deep.equal(options)
 
-            mock.stop('../persistedSettings')
+            mock.stop('../persistence')
         })
     })
 })

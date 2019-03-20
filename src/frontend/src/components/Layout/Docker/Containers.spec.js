@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
+import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
 import Containers from './Containers.vue'
 import { stub } from 'sinon'
 import { Table } from 'element-ui'
@@ -38,7 +38,7 @@ describe('Containers.vue', () => {
         getters = {
             [`${namespace}/${types.GET_CONTAINER_STATUS}`]: (state) => containerStatus,
             [`${namespace}/${types.GET_CONTAINER_PORTS_SIMPLE}`]: (state) => containerPorts,
-            [`${userPreferencesNamespace}/${userPreferencesTypes.GET}`]: (state) => baseIp
+            [persistedTypes.GET_BASE_IP]: (state) => baseIp
         }
 
         store = new Vuex.Store({

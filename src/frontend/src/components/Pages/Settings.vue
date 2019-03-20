@@ -46,11 +46,9 @@ import { debounce } from 'lodash'
 import { userInputDebounceTimer } from '@/constants'
 import { Switch, Form, FormItem, Input, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { createHelpers, namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
+import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
 import { ipcRenderer, remote } from 'electron'
 import ErrorLog from '@/components/Elements/ErrorLog.vue'
-
-const { mapStateTwoWay } = createHelpers()
 
 export default {
     name: 'Settings',
@@ -65,7 +63,51 @@ export default {
         ErrorLog
     },
     computed: {
-        ...mapStateTwoWay(['allowTracking', 'ml', 'verifyTls', 'baseIp']),
+        allowTracking: {
+            get() {
+                return this.$store.getters[persistedTypes.GET_ALLOW_TRACKING]
+            },
+            set(value) {
+                this.$store.commit({
+                    type: persistedTypes.SET_ALLOW_TRACKING,
+                    value
+                })
+            }
+        },
+        ml: {
+            get() {
+                return this.$store.getters[persistedTypes.GET_ML]
+            },
+            set(value) {
+                this.$store.commit({
+                    type: persistedTypes.SET_ML,
+                    value
+                })
+            }
+        },
+        verifyTls: {
+            get() {
+                return this.$store.getters[persistedTypes.GET_VERIFY_TLS]
+            },
+            set(value) {
+                this.$store.commit({
+                    type: persistedTypes.SET_VERIFY_TLS,
+                    value
+                })
+            }
+        },
+        baseIp: {
+            get() {
+                return this.$store.getters[persistedTypes.GET_BASE_IP]
+            },
+            set(value) {
+                this.$store.commit({
+                    type: persistedTypes.SET_BASE_IP,
+                    value
+                })
+            }
+        },
+
         deamonFound() {
             this.testDocker()
 
@@ -80,29 +122,27 @@ export default {
         certDir: {
             set(value) {
                 this.$store.commit({
-                    type: `${userPreferencesNamespace}/${userPreferencesTypes.SET}`,
-                    name: 'certDir',
+                    type: persistedTypes.SET_CERT_DIR,
                     value
                 })
 
                 this.testDocker()
             },
             get() {
-                return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('certDir')
+                return this.$store.getters[persistedTypes.GET_CERT_DIR]
             }
         },
         socket: {
             set(value) {
                 this.$store.commit({
-                    type: `${userPreferencesNamespace}/${userPreferencesTypes.SET}`,
-                    name: 'socket',
+                    type: persistedTypes.SET_SOCKET,
                     value
                 })
 
                 this.testDocker()
             },
             get() {
-                return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('socket')
+                return this.$store.getters[persistedTypes.GET_SOCKET]
             }
         }
     },

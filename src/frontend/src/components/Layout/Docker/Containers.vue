@@ -26,7 +26,7 @@
 import { Table, TableColumn, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
-import { namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
+import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
 import formatBytes from '@/utils/formatBytes.js'
 
 export default {
@@ -71,7 +71,7 @@ export default {
             return this.$store.getters[namespace + '/' + types.GET_DOCKER_PULL_PROGRESS]
         },
         baseIp() {
-            return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('baseIp')
+            return this.$store.getters[persistedTypes.GET_BASE_IP]
         }
     }
 }

@@ -1,11 +1,11 @@
 import VueMatomo from 'vue-matomo'
 import { router } from './router'
 import { store } from './store'
-import { namespace, types } from '@/store/modules/persisted/UserPreferences.js'
+import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
 
 /**
  * Overwrite the setConsentGiven() and forgetConsentGive() methods of Matomo
- * to persist their choice in the persisted/UserPreferences store
+ * to persist their choice in the persisted store
  *
  * @param {{}} matomo functions/object
  */
@@ -15,8 +15,7 @@ function extendMatomo(matomo) {
 
     matomo.setConsentGiven = function() {
         store.commit({
-            type: namespace + '/' + types.SET,
-            name: 'allowTracking',
+            type: persistedTypes.SET_ALLOW_TRACKING,
             value: true
         })
 
@@ -25,8 +24,7 @@ function extendMatomo(matomo) {
 
     matomo.forgetConsentGiven = function() {
         store.commit({
-            type: namespace + '/' + types.SET,
-            name: 'allowTracking',
+            type: persistedTypes.SET_ALLOW_TRACKING,
             value: false
         })
 

@@ -17,10 +17,8 @@
 
 <script>
 import { Form, FormItem, Switch } from 'element-ui'
-import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
+import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
-
-const { mapStateTwoWay } = createHelpers()
 
 export default {
     name: 'Setup-Tracking',
@@ -33,6 +31,18 @@ export default {
 
         ExternalLink
     },
-    computed: mapStateTwoWay(['allowTracking'])
+    computed: {
+        allowTracking: {
+            get() {
+                return this.$store.getters[persistedTypes.GET_ALLOW_TRACKING]
+            },
+            set(value) {
+                this.$store.commit({
+                    type: persistedTypes.SET_ALLOW_TRACKING,
+                    value
+                })
+            }
+        }
+    }
 }
 </script>

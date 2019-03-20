@@ -36,9 +36,8 @@
 import { Menu, MenuItem, Tooltip } from 'element-ui'
 import { faUser, faHeartbeat, faDownload, faCog, faInfoCircle, faHome } from '@fortawesome/free-solid-svg-icons'
 import { createNamespacedHelpers } from 'vuex'
-import { namespace } from '@/store/modules/persisted/UserPreferences.js'
 
-const { mapState } = createNamespacedHelpers(namespace)
+const { mapState } = createNamespacedHelpers('persisted')
 
 export default {
     name: 'MetaMenu',
