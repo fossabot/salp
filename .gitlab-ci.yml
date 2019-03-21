@@ -56,6 +56,10 @@ stylelint:frontend:
 test:unit:frontend:
   stage: test
   only:
+    refs:
+      - branches
+      - tags
+      - merge_requests
     changes:
       - src/frontend/**/*
   variables:
@@ -72,6 +76,10 @@ test:unit:application:
   image: node:11.6
   stage: test
   only:
+    refs:
+      - branches
+      - tags
+      - merge_requests
     changes:
       - src/application/**/*
   script:
@@ -85,6 +93,10 @@ test:unit:application:
 test:unit:course-sandbox:
   stage: test
   only:
+    refs:
+      - branches
+      - tags
+      - merge_requests
     changes:
       - src/course-sandbox/**/*
   variables:
@@ -100,6 +112,10 @@ test:unit:course-sandbox:
 test:unit:packages:
   stage: test
   only:
+    refs:
+      - branches
+      - tags
+      - merge_requests
     changes:
       - packages/@salp/**/*
   script:
@@ -109,6 +125,10 @@ test:e2e:frontend:production: &test_e2e_frontend
   image: cypress/base:10
   stage: test
   only:
+    refs:
+      - branches
+      - tags
+      - merge_requests
     changes:
       - src/frontend/**/*
   variables:
