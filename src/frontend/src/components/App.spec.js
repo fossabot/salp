@@ -3,7 +3,7 @@ import { stub } from 'sinon'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import App from './App.vue'
 
 const initialAppTitle = 'App'

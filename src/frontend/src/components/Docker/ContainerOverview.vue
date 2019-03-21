@@ -29,7 +29,7 @@
 import { ipcRenderer } from 'electron'
 import { Table, TableColumn, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {

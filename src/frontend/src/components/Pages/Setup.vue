@@ -16,7 +16,7 @@
 
 <script>
 import { Steps, Step, Button } from 'element-ui'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import SectionHeader from '@/components/Elements/SectionHeader.vue'
 
 // import all steps dynamically

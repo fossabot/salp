@@ -1,4 +1,4 @@
-// This store holds all persisted data
+// This store holds all settings data
 import { remote } from 'electron'
 const persistenceManager = remote.require('./services/persistence')
 const settingsStore = persistenceManager.get('settings')
@@ -32,7 +32,7 @@ export const types = {
 
 const namespacedTypes = { ...types }
 Object.entries(namespacedTypes).forEach(([key, value]) => {
-    namespacedTypes[key] = `persisted/${value}`
+    namespacedTypes[key] = `settings/${value}`
 })
 
 export { namespacedTypes }

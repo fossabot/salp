@@ -26,7 +26,7 @@
 import { Table, TableColumn, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import formatBytes from '@/utils/formatBytes.js'
 
 export default {

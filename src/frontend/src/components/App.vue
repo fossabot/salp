@@ -15,7 +15,7 @@
 
 <script>
 import { remote } from 'electron'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import { Container, Header, Main } from 'element-ui'
 import MainMenu from './MainMenu.vue'
 

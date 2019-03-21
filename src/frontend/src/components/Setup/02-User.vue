@@ -13,7 +13,7 @@
 
 <script>
 import { Form, FormItem, Input } from 'element-ui'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 export default {

@@ -46,7 +46,7 @@ import { debounce } from 'lodash'
 import { userInputDebounceTimer } from '@/constants'
 import { Switch, Form, FormItem, Input, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import { ipcRenderer, remote } from 'electron'
 import ErrorLog from '@/components/Elements/ErrorLog.vue'
 

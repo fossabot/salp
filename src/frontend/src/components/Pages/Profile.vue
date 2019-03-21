@@ -19,7 +19,7 @@
 <script>
 import { Form, FormItem, Input } from 'element-ui'
 import { faEdit, faUser } from '@fortawesome/free-regular-svg-icons'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 
 export default {
     name: 'Profile',

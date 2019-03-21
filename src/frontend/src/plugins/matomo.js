@@ -1,11 +1,11 @@
 import VueMatomo from 'vue-matomo'
 import { router } from './router'
 import { store } from './store'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 
 /**
  * Overwrite the setConsentGiven() and forgetConsentGive() methods of Matomo
- * to persist their choice in the persisted store
+ * to persist their choice in the settings store
  *
  * @param {{}} matomo functions/object
  */

@@ -17,7 +17,7 @@
 
 <script>
 import { Form, FormItem, Switch } from 'element-ui'
-import { namespacedTypes as persistedTypes } from '@/store/modules/persisted'
+import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {
