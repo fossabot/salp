@@ -8,7 +8,6 @@ export const namespace = 'settings'
 // types
 export const types = {
     SET_USERNAME: 'SET_USERNAME',
-    SET_PATH: 'SET_PATH',
     SET_ML: 'SET_ML',
     SET_ALLOW_TRACKING: 'SET_ALLOW_TRACKING',
     SET_SOCKET: 'SET_SOCKET',
@@ -21,7 +20,6 @@ export const types = {
     SAVE: 'save',
 
     GET_USERNAME: 'GET_USERNAME',
-    GET_PATH: 'GET_PATH',
     GET_ML: 'GET_ML',
     GET_ALLOW_TRACKING: 'GET_ALLOW_TRACKING',
     GET_SOCKET: 'GET_SOCKET',
@@ -43,7 +41,6 @@ export { namespacedTypes }
 const defaults = {
     // user preferences
     username: '',
-    path: '~/',
     ml: true,
     allowTracking: false,
     socket: '',
@@ -89,7 +86,6 @@ export default {
     mutations: {
         ...generateSimpleSetters([
             ['username', types.SET_USERNAME],
-            ['path', types.SET_PATH],
             ['ml', types.SET_ML],
             ['allowTracking', types.SET_ALLOW_TRACKING],
             ['socket', types.SET_SOCKET],
@@ -110,7 +106,6 @@ export default {
     getters: {
         ...generateSimpleGetters([
             ['username', types.GET_USERNAME],
-            ['path', types.GET_PATH],
             ['ml', types.GET_ML],
             ['allowTracking', types.GET_ALLOW_TRACKING],
             ['socket', types.GET_SOCKET],
