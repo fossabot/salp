@@ -3,6 +3,8 @@ import { remote } from 'electron'
 const persistenceManager = remote.require('./services/persistence')
 const settingsStore = persistenceManager.get('settings')
 
+export const namespace = 'settings'
+
 // types
 export const types = {
     SET_USERNAME: 'SET_USERNAME',
@@ -32,7 +34,7 @@ export const types = {
 
 const namespacedTypes = { ...types }
 Object.entries(namespacedTypes).forEach(([key, value]) => {
-    namespacedTypes[key] = `settings/${value}`
+    namespacedTypes[key] = `${namespace}/${value}`
 })
 
 export { namespacedTypes }
