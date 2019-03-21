@@ -8,7 +8,7 @@ export const namespace = 'settings'
 // types
 export const types = {
     SET_USERNAME: 'SET_USERNAME',
-    SET_ML: 'SET_ML',
+    SET_MACHINE_LEARNING: 'SET_MACHINE_LEARNING',
     SET_ALLOW_TRACKING: 'SET_ALLOW_TRACKING',
     SET_SOCKET: 'SET_SOCKET',
     SET_VERIFY_TLS: 'SET_VERIFY_TLS',
@@ -20,7 +20,7 @@ export const types = {
     SAVE: 'save',
 
     GET_USERNAME: 'GET_USERNAME',
-    GET_ML: 'GET_ML',
+    GET_MACHINE_LEARNING: 'GET_MACHINE_LEARNING',
     GET_ALLOW_TRACKING: 'GET_ALLOW_TRACKING',
     GET_SOCKET: 'GET_SOCKET',
     GET_VERIFY_TLS: 'GET_VERIFY_TLS',
@@ -41,7 +41,7 @@ export { namespacedTypes }
 const defaults = {
     // user preferences
     username: '',
-    ml: true,
+    machineLearning: true,
     allowTracking: false,
     socket: '',
     verifyTls: false,
@@ -86,7 +86,7 @@ export default {
     mutations: {
         ...generateSimpleSetters([
             ['username', types.SET_USERNAME],
-            ['ml', types.SET_ML],
+            ['machineLearning', types.SET_MACHINE_LEARNING],
             ['allowTracking', types.SET_ALLOW_TRACKING],
             ['socket', types.SET_SOCKET],
             ['verifyTls', types.SET_VERIFY_TLS],
@@ -106,7 +106,7 @@ export default {
     getters: {
         ...generateSimpleGetters([
             ['username', types.GET_USERNAME],
-            ['ml', types.GET_ML],
+            ['machineLearning', types.GET_MACHINE_LEARNING],
             ['allowTracking', types.GET_ALLOW_TRACKING],
             ['socket', types.GET_SOCKET],
             ['verifyTls', types.GET_VERIFY_TLS],

@@ -76,11 +76,11 @@ export default {
         },
         ml: {
             get() {
-                return this.$store.getters[persistedTypes.GET_ML]
+                return this.$store.getters[persistedTypes.GET_MACHINE_LEARNING]
             },
             set(value) {
                 this.$store.commit({
-                    type: persistedTypes.SET_ML,
+                    type: persistedTypes.SET_MACHINE_LEARNING,
                     value
                 })
             }
