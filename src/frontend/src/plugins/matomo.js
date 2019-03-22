@@ -1,7 +1,7 @@
 import VueMatomo from 'vue-matomo'
 import { router } from './router'
 import { store } from './store'
-import { types as generalSettingsTypes } from '@/store/modules/settings/general'
+import { GENERAL_NAMESPACE, ALLOW_TRACKING } from '@/store/modules/settings/general'
 
 /**
  * Overwrite the setConsentGiven() and forgetConsentGive() methods of Matomo
@@ -15,7 +15,7 @@ function extendMatomo(matomo) {
 
     matomo.setConsentGiven = function() {
         store.dispatch({
-            type: generalSettingsTypes.SET_ALLOW_TRACKING,
+            type: GENERAL_NAMESPACE + '/' + ALLOW_TRACKING,
             value: true
         })
 
@@ -24,7 +24,7 @@ function extendMatomo(matomo) {
 
     matomo.forgetConsentGiven = function() {
         store.dispatch({
-            type: generalSettingsTypes.SET_ALLOW_TRACKING,
+            type: GENERAL_NAMESPACE + '/' + ALLOW_TRACKING,
             value: false
         })
 

@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { namespace, types } from '@/store/modules/AppState.js'
+import { BASE_IP } from '@/store/modules/settings/docker'
 import Containers from './Containers.vue'
 import { stub } from 'sinon'
 import { Table } from 'element-ui'
@@ -41,7 +42,7 @@ describe('Containers.vue', () => {
             state: {
                 settings: {
                     docker: {
-                        baseIp: expectedBaseIp
+                        [BASE_IP]: expectedBaseIp
                     }
                 }
             },

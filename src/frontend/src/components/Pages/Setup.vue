@@ -16,7 +16,7 @@
 
 <script>
 import { Steps, Step, Button } from 'element-ui'
-import { types as generalSettingsTypes } from '@/store/modules/settings/general'
+import { GENERAL_NAMESPACE, SETUP_DONE } from '@/store/modules/settings/general'
 import SectionHeader from '@/components/Elements/SectionHeader.vue'
 
 // import all steps dynamically
@@ -70,7 +70,7 @@ export default {
 
             if (nextStep >= stepsCount) {
                 this.$store.dispatch({
-                    type: generalSettingsTypes.SET_SETUP_DONE,
+                    type: GENERAL_NAMESPACE + '/' + SETUP_DONE,
                     value: true
                 })
 

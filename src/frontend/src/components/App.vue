@@ -16,6 +16,7 @@
 <script>
 import { remote } from 'electron'
 import { Container, Header, Main } from 'element-ui'
+import { ALLOW_TRACKING, SETUP_DONE } from '@/store/modules/settings/general'
 import MainMenu from './MainMenu.vue'
 
 // TODO: implement page title handling fallback when new route didn't emit 'pageTitle' event
@@ -35,10 +36,10 @@ export default {
     },
     computed: {
         allowTracking() {
-            return this.$store.state.settings.general['allow_tracking']
+            return this.$store.state.settings.general[ALLOW_TRACKING]
         },
         setupDone() {
-            return this.$store.state.settings.general['setup_done']
+            return this.$store.state.settings.general[SETUP_DONE]
         }
     },
     watch: {

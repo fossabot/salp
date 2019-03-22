@@ -3,6 +3,7 @@ import { stub } from 'sinon'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import { SETUP_DONE, ALLOW_TRACKING } from '@/store/modules/settings/general'
 import App from './App.vue'
 
 const initialAppTitle = 'App'
@@ -32,8 +33,8 @@ describe('App.vue', () => {
             state: {
                 settings: {
                     general: {
-                        setup_done: true,
-                        allow_tracking: false
+                        [SETUP_DONE]: true,
+                        [ALLOW_TRACKING]: false
                     }
                 }
             }

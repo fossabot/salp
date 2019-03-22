@@ -1,6 +1,7 @@
-// settings store utils
+// create a single settings vuex store module
 import { remote } from 'electron'
 
+// settings
 const persistenceManager = remote.require('./services/persistence')
 const settingsStore = persistenceManager.get('settings')
 
@@ -15,8 +16,8 @@ function getSettings() {
     return initialSettings
 }
 
-// util functions
-export function getSettingsState(defaults) {
+// helpers
+function getSettingsState(defaults) {
     const fields = Object.keys(defaults)
     const settings = getSettings()
 
@@ -30,30 +31,42 @@ export function getSettingsState(defaults) {
 
 /**
  * Creates actions for the given setters
- * @param {{}} mappings keys are the action names, values the option field name
+ * @param {string[]} options name of the actions/options
  */
-export function generateActions(mappings) {
+function generateActions(options) {
     const actions = {}
 
-    Object.entries(mappings).forEach(([action, name]) => {
-        actions[action] = function({ commit }, { value }) {
+    options.forEach(name => {
+        actions[name] = function({ commit }, { value }) {
+            settingsStore.set(name, value)
+
             commit({
                 type: '_SET',
                 name,
                 value
             })
-
-            settingsStore.set(name, value)
         }
     })
 
     return actions
 }
 
-export function createNamespacingHelpers(namespace) {
-    function namespaceType(typeName) {
-        return `${namespace}/${typeName}`
+export default function createSettingsModule(defaultState) {
+    const state = getSettingsState(defaultState)
+
+    const mutations = {
+        _SET(state, { name, value }) {
+            state[name] = value
+        }
     }
 
-    return { namespaceType }
+    const options = Object.keys(defaultState)
+    const actions = generateActions(options)
+
+    return {
+        namespaced: true,
+        state,
+        mutations,
+        actions
+    }
 }

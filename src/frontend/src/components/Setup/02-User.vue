@@ -13,7 +13,7 @@
 
 <script>
 import { Form, FormItem, Input } from 'element-ui'
-import { types as generalSettingsTypes } from '@/store/modules/settings/general'
+import { GENERAL_NAMESPACE, USERNAME } from '@/store/modules/settings/general'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -31,11 +31,11 @@ export default {
     computed: {
         username: {
             get() {
-                return this.$store.state.settings.general['username']
+                return this.$store.state.settings.general[USERNAME]
             },
             set(value) {
                 this.$store.dispatch({
-                    type: generalSettingsTypes.SET_USERNAME,
+                    type: GENERAL_NAMESPACE + '/' + USERNAME,
                     value
                 })
             }

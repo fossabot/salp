@@ -25,6 +25,7 @@
 <script>
 import { Table, TableColumn, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
+import { BASE_IP } from '@/store/modules/settings/docker'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 import formatBytes from '@/utils/formatBytes.js'
 
@@ -70,7 +71,7 @@ export default {
             return this.$store.getters[namespace + '/' + types.GET_DOCKER_PULL_PROGRESS]
         },
         baseIp() {
-            return this.$store.state.settings.docker['base_ip']
+            return this.$store.state.settings.docker[BASE_IP]
         }
     }
 }
