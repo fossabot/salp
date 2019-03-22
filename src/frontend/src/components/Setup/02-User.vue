@@ -13,7 +13,7 @@
 
 <script>
 import { Form, FormItem, Input } from 'element-ui'
-import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
+import { types as generalSettingsTypes } from '@/store/modules/settings/general'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -31,11 +31,11 @@ export default {
     computed: {
         username: {
             get() {
-                return this.$store.getters[persistedTypes.GET_USERNAME]
+                return this.$store.state.settings.general['username']
             },
             set(value) {
-                this.$store.commit({
-                    type: persistedTypes.SET_USERNAME,
+                this.$store.dispatch({
+                    type: generalSettingsTypes.SET_USERNAME,
                     value
                 })
             }

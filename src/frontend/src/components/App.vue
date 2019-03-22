@@ -15,7 +15,6 @@
 
 <script>
 import { remote } from 'electron'
-import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import { Container, Header, Main } from 'element-ui'
 import MainMenu from './MainMenu.vue'
 
@@ -36,10 +35,10 @@ export default {
     },
     computed: {
         allowTracking() {
-            return this.$store.getters[persistedTypes.GET_ALLOW_TRACKING]
+            return this.$store.state.settings.general['allow_tracking']
         },
         setupDone() {
-            return this.$store.getters[persistedTypes.GET_SETUP_DONE]
+            return this.$store.state.settings.general['setup_done']
         }
     },
     watch: {

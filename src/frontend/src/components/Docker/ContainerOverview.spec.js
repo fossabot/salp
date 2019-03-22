@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import ContainerOverview from './ContainerOverview.vue'
 import { stub, spy } from 'sinon'
 import { Table } from 'element-ui'
@@ -20,7 +19,6 @@ describe('ContainerOverview.vue', () => {
     let allContainers
     let containerStatus
     let containerPorts
-    let baseIp
     let send
     let getters
     let store
@@ -29,16 +27,21 @@ describe('ContainerOverview.vue', () => {
         allContainers = stub().callsFake(() => ({ [expectedContainerName]: {} }))
         containerStatus = stub().callsFake(() => expectedContainerState)
         containerPorts = stub().callsFake(() => expectedContainerPort)
-        baseIp = stub().callsFake(() => expectedBaseIp)
 
         getters = {
             [`${namespace}/${types.GET_ALL_CONTAINERS}`]: allContainers,
             [`${namespace}/${types.GET_CONTAINER_STATUS}`]: (state) => containerStatus,
-            [`${namespace}/${types.GET_CONTAINER_PORTS_SIMPLE}`]: (state) => containerPorts,
-            [persistedTypes.GET_BASE_IP]: (state) => baseIp
+            [`${namespace}/${types.GET_CONTAINER_PORTS_SIMPLE}`]: (state) => containerPorts
         }
 
         store = new Vuex.Store({
+            state: {
+                settings: {
+                    docker: {
+                        baseIp: expectedBaseIp
+                    }
+                }
+            },
             getters
         })
 

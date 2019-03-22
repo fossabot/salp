@@ -46,7 +46,8 @@ import { debounce } from 'lodash'
 import { userInputDebounceTimer } from '@/constants'
 import { Switch, Form, FormItem, Input, Tag } from 'element-ui'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
+import { types as generalSettingsTypes } from '@/store/modules/settings/general'
+import { types as dockerSettingsTypes } from '@/store/modules/settings/docker'
 import { ipcRenderer, remote } from 'electron'
 import ErrorLog from '@/components/Elements/ErrorLog.vue'
 
@@ -65,44 +66,44 @@ export default {
     computed: {
         allowTracking: {
             get() {
-                return this.$store.getters[persistedTypes.GET_ALLOW_TRACKING]
+                return this.$store.state.settings.general['allow_tracking']
             },
             set(value) {
-                this.$store.commit({
-                    type: persistedTypes.SET_ALLOW_TRACKING,
+                this.$store.dispatch({
+                    type: generalSettingsTypes.SET_ALLOW_TRACKING,
                     value
                 })
             }
         },
         ml: {
             get() {
-                return this.$store.getters[persistedTypes.GET_MACHINE_LEARNING]
+                return this.$store.state.settings.general['machine_learning']
             },
             set(value) {
-                this.$store.commit({
-                    type: persistedTypes.SET_MACHINE_LEARNING,
+                this.$store.dispatch({
+                    type: generalSettingsTypes.SET_MACHINE_LEARNING,
                     value
                 })
             }
         },
         verifyTls: {
             get() {
-                return this.$store.getters[persistedTypes.GET_VERIFY_TLS]
+                return this.$store.state.settings.docker['verify_tls']
             },
             set(value) {
-                this.$store.commit({
-                    type: persistedTypes.SET_VERIFY_TLS,
+                this.$store.dispatch({
+                    type: dockerSettingsTypes.SET_VERIFY_TLS,
                     value
                 })
             }
         },
         baseIp: {
             get() {
-                return this.$store.getters[persistedTypes.GET_BASE_IP]
+                return this.$store.state.settings.docker['base_ip']
             },
             set(value) {
-                this.$store.commit({
-                    type: persistedTypes.SET_BASE_IP,
+                this.$store.dispatch({
+                    type: dockerSettingsTypes.SET_BASE_IP,
                     value
                 })
             }
@@ -121,28 +122,28 @@ export default {
         },
         certDir: {
             set(value) {
-                this.$store.commit({
-                    type: persistedTypes.SET_CERT_DIR,
+                this.$store.dispatch({
+                    type: dockerSettingsTypes.SET_CERT_DIR,
                     value
                 })
 
                 this.testDocker()
             },
             get() {
-                return this.$store.getters[persistedTypes.GET_CERT_DIR]
+                return this.$store.state.settings.docker['cert_dir']
             }
         },
         socket: {
             set(value) {
-                this.$store.commit({
-                    type: persistedTypes.SET_SOCKET,
+                this.$store.dispatch({
+                    type: dockerSettingsTypes.SET_SOCKET,
                     value
                 })
 
                 this.testDocker()
             },
             get() {
-                return this.$store.getters[persistedTypes.GET_SOCKET]
+                return this.$store.state.settings.docker['socket']
             }
         }
     },

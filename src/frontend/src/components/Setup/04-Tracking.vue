@@ -17,7 +17,7 @@
 
 <script>
 import { Form, FormItem, Switch } from 'element-ui'
-import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
+import { types as generalSettingsTypes } from '@/store/modules/settings/general'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {
@@ -34,11 +34,11 @@ export default {
     computed: {
         allowTracking: {
             get() {
-                return this.$store.getters[persistedTypes.GET_ALLOW_TRACKING]
+                return this.$store.state.settings.general['allow_tracking']
             },
             set(value) {
-                this.$store.commit({
-                    type: persistedTypes.SET_ALLOW_TRACKING,
+                this.$store.dispatch({
+                    type: generalSettingsTypes.SET_ALLOW_TRACKING,
                     value
                 })
             }

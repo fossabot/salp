@@ -3,7 +3,6 @@ import { stub } from 'sinon'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
-import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
 import App from './App.vue'
 
 const initialAppTitle = 'App'
@@ -26,17 +25,17 @@ const matomoStub = {
 }
 
 describe('App.vue', () => {
-    let wrapper,
-        persistedGetterStub
+    let wrapper
 
     beforeEach(() => {
-        persistedGetterStub = stub()
-        persistedGetterStub.returns(true)
-
         const store = new Vuex.Store({
-            getters: {
-                [persistedTypes.GET_ALLOW_TRACKING]: persistedGetterStub,
-                [persistedTypes.GET_SETUP_DONE]: persistedGetterStub
+            state: {
+                settings: {
+                    general: {
+                        setup_done: true,
+                        allow_tracking: false
+                    }
+                }
             }
         })
 

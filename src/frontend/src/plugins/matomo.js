@@ -1,7 +1,7 @@
 import VueMatomo from 'vue-matomo'
 import { router } from './router'
 import { store } from './store'
-import { namespacedTypes as persistedTypes } from '@/store/modules/settings'
+import { types as generalSettingsTypes } from '@/store/modules/settings/general'
 
 /**
  * Overwrite the setConsentGiven() and forgetConsentGive() methods of Matomo
@@ -14,8 +14,8 @@ function extendMatomo(matomo) {
     const originalForgetConsentGiven = matomo.forgetConsentGiven
 
     matomo.setConsentGiven = function() {
-        store.commit({
-            type: persistedTypes.SET_ALLOW_TRACKING,
+        store.dispatch({
+            type: generalSettingsTypes.SET_ALLOW_TRACKING,
             value: true
         })
 
@@ -23,8 +23,8 @@ function extendMatomo(matomo) {
     }
 
     matomo.forgetConsentGiven = function() {
-        store.commit({
-            type: persistedTypes.SET_ALLOW_TRACKING,
+        store.dispatch({
+            type: generalSettingsTypes.SET_ALLOW_TRACKING,
             value: false
         })
 
