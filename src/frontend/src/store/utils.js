@@ -8,10 +8,10 @@
  * @see https://vuex.vuejs.org/api/#mapstate
  * @see https://vuejs.org/v2/guide/computed.html#Computed-Setter
  */
-const mapStateTwoWay = normalizeNamespace((namespace, mutationType, fields) => {
+const mapStateTwoWay = normalizeNamespace((namespace, fields) => {
     let res = {}
 
-    fields.forEach(({ key: alias, val: origName }) => {
+    fields.forEach(({ key: alias, val: name }) => {
         res[alias] = {
             get() {
                 const module = getModuleByNamespace(this.$store, 'mapFields', namespace)
@@ -21,12 +21,12 @@ const mapStateTwoWay = normalizeNamespace((namespace, mutationType, fields) => {
 
                 const state = module.context.state
 
-                return state[origName]
+                return state[name]
             },
             set(value) {
-                this.$store.commit({
-                    type: namespace + mutationType,
-                    name: origName,
+                this.$store.dispatch({
+                    type: namespace + name,
+                    name,
                     value
                 })
             },
@@ -38,8 +38,8 @@ const mapStateTwoWay = normalizeNamespace((namespace, mutationType, fields) => {
     return res
 })
 
-const createNamespacedHelpers = (namespace, mutationType) => ({
-    mapStateTwoWay: mapStateTwoWay.bind(null, namespace, mutationType)
+const createNamespacedHelpers = (namespace) => ({
+    mapStateTwoWay: mapStateTwoWay.bind(null, namespace)
 })
 
 // helper functions
@@ -51,17 +51,16 @@ function normalizeMap(map) {
 
 function normalizeNamespace(fn) {
     return (...args) => {
-        let [namespace, mutationType, map] = args
+        let [namespace, map] = args
 
-        if (args.length !== 3) {
-            map = mutationType
-            mutationType = namespace
+        if (args.length !== 2) {
+            map = namespace
             namespace = ''
         } else if (namespace.charAt(namespace.length - 1) !== '/') {
             namespace += '/'
         }
 
-        return fn(namespace, mutationType, normalizeMap(map))
+        return fn(namespace, normalizeMap(map))
     }
 }
 
