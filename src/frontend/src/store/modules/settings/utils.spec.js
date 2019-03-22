@@ -129,7 +129,8 @@ describe('Store utils: utils.js', () => {
 
     describe('#createNamespacedHelpers()', () => {
         const expectedHelperFunctions = [
-            'mapSettings'
+            'mapSettings',
+            'getSettings'
         ]
 
         const target = createNamespacedHelpers()

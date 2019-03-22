@@ -1,6 +1,14 @@
 // Custom Vuex store settings helpers
 // Use the provided helpers to access settings in your component
 // some code copied from vuex module
+import { mapState } from 'vuex'
+
+/**
+ * Same as vuex.mapState but with a different name to clarify its context
+ *
+ * @see https://vuex.vuejs.org/api/#mapstate
+ */
+export const getSettings = mapState
 
 /**
  * Similar to vuex.mapState but allows two-way binding of state through setter
@@ -40,7 +48,8 @@ const mapSettings = normalizeNamespace((namespace, fields) => {
 })
 
 const createNamespacedHelpers = (namespace) => ({
-    mapSettings: mapSettings.bind(null, namespace)
+    mapSettings: mapSettings.bind(null, namespace),
+    getSettings: getSettings.bind(null, namespace)
 })
 
 // helper functions
