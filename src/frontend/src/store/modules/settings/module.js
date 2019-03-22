@@ -2,15 +2,14 @@
 import { remote } from 'electron'
 
 // settings
-const persistenceManager = remote.require('./services/persistence')
-const settingsStore = persistenceManager.get('settings')
+const settings = remote.require('./services/settings')
 
 let initialSettings = false
 
 function getSettings() {
     if (initialSettings === false) {
         // cache initial settings to reduce IPC calls
-        initialSettings = settingsStore.getAll()
+        initialSettings = settings.getAll()
     }
 
     return initialSettings
@@ -38,7 +37,7 @@ function generateActions(options) {
 
     options.forEach(name => {
         actions[name] = function({ commit }, { value }) {
-            settingsStore.set(name, value)
+            settings.set(name, value)
 
             commit({
                 type: '_SET',

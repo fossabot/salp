@@ -6,8 +6,7 @@ const Docker = require('dockerode')
 const ImageService = require('./imageService')
 const ContainerService = require('./containerService')
 const NetworkService = require('./networkService')
-const persistenceManager = require('../persistence')
-const settingsStore = persistenceManager.get('settings')
+const settings = require('../settings')
 
 class DockerManager {
     constructor(course) {
@@ -88,7 +87,7 @@ class DockerManager {
     }
 
     _loadCert(options) {
-        let certDir = settingsStore.get('certDir')
+        let certDir = settings.get('certDir')
         try {
             if (certDir !== undefined && certDir.trim() !== '') {
                 certDir = certDir.trim()
@@ -102,12 +101,12 @@ class DockerManager {
     }
 
     _setTLS(options) {
-        const checkServerIdentity = settingsStore.get('verifyTls')
+        const checkServerIdentity = settings.get('verifyTls')
         options['checkServerIdentity'] = checkServerIdentity
     }
 
     _setSocketPath(options) {
-        let socket = settingsStore.get('socket')
+        let socket = settings.get('socket')
         if (socket !== undefined && socket.trim() !== '') {
             socket = socket.trim()
             if(socket.indexOf('unix://') === 0) {
