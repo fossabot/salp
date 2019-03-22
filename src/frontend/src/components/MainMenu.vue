@@ -56,7 +56,9 @@ export default {
         faInfoCircle,
         faHome
     },
-    computed: mapState([USERNAME])
+    computed: mapState({
+        username: USERNAME
+    })
 }
 </script>
 
