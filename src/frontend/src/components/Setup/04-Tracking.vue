@@ -17,6 +17,7 @@
 
 <script>
 import { Form, FormItem, Switch } from 'element-ui'
+import { mapSettings } from '@/store/modules/settings/utils'
 import { GENERAL_NAMESPACE, ALLOW_TRACKING } from '@/store/modules/settings/general'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
@@ -31,18 +32,8 @@ export default {
 
         ExternalLink
     },
-    computed: {
-        allowTracking: {
-            get() {
-                return this.$store.state.settings.general[ALLOW_TRACKING]
-            },
-            set(value) {
-                this.$store.dispatch({
-                    type: GENERAL_NAMESPACE + '/' + ALLOW_TRACKING,
-                    value
-                })
-            }
-        }
-    }
+    computed: mapSettings(GENERAL_NAMESPACE, {
+        allowTracking: ALLOW_TRACKING
+    })
 }
 </script>

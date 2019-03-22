@@ -45,11 +45,15 @@
 import { debounce } from 'lodash'
 import { userInputDebounceTimer } from '@/constants'
 import { Switch, Form, FormItem, Input, Tag } from 'element-ui'
+import { createNamespacedHelpers } from '@/store/modules/settings/utils'
 import { namespace, types } from '@/store/modules/AppState.js'
 import { GENERAL_NAMESPACE, ALLOW_TRACKING, MACHINE_LEARNING } from '@/store/modules/settings/general'
 import { DOCKER_NAMESPACE, VERIFY_TLS, BASE_IP, CERT_DIR, SOCKET } from '@/store/modules/settings/docker'
 import { ipcRenderer, remote } from 'electron'
 import ErrorLog from '@/components/Elements/ErrorLog.vue'
+
+const { mapSettings: mapGeneralSettings } = createNamespacedHelpers(GENERAL_NAMESPACE)
+const { mapSettings: mapDockerSettings } = createNamespacedHelpers(DOCKER_NAMESPACE)
 
 export default {
     name: 'Settings',
@@ -64,50 +68,16 @@ export default {
         ErrorLog
     },
     computed: {
-        allowTracking: {
-            get() {
-                return this.$store.state.settings.general[ALLOW_TRACKING]
-            },
-            set(value) {
-                this.$store.dispatch({
-                    type: GENERAL_NAMESPACE + '/' + ALLOW_TRACKING,
-                    value
-                })
-            }
-        },
-        ml: {
-            get() {
-                return this.$store.state.settings.general[MACHINE_LEARNING]
-            },
-            set(value) {
-                this.$store.dispatch({
-                    type: GENERAL_NAMESPACE + '/' + MACHINE_LEARNING,
-                    value
-                })
-            }
-        },
-        verifyTls: {
-            get() {
-                return this.$store.state.settings.docker[VERIFY_TLS]
-            },
-            set(value) {
-                this.$store.dispatch({
-                    type: DOCKER_NAMESPACE + '/' + VERIFY_TLS,
-                    value
-                })
-            }
-        },
-        baseIp: {
-            get() {
-                return this.$store.state.settings.docker[BASE_IP]
-            },
-            set(value) {
-                this.$store.dispatch({
-                    type: DOCKER_NAMESPACE + '/' + BASE_IP,
-                    value
-                })
-            }
-        },
+        ...mapGeneralSettings({
+            allowTracking: ALLOW_TRACKING,
+            ml: MACHINE_LEARNING
+        }),
+        ...mapDockerSettings({
+            verifyTls: VERIFY_TLS,
+            baseIp: BASE_IP,
+            certDir: CERT_DIR,
+            socket: SOCKET
+        }),
 
         deamonFound() {
             this.testDocker()
@@ -119,32 +89,14 @@ export default {
         },
         dockerStatus() {
             return this.deamonFound ? 'Docker found and ready to use' : 'Docker not found'
+        }
+    },
+    watch: {
+        certDir() {
+            this.testDocker()
         },
-        certDir: {
-            set(value) {
-                this.$store.dispatch({
-                    type: DOCKER_NAMESPACE + '/' + CERT_DIR,
-                    value
-                })
-
-                this.testDocker()
-            },
-            get() {
-                return this.$store.state.settings.docker[CERT_DIR]
-            }
-        },
-        socket: {
-            set(value) {
-                this.$store.dispatch({
-                    type: DOCKER_NAMESPACE + '/' + SOCKET,
-                    value
-                })
-
-                this.testDocker()
-            },
-            get() {
-                return this.$store.state.settings.docker[SOCKET]
-            }
+        socket() {
+            this.testDocker()
         }
     },
     methods: {

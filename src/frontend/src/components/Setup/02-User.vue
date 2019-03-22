@@ -13,6 +13,7 @@
 
 <script>
 import { Form, FormItem, Input } from 'element-ui'
+import { mapSettings } from '@/store/modules/settings/utils'
 import { GENERAL_NAMESPACE, USERNAME } from '@/store/modules/settings/general'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
@@ -28,18 +29,8 @@ export default {
     icons: {
         faEdit
     },
-    computed: {
-        username: {
-            get() {
-                return this.$store.state.settings.general[USERNAME]
-            },
-            set(value) {
-                this.$store.dispatch({
-                    type: GENERAL_NAMESPACE + '/' + USERNAME,
-                    value
-                })
-            }
-        }
-    }
+    computed: mapSettings(GENERAL_NAMESPACE, {
+        username: USERNAME
+    })
 }
 </script>

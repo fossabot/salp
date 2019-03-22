@@ -28,8 +28,9 @@
 <script>
 import { ipcRenderer } from 'electron'
 import { Table, TableColumn, Tag } from 'element-ui'
+import { getSettings } from '@/store/modules/settings/utils'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { BASE_IP } from '@/store/modules/settings/docker'
+import { DOCKER_NAMESPACE, BASE_IP } from '@/store/modules/settings/docker'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {
@@ -42,6 +43,10 @@ export default {
         ExternalLink
     },
     computed: {
+        ...getSettings(DOCKER_NAMESPACE, {
+            baseIp: BASE_IP
+        }),
+
         allSalpContainers() {
             return this.$store.getters[namespace + '/' + types.GET_ALL_CONTAINERS]
         },
@@ -59,9 +64,6 @@ export default {
             }
 
             return tableData
-        },
-        baseIp() {
-            return this.$store.state.settings.docker[BASE_IP]
         }
     },
     mounted() {
