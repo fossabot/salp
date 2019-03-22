@@ -7,6 +7,7 @@ const ImageService = require('./imageService')
 const ContainerService = require('./containerService')
 const NetworkService = require('./networkService')
 const settings = require('../settings')
+const { SOCKET, VERIFY_TLS, CERT_DIR } = require('@salp/frontend/src/store/modules/settings/docker-types')
 
 class DockerManager {
     constructor(course) {
@@ -87,7 +88,7 @@ class DockerManager {
     }
 
     _loadCert(options) {
-        let certDir = settings.get('certDir')
+        let certDir = settings.get(CERT_DIR)
         try {
             if (certDir !== undefined && certDir.trim() !== '') {
                 certDir = certDir.trim()
@@ -101,12 +102,12 @@ class DockerManager {
     }
 
     _setTLS(options) {
-        const checkServerIdentity = settings.get('verifyTls')
+        const checkServerIdentity = settings.get(VERIFY_TLS)
         options['checkServerIdentity'] = checkServerIdentity
     }
 
     _setSocketPath(options) {
-        let socket = settings.get('socket')
+        let socket = settings.get(SOCKET)
         if (socket !== undefined && socket.trim() !== '') {
             socket = socket.trim()
             if(socket.indexOf('unix://') === 0) {

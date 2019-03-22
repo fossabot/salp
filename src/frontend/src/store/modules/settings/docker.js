@@ -1,12 +1,10 @@
 // Docker settings in vuex store
 import createSettingsModule from './module'
+import { SOCKET, VERIFY_TLS, CERT_DIR, BASE_IP  } from './docker-types'
 
 // types
 export const DOCKER_NAMESPACE = 'settings/docker'
-export const SOCKET = 'socket'
-export const VERIFY_TLS = 'verify_tls'
-export const CERT_DIR = 'cert_dir'
-export const BASE_IP = 'base_ip'
+export { SOCKET, VERIFY_TLS, CERT_DIR, BASE_IP }
 
 // store
 export default createSettingsModule({
