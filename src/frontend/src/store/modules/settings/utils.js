@@ -47,6 +47,8 @@ const mapSettings = normalizeNamespace((namespace, fields) => {
     return res
 })
 
+export { mapSettings }
+
 const createNamespacedHelpers = (namespace) => ({
     mapSettings: mapSettings.bind(null, namespace),
     getSettings: getSettings.bind(null, namespace)
