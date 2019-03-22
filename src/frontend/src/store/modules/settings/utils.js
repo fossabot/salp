@@ -1,4 +1,5 @@
-// Custom Vuex store helpers
+// Custom Vuex store settings helpers
+// Use the provided helpers to access settings in your component
 // some code copied from vuex module
 
 /**
@@ -8,7 +9,7 @@
  * @see https://vuex.vuejs.org/api/#mapstate
  * @see https://vuejs.org/v2/guide/computed.html#Computed-Setter
  */
-const mapStateTwoWay = normalizeNamespace((namespace, fields) => {
+const mapSettings = normalizeNamespace((namespace, fields) => {
     let res = {}
 
     fields.forEach(({ key: alias, val: name }) => {
@@ -39,7 +40,7 @@ const mapStateTwoWay = normalizeNamespace((namespace, fields) => {
 })
 
 const createNamespacedHelpers = (namespace) => ({
-    mapStateTwoWay: mapStateTwoWay.bind(null, namespace)
+    mapSettings: mapSettings.bind(null, namespace)
 })
 
 // helper functions

@@ -129,7 +129,7 @@ describe('Store utils: utils.js', () => {
 
     describe('#createNamespacedHelpers()', () => {
         const expectedHelperFunctions = [
-            'mapStateTwoWay'
+            'mapSettings'
         ]
 
         const target = createNamespacedHelpers()
@@ -141,12 +141,12 @@ describe('Store utils: utils.js', () => {
         })
     })
 
-    describe('#mapStateTwoWay()', () => {
-        const mapStateTwoWay = utils.__get__('mapStateTwoWay')
+    describe('#mapSettings()', () => {
+        const mapSettings = utils.__get__('mapSettings')
 
         // helpers
         function callMapperWithFields(fields) {
-            return mapStateTwoWay(testNamespace, fields)
+            return mapSettings(testNamespace, fields)
         }
 
         // tests
@@ -260,7 +260,7 @@ describe('Store utils: utils.js', () => {
 
                 // tests
                 it(`should dispatch ${testFieldName}`, () => {
-                    entry = mapStateTwoWay([testFieldName])[testFieldName]
+                    entry = mapSettings([testFieldName])[testFieldName]
 
                     const setter = injectSetterSpy(entry.set)
 
@@ -271,7 +271,7 @@ describe('Store utils: utils.js', () => {
                 })
 
                 it(`should dispatch ${testFieldName} with prefixed namespace`, () => {
-                    entry = mapStateTwoWay(testNamespace, [testFieldName])[testFieldName]
+                    entry = mapSettings(testNamespace, [testFieldName])[testFieldName]
 
                     const setter = injectSetterSpy(entry.set)
 
@@ -282,7 +282,7 @@ describe('Store utils: utils.js', () => {
                 })
 
                 it(`should dispatch with using the field's name and given value`, () => {
-                    entry = mapStateTwoWay([testFieldName])[testFieldName]
+                    entry = mapSettings([testFieldName])[testFieldName]
 
                     const setter = injectSetterSpy(entry.set)
 
