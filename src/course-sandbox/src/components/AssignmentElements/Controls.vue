@@ -1,0 +1,50 @@
+<template>
+    <div class="assignment-content__button-container">
+        <Button class="assignment-content__button-container__button .piwikContentIgnoreInteraction"
+                type="primary" @click="handleButtonClick">{{ buttonText }}</Button>
+    </div>
+</template>
+
+<script>
+import { Button } from 'element-ui'
+
+export default {
+    name: 'Controls',
+    props: {
+        assignmentState: {
+            type: String,
+            required: true
+        }
+    },
+    components: {
+        Button
+    },
+    computed: {
+        buttonText() {
+            switch (this.assignmentState) {
+                case 'NOT_STARTED':
+                    return this.$t('Assignment.button.start')
+                case 'FINISHED':
+                    return this.$t('Assignment.button.result')
+                case 'NEXT_QUESTION':
+                    return this.$t('Assignment.button.next')
+                case 'ANSWERING':
+                    return this.$t('Assignment.button.check')
+                case 'ANSWERING_RETRY':
+                    return this.$t('Assignment.button.retry')
+                default:
+                    return ''
+            }
+        }
+    },
+    methods: {
+        handleButtonClick() {
+            this.$emit('buttonClick')
+        }
+    }
+}
+</script>
+
+<style lang="scss">
+
+</style>
