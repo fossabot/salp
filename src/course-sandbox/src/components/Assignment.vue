@@ -80,10 +80,12 @@ export default {
             switch (this.state) {
                 case 'NOT_STARTED':
                     this.state = 'ANSWERING'
+                    this.$matomo.trackEvent(this.name + '_assignment', 'started')
                     break
                 case 'FINISHED':
                     this.$refs[`${this.name}_router`].nextQuestion()
                     this.state = 'SHOW_RESULTS'
+                    this.$matomo.trackEvent(this.name + '_assignment', 'finished', '' + this.passed)
                     break
                 case 'NEXT_QUESTION':
                     this.state = 'ANSWERING'
@@ -107,6 +109,7 @@ export default {
 </script>
 <style lang="scss">
 .assignment-content__container {
+
     .assignment-content__result-container {
         display: flex;
         justify-content: center;

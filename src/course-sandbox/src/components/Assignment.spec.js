@@ -1,11 +1,11 @@
 import { expect } from 'chai'
-import { shallowMount, mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import Assignment from './Assignment.vue'
-import { spy, stub } from 'sinon'
 
 describe('Assignment.vue', () => {
+    let sandbox = require('sinon').createSandbox()
     const matomoStub = {
-        trackEvent: stub()
+        trackEvent: sandbox.stub()
     }
 
     const name = 'loremIpsum'
@@ -60,6 +60,24 @@ describe('Assignment.vue', () => {
         { passedAt: 1, expects: false }
     ]
 
+    afterEach(() => {
+        sandbox.reset()
+    })
+
+    after(() => {
+        sandbox.restore()
+    })
+
+    const nextQuestionStub = sandbox.stub()
+    const validateStub = sandbox.stub()
+    const QuestionRouterStub = {
+        render: () => {},
+        methods: {
+            nextQuestion: nextQuestionStub,
+            validate: validateStub
+        }
+    }
+
     expectedValues.forEach(({ passedAt, expects }) => {
         it(`should evaluate the assignment is passed to:${expects} for passedAt:${passedAt}`, () => {
             const wrapper = shallowMount(Assignment, {
@@ -75,122 +93,105 @@ describe('Assignment.vue', () => {
         })
     })
 
-    describe('Assignment check button', () => {
-        it('should handle question validation if button is pressed once', () => {
-            const wrapper = mount(Assignment, {
-                propsData: {
-                    name,
-                    passedAt,
-                    questions
-                },
-                mocks: {
-                    $matomo: matomoStub
-                }
-            })
-
-            let handleQuestionValidated = spy()
-
-            wrapper.setMethods({
-                handleQuestionValidated
-            })
-
-            wrapper.find('.assignment-content__start-button').trigger('click')
-
-            wrapper.find('.assignment-content__button-container__button').trigger('click')
-            expect(handleQuestionValidated.calledOnce).to.be.true
+    it('should initialize the assignment correctly', () => {
+        const wrapper = shallowMount(Assignment, {
+            propsData: {
+                name,
+                passedAt,
+                questions
+            }
         })
 
-        it('should allow multiple tries for validation, if in retry mode ', () => {
-            const questionsRetry = [
-                {
-                    component: 'MultipleChoice',
-                    question: 'What does the fox say?',
-                    answers: [
-                        { answer: 'Hacki Hacki Hacki Ho', correct: false },
-                        { answer: 'GubelGubel', correct: false },
-                        { answer: 'LabelLabel', correct: true }
-                    ]
-                },
-                {
-                    component: 'SingleChoice',
-                    question: 'Chicken or Egg?',
-                    answers: [
-                        { answer: 'Hacki Hacki Hacki Ho', correct: false },
-                        { answer: 'Egg', correct: true },
-                        { answer: 'Chicken', correct: false }
-                    ]
-                }
-            ]
+        expect(wrapper.vm.state).to.equal('NOT_STARTED')
+        expect(wrapper.vm.lastQuestion).to.be.false
+    })
 
-            const wrapper = mount(Assignment, {
-                propsData: {
-                    name,
-                    passedAt,
-                    questions: questionsRetry
-                },
-                mocks: {
-                    $matomo: matomoStub
-                }
-            })
-            let handleQuestionValidated = spy()
-
-            wrapper.setMethods({
-                handleQuestionValidated
-            })
-
-            wrapper.find('.assignment-content__start-button').trigger('click')
-
-            wrapper.findAll('label').at(0).trigger('click')
-            wrapper.find('.assignment-content__button-container__button').trigger('click')
-            wrapper.findAll('label').at(1).trigger('click')
-            wrapper.find('.assignment-content__button-container__button').trigger('click')
-            expect(handleQuestionValidated.calledTwice).to.be.true
+    it('should handle validation as expected', () => {
+        const wrapper = shallowMount(Assignment, {
+            propsData: {
+                retry: true,
+                name,
+                questions
+            }
         })
 
-        it('should show next question if button is presst the second time and no retry', () => {
-            const wrapper = mount(Assignment, {
-                propsData: {
-                    retry: false,
-                    name,
-                    passedAt,
-                    questions
-                },
-                mocks: {
-                    $matomo: matomoStub
-                }
-            })
+        const handleQuestionValidated = wrapper.vm.handleQuestionValidated
 
-            wrapper.find('.assignment-content__start-button').trigger('click')
+        handleQuestionValidated(false)
+        expect(wrapper.vm.state).to.equal('ANSWERING_RETRY')
 
-            wrapper.find('.assignment-content__button-container__button').trigger('click')
-            wrapper.find('.assignment-content__button-container__button').trigger('click')
-            expect(wrapper.vm.$data.currentQuestionIndex).to.equal(1)
+        handleQuestionValidated(true)
+        expect(wrapper.vm.state).to.equal('NEXT_QUESTION')
+
+        wrapper.setData({ lastQuestion: true })
+        handleQuestionValidated(true)
+        expect(wrapper.vm.state).to.equal('FINISHED')
+    })
+
+    it('should call correct methods on button click', () => {
+        const localValidateStub = sandbox.stub()
+        const wrapper = shallowMount(Assignment, {
+            propsData: {
+                name,
+                questions
+            },
+            stubs: {
+                'QuestionRouter': QuestionRouterStub
+            },
+            mocks: {
+                $matomo: matomoStub
+            }
         })
 
-        it('should check if the assignment is passed if the button is presst at the last question', () => {
-            let passed = spy()
-            const wrapper = mount(Assignment, {
-                propsData: {
-                    retry: false,
-                    name,
-                    passedAt,
-                    questions
-                },
-                computed: {
-                    passed
-                },
-                mocks: {
-                    $matomo: matomoStub
-                }
-            })
+        const handleControlsClick = wrapper.vm.handleControlsClick
 
-            wrapper.find('.assignment-content__start-button').trigger('click')
+        wrapper.setData({ state: 'NOT_STARTED' })
+        handleControlsClick()
+        expect(wrapper.vm.state).to.equal('ANSWERING')
 
-            questions.forEach(question => {
-                wrapper.find('.assignment-content__button-container__button').trigger('click')
-                wrapper.find('.assignment-content__button-container__button').trigger('click')
-            })
-            expect(passed.calledOnce).to.be.true
+        wrapper.setData({ state: 'FINISHED' })
+        handleControlsClick()
+        expect(nextQuestionStub).to.have.been.calledOnce
+        expect(wrapper.vm.state).to.equal('SHOW_RESULTS')
+
+        wrapper.setData({ state: 'NEXT_QUESTION' })
+        handleControlsClick()
+        expect(nextQuestionStub).to.have.been.calledTwice
+        expect(wrapper.vm.state).to.equal('ANSWERING')
+
+        wrapper.setData({ state: 'ANSWERING' })
+        wrapper.setMethods({ validate: localValidateStub })
+        handleControlsClick()
+        expect(localValidateStub).to.have.been.calledOnce
+        expect(wrapper.vm.state).to.equal('ANSWERING')
+    })
+
+    it('should call validate', () => {
+        const wrapper = shallowMount(Assignment, {
+            propsData: {
+                name,
+                questions
+            },
+            stubs: {
+                'QuestionRouter': QuestionRouterStub
+            }
         })
+
+        const validate = wrapper.vm.validate
+        validate()
+        expect(validateStub).to.have.been.calledOnce
+    })
+
+    it('should handle last question', () => {
+        const wrapper = shallowMount(Assignment, {
+            propsData: {
+                name,
+                questions
+            }
+        })
+
+        const handleLastQuestion = wrapper.vm.handleLastQuestion
+        handleLastQuestion()
+        expect(wrapper.vm.lastQuestion).to.be.true
     })
 })
