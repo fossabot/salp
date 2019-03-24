@@ -10,7 +10,8 @@
                        @validated="handleQuestionValidated"/>
         </div>
         <div class="question-router-container__controls-container">
-            <Controls v-if="assignmentState !== 'SHOW_RESULTS'" @buttonClick="handleControlsClick" :assignmentState="assignmentState"/>
+            <Controls v-if="assignmentState !== 'SHOW_RESULTS'" @buttonClick="handleControlsClick"
+                      :assignmentState="assignmentState" :assignment-name="assignmentName"/>
         </div>
     </div>
 </template>
@@ -91,6 +92,7 @@ export default {
             if (this.allowRetry && !correct) {
                 this.currentQuestionRetries++
             }
+            this.$matomo.trackEvent(this.assignmentName + '_assignment', 'question_' + this.currentQuestionIndex, 'retry_' + this.currentQuestionRetries, correct ? 1 : 0)
             this.$emit('validated', correct)
         }
     }
@@ -98,9 +100,6 @@ export default {
 </script>
 <style lang="scss">
 .assignment__question-router-container {
-    .question-router-container__assignment-steps-container {
-
-    }
 
     .question-router-container__question-container,
     .question-router-container__controls-container{

@@ -14,6 +14,10 @@ export default {
         assignmentState: {
             type: String,
             required: true
+        },
+        assignmentName: {
+            type: String,
+            required: true
         }
     },
     components: {
@@ -40,6 +44,7 @@ export default {
     methods: {
         handleButtonClick() {
             this.$emit('buttonClick')
+            this.$matomo.trackEvent(this.assignmentName + '_assignment', 'clicked', '' + this.buttonText)
         }
     }
 }
