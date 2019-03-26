@@ -156,6 +156,7 @@ npm_audit:
   stage: audit
   only:
     - schedules
+  allow_failure: true
   before_script:
     - npm ci
   script:
