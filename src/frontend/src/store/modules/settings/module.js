@@ -16,9 +16,10 @@ function getSettings() {
 }
 
 // helpers
-function getSettingsState(defaults) {
+function getSettingsState(namespace, defaults) {
     const fields = Object.keys(defaults)
-    const settings = getSettings()
+    let settings = getSettings()
+    settings = settings.hasOwnProperty(namespace) ? settings[namespace] : {}
 
     const obj = {}
     fields.forEach(field => {
@@ -30,14 +31,15 @@ function getSettingsState(defaults) {
 
 /**
  * Creates actions for the given setters
+ * @param {string} namespace prefixed to settings.set key
  * @param {string[]} options name of the actions/options
  */
-function generateActions(options) {
+function generateActions(namespace, options) {
     const actions = {}
 
     options.forEach(name => {
         actions[name] = function({ commit }, { value }) {
-            settings.set(name, value)
+            settings.set(namespace + '.' + name, value)
 
             commit({
                 type: '_SET',
@@ -50,8 +52,8 @@ function generateActions(options) {
     return actions
 }
 
-export default function createSettingsModule(defaultState) {
-    const state = getSettingsState(defaultState)
+export default function createSettingsModule(namespace, defaultState) {
+    const state = getSettingsState(namespace, defaultState)
 
     const mutations = {
         _SET(state, { name, value }) {
@@ -60,7 +62,7 @@ export default function createSettingsModule(defaultState) {
     }
 
     const options = Object.keys(defaultState)
-    const actions = generateActions(options)
+    const actions = generateActions(namespace, options)
 
     return {
         namespaced: true,

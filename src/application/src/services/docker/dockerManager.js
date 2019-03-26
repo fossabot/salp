@@ -87,7 +87,7 @@ class DockerManager {
     }
 
     _loadCert(options) {
-        let certDir = settings.get('cert_dir')
+        let certDir = settings.get('docker.cert_dir')
         try {
             if (certDir !== undefined && certDir.trim() !== '') {
                 certDir = certDir.trim()
@@ -101,12 +101,12 @@ class DockerManager {
     }
 
     _setTLS(options) {
-        const checkServerIdentity = settings.get('verify_tls')
+        const checkServerIdentity = settings.get('docker.verify_tls')
         options['checkServerIdentity'] = checkServerIdentity
     }
 
     _setSocketPath(options) {
-        let socket = settings.get('socket')
+        let socket = settings.get('docker.socket')
         if (socket !== undefined && socket.trim() !== '') {
             socket = socket.trim()
             if(socket.indexOf('unix://') === 0) {

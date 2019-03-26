@@ -9,7 +9,7 @@ export const MACHINE_LEARNING = 'machine_learning'
 export const SETUP_DONE = 'setup_done'
 
 // store
-export default createSettingsModule({
+export default createSettingsModule('general', {
     [USERNAME]: '',
     [ALLOW_TRACKING]: false,
     [MACHINE_LEARNING]: false,

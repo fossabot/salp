@@ -9,7 +9,7 @@ export const CERT_DIR = 'cert_dir'
 export const BASE_IP = 'base_ip'
 
 // store
-export default createSettingsModule({
+export default createSettingsModule('docker', {
     [SOCKET]: '',
     [VERIFY_TLS]: false,
     [CERT_DIR]: '',
