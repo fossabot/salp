@@ -13,54 +13,65 @@ const appPath = path.resolve(__dirname, 'app')
 
 const internalInjectors = path.resolve(__dirname, 'injectors/')
 
-function buildDefaultConfig(options, projectDir, outputDir) {
+function buildConfig(options, projectDir, outputDir) {
     const config = new Config()
 
     // general
     config.mode(isProduction ? 'production' : 'development')
+    config.target('web')
+
+    // entry scripts
+    config
+        .entry('content')
+        .add(path.resolve(appPath, 'content.js'))
 
     // output
     config.output
         .filename('[name].js')
         .path(outputDir)
-        .libraryTarget('commonjs2')
+        .libraryTarget('window')
         .library('course')
 
     // alias resolving
     config.resolve.alias
         .set('@internal', internalInjectors)
 
+    // external salp api
+    config.externals({
+        'salp': 'salp'
+    })
+
     // module
     config.module
         .rule('vue')
-            .test(/\.vue$/)
-            .use('vue-loader')
-                .loader('vue-loader')
+        .test(/\.vue$/)
+        .use('vue-loader')
+        .loader('vue-loader')
 
     config.module
         .rule('content')
-            .test(/\.md$/)
-            .use('vue-loader')
-                .loader('vue-loader')
-                .end()
-            .use('markdown-loader')
-                .loader('@salp/markdown-loader')
+        .test(/\.md$/)
+        .use('vue-loader')
+        .loader('vue-loader')
+        .end()
+        .use('markdown-loader')
+        .loader('@salp/markdown-loader')
 
     config.module
         .rule('manifest-file')
-            .test(/manifest\.js$/)
-            .use('file-loader')
-                .loader('file-loader')
-                .options({ name: 'manifest.json' })
+        .test(/manifest\.js$/)
+        .use('file-loader')
+        .loader('file-loader')
+        .options({ name: 'manifest.json' })
 
     config.module
         .rule('dynamic-injection')
-            .test(/injectors\/.+\.js$/)
-            .use('val-loader')
-                .loader('val-loader')
-                .options({
-                    ...options
-                })
+        .test(/injectors\/.+\.js$/)
+        .use('val-loader')
+        .loader('val-loader')
+        .options({
+            ...options
+        })
 
     // plugins
     config
@@ -92,34 +103,6 @@ function buildDefaultConfig(options, projectDir, outputDir) {
     return config
 }
 
-function buildContentConfig(options, projectDir, outputDir) {
-    const config = buildDefaultConfig(options, projectDir, outputDir)
-
-    config.target('web')
-
-    // entry scripts
-    config
-        .entry('content')
-        .add(path.resolve(appPath, 'content.js'))
-
-    // output
-    config.output
-        .libraryTarget('window')
-
-    // external salp api
-    config.externals({
-        'salp': 'salp'
-    })
-
-    // user adjustments
-    if (options.chainUserWebpack) {
-        options.chainUserWebpack(config)
-    }
-
-    return config
-}
-
 module.exports = {
-    buildDefaultConfig,
-    buildContentConfig
+    buildConfig
 }
