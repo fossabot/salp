@@ -29,8 +29,7 @@ async function getLernaPackages() {
 
     const { stdout } = await execFile(program, args, {
         cwd: path.resolve(__dirname, '../'),
-        env: process.env,
-
+        env: process.env
     })
 
     return JSON.parse(stdout)
@@ -87,7 +86,7 @@ class Package {
 
     async removePackagesFromPackageJson(packageNames) {
         let fileContent = await fs.readFile(this.packageJson)
-        const packageJsonContent = JSON.parse(fileContent)
+        const packageJsonContent = JSON.parse(fileContent.toString())
 
         function removeFromPackages(pkgs) {
             if (!pkgs) {
@@ -106,8 +105,7 @@ class Package {
         packageJsonContent.dependencies = removeFromPackages(packageJsonContent.dependencies)
         packageJsonContent.devDependencies = removeFromPackages(packageJsonContent.devDependencies)
 
-        fileContent = JSON.stringify(packageJsonContent)
-        await fs.writeFile(this.packageJson, fileContent)
+        await fs.writeFile(this.packageJson, JSON.stringify(packageJsonContent))
     }
 
     async executeNpmAudit() {
