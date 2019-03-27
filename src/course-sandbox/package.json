@@ -1,7 +1,6 @@
 {
   "name": "@salp/course-sandbox",
   "version": "0.1.0",
-  "private": true,
   "description": "Course sandbox which hosts a course content",
   "author": "SALP team",
   "homepage": "https://github.com/salp-app/salp",
