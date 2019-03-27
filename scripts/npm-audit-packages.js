@@ -48,12 +48,12 @@ async function handlePackages(packages) {
 
         const { error, stdout, stderr } = await pkg.npmAudit(packageNames)
 
+        console.log(stdout)
+
         if (error) {
             globalStatus = false
-            console.log('Errored with:')
-            console.error(stderr)
-        } else {
-            console.log(stdout)
+            const errorMsg = stderr ? ':\n' + stderr : ''
+            console.error(`[> salp]\tnpm audit failed for package "${pkg.name}"${errorMsg}`)
         }
     }
 
@@ -120,8 +120,9 @@ class Package {
             })
         } catch (e) {
             output = {
-                e,
-                stderr: e.message
+                error: e,
+                stderr: e.stderr,
+                stdout: e.stdout
             }
         }
 
