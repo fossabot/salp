@@ -64,13 +64,13 @@ export default {
             return this.currentQuestion.component
         },
         currentQuestionData() {
-            let data = {}
-            data.question = this.currentQuestion.question
-            data.answers = this.currentQuestion.answers
-            data.assignmentName = this.assignmentName
-            data.retry = this.allowRetry
-
-            return data
+            const { question, answers } = this.currentQuestion
+            return {
+                question,
+                answers,
+                assignmentName: this.assignmentName,
+                retry: this.allowRetry
+            }
         }
     },
     methods: {
