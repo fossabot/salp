@@ -7,9 +7,8 @@
                             @validated="handleQuestionValidated" @controlsClick="handleControlsClick"
                             @lastQuestion="handleLastQuestion"/>
         </div>
-        <div v-if="state === 'SHOW_RESULTS'" class="assignment-content__result-container">
-            <h3 v-if="passed">{{ $t('Assignment.result.passed') }}</h3>
-            <h3 v-else>{{ $t('Assignment.result.failed') }}</h3>
+        <div v-if="finishContent" class="assignment-content__result-container">
+            <h3>{{ finishContent }}</h3>
         </div>
     </Card>
 </template>
@@ -61,6 +60,10 @@ export default {
             let correctPercentage = (correctQuestions / totalQuestions)
 
             return correctPercentage >= this.passedAt
+        },
+        finishContent() {
+            return this.state === 'SHOW_RESULTS'
+                && (this.passed ? this.$t('Assignment.result.passed') : this.$t('Assignment.result.failed'))
         }
     },
     methods: {
