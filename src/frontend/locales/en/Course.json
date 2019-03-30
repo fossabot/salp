@@ -23,5 +23,8 @@
             "personalProgress": "Your progress",
             "containers": "Containers"
         }
+    },
+    "sidemenu": {
+        "backToDetail": "Back to course details"
     }
 }
