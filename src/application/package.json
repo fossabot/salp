@@ -27,6 +27,8 @@
     "electron": "^4.0.8",
     "electron-builder": "^20.39.0",
     "eslint": "^5.12.1",
+    "license-checker": "^25.0.1",
+    "lodash.template": "^4.4.0",
     "mocha": "^5.2.0",
     "mock-require": "^3.0.3",
     "nyc": "^13.3.0",
