@@ -3,7 +3,8 @@
         "check": "Check",
         "next": "Next question",
         "result": "Show result",
-        "retry": "Not correct, check again"
+        "retry": "Not correct, check again",
+        "start": "Start Assignment"
     },
     "result": {
         "passed": "You have passed the assignment.",
