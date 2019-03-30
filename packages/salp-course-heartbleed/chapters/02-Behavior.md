@@ -1,7 +1,7 @@
 # Behavior
 Heartbleed is caused by wrong implementation of the Heartbet-Extension [RFC6520](https://tools.ietf.org/html/rfc6520) of OpenSSL.  
-XKCD did a comic showing the behavior of Heartbleed.  
-![XKCD Heartbleed](https://imgs.xkcd.com/comics/heartbleed_explanation.png)  
+XKCD did a comic showing the behavior of Heartbleed (source https://xkcd.com/1354/).
+![XKCD Heartbleed](../assets/images/heartbleed_explanation.png)
 
 The Bug can be found inside [OpenSSL 1.0.1](https://github.com/openssl/openssl/blob/4817504d069b4c5082161b02a22116ad75f822b1/ssl/t1_lib.c).  
 ```text/x-csrc{33}

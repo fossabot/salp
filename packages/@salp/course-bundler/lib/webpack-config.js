@@ -47,6 +47,14 @@ function buildConfig(options, projectDir, outputDir) {
         .test(/\.vue$/)
         .use('vue-loader')
         .loader('vue-loader')
+        .options({
+            transformAssetUrls: {
+                'SimpleImage': 'src',
+                'AdvancedImage': 'src',
+                'SimpleVideo': 'src',
+                'AppPreview': 'src'
+            }
+        })
 
     config.module
         .rule('content')
@@ -56,6 +64,9 @@ function buildConfig(options, projectDir, outputDir) {
         .end()
         .use('markdown-loader')
         .loader('@salp/markdown-loader')
+        .options({
+            sourceDir: projectDir
+        })
 
     config.module
         .rule('manifest-file')
@@ -71,6 +82,15 @@ function buildConfig(options, projectDir, outputDir) {
         .loader('val-loader')
         .options({
             ...options
+        })
+
+    config.module
+        .rule('assets/images')
+        .test( /\.(png|jpg|gif|svg)$/)
+        .use('file-loader')
+        .loader('file-loader').options({
+            name: 'assets/img/[name].[hash:8].[ext]',
+            publicPath: '/course-files/'
         })
 
     // plugins
