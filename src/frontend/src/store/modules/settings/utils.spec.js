@@ -3,7 +3,6 @@ import { spy, stub } from 'sinon'
 import utils, { createNamespacedHelpers } from './utils'
 
 const testNamespace = 'some/nested/NameSpace'
-const testMutationType = 'TEST_MUTATION'
 
 const testPropName = 'someProp'
 const testPropValue = 'someValue'
@@ -48,21 +47,21 @@ describe('Store utils: utils.js', () => {
         })
 
         it('should call normalized function with normalized map', () => {
-            result(testNamespace, testMutationType, testMap)
+            result(testNamespace, testMap)
 
             expect(normalizeMapStub).to.have.been.calledWith(testMap)
         })
 
-        it('should call normalized function with namespace, mutationType and map', () => {
-            result(testNamespace, testMutationType, testMap)
+        it('should call normalized function with namespace and map', () => {
+            result(testNamespace, testMap)
 
-            expect(spyFunc).to.have.been.calledWith(testNamespace + '/', testMutationType, testMap)
+            expect(spyFunc).to.have.been.calledWith(testNamespace + '/', testMap)
         })
 
-        it('should call normalized function with empty namespace, mutationType and map when namespace is omitted', () => {
-            result(testMutationType, testMap)
+        it('should call normalized function with empty namespace and map when namespace is omitted', () => {
+            result(testMap)
 
-            expect(spyFunc).to.have.been.calledWith('', testMutationType, testMap)
+            expect(spyFunc).to.have.been.calledWith('', testMap)
         })
 
         const textTrailingSlash = `'/' (slash)`
@@ -71,19 +70,19 @@ describe('Store utils: utils.js', () => {
             const namespaceWithSlash = `${namespaceWithoutSlash}/`
 
             it(`should append trailing ${textTrailingSlash} on namespace without trailing slash`, () => {
-                result(namespaceWithoutSlash, '', [])
+                result(namespaceWithoutSlash, [])
 
                 expect(spyFunc).to.have.been.calledWith(namespaceWithSlash)
             })
 
             it(`should not append trailing ${textTrailingSlash} on namespace with trailing slash`, () => {
-                result(namespaceWithSlash, '', [])
+                result(namespaceWithSlash, [])
 
                 expect(spyFunc).to.have.been.calledWith(namespaceWithSlash)
             })
 
             it(`should not append ${textTrailingSlash} when namespace is omitted`, () => {
-                result('', [])
+                result([])
 
                 expect(spyFunc).to.have.been.calledWith('')
             })
@@ -130,7 +129,8 @@ describe('Store utils: utils.js', () => {
 
     describe('#createNamespacedHelpers()', () => {
         const expectedHelperFunctions = [
-            'mapStateTwoWay'
+            'mapSettings',
+            'getSettings'
         ]
 
         const target = createNamespacedHelpers()
@@ -142,12 +142,12 @@ describe('Store utils: utils.js', () => {
         })
     })
 
-    describe('#mapStateTwoWay()', () => {
-        const mapStateTwoWay = utils.__get__('mapStateTwoWay')
+    describe('#mapSettings()', () => {
+        const mapSettings = utils.__get__('mapSettings')
 
         // helpers
         function callMapperWithFields(fields) {
-            return mapStateTwoWay(testNamespace, testMutationType, fields)
+            return mapSettings(testNamespace, fields)
         }
 
         // tests
@@ -243,53 +243,53 @@ describe('Store utils: utils.js', () => {
             })
 
             describe('calling setter', () => {
-                const commitSpy = spy()
+                const dispatchSpy = spy()
                 const testValue = 'someValue'
 
                 // helpers
                 function injectSetterSpy(setterFunc) {
                     return setterFunc.bind({
                         $store: {
-                            commit: commitSpy
+                            dispatch: dispatchSpy
                         }
                     })
                 }
 
-                beforeEach('reset commit spy', () => {
-                    commitSpy.resetHistory()
+                beforeEach('reset dispatch spy', () => {
+                    dispatchSpy.resetHistory()
                 })
 
                 // tests
-                it(`should commit ${testMutationType}`, () => {
-                    entry = mapStateTwoWay(testMutationType, [testFieldName])[testFieldName]
+                it(`should dispatch ${testFieldName}`, () => {
+                    entry = mapSettings([testFieldName])[testFieldName]
 
                     const setter = injectSetterSpy(entry.set)
 
                     setter(testValue)
 
-                    expect(commitSpy).to.have.been.calledOnce
-                    expect(commitSpy.firstCall.lastArg).to.have.property('type', testMutationType)
+                    expect(dispatchSpy).to.have.been.calledOnce
+                    expect(dispatchSpy.firstCall.lastArg).to.have.property('type', testFieldName)
                 })
 
-                it(`should commit ${testMutationType} with prefixed namespace`, () => {
-                    entry = mapStateTwoWay(testNamespace, testMutationType, [testFieldName])[testFieldName]
+                it(`should dispatch ${testFieldName} with prefixed namespace`, () => {
+                    entry = mapSettings(testNamespace, [testFieldName])[testFieldName]
 
                     const setter = injectSetterSpy(entry.set)
 
                     setter(testValue)
 
-                    expect(commitSpy).to.have.been.calledOnce
-                    expect(commitSpy.firstCall.lastArg).to.have.property('type', `${testNamespace}/${testMutationType}`)
+                    expect(dispatchSpy).to.have.been.calledOnce
+                    expect(dispatchSpy.firstCall.lastArg).to.have.property('type', `${testNamespace}/${testFieldName}`)
                 })
 
-                it(`should commit with using the field's name and given value`, () => {
-                    entry = mapStateTwoWay(testMutationType, [testFieldName])[testFieldName]
+                it(`should dispatch with using the field's name and given value`, () => {
+                    entry = mapSettings([testFieldName])[testFieldName]
 
                     const setter = injectSetterSpy(entry.set)
 
                     setter(testValue)
 
-                    expect(commitSpy.firstCall.lastArg).to.include({
+                    expect(dispatchSpy.firstCall.lastArg).to.include({
                         name: testFieldName,
                         value: testValue
                     })

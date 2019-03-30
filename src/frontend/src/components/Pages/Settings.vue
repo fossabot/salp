@@ -45,12 +45,15 @@
 import { debounce } from 'lodash'
 import { userInputDebounceTimer } from '@/constants'
 import { Switch, Form, FormItem, Input, Tag } from 'element-ui'
+import { createNamespacedHelpers } from '@/store/modules/settings/utils'
 import { namespace, types } from '@/store/modules/AppState.js'
-import { createHelpers, namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
+import { GENERAL_NAMESPACE, ALLOW_TRACKING, MACHINE_LEARNING } from '@/store/modules/settings/general'
+import { DOCKER_NAMESPACE, VERIFY_TLS, BASE_IP, CERT_DIR, SOCKET } from '@/store/modules/settings/docker'
 import { ipcRenderer, remote } from 'electron'
 import ErrorLog from '@/components/Elements/ErrorLog.vue'
 
-const { mapStateTwoWay } = createHelpers()
+const { mapSettings: mapGeneralSettings } = createNamespacedHelpers(GENERAL_NAMESPACE)
+const { mapSettings: mapDockerSettings } = createNamespacedHelpers(DOCKER_NAMESPACE)
 
 export default {
     name: 'Settings',
@@ -65,7 +68,17 @@ export default {
         ErrorLog
     },
     computed: {
-        ...mapStateTwoWay(['allowTracking', 'ml', 'verifyTls', 'baseIp']),
+        ...mapGeneralSettings({
+            allowTracking: ALLOW_TRACKING,
+            ml: MACHINE_LEARNING
+        }),
+        ...mapDockerSettings({
+            verifyTls: VERIFY_TLS,
+            baseIp: BASE_IP,
+            certDir: CERT_DIR,
+            socket: SOCKET
+        }),
+
         deamonFound() {
             this.testDocker()
 
@@ -76,34 +89,14 @@ export default {
         },
         dockerStatus() {
             return this.deamonFound ? 'Docker found and ready to use' : 'Docker not found'
+        }
+    },
+    watch: {
+        certDir() {
+            this.testDocker()
         },
-        certDir: {
-            set(value) {
-                this.$store.commit({
-                    type: `${userPreferencesNamespace}/${userPreferencesTypes.SET}`,
-                    name: 'certDir',
-                    value
-                })
-
-                this.testDocker()
-            },
-            get() {
-                return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('certDir')
-            }
-        },
-        socket: {
-            set(value) {
-                this.$store.commit({
-                    type: `${userPreferencesNamespace}/${userPreferencesTypes.SET}`,
-                    name: 'socket',
-                    value
-                })
-
-                this.testDocker()
-            },
-            get() {
-                return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('socket')
-            }
+        socket() {
+            this.testDocker()
         }
     },
     methods: {

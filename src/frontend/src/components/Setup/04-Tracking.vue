@@ -17,10 +17,9 @@
 
 <script>
 import { Form, FormItem, Switch } from 'element-ui'
-import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
+import { mapSettings } from '@/store/modules/settings/utils'
+import { GENERAL_NAMESPACE, ALLOW_TRACKING } from '@/store/modules/settings/general'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
-
-const { mapStateTwoWay } = createHelpers()
 
 export default {
     name: 'Setup-Tracking',
@@ -33,6 +32,8 @@ export default {
 
         ExternalLink
     },
-    computed: mapStateTwoWay(['allowTracking'])
+    computed: mapSettings(GENERAL_NAMESPACE, {
+        allowTracking: ALLOW_TRACKING
+    })
 }
 </script>

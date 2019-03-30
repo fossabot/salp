@@ -3,6 +3,7 @@ import { stub } from 'sinon'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import { SETUP_DONE, ALLOW_TRACKING } from '@/store/modules/settings/general'
 import App from './App.vue'
 
 const initialAppTitle = 'App'
@@ -25,16 +26,17 @@ const matomoStub = {
 }
 
 describe('App.vue', () => {
-    let wrapper,
-        persistedUserPreferencesGetterStub
+    let wrapper
 
     beforeEach(() => {
-        persistedUserPreferencesGetterStub = stub()
-        persistedUserPreferencesGetterStub.returns(true)
-
         const store = new Vuex.Store({
-            getters: {
-                'persisted/UserPreferences/GET_OPTION': () => persistedUserPreferencesGetterStub
+            state: {
+                settings: {
+                    general: {
+                        [SETUP_DONE]: true,
+                        [ALLOW_TRACKING]: false
+                    }
+                }
             }
         })
 
