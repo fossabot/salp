@@ -106,7 +106,7 @@ function buildConfig(options, projectDir, outputDir) {
         .add(path.resolve(projectDir, 'node_modules/'))
 
     // core courses fixes
-    if (projectDir.includes('salp/packages/salp-course')) {
+    if (projectDir.includes('salp/courses/salp-course')) {
         config.plugin('copy-package-info')
             .use(CopyWebpackPlugin, [[
                 {
