@@ -44,54 +44,55 @@ function buildConfig(options, projectDir, outputDir) {
     // module
     config.module
         .rule('vue')
-        .test(/\.vue$/)
-        .use('vue-loader')
-        .loader('vue-loader')
-        .options({
-            transformAssetUrls: {
-                'SimpleImage': 'src',
-                'AdvancedImage': 'src',
-                'SimpleVideo': 'src',
-                'AppPreview': 'src'
-            }
-        })
+            .test(/\.vue$/)
+            .use('vue-loader')
+                .loader('vue-loader')
+                .options({
+                    transformAssetUrls: {
+                        'SimpleImage': 'src',
+                        'AdvancedImage': 'src',
+                        'SimpleVideo': 'src',
+                        'AppPreview': 'src'
+                    }
+                })
 
     config.module
         .rule('content')
-        .test(/\.md$/)
-        .use('vue-loader')
-        .loader('vue-loader')
-        .end()
-        .use('markdown-loader')
-        .loader('@salp/markdown-loader')
-        .options({
-            sourceDir: projectDir
-        })
+            .test(/\.md$/)
+            .use('vue-loader')
+                .loader('vue-loader')
+            .end()
+            .use('markdown-loader')
+                .loader('@salp/markdown-loader')
+                .options({
+                    sourceDir: projectDir
+                })
 
     config.module
         .rule('manifest-file')
-        .test(/manifest\.js$/)
-        .use('file-loader')
-        .loader('file-loader')
-        .options({ name: 'manifest.json' })
+            .test(/manifest\.js$/)
+            .use('file-loader')
+                .loader('file-loader')
+                .options({ name: 'manifest.json' })
 
     config.module
         .rule('dynamic-injection')
-        .test(/injectors\/.+\.js$/)
-        .use('val-loader')
-        .loader('val-loader')
-        .options({
-            ...options
-        })
+            .test(/injectors\/.+\.js$/)
+            .use('val-loader')
+                .loader('val-loader')
+                .options({
+                    ...options
+                })
 
     config.module
         .rule('assets/images')
-        .test( /\.(png|jpg|gif|svg)$/)
-        .use('file-loader')
-        .loader('file-loader').options({
-            name: 'assets/img/[name].[hash:8].[ext]',
-            publicPath: '/course-files/'
-        })
+            .test( /\.(png|jpg|gif|svg)$/)
+            .use('file-loader')
+                .loader('file-loader')
+                .options({
+                    name: 'assets/img/[name].[hash:8].[ext]',
+                    publicPath: '/course-files/'
+                })
 
     // plugins
     config
