@@ -13,22 +13,33 @@ const appPath = path.resolve(__dirname, 'app')
 
 const internalInjectors = path.resolve(__dirname, 'injectors/')
 
-function buildDefaultConfig(options, projectDir, outputDir) {
+function buildConfig(options, projectDir, outputDir) {
     const config = new Config()
 
     // general
     config.mode(isProduction ? 'production' : 'development')
+    config.target('web')
+
+    // entry scripts
+    config
+        .entry('content')
+        .add(path.resolve(appPath, 'content.js'))
 
     // output
     config.output
         .filename('[name].js')
         .path(outputDir)
-        .libraryTarget('commonjs2')
+        .libraryTarget('window')
         .library('course')
 
     // alias resolving
     config.resolve.alias
         .set('@internal', internalInjectors)
+
+    // external salp api
+    config.externals({
+        'salp': 'salp'
+    })
 
     // module
     config.module
@@ -36,15 +47,26 @@ function buildDefaultConfig(options, projectDir, outputDir) {
             .test(/\.vue$/)
             .use('vue-loader')
                 .loader('vue-loader')
+                .options({
+                    transformAssetUrls: {
+                        'SimpleImage': 'src',
+                        'AdvancedImage': 'src',
+                        'SimpleVideo': 'src',
+                        'AppPreview': 'src'
+                    }
+                })
 
     config.module
         .rule('content')
             .test(/\.md$/)
             .use('vue-loader')
                 .loader('vue-loader')
-                .end()
+            .end()
             .use('markdown-loader')
                 .loader('@salp/markdown-loader')
+                .options({
+                    sourceDir: projectDir
+                })
 
     config.module
         .rule('manifest-file')
@@ -62,22 +84,20 @@ function buildDefaultConfig(options, projectDir, outputDir) {
                     ...options
                 })
 
-    /*config.module
-        .rule('manifest')
-            .test(/manifest$/)
-            .use('extract-manifest')
-                .loader(ExtractTextPlugin.extract({
-                    use: 'val-loader'
-                }))*/
+    config.module
+        .rule('assets/images')
+            .test( /\.(png|jpg|gif|svg)$/)
+            .use('file-loader')
+                .loader('file-loader')
+                .options({
+                    name: 'assets/img/[name].[hash:8].[ext]',
+                    publicPath: '/course-files/'
+                })
 
     // plugins
     config
         .plugin('vue-loader')
         .use(VueLoaderPlugin)
-
-    /*config
-        .plugin('extract-manifest')
-        .use(ExtractTextPlugin, [])*/
 
     // resolve loaders
     config.resolveLoader.modules
@@ -104,34 +124,6 @@ function buildDefaultConfig(options, projectDir, outputDir) {
     return config
 }
 
-function buildContentConfig(options, projectDir, outputDir) {
-    const config = buildDefaultConfig(options, projectDir, outputDir)
-
-    config.target('web')
-
-    // entry scripts
-    config
-        .entry('content')
-        .add(path.resolve(appPath, 'content.js'))
-
-    // output
-    config.output
-        .libraryTarget('window')
-
-    // external salp api
-    config.externals({
-        'salp': 'salp'
-    })
-
-    // user adjustments
-    if (options.chainUserWebpack) {
-        options.chainUserWebpack(config)
-    }
-
-    return config
-}
-
 module.exports = {
-    buildDefaultConfig,
-    buildContentConfig
+    buildConfig
 }

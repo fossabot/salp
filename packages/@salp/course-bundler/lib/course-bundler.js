@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const loadConfig = require('./config-loader')
-const { buildContentConfig } = require('./webpack-config')
+const { buildConfig } = require('./webpack-config')
 
 function determineOutputDir(cwd, given, options) {
     let outputDir
@@ -29,7 +29,7 @@ function getWebpackConfig(projectDir, outputDir) {
     const config = loadConfig(projectDir)
     outputDir = determineOutputDir(projectDir, outputDir, config)
 
-    return buildContentConfig(config, projectDir, outputDir)
+    return buildConfig(config, projectDir, outputDir)
 }
 
 module.exports = function courseBundler(projectDir, outputDir) {

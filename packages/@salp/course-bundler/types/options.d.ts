@@ -57,10 +57,8 @@ export interface CourseConfiguration {
     // assignment configuration
     assignments?: Assignments;
 
-    // optional: chain webpack config for both content and background scripts
+    // optional: chain webpack config
     chainWebpack?: Function;
-    // optional: chain webpack config for content script
-    chainUserWebpack?: Function;
 }
 
 export default CourseConfiguration
