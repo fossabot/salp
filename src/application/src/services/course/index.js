@@ -112,7 +112,7 @@ class CourseService {
      * @private
      */
     async _fileGet(path) {
-        const suffix = path.split('.').pop()
+        const suffix = path.split('.').pop().toLowerCase()
         let mimeType
         switch (suffix) {
             case 'html':
@@ -125,13 +125,10 @@ class CourseService {
                 mimeType = 'text/css'
                 break
             case 'jpg':
-            case 'JPG':
             case 'jpeg':
-            case 'JPEG':
                 mimeType = 'image/jpeg'
                 break
             case 'png':
-            case 'PNG':
                 mimeType = 'image/png'
                 break
             case 'svg':
