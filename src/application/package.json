@@ -15,7 +15,7 @@
     "coverage:unit": "nyc mocha",
     "serve": "./scripts/serve.js",
     "lint": "eslint src/ test/",
-    "build": "electron-builder build",
+    "build": "node scripts/build.js",
     "clean": "rm -rf dist/",
     "clean:all": "npm run clean; rm -rf .nyc_output/ coverage/ node_modules/"
   },
