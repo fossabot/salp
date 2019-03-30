@@ -134,6 +134,9 @@ class CourseService {
             case 'PNG':
                 mimeType = 'image/png'
                 break
+            case 'svg':
+                mimeType = 'image/svg+xml'
+                break
             default:
                 mimeType = 'text/plain'
                 break
