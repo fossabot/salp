@@ -31,7 +31,7 @@
     "globby": "^9.0.0",
     "val-loader": "^1.1.1",
     "vue-loader": "^15.6.1",
-    "vue-template-compiler": "^2.6.7",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.29.0",
     "webpack-chain": "^5.2.0"
   },
@@ -40,7 +40,7 @@
     "eslint": "^5.12.1",
     "mocha": "^5.2.0",
     "mock-require": "^3.0.3",
-    "nyc": "^13.1.0",
+    "nyc": "^13.3.0",
     "rewire": "^4.0.1",
     "sinon": "^7.2.3",
     "sinon-chai": "^3.3.0"
