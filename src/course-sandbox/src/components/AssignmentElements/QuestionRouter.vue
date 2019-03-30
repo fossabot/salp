@@ -65,6 +65,7 @@ export default {
         },
         currentQuestionData() {
             const { question, answers } = this.currentQuestion
+
             return {
                 question,
                 answers,
