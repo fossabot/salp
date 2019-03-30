@@ -12,7 +12,8 @@ cache:
 stages:
   - audit
   - lint
-  - test
+  - test:unit
+  - test:e2e
   - docs
   - build
 
@@ -54,7 +55,7 @@ stylelint:frontend:
     - npm run lint:style
 
 test:unit:frontend:
-  stage: test
+  stage: test:unit
   only:
     changes:
       - src/frontend/**/*
@@ -70,7 +71,7 @@ test:unit:frontend:
 
 test:unit:application:
   image: node:11.6
-  stage: test
+  stage: test:unit
   only:
     changes:
       - src/application/**/*
@@ -83,7 +84,7 @@ test:unit:application:
       - src/application/coverage/
 
 test:unit:course-sandbox:
-  stage: test
+  stage: test:unit
   only:
     changes:
       - src/course-sandbox/**/*
@@ -98,7 +99,7 @@ test:unit:course-sandbox:
       - src/course-sandbox/coverage/
 
 test:unit:packages:
-  stage: test
+  stage: test:unit
   only:
     changes:
       - packages/@salp/**/*
@@ -107,7 +108,7 @@ test:unit:packages:
 
 test:e2e:frontend:production: &test_e2e_frontend
   image: cypress/base:10
-  stage: test
+  stage: test:e2e
   only:
     changes:
       - src/frontend/**/*
