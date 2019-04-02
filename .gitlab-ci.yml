@@ -151,6 +151,8 @@ docs:build:
       - master
     changes:
       - docs/**/*
+  except:
+   - schedules
   before_script:
     - npm ci
   script:
