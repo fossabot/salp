@@ -5,6 +5,7 @@ const { app, BrowserWindow, protocol } = require('electron')
 const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer')
 const { log, setup: setupLog } = require('./services/log')
 require('./services')
+require('./menu')
 const { isProduction } = require('./constants')
 if (!isProduction) {
     // Don't load any native (external) modules until the following line is run:
