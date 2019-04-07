@@ -24,17 +24,12 @@
                 <Icon icon="faCog"/>
             </Tooltip>
         </ElMenuItem>
-        <ElMenuItem index="4">
-            <Tooltip placement="bottom" :content="$t('App.menu.about')">
-                <Icon icon="faInfoCircle"/>
-            </Tooltip>
-        </ElMenuItem>
     </Menu>
 </template>
 
 <script>
 import { Menu, MenuItem, Tooltip } from 'element-ui'
-import { faUser, faHeartbeat, faDownload, faCog, faInfoCircle, faHome } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faHeartbeat, faDownload, faCog, faHome } from '@fortawesome/free-solid-svg-icons'
 import { createNamespacedHelpers } from 'vuex'
 import { namespace } from '@/store/modules/persisted/UserPreferences.js'
 
@@ -53,7 +48,6 @@ export default {
         faHeartbeat,
         faDownload,
         faCog,
-        faInfoCircle,
         faHome
     },
     computed: mapState(['username'])
