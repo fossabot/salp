@@ -16,7 +16,7 @@
 
 <script>
 import { Steps, Step, Button } from 'element-ui'
-import { namespace, types } from '@/store/modules/persisted/UserPreferences.js'
+import { GENERAL_NAMESPACE, SETUP_DONE } from '@/store/modules/settings/general'
 import SectionHeader from '@/components/Elements/SectionHeader.vue'
 
 // import all steps dynamically
@@ -69,9 +69,8 @@ export default {
             const nextStep = this.currentStep + 1
 
             if (nextStep >= stepsCount) {
-                this.$store.commit({
-                    type: `${namespace}/${types.SET}`,
-                    name: 'setupDone',
+                this.$store.dispatch({
+                    type: GENERAL_NAMESPACE + '/' + SETUP_DONE,
                     value: true
                 })
 

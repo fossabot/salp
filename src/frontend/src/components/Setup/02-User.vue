@@ -13,10 +13,9 @@
 
 <script>
 import { Form, FormItem, Input } from 'element-ui'
+import { mapSettings } from '@/store/modules/settings/utils'
+import { GENERAL_NAMESPACE, USERNAME } from '@/store/modules/settings/general'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import { createHelpers } from '@/store/modules/persisted/UserPreferences.js'
-
-const { mapStateTwoWay } = createHelpers()
 
 export default {
     name: 'Setup-User',
@@ -30,6 +29,8 @@ export default {
     icons: {
         faEdit
     },
-    computed: mapStateTwoWay(['username'])
+    computed: mapSettings(GENERAL_NAMESPACE, {
+        username: USERNAME
+    })
 }
 </script>

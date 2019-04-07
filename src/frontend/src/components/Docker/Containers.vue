@@ -24,9 +24,10 @@
 
 <script>
 import { Table, TableColumn, Tag } from 'element-ui'
+import { getSettings } from '@/store/modules/settings/utils'
 import { namespace, types } from '@/store/modules/AppState.js'
+import { DOCKER_NAMESPACE, BASE_IP } from '@/store/modules/settings/docker'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
-import { namespace as userPreferencesNamespace, types as userPreferencesTypes } from '@/store/modules/persisted/UserPreferences.js'
 import formatBytes from '@/utils/formatBytes.js'
 
 export default {
@@ -49,6 +50,10 @@ export default {
         ExternalLink
     },
     computed: {
+        ...getSettings(DOCKER_NAMESPACE, {
+            baseIp: BASE_IP
+        }),
+
         tableData() {
             let tableData = []
             for (const image in this.images) {
@@ -69,9 +74,6 @@ export default {
         },
         pullProgress() {
             return this.$store.getters[namespace + '/' + types.GET_DOCKER_PULL_PROGRESS]
-        },
-        baseIp() {
-            return this.$store.getters[userPreferencesNamespace + '/' + userPreferencesTypes.GET]('baseIp')
         }
     }
 }

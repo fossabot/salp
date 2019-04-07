@@ -12,7 +12,8 @@ cache:
 stages:
   - audit
   - lint
-  - test
+  - test:unit
+  - test:e2e
   - docs
   - build
 
@@ -54,12 +55,8 @@ stylelint:frontend:
     - npm run lint:style
 
 test:unit:frontend:
-  stage: test
+  stage: test:unit
   only:
-    refs:
-      - branches
-      - tags
-      - merge_requests
     changes:
       - src/frontend/**/*
   variables:
@@ -74,12 +71,8 @@ test:unit:frontend:
 
 test:unit:application:
   image: node:11.6
-  stage: test
+  stage: test:unit
   only:
-    refs:
-      - branches
-      - tags
-      - merge_requests
     changes:
       - src/application/**/*
   script:
@@ -91,12 +84,8 @@ test:unit:application:
       - src/application/coverage/
 
 test:unit:course-sandbox:
-  stage: test
+  stage: test:unit
   only:
-    refs:
-      - branches
-      - tags
-      - merge_requests
     changes:
       - src/course-sandbox/**/*
   variables:
@@ -110,12 +99,8 @@ test:unit:course-sandbox:
       - src/course-sandbox/coverage/
 
 test:unit:packages:
-  stage: test
+  stage: test:unit
   only:
-    refs:
-      - branches
-      - tags
-      - merge_requests
     changes:
       - packages/@salp/**/*
   script:
@@ -123,12 +108,8 @@ test:unit:packages:
 
 test:e2e:frontend:production: &test_e2e_frontend
   image: cypress/base:10
-  stage: test
+  stage: test:e2e
   only:
-    refs:
-      - branches
-      - tags
-      - merge_requests
     changes:
       - src/frontend/**/*
   variables:
@@ -170,6 +151,8 @@ docs:build:
       - master
     changes:
       - docs/**/*
+  except:
+   - schedules
   before_script:
     - npm ci
   script:
