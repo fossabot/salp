@@ -1,5 +1,6 @@
 // App menu
 const { app, Menu, shell } = require('electron')
+const { openAboutWindow } = require('./services/about')
 
 const template = [
     {
@@ -30,7 +31,10 @@ if (process.platform === 'darwin') {
     template.unshift({
         label: app.getName(),
         submenu: [
-            { role: 'about' },
+            {
+                label: 'About salp',
+                click: openAboutWindow
+            },
             { type: 'separator' },
             { role: 'services' },
             { type: 'separator' },
@@ -51,7 +55,8 @@ if (process.platform === 'darwin') {
     ]
 } else {
     template[2].submenu.unshift({
-        role: 'about'
+        label: 'About salp',
+        click: openAboutWindow
     })
 }
 
