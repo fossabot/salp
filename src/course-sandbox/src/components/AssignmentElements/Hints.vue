@@ -2,13 +2,15 @@
     <div class="hints-container">
         <div v-if="!showHints" class="hints__button-container">
             <Button v-if="!showHints" class="assignment-content__hints-container__show-button .piwikContentIgnoreInteraction"
-                    @click="handleButtonClick">Show Hint</Button>
+                    type="info" size="mini" :round="true" @click="handleButtonClick">{{ $t('Assignment.button.hint') }}</Button>
         </div>
         <div v-if="showHints" class="hints__content-container">
-            <SimpleText>If a hint is useful, please check it.</SimpleText>
+            <div class="hints-heading-container">
+                <h2>If a hint is useful, please check it.</h2>
+            </div>
             <CheckboxGroup class="hints__checkbox-group" v-model="checked"
-                           :min="0" :max="getMaxHints" @change="handleChange">
-                <HintCheckbox v-for="(hint, index) in hints" :hint="hint" :assignmentName="assignmentName"
+                           :min="1" :max="getMaxHints" @change="handleChange">
+                <HintCheckbox v-for="(hint, index) in getHints" :hint="hint" :assignmentName="assignmentName"
                               :retries="retries" :key="`hint_${index}`"/>
             </CheckboxGroup>
         </div>
@@ -16,15 +18,14 @@
 </template>
 
 <script>
-import { CheckboxGroup } from 'element-ui'
+import { CheckboxGroup, Button } from 'element-ui'
 import HintCheckbox from './HintCheckbox'
-import SimpleText from '../ContentElements/SimpleText'
 
 export default {
     name: 'Hints',
     components: {
+        Button,
         CheckboxGroup,
-        SimpleText,
         HintCheckbox
     },
     props: {
@@ -43,23 +44,42 @@ export default {
     },
     data() {
         return {
-            buttonText: this.$t('Assignment.button.hints'),
             showHints: false,
             checked: []
         }
     },
     methods: {
         handleChange(checked) {
-            // this.$matomo.trackEvent(this.assignmentName + '_assignment', 'mc_' + this.question, '' + this.answer, checked ? 1 : 0)
+            this.$matomo.trackEvent(this.assignmentName + '_assignment', 'hint', 'selected' + checked)
+            this.$emit('hintEvent', false)
         },
         handleButtonClick() {
-            this.$emit('selected', checked)
+            this.showHints = true
+            this.$emit('hintEvent', true)
         }
     },
     computed: {
         getMaxHints() {
-            return this.hints.length
+            return this.getHints.length
+        },
+        getHints() {
+            let hints = this.hints
+            const none = 'None is useful'
+            if (!hints.includes(none)) {
+                hints.push(none)
+            }
+
+            return hints
         }
     }
 }
 </script>
+<style lang="scss">
+.hints-container {
+    .hints-heading-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: .5em;
+    }
+}
+</style>

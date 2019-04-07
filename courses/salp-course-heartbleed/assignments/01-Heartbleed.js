@@ -9,6 +9,11 @@ module.exports = {
                 { answer: '2012', correct: false },
                 { answer: '2017', correct: false },
                 { answer: '2014', correct: true }
+            ],
+            hints: [
+                'Fixed in version 1.0.1g',
+                'After 2012',
+                'Before 2017'
             ]
         },
         {
@@ -37,6 +42,11 @@ module.exports = {
                 { answer: 'CVE-2014-0160', correct: true },
                 { answer: 'RFC6520', correct: false },
                 { answer: 'CVE-2017-5754', correct: false }
+            ],
+            hints: [
+                'CVE-Year',
+                'Meltdown was discovered 2017',
+                'RFC = Request for commons'
             ]
         }
     ]

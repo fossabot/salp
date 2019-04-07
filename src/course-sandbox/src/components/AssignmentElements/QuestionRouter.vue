@@ -4,6 +4,10 @@
             <AssignmentSteps v-if="assignmentState !== 'NOT_STARTED'"
                              :current-question-index="currentQuestionIndex" :questions="questions"/>
         </div>
+        <div class="assignment__hints-container">
+            <Hints v-if="(assignmentState !== 'NOT_STARTED' && assignmentState !== 'SHOW_RESULTS') && currentQuestion.hints" @hintEvent="handleHintEvent"
+                   :hints="currentQuestion.hints" :assignment-name="assignmentName" :retries="currentQuestionRetries"/>
+        </div>
         <div class="question-router-container__question-container">
             <component v-if="assignmentState !== 'NOT_STARTED' && assignmentState !== 'SHOW_RESULTS'"
                        :is="currentQuestionComponent" v-bind="currentQuestionData" :ref="`${assignmentName}_currentQuestion`"
@@ -11,7 +15,7 @@
         </div>
         <div class="question-router-container__controls-container">
             <Controls v-if="assignmentState !== 'SHOW_RESULTS'" @buttonClick="handleControlsClick"
-                      :assignmentState="assignmentState" :assignment-name="assignmentName"/>
+                      :assignmentState="assignmentState" :assignment-name="assignmentName" :disabled="buttonDisabled"/>
         </div>
     </div>
 </template>
@@ -22,6 +26,7 @@ import SingleChoice from './SingleChoice.vue'
 import UserInput from './UserInput.vue'
 import Controls from './Controls.vue'
 import AssignmentSteps from './AssignmentSteps.vue'
+import Hints from './Hints.vue'
 
 export default {
     name: 'QuestionRouter',
@@ -48,12 +53,14 @@ export default {
         SingleChoice,
         UserInput,
         Controls,
-        AssignmentSteps
+        AssignmentSteps,
+        Hints
     },
     data() {
         return {
             currentQuestionIndex: 0,
-            currentQuestionRetries: 0
+            currentQuestionRetries: 0,
+            buttonDisabled: false
         }
     },
     computed: {
@@ -95,12 +102,21 @@ export default {
             }
             this.$matomo.trackEvent(this.assignmentName + '_assignment', 'question_' + this.currentQuestionIndex, 'retry_' + this.currentQuestionRetries, correct ? 1 : 0)
             this.$emit('validated', correct)
+        },
+        handleHintEvent(disabled) {
+            this.buttonDisabled = disabled
         }
     }
 }
 </script>
 <style lang="scss">
 .assignment__question-router-container {
+
+    .assignment__hints-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 1em;
+    }
 
     .question-router-container__question-container,
     .question-router-container__controls-container{

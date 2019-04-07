@@ -4,7 +4,8 @@
         "next": "Next question",
         "result": "Show result",
         "retry": "Not correct, check again",
-        "start": "Start Assignment"
+        "start": "Start Assignment",
+        "hint": "Show hints"
     },
     "result": {
         "passed": "You have passed the assignment.",
