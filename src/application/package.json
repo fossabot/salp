@@ -25,11 +25,11 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "electron": "^4.0.8",
-    "electron-builder": "^20.38.5",
+    "electron-builder": "^20.39.0",
     "eslint": "^5.12.1",
     "mocha": "^5.2.0",
     "mock-require": "^3.0.3",
-    "nyc": "^13.1.0",
+    "nyc": "^13.3.0",
     "rewire": "^4.0.1",
     "salp-course-example": "^1.0.0",
     "salp-course-heartbleed": "^1.0.0",
@@ -41,6 +41,7 @@
     "electron-devtools-installer": "^2.2.4",
     "electron-is-dev": "^1.0.1",
     "electron-log": "^2.2.17",
+    "electron-settings": "^3.2.0",
     "split-ca": "^1.0.1"
   }
 }

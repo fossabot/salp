@@ -3,7 +3,8 @@
         "check": "Überprüfen",
         "next": "Nächste Frage",
         "result": "Ergebnis anzeigen",
-        "retry": "Nicht korrekt, erneut überprüfen"
+        "retry": "Nicht korrekt, erneut überprüfen",
+        "start": "Aufgabe beginnen"
     },
     "result": {
         "passed": "Du hast die Aufgabe geschafft.",

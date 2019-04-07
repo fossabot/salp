@@ -14,7 +14,7 @@ const applicationPath = path.resolve(rootDir, 'src/application')
 let courses = [
     'salp-course-example',
     'salp-course-heartbleed'
-].map(c => path.resolve(rootDir, 'packages/', c))
+].map(c => path.resolve(rootDir, 'courses/', c))
 
 let frontends = {
     'frontend': path.resolve(rootDir, 'src/frontend'),

@@ -12,7 +12,8 @@ cache:
 stages:
   - audit
   - lint
-  - test
+  - test:unit
+  - test:e2e
   - docs
   - build
 
@@ -54,7 +55,7 @@ stylelint:frontend:
     - npm run lint:style
 
 test:unit:frontend:
-  stage: test
+  stage: test:unit
   only:
     changes:
       - src/frontend/**/*
@@ -70,7 +71,7 @@ test:unit:frontend:
 
 test:unit:application:
   image: node:11.6
-  stage: test
+  stage: test:unit
   only:
     changes:
       - src/application/**/*
@@ -83,7 +84,7 @@ test:unit:application:
       - src/application/coverage/
 
 test:unit:course-sandbox:
-  stage: test
+  stage: test:unit
   only:
     changes:
       - src/course-sandbox/**/*
@@ -98,7 +99,7 @@ test:unit:course-sandbox:
       - src/course-sandbox/coverage/
 
 test:unit:packages:
-  stage: test
+  stage: test:unit
   only:
     changes:
       - packages/@salp/**/*
@@ -107,7 +108,7 @@ test:unit:packages:
 
 test:e2e:frontend:production: &test_e2e_frontend
   image: cypress/base:10
-  stage: test
+  stage: test:e2e
   only:
     changes:
       - src/frontend/**/*
@@ -136,38 +137,12 @@ npm_audit:
   stage: audit
   only:
     - schedules
+  allow_failure: true
   before_script:
     - npm ci
   script:
     - npm audit
     - ./scripts/npm-audit-packages.js
-
-dependency_scanning:
-  stage: audit
-  only:
-    - schedules
-  image: docker:stable
-  tags:
-    - dind
-  variables:
-    DOCKER_DRIVER: overlay2
-  allow_failure: true
-  services:
-    - docker:stable-dind
-  before_script:
-    - 'true'
-  script:
-    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-    - docker run
-        --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
-        --env CYPRESS_INSTALL_BINARY="0"
-        --env ELECTRON_CACHE="/code/.cache/electron"
-        --volume "${CI_PROJECT_DIR}:/code"
-        --volume /var/run/docker.sock:/var/run/docker.sock
-        "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
-  artifacts:
-    reports:
-      dependency_scanning: gl-dependency-scanning-report.json
 
 docs:build:
   stage: docs
@@ -176,6 +151,8 @@ docs:build:
       - master
     changes:
       - docs/**/*
+  except:
+   - schedules
   before_script:
     - npm ci
   script:
