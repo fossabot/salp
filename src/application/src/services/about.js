@@ -22,35 +22,30 @@ function openAboutWindow() {
         minimizable: false,
         maximizable: false,
         alwaysOnTop: true,
-        fullscreenable: false
+        fullscreenable: false,
+        webPreferences: {
+            nodeIntegration: true,
+            enableRemoteModule: true
+        }
     })
 
     window.once('closed', () => {
         window = null;
     })
 
-    window.loadFile(path.resolve(__dirname, '../windows/about.html'))
-
-    const navigationInterceptionHandler = (e, url) => {
-        e.preventDefault()
-
-        if (url === 'salp://thirdparty-licenses') {
-            openThirdPartyNotices()
-
-            return
-        }
-
-        shell.openExternal(url)
-    }
-
-    window.webContents.on('will-navigate', navigationInterceptionHandler)
-    window.webContents.on('new-window', navigationInterceptionHandler)
-
     window.once('ready-to-show', () => {
         window.show();
     })
 
     window.setMenu(null)
+
+    if (!isProduction) {
+        // Load the url of the dev server if in development mode
+        window.loadURL(process.env.FRONTEND_URL_FRONTEND + 'about.html')
+    } else {
+        //   Load the index.html when not in development
+        window.loadURL('frontend://./about.html')
+    }
 
     return window
 }
@@ -64,5 +59,6 @@ function openThirdPartyNotices() {
 }
 
 module.exports = {
-    openAboutWindow
+    openAboutWindow,
+    openThirdPartyNotices
 }

@@ -1,0 +1,11 @@
+/* Theme used on the about page/window, extends element's theme-chalk */
+@import "element/common/var.scss";
+@import '~element-ui/packages/theme-chalk/src/reset';
+@import "~element-ui/packages/theme-chalk/src/base";
+
+body {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #fff;
+
+    -webkit-app-region: drag;
+}

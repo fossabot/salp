@@ -39,7 +39,14 @@ module.exports = {
         index: {
             entry: 'src/index.js',
             template: 'src/index.html',
+            title: 'salp',
             chunks: Object.keys(chunks).map(key => chunks[key].name || key).concat('index')
+        },
+        about: {
+            entry: 'src/about.js',
+            template: 'src/index.html',
+            title: 'About - salp',
+            chunks: ['vue', 'elementui', 'vendor', 'about']
         }
     },
     chainWebpack: config => {
@@ -49,6 +56,8 @@ module.exports = {
         config.plugins
             .delete('preload-index')
             .delete('prefetch-index')
+            .delete('preload-about')
+            .delete('prefetch-about')
 
         config.plugin('lodash')
             .use(LodashModuleReplacementPlugin)
