@@ -4,7 +4,8 @@
         "next": "Nächste Frage",
         "result": "Ergebnis anzeigen",
         "retry": "Nicht korrekt, erneut überprüfen",
-        "start": "Aufgabe beginnen"
+        "start": "Aufgabe beginnen",
+        "hint": "Heinweise anzeigen"
     },
     "result": {
         "passed": "Du hast die Aufgabe geschafft.",

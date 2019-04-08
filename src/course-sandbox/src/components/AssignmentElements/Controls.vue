@@ -1,7 +1,7 @@
 <template>
     <div class="assignment-content__button-container">
         <Button class="assignment-content__button-container__button .piwikContentIgnoreInteraction"
-                type="primary" @click="handleButtonClick">{{ buttonText }}</Button>
+                :disabled="disabled" type="primary" @click="handleButtonClick">{{ buttonText }}</Button>
     </div>
 </template>
 
@@ -17,6 +17,10 @@ export default {
         },
         assignmentName: {
             type: String,
+            required: true
+        },
+        disabled: {
+            type: Boolean,
             required: true
         }
     },
