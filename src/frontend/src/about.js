@@ -1,10 +1,23 @@
 // about window/page
-import Vue from 'vue'
-import About from './components/About.vue'
 import './theme/about.scss'
+import { remote, shell } from 'electron'
+const about = remote.require('./services/about.js')
 
-Vue.config.productionTip = false
+function handleExternalLinkClick(event) {
+    event.preventDefault()
 
-new Vue({
-    render: h => h(About)
-}).$mount('#app')
+    const href = event.target.href
+    if (href === 'salp://thirdparty-licenses') {
+        about.openThirdPartyNotices()
+    } else {
+        shell.openExternal(href)
+    }
+}
+
+const app = document.querySelector('#app')
+
+app.addEventListener('click', event => {
+    if (event.target.tagName === 'A') {
+        handleExternalLinkClick(event)
+    }
+})

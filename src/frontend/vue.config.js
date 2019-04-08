@@ -44,8 +44,7 @@ module.exports = {
         },
         about: {
             entry: 'src/about.js',
-            template: 'src/index.html',
-            title: 'About - salp',
+            template: 'src/about.html',
             chunks: ['vue', 'elementui', 'vendor', 'about']
         }
     },

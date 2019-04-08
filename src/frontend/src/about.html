@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<% if (BASE_URL === './') { %><base href="app://./" /><% } %>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title>About - salp</title>
+	</head>
+	<body>
+		<div id="app">
+			<img id="logo" src="<%= BASE_URL %>assets/img/logo.png" alt="salp logo"/>
+			<hgroup id="info">
+				<h1 id="title">Security Awareness Learning Platform</h1>
+				<h2 id="app-version" class="versions">Version 1.0.0</h2>
+			</hgroup>
+			<table id="lib-versions" class="versions">
+				<tbody>
+				<tr>
+					<td>Electron</td>
+					<td><script>document.write(window.process.versions.electron)</script></td>
+				</tr>
+				<tr>
+					<td>Node</td>
+					<td><script>document.write(window.process.versions.node)</script></td>
+				</tr>
+				<tr>
+					<td>Chromium</td>
+					<td><script>document.write(window.process.versions.chrome)</script></td>
+				</tr>
+				<tr>
+					<td colspan="2"><a href="salp://thirdparty-licenses" id="thirdparty-licenses">Show thrid-party licenses</a></td>
+				</tr>
+				</tbody>
+			</table>
+			<ul id="links">
+				<li><a href="https://github.com/salp-app/salp">Homepage</a></li>
+				<li><a href="https://github.com/salp-app/salp">Project page</a></li>
+				<li><a href="https://github.com/salp-app/salp/issues">Issue tracker</a></li>
+			</ul>
+		</div>
+	</body>
+</html>
