@@ -1,5 +1,5 @@
 // About window/page helpers
-const { app, BrowserWindow, shell } = require('electron')
+const { BrowserWindow, shell } = require('electron')
 const { promises: fs } = require('fs')
 const path = require('path')
 const { isProduction } = require('../constants')
@@ -51,8 +51,9 @@ function openAboutWindow() {
 }
 
 function openThirdPartyNotices() {
+    // TODO: check if production path works on windows and linux too
     let filePath = isProduction
-        ? path.resolve(app.getAppPath(), 'ThirdPartyNotices.txt')
+        ? path.resolve(process.resourcesPath, '..', 'ThirdPartyNotices.txt')
         : require.resolve('../../build/generated/ThirdPartyNotices.txt')
 
     shell.openItem(filePath)
