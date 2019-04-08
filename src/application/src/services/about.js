@@ -1,6 +1,5 @@
 // About window/page helpers
 const { BrowserWindow, shell } = require('electron')
-const { promises: fs } = require('fs')
 const path = require('path')
 const { log } = require('./log')
 const { isProduction } = require('../constants')
