@@ -1,5 +1,7 @@
 const path = require('path')
 const LodashModuleReplacementPlugin = require.resolve('lodash-webpack-plugin')
+const webpack = require('webpack')
+const ProvidePlugin = webpack.ProvidePlugin
 
 const isTesting = process.env.NODE_ENV === 'test'
 const isCoverage = process.env.npm_lifecycle_event && process.env.npm_lifecycle_event.includes('coverage')
@@ -37,7 +39,13 @@ module.exports = {
         index: {
             entry: 'src/index.js',
             template: 'src/index.html',
+            title: 'salp',
             chunks: Object.keys(chunks).map(key => chunks[key].name || key).concat('index')
+        },
+        about: {
+            entry: 'src/about.js',
+            template: 'src/about.html',
+            chunks: ['vue', 'elementui', 'vendor', 'about']
         }
     },
     chainWebpack: config => {
@@ -47,6 +55,8 @@ module.exports = {
         config.plugins
             .delete('preload-index')
             .delete('prefetch-index')
+            .delete('preload-about')
+            .delete('prefetch-about')
 
         config.plugin('lodash')
             .use(LodashModuleReplacementPlugin)
@@ -93,6 +103,12 @@ module.exports = {
         if (!process.env.IS_ELECTRON || isE2ETesting) {
             config.resolve.alias
                 .set('electron', path.resolve(__dirname, '__mocks__/browser/electron'))
+                .set('_process', path.resolve(__dirname, '__mocks__/browser/electron/process.js'))
+
+            config.plugin('process-mocks')
+                .use(ProvidePlugin, [{
+                    'window.process': ['_process', 'default']
+                }])
         } else {
             config.externals({
                 electron: 'require("electron")'

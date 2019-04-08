@@ -23,5 +23,11 @@ module.exports = {
             'from': 'node_modules/salp-course-heartbleed/dist/',
             'to': 'courses/salp-course-heartbleed'
         }
+    ],
+    'extraFiles': [
+        {
+            'from': 'build/generated/ThirdPartyNotices.txt',
+            'to': 'ThirdPartyNotices.txt'
+        }
     ]
 }
