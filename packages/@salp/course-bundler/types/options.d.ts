@@ -28,6 +28,7 @@ export interface AssignmentQuestion {
     component: 'SingleChoice' | 'MultipleChoice' | 'UserInput';
     question: string;
     answers: Array<AssignmentQuestionAnswers>;
+    hints: Array<string>;
 }
 
 export interface Assignment {
