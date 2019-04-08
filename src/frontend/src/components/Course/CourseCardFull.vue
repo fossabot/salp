@@ -32,12 +32,15 @@
             <div class="course-card__tags">
                 <span class="course-card__info__text">Tags: </span><Tag size="small" v-for="(keyword, index) in keywords" :key="index">{{ keyword }}</Tag>
             </div>
+            <div class="course-card__start-button">
+                <Button type="primary" :round="true" @click="handleStartClick">Go</Button>
+            </div>
         </div>
     </Card>
 </template>
 
 <script>
-import { Card, Tag } from 'element-ui'
+import { Card, Tag, Button } from 'element-ui'
 import { faGlobe, faExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
@@ -60,6 +63,7 @@ export default {
     components: {
         Card,
         Tag,
+        Button,
 
         ExternalLink
     },
@@ -67,6 +71,11 @@ export default {
         faGlobe,
         faExclamation,
         faUser
+    },
+    methods: {
+        handleStartClick() {
+            this.$router.push('content/chapter/')
+        }
     }
 }
 </script>
@@ -89,6 +98,10 @@ export default {
     .course-card__meta-menuicon-list {
         list-style: none;
         padding: 0 1em;
+    }
+
+    .course-card__start-button {
+        margin-top: 1em;
     }
 }
 </style>
