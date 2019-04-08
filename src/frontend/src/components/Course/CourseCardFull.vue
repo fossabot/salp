@@ -2,12 +2,6 @@
     <Card class="course-card course-card--full" shadow="none">
         <header slot="header" class="course-card__header">
             <h1 class="course-card__name">{{ name }}</h1>
-
-            <div class="course-card__context-menu">
-                <Button type="text" class="dropdown__trigger">
-                    <Icon icon="faTrashAlt"/> {{ $t('Course.actions.delete') }}
-                </Button>
-            </div>
         </header>
 
         <div class="course-card__info">
@@ -43,8 +37,8 @@
 </template>
 
 <script>
-import { Card, Button, Tag } from 'element-ui'
-import { faGlobe, faExclamation, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
+import { Card, Tag } from 'element-ui'
+import { faGlobe, faExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {
@@ -65,7 +59,6 @@ export default {
     },
     components: {
         Card,
-        Button,
         Tag,
 
         ExternalLink
@@ -73,7 +66,6 @@ export default {
     icons: {
         faGlobe,
         faExclamation,
-        faTrashAlt,
         faUser
     }
 }
