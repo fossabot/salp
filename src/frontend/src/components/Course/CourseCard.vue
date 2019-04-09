@@ -5,7 +5,7 @@
                 <h3 class="course-card__name">{{ name }}</h3>
 
                 <div class="course-card__context-menu">
-                    <Dropdown trigger="click">
+                    <Dropdown trigger="click" v-if="repositoryUrl || issuesUrl || homepage">
                         <Button type="text" class="dropdown__trigger ignore-click">
                             <Icon icon="faEllipsisV"/>
                         </Button>
@@ -27,9 +27,6 @@
                                     <Icon icon="faUser"/>
                                     {{ $t('Course.actions.visitAuthorPage') }}
                                 </ExternalLink>
-                            </DropdownItem>
-                            <DropdownItem>
-                                <Icon icon="faTrashAlt"/> {{ $t('Course.actions.delete') }}
                             </DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
@@ -54,7 +51,7 @@
 
 <script>
 import { Card, Button, Dropdown, DropdownMenu, DropdownItem, Tag } from 'element-ui'
-import { faEllipsisV, faGlobe, faExclamation, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisV, faGlobe, faExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import ExternalLink from '@/components/Elements/ExternalLink.vue'
 
 export default {
@@ -86,7 +83,6 @@ export default {
         faEllipsisV,
         faGlobe,
         faExclamation,
-        faTrashAlt,
         faUser
     },
     computed: {
