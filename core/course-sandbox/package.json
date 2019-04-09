@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Course sandbox which hosts a course content",
   "author": "SALP team",
+  "license": "SEE LICENSE FILE",
   "homepage": "https://github.com/salp-app/salp",
   "repository": {
     "type": "git",

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "salp electron application",
   "author": "SALP team",
+  "license": "SEE LICENSE FILE",
   "homepage": "https://github.com/salp-app/salp",
   "repository": {
     "type": "git",

@@ -10,7 +10,7 @@
     "build"
   ],
   "author": "Joshua Westerheide <dev@jdoubleu.de>",
-  "license": "MIT",
+  "license": "SEE LICENSE FILE",
   "main": "lib/course-bundler.js",
   "files": [
     "lib/"

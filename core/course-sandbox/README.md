@@ -27,3 +27,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## License
+This package is licensed under [Blue Oak Model License 1.0.0](./LICENSE).

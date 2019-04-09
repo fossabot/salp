@@ -19,7 +19,7 @@
     "vue"
   ],
   "author": "Joshua Westerheide <dev@jdoubleu.de>",
-  "license": "MIT",
+  "license": "SEE LICENSE FILE",
   "dependencies": {
     "@vuepress/markdown": "^1.0.0-alpha.0",
     "loader-utils": "^1.2.3",

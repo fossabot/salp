@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Frontend application of salp",
   "author": "SALP team",
+  "license": "SEE LICENSE FILE",
   "homepage": "https://github.com/salp-app/salp",
   "repository": {
     "type": "git",
