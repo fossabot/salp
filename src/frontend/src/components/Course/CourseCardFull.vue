@@ -74,7 +74,7 @@ export default {
     },
     methods: {
         handleStartClick() {
-            this.$router.push('content/chapter/')
+            this.$router.push('content/')
         }
     }
 }
