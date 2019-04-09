@@ -9,7 +9,7 @@ const startElectron = require('./serve/start-electron')
 
 const rootDir = path.resolve(__dirname, '../')
 
-const applicationPath = path.resolve(rootDir, 'src/application')
+const applicationPath = path.resolve(rootDir, 'core/application')
 
 let courses = [
     'salp-course-example',
@@ -17,8 +17,8 @@ let courses = [
 ].map(c => path.resolve(rootDir, 'courses/', c))
 
 let frontends = {
-    'frontend': path.resolve(rootDir, 'src/frontend'),
-    'course_sandbox': path.resolve(rootDir, 'src/course-sandbox')
+    'frontend': path.resolve(rootDir, 'core/frontend'),
+    'course_sandbox': path.resolve(rootDir, 'core/course-sandbox')
 }
 const frontendPorts = {
     'frontend': 8080,

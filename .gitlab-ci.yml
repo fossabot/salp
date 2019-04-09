@@ -51,52 +51,52 @@ eslint:packages:
 stylelint:frontend:
   <<: *linting
   script:
-    - cd src/frontend/
+    - cd core/frontend/
     - npm run lint:style
 
 test:unit:frontend:
   stage: test:unit
   only:
     changes:
-      - src/frontend/**/*
+      - core/frontend/**/*
   variables:
     NODE_ENV: "test"
   script:
-    - cd src/frontend/
+    - cd core/frontend/
     - npm run coverage:unit
   coverage: '/^Statements\s*:\s*([^%]+)/'
   artifacts:
     paths:
-      - src/frontend/coverage/
+      - core/frontend/coverage/
 
 test:unit:application:
   image: node:11.6
   stage: test:unit
   only:
     changes:
-      - src/application/**/*
+      - core/application/**/*
   script:
-    - cd src/application/
+    - cd core/application/
     - npm run coverage:unit
   coverage: '/^Statements\s*:\s*([^%]+)/'
   artifacts:
     paths:
-      - src/application/coverage/
+      - core/application/coverage/
 
 test:unit:course-sandbox:
   stage: test:unit
   only:
     changes:
-      - src/course-sandbox/**/*
+      - core/course-sandbox/**/*
   variables:
     NODE_ENV: "test"
   script:
-    - cd src/course-sandbox/
+    - cd core/course-sandbox/
     - npm run coverage:unit
   coverage: '/^Statements\s*:\s*([^%]+)/'
   artifacts:
     paths:
-      - src/course-sandbox/coverage/
+      - core/course-sandbox/coverage/
 
 test:unit:packages:
   stage: test:unit
@@ -111,20 +111,20 @@ test:e2e:frontend:production: &test_e2e_frontend
   stage: test:e2e
   only:
     changes:
-      - src/frontend/**/*
+      - core/frontend/**/*
   variables:
     CYPRESS_INSTALL_BINARY: ""
     RUNTIME_NODE_ENV: "production"
     COMPILE_MODE: "production"
   script:
-    - cd src/frontend/
+    - cd core/frontend/
     - NODE_ENV="$RUNTIME_NODE_ENV" npm run test:e2e -- --mode $COMPILE_MODE
   artifacts:
     expire_in: 1 day
     when: always
     paths:
-    - src/frontend/tests/e2e/renderer/screenshots
-    - src/frontend/tests/e2e/renderer/videos
+    - core/frontend/tests/e2e/renderer/screenshots
+    - core/frontend/tests/e2e/renderer/videos
 
 test:e2e:frontend:development:
   <<: *test_e2e_frontend
@@ -174,7 +174,7 @@ build:app:linux: &build_app
   artifacts:
     expire_in: 1 week
     paths:
-      - src/application/dist/
+      - core/application/dist/
 
 build:app:windows:
   <<: *build_app
