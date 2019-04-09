@@ -1,8 +1,15 @@
 {
   "name": "salp",
   "version": "0.1.0",
+  "license": "SEE LICENSE FILE",
   "private": true,
   "main": "background.js",
+  "homepage": "https://gitlab.com/salp-app/salp",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/salp-app/salp"
+  },
+  "bugs": "https://gitlab.com/salp-app/salp/issues",
   "scripts": {
     "postinstall": "lerna bootstrap $LERNA_ARGS --ignore-prepublish",
     "lint": "lerna run lint --no-bail",

@@ -12,7 +12,7 @@
     "TLS/SSL",
     "Metasploit"
   ],
-  "license": "ISC",
+  "license": "SEE LICENSE FILE",
   "main": "dist/content.js",
   "browser": "dist/content.js",
   "files": [
