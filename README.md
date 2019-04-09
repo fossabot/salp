@@ -53,3 +53,9 @@ You are welcome to contribute to this project: Just open an issue or create a pu
 This project was inspired by [WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project), a similar learning application.
 
 Thanks to [Philipp Taplan](https://taplan.artstation.com/) for creating the logo.
+
+## License
+This project contains different components each of which have a license.
+
+See [Project section](#Project) for an overview or the `LICENSE` file in each package.
+

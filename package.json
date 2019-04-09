@@ -1,6 +1,7 @@
 {
   "name": "salp",
   "version": "0.1.0",
+  "license": "SEE LICENSE FILE",
   "private": true,
   "main": "background.js",
   "scripts": {
