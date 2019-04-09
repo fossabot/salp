@@ -1,4 +1,5 @@
-# salp [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
+# salp [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/) [![pipeline status](https://gitlab.com/salp-app/salp/badges/master/pipeline.svg)](https://gitlab.com/salp-app/salp/commits/master) [![coverage report](https://gitlab.com/salp-app/salp/badges/master/coverage.svg)](https://gitlab.com/salp-app/salp/commits/master)
+
 SALP (short for *Security Awareness Learning Platform*) is a cross-platform desktop application to teach security aspects in modern technology (mostly software) and thereby raise the general security awareness.
 
 Because it has a native [Docker](https://www.docker.com/) integration, it ships with prepared demos to try out exploits.
