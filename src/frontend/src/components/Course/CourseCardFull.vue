@@ -33,7 +33,7 @@
                 <span class="course-card__info__text">Tags: </span><Tag size="small" v-for="(keyword, index) in keywords" :key="index">{{ keyword }}</Tag>
             </div>
             <div class="course-card__start-button">
-                <Button type="primary" :round="true" @click="handleStartClick">Go</Button>
+                <Button type="primary" :round="true" @click="handleStartClick">{{ $t('Detail.detail.go') }}</Button>
             </div>
         </div>
     </Card>
