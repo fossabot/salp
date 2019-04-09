@@ -2,7 +2,7 @@
     <Container id="page-course">
         <Aside width="250" v-if="$route.name === 'coursecontent-default'">
             <Menu :router="true">
-                <ElMenuItem :route="{ name: 'coursedetail' }">
+                <ElMenuItem index="backToDetail" :route="{ name: 'coursedetail' }">
                     <Icon icon="faBackward"/>
                     <span>{{ $t('Course.sidemenu.backToDetail') }}</span>
                 </ElMenuItem>
