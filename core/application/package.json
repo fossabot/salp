@@ -4,12 +4,12 @@
   "description": "salp electron application",
   "author": "SALP team",
   "license": "SEE LICENSE FILE",
-  "homepage": "https://github.com/salp-app/salp",
+  "homepage": "https://gitlab.com/salp-app/salp",
   "repository": {
     "type": "git",
-    "url": "https://github.com/salp-app/salp"
+    "url": "https://gitlab.com/salp-app/salp"
   },
-  "bugs": "https://github.com/salp-app/salp/issues",
+  "bugs": "https://gitlab.com/salp-app/salp/issues",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha",

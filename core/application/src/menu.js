@@ -21,7 +21,7 @@ const template = [
         submenu: [
             {
                 label: 'Learn More',
-                click: ()  => shell.openExternal('https://github.com/salp-app/salp')
+                click: ()  => shell.openExternal('https://gitlab.com/salp-app/salp')
             }
         ]
     }
