@@ -1,4 +1,5 @@
 # salp [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/) [![pipeline status](https://gitlab.com/salp-app/salp/badges/master/pipeline.svg)](https://gitlab.com/salp-app/salp/commits/master) [![coverage report](https://gitlab.com/salp-app/salp/badges/master/coverage.svg)](https://gitlab.com/salp-app/salp/commits/master)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsalp-app%2Fsalp.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsalp-app%2Fsalp?ref=badge_shield)
 
 SALP (short for *Security Awareness Learning Platform*) is a cross-platform desktop application to teach security aspects in modern technology (mostly software) and thereby raise the general security awareness.
 
@@ -60,3 +61,6 @@ This project contains different components each of which have a license.
 
 See [Project section](#Project) for an overview or the `LICENSE` file in each package.
 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fsalp-app%2Fsalp.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fsalp-app%2Fsalp?ref=badge_large)
